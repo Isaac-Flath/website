@@ -37,7 +37,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "myblog",
+    "title": "Isaac’s Tech Blog",
     "section": "",
     "text": "K-Means From Scratch\n\n\n\n\n\n\n\nClustering\n\n\n\n\nA deep dive on K-Means where smart initialization and the full algorithm is implemented from scratch using pytorch\n\n\n\n\n\n\nNov 6, 2022\n\n\nIsaac Flath\n\n\n\n\n\n\nNo matching items"
   },
@@ -46,6 +46,6 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
+    "text": "This is Isaac Flath’s Tech Blog."
   }
 ]
