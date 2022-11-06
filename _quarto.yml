@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "myblog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/isaac-flath
+      - icon: twitter
+        href: https://twitter.com/isaac_flath
+      - icon: mastadon
+        href: https://mathstodon.xyz/web/@isaac_flath
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+
+

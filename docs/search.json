@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "posts/K-Means/ClusteringFromScratch.html",
+    "href": "posts/K-Means/ClusteringFromScratch.html",
+    "title": "K-Means From Scratch",
+    "section": "",
+    "text": "import math, random, matplotlib.pyplot as plt, operator, torch\nfrom functools import partial\nfrom fastcore.all import *\nfrom torch.distributions.multivariate_normal import MultivariateNormal\nfrom torch import tensor\n\n\ntorch.manual_seed(42)\ntorch.set_printoptions(precision=3, linewidth=140, sci_mode=False)\n\n\ndef plot_data(centroids:torch.Tensor,# Centroid coordinates\n              data:torch.Tensor, # Data Coordinates\n              n_samples:int, # Number of samples\n              ax:plt.Axes=None # Matplotlib Axes object\n             )-> None:\n    '''Creates a visualization of centroids and data points for clustering problems'''\n    if ax is None: _,ax = plt.subplots()\n    for i, centroid in enumerate(centroids):\n        samples = data[i*n_samples:(i+1)*n_samples]\n        ax.scatter(samples[:,0], samples[:,1], s=1)\n        ax.plot(*centroid, markersize=10, marker=\"x\", color='k', mew=5)\n        ax.plot(*centroid, markersize=5, marker=\"x\", color='m', mew=2)"
+  },
+  {
+    "objectID": "posts/K-Means/ClusteringFromScratch.html#calculate-distance",
+    "href": "posts/K-Means/ClusteringFromScratch.html#calculate-distance",
+    "title": "K-Means From Scratch",
+    "section": "Calculate Distance",
+    "text": "Calculate Distance\nIn order to initialize our centroids we need to be able to calculate distances, so let’s do that first.\nGiven a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract centroids coordinates from data points coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root\nThat gives us the euclidean distance between each data point and each centroid.\n\ndef calculate_distances(centroids:torch.Tensor, # Centroid coordinates\n                        data:torch.Tensor # Data points you want to cluster\n                       )-> torch.Tensor: # Tensor containing euclidean distance between each centroid and data point    \n    '''Calculate distance between centroids and each datapoint'''\n    axis_distances = data.reshape(-1,1,2).sub(centroids.reshape(1,-1,2)).abs()\n    euclid_distances = axis_distances.square().sum(axis=-1).sqrt()\n    return euclid_distances"
+  },
+  {
+    "objectID": "posts/K-Means/ClusteringFromScratch.html#initialize-centroids",
+    "href": "posts/K-Means/ClusteringFromScratch.html#initialize-centroids",
+    "title": "K-Means From Scratch",
+    "section": "Initialize Centroids",
+    "text": "Initialize Centroids\nWhere we initialize our centroids is really important. If we don’t have good initialization we are very likely to get stuck in a local optimum. Especially with 6 centroids. One option is to run the algorithm many times and pick the best solution, but it’s a much better idea to try to have good initializations.\nWe pick centroid locations in the following way:\n\nPick a random data point and use those coordinates as the first centroid\nLoop to create remaining centroids\n\nCalculate the distance between existing centroids and data points.\nGet the distance from each data point to it’s closest centroid\nPlace the next centroid at the point with the max distance from previous step\n\n\nThis ensures we get initialization that are nice and far away from each other and spread out amonth the data, minimizing the risk of hitting local optimums.\n\ndef initialize_centroids(data:torch.Tensor,# Data points you want to cluster\n                         k:torch.Tensor # Number of centroids you want to initialize\n                        )->torch.Tensor: # Returns starting centroid coordinates\n    '''Initialize starting points for centroids as far from each other as possible.'''\n    pred_centroids = data[random.sample(range(0,len(data)),1)]\n    for i in range(k-1): \n        _centroid = data[calculate_distances(pred_centroids,data).min(axis=1).values.argmax()]\n        pred_centroids = torch.stack([*pred_centroids,_centroid])\n    return pred_centroids"
+  },
+  {
+    "objectID": "posts/K-Means/ClusteringFromScratch.html#classify-data-points",
+    "href": "posts/K-Means/ClusteringFromScratch.html#classify-data-points",
+    "title": "K-Means From Scratch",
+    "section": "Classify Data Points",
+    "text": "Classify Data Points\nOnce we have centroids (or updated centroids), we need to assign a centroid to each data point. We do this by calculating the distance between each data point and each centroid, and assigning each datapoint to it’s closes centroid.\n\ndef assign_centroids(centroids:torch.Tensor, # Centroid coordinates\n                     data:torch.Tensor # Data points you want to cluster\n                    )->torch.Tensor: # Tensor containing new centroid assignments for each data point\n    '''Based on distances update centroid assignments'''\n    euclid_distances = calculate_distances(centroids,data)\n    assigned_cluster = euclid_distances.squeeze().argmin(axis=1)\n    return assigned_cluster"
+  },
+  {
+    "objectID": "posts/K-Means/ClusteringFromScratch.html#update-centroids",
+    "href": "posts/K-Means/ClusteringFromScratch.html#update-centroids",
+    "title": "K-Means From Scratch",
+    "section": "Update Centroids",
+    "text": "Update Centroids\nTo update the centroid locations, we take the mean of all the data point assigned to that centroid. We make the new centroid that point.\n\ndef update_centroids(centroid_assignments:torch.Tensor, # Centroid coordinates\n                     data:torch.Tensor # Data points you want to cluster\n                    )->torch.Tensor: # Tensor containing updated centroid coodinates\n    '''Update centroid locations'''\n    n_centroids = len(centroid_assignments.unique())\n    pred_centroids = [data[centroid_assignments==i].mean(axis=0) for i in range(n_centroids)]\n    return torch.stack(pred_centroids)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "myblog",
+    "section": "",
+    "text": "K-Means From Scratch\n\n\n\n\n\n\n\nClustering\n\n\n\n\nA deep dive on K-Means where smart initialization and the full algorithm is implemented from scratch using pytorch\n\n\n\n\n\n\nNov 6, 2022\n\n\nIsaac Flath\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  }
+]
