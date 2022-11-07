@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/PythonTips/Python.html",
+      "/posts/K-Means/ClusteringFromScratch.html",
       "/posts/K-Means/KMeansFromScratch.html"
     ]
   }
