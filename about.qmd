@@ -19,4 +19,22 @@ about:
         
 ---
 
-This is Isaac Flath's Tech Blog.
+# This is My (Isaac Flath) Blog.
+
+## About Me 👋
+
+I'm a data scientist with a varied background that likes doing varied things.  It's also given me a wide range of skills that prove useful in all sorts of surprising ways.   
+
+My most important ability is understanding to goal and being able to see all the detailed steps needed to get there (and seeing the detailed steps that are not needed).  I developed this skill by getting experience in very different roles, where I often had to do things I did not have any idea how to do.  The best way to do that is to break the task into pieces that you can research separately.  
+
+Often, nobody in the world has done exactly what you are doing.  But it's almost a certainty that whatever you want to do is a combination of things that are already out there.  If you see the pieces you can learn what you need as you go.
+
+My primary hobby is dance.  I used to teach ballroom dance, but now I mostly dance West Coast Swing as a hobby.
+
+## My professional journey in stages 🚀
+
+1. **My Start*:  assembly line worker ➢ assembly line management ➢ assembly line efficiency optimization
+2. **Moving up**: business process engineering ➢ product management
+3. **My Data Start**: data Analyst ➢ dynamics CRM developer
+4. **Trying New Things**: accounting ➢ call center ➢ full-time ballroom dance teacher
+5. **Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data scientist
