@@ -13,7 +13,7 @@ website:
       - icon: twitter
         href: https://twitter.com/isaac_flath
       - icon: mastodon
-        href: https://mathstodon.xyz/web/@isaac_flath
+        href: https://sigmoid.social/web/@isaac_flath
 format:
   html:
     theme: cosmo

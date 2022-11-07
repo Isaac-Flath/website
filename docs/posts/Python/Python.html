@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -163,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://mathstodon.xyz/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -219,47 +220,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#comprehensions" id="toc-comprehensions" class="nav-link" data-scroll-target="#comprehensions">Comprehensions</a></li>
-  <li><a href="#destructuring" id="toc-destructuring" class="nav-link" data-scroll-target="#destructuring">Destructuring</a></li>
-  <li><a href="#fastcore" id="toc-fastcore" class="nav-link" data-scroll-target="#fastcore">Fastcore</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">1</span>  Setup</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose"><span class="toc-section-number">2</span>  Purpose</a></li>
+  <li><a href="#comprehensions" id="toc-comprehensions" class="nav-link" data-scroll-target="#comprehensions"><span class="toc-section-number">3</span>  Comprehensions</a></li>
+  <li><a href="#destructuring" id="toc-destructuring" class="nav-link" data-scroll-target="#destructuring"><span class="toc-section-number">4</span>  Destructuring</a></li>
+  <li><a href="#fastcore" id="toc-fastcore" class="nav-link" data-scroll-target="#fastcore"><span class="toc-section-number">5</span>  Fastcore</a>
   <ul class="collapse">
-  <li><a href="#parallel-processing" id="toc-parallel-processing" class="nav-link" data-scroll-target="#parallel-processing">Parallel Processing</a>
+  <li><a href="#parallel-processing" id="toc-parallel-processing" class="nav-link" data-scroll-target="#parallel-processing"><span class="toc-section-number">5.1</span>  Parallel Processing</a>
   <ul class="collapse">
-  <li><a href="#docments" id="toc-docments" class="nav-link" data-scroll-target="#docments">Docments</a></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
-  <li><a href="#l" id="toc-l" class="nav-link" data-scroll-target="#l">L</a></li>
-  <li><a href="#attrdict" id="toc-attrdict" class="nav-link" data-scroll-target="#attrdict">AttrDict</a></li>
+  <li><a href="#docments" id="toc-docments" class="nav-link" data-scroll-target="#docments"><span class="toc-section-number">5.1.1</span>  Docments</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing"><span class="toc-section-number">5.1.2</span>  Testing</a></li>
+  <li><a href="#l" id="toc-l" class="nav-link" data-scroll-target="#l"><span class="toc-section-number">5.1.3</span>  L</a></li>
+  <li><a href="#attrdict" id="toc-attrdict" class="nav-link" data-scroll-target="#attrdict"><span class="toc-section-number">5.1.4</span>  AttrDict</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#logging" id="toc-logging" class="nav-link" data-scroll-target="#logging">Logging</a></li>
-  <li><a href="#higher-order-functions-callbacks" id="toc-higher-order-functions-callbacks" class="nav-link" data-scroll-target="#higher-order-functions-callbacks">Higher Order Functions &amp; Callbacks</a>
+  <li><a href="#logging" id="toc-logging" class="nav-link" data-scroll-target="#logging"><span class="toc-section-number">6</span>  Logging</a></li>
+  <li><a href="#higher-order-functions-callbacks" id="toc-higher-order-functions-callbacks" class="nav-link" data-scroll-target="#higher-order-functions-callbacks"><span class="toc-section-number">7</span>  Higher Order Functions &amp; Callbacks</a>
   <ul class="collapse">
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Filter</a></li>
-  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map">Map</a></li>
-  <li><a href="#simple-logging" id="toc-simple-logging" class="nav-link" data-scroll-target="#simple-logging">Simple Logging</a></li>
-  <li><a href="#file-processor" id="toc-file-processor" class="nav-link" data-scroll-target="#file-processor">File Processor</a></li>
-  <li><a href="#format-and-clean-sql-file" id="toc-format-and-clean-sql-file" class="nav-link" data-scroll-target="#format-and-clean-sql-file">Format and clean SQL file</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="toc-section-number">7.1</span>  Filter</a></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><span class="toc-section-number">7.2</span>  Map</a></li>
+  <li><a href="#simple-logging" id="toc-simple-logging" class="nav-link" data-scroll-target="#simple-logging"><span class="toc-section-number">7.3</span>  Simple Logging</a></li>
+  <li><a href="#file-processor" id="toc-file-processor" class="nav-link" data-scroll-target="#file-processor"><span class="toc-section-number">7.4</span>  File Processor</a></li>
+  <li><a href="#format-and-clean-sql-file" id="toc-format-and-clean-sql-file" class="nav-link" data-scroll-target="#format-and-clean-sql-file"><span class="toc-section-number">7.5</span>  Format and clean SQL file</a></li>
   </ul></li>
-  <li><a href="#decorators" id="toc-decorators" class="nav-link" data-scroll-target="#decorators">Decorators</a>
+  <li><a href="#decorators" id="toc-decorators" class="nav-link" data-scroll-target="#decorators"><span class="toc-section-number">8</span>  Decorators</a>
   <ul class="collapse">
-  <li><a href="#silly-simple-example" id="toc-silly-simple-example" class="nav-link" data-scroll-target="#silly-simple-example">Silly Simple Example</a></li>
-  <li><a href="#useful-example" id="toc-useful-example" class="nav-link" data-scroll-target="#useful-example">Useful Example</a></li>
-  <li><a href="#use-on-existing-functions" id="toc-use-on-existing-functions" class="nav-link" data-scroll-target="#use-on-existing-functions">Use on Existing Functions</a></li>
+  <li><a href="#silly-simple-example" id="toc-silly-simple-example" class="nav-link" data-scroll-target="#silly-simple-example"><span class="toc-section-number">8.1</span>  Silly Simple Example</a></li>
+  <li><a href="#useful-example" id="toc-useful-example" class="nav-link" data-scroll-target="#useful-example"><span class="toc-section-number">8.2</span>  Useful Example</a></li>
+  <li><a href="#use-on-existing-functions" id="toc-use-on-existing-functions" class="nav-link" data-scroll-target="#use-on-existing-functions"><span class="toc-section-number">8.3</span>  Use on Existing Functions</a></li>
   </ul></li>
-  <li><a href="#inheritance" id="toc-inheritance" class="nav-link" data-scroll-target="#inheritance">Inheritance</a>
+  <li><a href="#inheritance" id="toc-inheritance" class="nav-link" data-scroll-target="#inheritance"><span class="toc-section-number">9</span>  Inheritance</a>
   <ul class="collapse">
-  <li><a href="#silly-simple-example-1" id="toc-silly-simple-example-1" class="nav-link" data-scroll-target="#silly-simple-example-1">Silly Simple Example</a></li>
-  <li><a href="#useful-examples" id="toc-useful-examples" class="nav-link" data-scroll-target="#useful-examples">Useful Examples</a></li>
+  <li><a href="#silly-simple-example-1" id="toc-silly-simple-example-1" class="nav-link" data-scroll-target="#silly-simple-example-1"><span class="toc-section-number">9.1</span>  Silly Simple Example</a></li>
+  <li><a href="#useful-examples" id="toc-useful-examples" class="nav-link" data-scroll-target="#useful-examples"><span class="toc-section-number">9.2</span>  Useful Examples</a></li>
   </ul></li>
-  <li><a href="#dunders" id="toc-dunders" class="nav-link" data-scroll-target="#dunders">Dunders</a></li>
-  <li><a href="#iteratorsdata-streaming" id="toc-iteratorsdata-streaming" class="nav-link" data-scroll-target="#iteratorsdata-streaming">Iterators/Data Streaming</a>
+  <li><a href="#dunders" id="toc-dunders" class="nav-link" data-scroll-target="#dunders"><span class="toc-section-number">10</span>  Dunders</a></li>
+  <li><a href="#iteratorsdata-streaming" id="toc-iteratorsdata-streaming" class="nav-link" data-scroll-target="#iteratorsdata-streaming"><span class="toc-section-number">11</span>  Iterators/Data Streaming</a>
   <ul class="collapse">
-  <li><a href="#silly-simple-example-2" id="toc-silly-simple-example-2" class="nav-link" data-scroll-target="#silly-simple-example-2">Silly Simple Example</a></li>
-  <li><a href="#useful-example-1" id="toc-useful-example-1" class="nav-link" data-scroll-target="#useful-example-1">Useful Example</a>
+  <li><a href="#silly-simple-example-2" id="toc-silly-simple-example-2" class="nav-link" data-scroll-target="#silly-simple-example-2"><span class="toc-section-number">11.1</span>  Silly Simple Example</a></li>
+  <li><a href="#useful-example-1" id="toc-useful-example-1" class="nav-link" data-scroll-target="#useful-example-1"><span class="toc-section-number">11.2</span>  Useful Example</a>
   <ul class="collapse">
-  <li><a href="#file-streaming" id="toc-file-streaming" class="nav-link" data-scroll-target="#file-streaming">File Streaming</a></li>
+  <li><a href="#file-streaming" id="toc-file-streaming" class="nav-link" data-scroll-target="#file-streaming"><span class="toc-section-number">11.2.1</span>  File Streaming</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -271,8 +272,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="setup" class="level1">
-<h1>Setup</h1>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -297,13 +298,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 </section>
-<section id="purpose" class="level1">
-<h1>Purpose</h1>
+<section id="purpose" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Purpose</h1>
 <p>The purpose of this is to introduce concepts I believe data scientists could benefit from knowing.</p>
 <p>I am assuming that the reader knows the basics of programming. I will cover concepts I frequently see that I think are not used enough or appropriately, regardless of how basic or advanced they may be.</p>
 </section>
-<section id="comprehensions" class="level1">
-<h1>Comprehensions</h1>
+<section id="comprehensions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Comprehensions</h1>
 <p>Comprehensions in python should be used when possible. They are faster than forloops and require less code when they fit</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -380,8 +381,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="destructuring" class="level1">
-<h1>Destructuring</h1>
+<section id="destructuring" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Destructuring</h1>
 <p>Destructured assignments mean to can break up iterables when you assign. This is handy to reduce pointless lines of code.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>a,b <span class="op">=</span> <span class="dv">5</span>,<span class="dv">6</span></span>
@@ -411,14 +412,14 @@ third_elements=(3, 6, 9)</code></pre>
 </div>
 </div>
 </section>
-<section id="fastcore" class="level1">
-<h1>Fastcore</h1>
+<section id="fastcore" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Fastcore</h1>
 <p>Fastcore is a great library to know. It’s got a lot of useful features and extensions to the python standard library and it’s designed to be used in live environments like jupyter notebooks.</p>
-<section id="parallel-processing" class="level2">
-<h2 class="anchored" data-anchor-id="parallel-processing">Parallel Processing</h2>
+<section id="parallel-processing" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="parallel-processing"><span class="header-section-number">5.1</span> Parallel Processing</h2>
 <p>See <a href="https://isaac-flath.github.io/fastblog/fastcore/fastai/2021/04/01/PythonConcurrency.html">this blog post</a></p>
-<section id="docments" class="level3">
-<h3 class="anchored" data-anchor-id="docments">Docments</h3>
+<section id="docments" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="docments"><span class="header-section-number">5.1.1</span> Docments</h3>
 <p>Nice way of documenting code concisely and being able to access info from code. It’s concise, easy to manipulate to display how you want, and easy to read. I much prefer it over the large numpy style docstrings that are big string blocks</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.docments <span class="im">import</span> <span class="op">*</span></span>
@@ -463,8 +464,8 @@ third_elements=(3, 6, 9)</code></pre>
 </div>
 </div>
 </section>
-<section id="testing" class="level3">
-<h3 class="anchored" data-anchor-id="testing">Testing</h3>
+<section id="testing" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="testing"><span class="header-section-number">5.1.2</span> Testing</h3>
 <p>Everyone agrees testing is important. But not all testing is equal. The needs for unit testing the google code base are not the same as the needs a data scientist needs for building and deploying models, libraries, and most software.</p>
 <p>Fastcore is a great tool for most of my testing needs. Fast and simple enough that I can add tests as I build and as I am exploring and building models. I want testing to enhance my development workflow, not be something I have to painstakingly build at the end.</p>
 <p>Sometimes simple assert statements are sufficient, but there’s small annoyances. For example, a small change in type can mean a failed test. Sometimes that change in type should cause a failure, sometimes I’m ok if it’s a different type if the values are the same</p>
@@ -498,8 +499,8 @@ third_elements=(3, 6, 9)</code></pre>
 </div>
 <p>There’s more of course, check out the <a href="fastcore.fast.ai">docs</a></p>
 </section>
-<section id="l" class="level3">
-<h3 class="anchored" data-anchor-id="l">L</h3>
+<section id="l" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="l"><span class="header-section-number">5.1.3</span> L</h3>
 <p>L is a replacement for a list, but with lots of adding functionality. Some of it are functional programming concepts, some is numpy like stuff, and some is just niceities (like cleaner printing).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> L(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -530,8 +531,8 @@ third_elements=(3, 6, 9)</code></pre>
 </div>
 </div>
 </section>
-<section id="attrdict" class="level3">
-<h3 class="anchored" data-anchor-id="attrdict">AttrDict</h3>
+<section id="attrdict" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="attrdict"><span class="header-section-number">5.1.4</span> AttrDict</h3>
 <p><code>Attrdict</code> is another nice thing from fastcore, that makes dictionaries a bit nicer to use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>regdict <span class="op">=</span> {<span class="st">'a'</span>:<span class="dv">2</span>,<span class="st">'b'</span>:<span class="dv">3</span>}</span>
@@ -556,8 +557,8 @@ third_elements=(3, 6, 9)</code></pre>
 </section>
 </section>
 </section>
-<section id="logging" class="level1">
-<h1>Logging</h1>
+<section id="logging" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Logging</h1>
 <p>Logging is super important. if you log stuff as you work properly you can always look back at what was done previously. Sometimes it’s hard to tell what’s going on as you run and re-run different things. Logging is handy not just in production for debugging, but also as a tool when you are developing. There are many tools to help with logging and visualizing results (for example W&amp;B or tensorboard for deep learning) - but the foundations are good to understand and use too!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>logging.basicConfig(filename<span class="op">=</span><span class="st">"./mylog.log"</span>)</span>
@@ -591,8 +592,8 @@ INFO:root:20221106_111521|Validtion set has 70 records</code></pre>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>          validation_set<span class="op">=</span><span class="st">'70_records'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="higher-order-functions-callbacks" class="level1">
-<h1>Higher Order Functions &amp; Callbacks</h1>
+<section id="higher-order-functions-callbacks" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Higher Order Functions &amp; Callbacks</h1>
 <p>This is a simple example of what these terms mean:</p>
 <ul>
 <li>A higher order function is a function that takes a function as an argument</li>
@@ -613,8 +614,8 @@ Callback Function 2: Length of the text file is :  1130</code></pre>
 </div>
 </div>
 <p>This is handy in a lot of situations.</p>
-<section id="filter" class="level2">
-<h2 class="anchored" data-anchor-id="filter">Filter</h2>
+<section id="filter" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="filter"><span class="header-section-number">7.1</span> Filter</h2>
 <p>Filter is a common higher order function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>L(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>).<span class="bu">filter</span>(<span class="kw">lambda</span> x: x<span class="op">&gt;</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -624,8 +625,8 @@ Callback Function 2: Length of the text file is :  1130</code></pre>
 </div>
 <p>This is very flexible because we can put filtering logic of any complexity in a function and use that to filter a list of any type.</p>
 </section>
-<section id="map" class="level2">
-<h2 class="anchored" data-anchor-id="map">Map</h2>
+<section id="map" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="map"><span class="header-section-number">7.2</span> Map</h2>
 <p>Map is another very common higher order function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>L(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>).<span class="bu">map</span>(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -641,8 +642,8 @@ Callback Function 2: Length of the text file is :  1130</code></pre>
 </div>
 </div>
 </section>
-<section id="simple-logging" class="level2">
-<h2 class="anchored" data-anchor-id="simple-logging">Simple Logging</h2>
+<section id="simple-logging" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="simple-logging"><span class="header-section-number">7.3</span> Simple Logging</h2>
 <p>We could make a function for logging, where we can pass a function in that we want to use for logging (ie info vs warning).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_stuff(msg,fn<span class="op">=</span>logger.info,<span class="op">**</span>kwargs): </span>
@@ -673,8 +674,8 @@ CRITICAL:root:20221106_193211|b=55</code></pre>
 </div>
 </div>
 </section>
-<section id="file-processor" class="level2">
-<h2 class="anchored" data-anchor-id="file-processor">File Processor</h2>
+<section id="file-processor" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="file-processor"><span class="header-section-number">7.4</span> File Processor</h2>
 <p>You can also make a generic file processor that you can pass callbacks to. This file processor can include log statements to log what you’re doing, so you can minimize repeating lots of code. For now, we’ll do a simple processor, and callbacks to clean and format a messy sql file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_file(fpath,callbacks): </span>
@@ -683,8 +684,8 @@ CRITICAL:root:20221106_193211|b=55</code></pre>
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> contents   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="format-and-clean-sql-file" class="level2">
-<h2 class="anchored" data-anchor-id="format-and-clean-sql-file">Format and clean SQL file</h2>
+<section id="format-and-clean-sql-file" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="format-and-clean-sql-file"><span class="header-section-number">7.5</span> Format and clean SQL file</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>sql_formatter_cb <span class="op">=</span> partial(sqlparse.<span class="bu">format</span>,</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>                strip_comments<span class="op">=</span><span class="va">True</span>,comma_first<span class="op">=</span><span class="va">True</span>,</span>
@@ -723,11 +724,11 @@ CRITICAL:root:20221106_193211|b=55</code></pre>
 </div>
 </section>
 </section>
-<section id="decorators" class="level1">
-<h1>Decorators</h1>
+<section id="decorators" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Decorators</h1>
 <p>Decorators give you a way to add the same functionality to many functions (like inheritance does for classes). You typically use decorator using the <code>@</code> syntax, which modified the function.</p>
-<section id="silly-simple-example" class="level2">
-<h2 class="anchored" data-anchor-id="silly-simple-example">Silly Simple Example</h2>
+<section id="silly-simple-example" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="silly-simple-example"><span class="header-section-number">8.1</span> Silly Simple Example</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_another(func):</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(number):</span>
@@ -742,8 +743,8 @@ CRITICAL:root:20221106_193211|b=55</code></pre>
 </div>
 <p>So when we use a decorator, the code in the <code>wrapper</code> function is called instead of the original function. Typically the <code>wrapper</code> function calls the original function (otherwise there would be no point in decorating it as you’d just have a new unrelated function).</p>
 </section>
-<section id="useful-example" class="level2">
-<h2 class="anchored" data-anchor-id="useful-example">Useful Example</h2>
+<section id="useful-example" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="useful-example"><span class="header-section-number">8.2</span> Useful Example</h2>
 <p>For example, maybe you want to print (or log) particular function call times and the args. See this decorator that does just that (and can be used on methods too)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -786,8 +787,8 @@ CRITICAL:root:20221106_193211|b=55</code></pre>
 </div>
 </div>
 </section>
-<section id="use-on-existing-functions" class="level2">
-<h2 class="anchored" data-anchor-id="use-on-existing-functions">Use on Existing Functions</h2>
+<section id="use-on-existing-functions" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="use-on-existing-functions"><span class="header-section-number">8.3</span> Use on Existing Functions</h2>
 <p>What we have seen is applying a decorator to functions we fully define but we can also apply them to previously existing functions like ones we import from a library. This is helpful not just in understanding one way you can extend an existing libraries functionality, but also in understanding what decorators are. They aren’t magical.</p>
 <p>Let’s add logging to <code>pd.DataFrame</code> using our existing decorator so we can see when a dataframe is constructed.</p>
 <div class="cell">
@@ -916,12 +917,12 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </section>
 </section>
-<section id="inheritance" class="level1">
-<h1>Inheritance</h1>
+<section id="inheritance" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Inheritance</h1>
 <p>Inheritance is the idea that you a class can “Inherit” attributes and methods from other classes.</p>
 <p>For example a class could have an attribute <code>a</code>, and it can be used to create a new class to give it that attribute without having to specify it.</p>
-<section id="silly-simple-example-1" class="level2">
-<h2 class="anchored" data-anchor-id="silly-simple-example-1">Silly Simple Example</h2>
+<section id="silly-simple-example-1" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="silly-simple-example-1"><span class="header-section-number">9.1</span> Silly Simple Example</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> aClass: a <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -933,8 +934,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 </section>
-<section id="useful-examples" class="level2">
-<h2 class="anchored" data-anchor-id="useful-examples">Useful Examples</h2>
+<section id="useful-examples" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="useful-examples"><span class="header-section-number">9.2</span> Useful Examples</h2>
 <p>In many cases there are common things we want to inherit in lots of classes. One example is having access to the date. Often you want this for logging, or printing, or any number of things. By subclassing you don’t have to reformat the date each time in your classes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DateMinuteMixin:</span>
@@ -976,8 +977,8 @@ Tip
 </div>
 </section>
 </section>
-<section id="dunders" class="level1">
-<h1>Dunders</h1>
+<section id="dunders" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Dunders</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> someClass:</span>
@@ -1018,11 +1019,11 @@ Tip
 </div>
 </div>
 </section>
-<section id="iteratorsdata-streaming" class="level1">
-<h1>Iterators/Data Streaming</h1>
+<section id="iteratorsdata-streaming" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Iterators/Data Streaming</h1>
 <p>Iterators are useful when you don’t want to just load all data in memory all at once. They are often defined with <code>yield</code>, but there are other ways.</p>
-<section id="silly-simple-example-2" class="level2">
-<h2 class="anchored" data-anchor-id="silly-simple-example-2">Silly Simple Example</h2>
+<section id="silly-simple-example-2" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="silly-simple-example-2"><span class="header-section-number">11.1</span> Silly Simple Example</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mapper(items,fn):</span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> items: <span class="cf">yield</span> item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1052,10 +1053,10 @@ Tip
 </div>
 </div>
 </section>
-<section id="useful-example-1" class="level2">
-<h2 class="anchored" data-anchor-id="useful-example-1">Useful Example</h2>
-<section id="file-streaming" class="level3">
-<h3 class="anchored" data-anchor-id="file-streaming">File Streaming</h3>
+<section id="useful-example-1" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="useful-example-1"><span class="header-section-number">11.2</span> Useful Example</h2>
+<section id="file-streaming" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="file-streaming"><span class="header-section-number">11.2.1</span> File Streaming</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>print_plus <span class="op">=</span> partial(<span class="bu">print</span>,end<span class="op">=</span><span class="st">'</span><span class="ch">\n</span><span class="st">++++++</span><span class="ch">\n</span><span class="st">'</span>)</span>
 <span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>

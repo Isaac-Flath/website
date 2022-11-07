@@ -127,6 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -160,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://mathstodon.xyz/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -215,16 +216,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#generate-dataset" id="toc-generate-dataset" class="nav-link" data-scroll-target="#generate-dataset">Generate Dataset</a></li>
-  <li><a href="#k-means" id="toc-k-means" class="nav-link" data-scroll-target="#k-means">K Means</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">1</span>  Setup</a></li>
+  <li><a href="#generate-dataset" id="toc-generate-dataset" class="nav-link" data-scroll-target="#generate-dataset"><span class="toc-section-number">2</span>  Generate Dataset</a></li>
+  <li><a href="#k-means" id="toc-k-means" class="nav-link" data-scroll-target="#k-means"><span class="toc-section-number">3</span>  K Means</a>
   <ul class="collapse">
-  <li><a href="#calculate-distance" id="toc-calculate-distance" class="nav-link" data-scroll-target="#calculate-distance">Calculate Distance</a></li>
-  <li><a href="#initialize-centroids" id="toc-initialize-centroids" class="nav-link" data-scroll-target="#initialize-centroids">Initialize Centroids</a></li>
-  <li><a href="#classify-data-points" id="toc-classify-data-points" class="nav-link" data-scroll-target="#classify-data-points">Classify Data Points</a></li>
-  <li><a href="#update-centroids" id="toc-update-centroids" class="nav-link" data-scroll-target="#update-centroids">Update Centroids</a></li>
+  <li><a href="#calculate-distance" id="toc-calculate-distance" class="nav-link" data-scroll-target="#calculate-distance"><span class="toc-section-number">3.1</span>  Calculate Distance</a></li>
+  <li><a href="#initialize-centroids" id="toc-initialize-centroids" class="nav-link" data-scroll-target="#initialize-centroids"><span class="toc-section-number">3.2</span>  Initialize Centroids</a></li>
+  <li><a href="#classify-data-points" id="toc-classify-data-points" class="nav-link" data-scroll-target="#classify-data-points"><span class="toc-section-number">3.3</span>  Classify Data Points</a></li>
+  <li><a href="#update-centroids" id="toc-update-centroids" class="nav-link" data-scroll-target="#update-centroids"><span class="toc-section-number">3.4</span>  Update Centroids</a></li>
   </ul></li>
-  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="toc-section-number">4</span>  Training</a></li>
   </ul>
 </nav>
     </div>
@@ -234,8 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="setup" class="level1">
-<h1>Setup</h1>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, random, matplotlib.pyplot <span class="im">as</span> plt, operator, torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
@@ -262,8 +263,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ax.plot(<span class="op">*</span>centroid, markersize<span class="op">=</span><span class="dv">5</span>, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">'m'</span>, mew<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="generate-dataset" class="level1">
-<h1>Generate Dataset</h1>
+<section id="generate-dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Generate Dataset</h1>
 <p>We need to create a dataset. This follows what Jeremy did in a notebook he did on meanshift clustering, which is a different clustering algorithm. Since the same dataset can be used, I used his and removed some unneeded print statements. See the plot for what the data looks like.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> <span class="dv">6</span></span>
@@ -283,16 +284,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="k-means" class="level1">
-<h1>K Means</h1>
+<section id="k-means" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> K Means</h1>
 <p>K-means is a clustering algorithm. There’s 4 main steps to the process:</p>
 <pre><code>+ Initialize Centroids at smart starting positions
 + Calculate distance between data points and centroids
 + Classify data points based on closes centroid
 + Update centroids by moving them toward the mean of its points</code></pre>
 <p>Once you have those steps, you can repeat the last 3 until your centroids no longer move.</p>
-<section id="calculate-distance" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-distance">Calculate Distance</h2>
+<section id="calculate-distance" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="calculate-distance"><span class="header-section-number">3.1</span> Calculate Distance</h2>
 <p>In order to initialize our centroids we need to be able to calculate distances, so let’s do that first.</p>
 <p>Given a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract centroids coordinates from data points coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root</p>
 <p>That gives us the euclidean distance between each data point and each centroid.</p>
@@ -306,8 +307,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> euclid_distances</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="initialize-centroids" class="level2">
-<h2 class="anchored" data-anchor-id="initialize-centroids">Initialize Centroids</h2>
+<section id="initialize-centroids" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="initialize-centroids"><span class="header-section-number">3.2</span> Initialize Centroids</h2>
 <p>Where we initialize our centroids is really important. If we don’t have good initialization we are very likely to get stuck in a local optimum. Especially with 6 centroids. One option is to run the algorithm many times and pick the best solution, but it’s a much better idea to try to have good initializations.</p>
 <p>We pick centroid locations in the following way:</p>
 <ul>
@@ -332,8 +333,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pred_centroids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="classify-data-points" class="level2">
-<h2 class="anchored" data-anchor-id="classify-data-points">Classify Data Points</h2>
+<section id="classify-data-points" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="classify-data-points"><span class="header-section-number">3.3</span> Classify Data Points</h2>
 <p>Once we have centroids (or updated centroids), we need to assign a centroid to each data point. We do this by calculating the distance between each data point and each centroid, and assigning each datapoint to it’s closes centroid.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_centroids(centroids:torch.Tensor, <span class="co"># Centroid coordinates</span></span>
@@ -345,8 +346,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> assigned_cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="update-centroids" class="level2">
-<h2 class="anchored" data-anchor-id="update-centroids">Update Centroids</h2>
+<section id="update-centroids" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="update-centroids"><span class="header-section-number">3.4</span> Update Centroids</h2>
 <p>To update the centroid locations, we take the mean of all the data point assigned to that centroid. We make the new centroid that point.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_centroids(centroid_assignments:torch.Tensor, <span class="co"># Centroid coordinates</span></span>
@@ -359,8 +360,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="training" class="level1">
-<h1>Training</h1>
+<section id="training" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Training</h1>
 <p>Here we put it all together and train our K-means model. As you can see it fits this dataset very quickly (it’s a simple dataset).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pred_centroids <span class="op">=</span> initialize_centroids(data,n_clusters)</span>

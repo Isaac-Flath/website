@@ -67,6 +67,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -100,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://mathstodon.xyz/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -156,23 +157,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#samplingbootstrapping" id="toc-samplingbootstrapping" class="nav-link active" data-scroll-target="#samplingbootstrapping">Sampling/Bootstrapping</a>
+  <li><a href="#samplingbootstrapping" id="toc-samplingbootstrapping" class="nav-link active" data-scroll-target="#samplingbootstrapping"><span class="toc-section-number">1</span>  Sampling/Bootstrapping</a>
   <ul class="collapse">
-  <li><a href="#why-bootstrapping" id="toc-why-bootstrapping" class="nav-link" data-scroll-target="#why-bootstrapping">Why Bootstrapping</a></li>
-  <li><a href="#why-apl" id="toc-why-apl" class="nav-link" data-scroll-target="#why-apl">Why APL</a></li>
+  <li><a href="#why-bootstrapping" id="toc-why-bootstrapping" class="nav-link" data-scroll-target="#why-bootstrapping"><span class="toc-section-number">1.1</span>  Why Bootstrapping</a></li>
+  <li><a href="#why-apl" id="toc-why-apl" class="nav-link" data-scroll-target="#why-apl"><span class="toc-section-number">1.2</span>  Why APL</a></li>
   </ul></li>
-  <li><a href="#sampling-distribution" id="toc-sampling-distribution" class="nav-link" data-scroll-target="#sampling-distribution">Sampling Distribution</a>
+  <li><a href="#sampling-distribution" id="toc-sampling-distribution" class="nav-link" data-scroll-target="#sampling-distribution"><span class="toc-section-number">2</span>  Sampling Distribution</a>
   <ul class="collapse">
-  <li><a href="#create-1-sample" id="toc-create-1-sample" class="nav-link" data-scroll-target="#create-1-sample">Create 1 Sample</a></li>
-  <li><a href="#create-sampling-distribution" id="toc-create-sampling-distribution" class="nav-link" data-scroll-target="#create-sampling-distribution">Create sampling distribution</a></li>
+  <li><a href="#create-1-sample" id="toc-create-1-sample" class="nav-link" data-scroll-target="#create-1-sample"><span class="toc-section-number">2.1</span>  Create 1 Sample</a></li>
+  <li><a href="#create-sampling-distribution" id="toc-create-sampling-distribution" class="nav-link" data-scroll-target="#create-sampling-distribution"><span class="toc-section-number">2.2</span>  Create sampling distribution</a></li>
   </ul></li>
-  <li><a href="#calculate-statistics" id="toc-calculate-statistics" class="nav-link" data-scroll-target="#calculate-statistics">Calculate statistics</a>
+  <li><a href="#calculate-statistics" id="toc-calculate-statistics" class="nav-link" data-scroll-target="#calculate-statistics"><span class="toc-section-number">3</span>  Calculate statistics</a>
   <ul class="collapse">
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a></li>
-  <li><a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values">P values</a>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="toc-section-number">3.1</span>  Confidence Intervals</a></li>
+  <li><a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values"><span class="toc-section-number">3.2</span>  P values</a>
   <ul class="collapse">
-  <li><a href="#p-value-on-equal-means" id="toc-p-value-on-equal-means" class="nav-link" data-scroll-target="#p-value-on-equal-means">P value on equal means</a></li>
-  <li><a href="#p-value-on-different-means" id="toc-p-value-on-different-means" class="nav-link" data-scroll-target="#p-value-on-different-means">P value on different means</a></li>
+  <li><a href="#p-value-on-equal-means" id="toc-p-value-on-equal-means" class="nav-link" data-scroll-target="#p-value-on-equal-means"><span class="toc-section-number">3.2.1</span>  P value on equal means</a></li>
+  <li><a href="#p-value-on-different-means" id="toc-p-value-on-different-means" class="nav-link" data-scroll-target="#p-value-on-different-means"><span class="toc-section-number">3.2.2</span>  P value on different means</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -184,8 +185,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="samplingbootstrapping" class="level1">
-<h1>Sampling/Bootstrapping</h1>
+<section id="samplingbootstrapping" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Sampling/Bootstrapping</h1>
 <p>This post shows how to calculate statistics in the way I believe should be the default for data scientists, bootstrapping. If you are not familiar with this approach and think it sounds intriguing, <a href="https://www.lock5stat.com/">check out this page</a> to find a great book to get a fantastic start on bootstrapping and practical statistics.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -200,8 +201,8 @@ Note
 <p>The quality and simplicity of the APL code in this post was improved thanks to the kind feedback provided by rak1507. It’s awesome to have experienced community members like rak1507 that are willing to read through material written by people newer to array programming and offer feedback in a supportive way.</p>
 </div>
 </div>
-<section id="why-bootstrapping" class="level2">
-<h2 class="anchored" data-anchor-id="why-bootstrapping">Why Bootstrapping</h2>
+<section id="why-bootstrapping" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why-bootstrapping"><span class="header-section-number">1.1</span> Why Bootstrapping</h2>
 <p>Because this opinions seems to put me in the minority of data scientists I am writing a short piece on why bootstrapping here.</p>
 <p>In classical statistics, very clever algebraic formulas are used to approximate a sampling distribution, and that approximation can be used to calculate a p-value or a confidence interval or other statistics. These formulas rely on assumptions about the data and do not work if those baked in assumptions are not true. In other words they are really shortcuts to calculating an answer that work in specific situations.</p>
 <p>In modern days, we do not need to approximate a sampling distribution using algebra. We can do something much more elementary, more powerful, and more flexible. Thanks to modern computers, we can just sample our data repeatedly to create an actual sampling distribution and calculate based off of that. You get the same answer. So why do I advocate for a bootstrapping first approach?</p>
@@ -232,8 +233,8 @@ Note
 <p>What we teach is largely the technical machinery of numerical approximations based on the normal distribution and its many subsidiary cogs. This machinery was once necessary, because the conceptually simpler alternative based on permutations was computationally beyond our reach. Before computers statisticians had no choice. These days we have no excuse.</p>
 </blockquote>
 </section>
-<section id="why-apl" class="level2">
-<h2 class="anchored" data-anchor-id="why-apl">Why APL</h2>
+<section id="why-apl" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-apl"><span class="header-section-number">1.2</span> Why APL</h2>
 <ul>
 <li>Because it’s cool</li>
 <li>Because most modeling now-a-days is done via array programming and learning, and APL is a fantastic way to get better at that</li>
@@ -241,8 +242,8 @@ Note
 </ul>
 </section>
 </section>
-<section id="sampling-distribution" class="level1">
-<h1>Sampling Distribution</h1>
+<section id="sampling-distribution" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Sampling Distribution</h1>
 <p>A sampling distribution is a distribution of samples. Let’s talk about what that means.</p>
 <p>First, a <strong>sample</strong> is a subset of our data. <code>[1, 0, 2, 1]</code> is a sample of <code>[0, 1, 2, 3]</code>. A few things about samples: + We will sample by taking a random selection of values from our data. + We are sampling with replacement, meaning we can pick the same data point multiple times.</p>
 <p>Next, a <strong>distribution</strong> is mostly just a bunch of data points. In our case we are going to have a bunch of samples.</p>
@@ -256,8 +257,8 @@ Note
 </pre>
 </div>
 </div>
-<section id="create-1-sample" class="level2">
-<h2 class="anchored" data-anchor-id="create-1-sample">Create 1 Sample</h2>
+<section id="create-1-sample" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="create-1-sample"><span class="header-section-number">2.1</span> Create 1 Sample</h2>
 <p>Let’s start with creating a sample</p>
 <ul>
 <li>Create some data for us to sample</li>
@@ -308,8 +309,8 @@ Note
 </div>
 </div>
 </section>
-<section id="create-sampling-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="create-sampling-distribution">Create sampling distribution</h2>
+<section id="create-sampling-distribution" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="create-sampling-distribution"><span class="header-section-number">2.2</span> Create sampling distribution</h2>
 <p>We drew a sample, but really what we want to do is draw a whole bunch of samples. All we have to do is create a matrix of indices instead of a vector and the exact same approach works.</p>
 <p>This is the same as above, except instead of <code>10 ⍴</code> to create an array of shape 10, we use <code>5 10 ⍴</code> to create an array of shape 5 by 10.</p>
 <p>For convenience I store the shapes in a variable for later use.</p>
@@ -328,11 +329,11 @@ Note
 </div>
 </section>
 </section>
-<section id="calculate-statistics" class="level1">
-<h1>Calculate statistics</h1>
+<section id="calculate-statistics" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Calculate statistics</h1>
 <p>Now that we know how to calculate a sampling distribution we can calculate some statistics. I will start with confidence intervals, then move into p values.</p>
-<section id="confidence-intervals" class="level2">
-<h2 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h2>
+<section id="confidence-intervals" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">3.1</span> Confidence Intervals</h2>
 <p>Lets do a bigger sample and calculate our confidence interval using 10000 random numbers between 1 and 100.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>data ← ?10000/100 
@@ -401,8 +402,8 @@ sample_means[⊢/order90]</code></pre>
 </div>
 <p>We know we are 90 percent confident that a mean based on a sample size of 10 will land in that range because we did that and found that to be true.</p>
 </section>
-<section id="p-values" class="level2">
-<h2 class="anchored" data-anchor-id="p-values">P values</h2>
+<section id="p-values" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="p-values"><span class="header-section-number">3.2</span> P values</h2>
 <p>Let’s say we have 2 sets of data and we want to know whether some statistics are different between them. We have 10,000 samples of our original data, and we ran an experiment and got 100 datapoints with our new process. We want to calculate a p value to see if it supports our hypothesis that it had a statistically significant impact.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -417,8 +418,8 @@ Note
 <p>Statistically significant impact does not necessarily mean practically significant. This test is doing the basic (are these 2 means different), but often that isn’t really that helpful of a question. Often we want to ask “are these 2 means different by at least X”. After reviewing the simple examples think through how you might be able to design that test via bootstrapping!</p>
 </div>
 </div>
-<section id="p-value-on-equal-means" class="level3">
-<h3 class="anchored" data-anchor-id="p-value-on-equal-means">P value on equal means</h3>
+<section id="p-value-on-equal-means" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="p-value-on-equal-means"><span class="header-section-number">3.2.1</span> P value on equal means</h3>
 <div class="cell">
 <pre class="apl cell-code"><code>baseline ← 1-⍨2×⍨?10000/0
 experiment ← 0.5-⍨?100/0</code></pre>
@@ -460,8 +461,8 @@ n ÷⍨ +/ experiment_mean&lt;sampling_means</code></pre>
 </div>
 </div>
 </section>
-<section id="p-value-on-different-means" class="level3">
-<h3 class="anchored" data-anchor-id="p-value-on-different-means">P value on different means</h3>
+<section id="p-value-on-different-means" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="p-value-on-different-means"><span class="header-section-number">3.2.2</span> P value on different means</h3>
 <div class="cell">
 <pre class="apl cell-code"><code>baseline ← ?10000/0
 experiment ← 0.2-⍨?100/0</code></pre>

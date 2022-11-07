@@ -67,6 +67,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -100,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://mathstodon.xyz/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -156,14 +157,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tabular-data" id="toc-tabular-data" class="nav-link active" data-scroll-target="#tabular-data">Tabular Data</a></li>
-  <li><a href="#moving-average" id="toc-moving-average" class="nav-link" data-scroll-target="#moving-average">Moving Average</a>
+  <li><a href="#tabular-data" id="toc-tabular-data" class="nav-link active" data-scroll-target="#tabular-data"><span class="toc-section-number">1</span>  Tabular Data</a></li>
+  <li><a href="#moving-average" id="toc-moving-average" class="nav-link" data-scroll-target="#moving-average"><span class="toc-section-number">2</span>  Moving Average</a>
   <ul class="collapse">
-  <li><a href="#load-data-from-csv" id="toc-load-data-from-csv" class="nav-link" data-scroll-target="#load-data-from-csv">Load Data from CSV</a></li>
-  <li><a href="#filter-for-1-ticker" id="toc-filter-for-1-ticker" class="nav-link" data-scroll-target="#filter-for-1-ticker">Filter for 1 ticker</a></li>
-  <li><a href="#calculate-moving-average" id="toc-calculate-moving-average" class="nav-link" data-scroll-target="#calculate-moving-average">Calculate Moving Average</a></li>
-  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
-  <li><a href="#full-solution" id="toc-full-solution" class="nav-link" data-scroll-target="#full-solution">Full Solution</a></li>
+  <li><a href="#load-data-from-csv" id="toc-load-data-from-csv" class="nav-link" data-scroll-target="#load-data-from-csv"><span class="toc-section-number">2.1</span>  Load Data from CSV</a></li>
+  <li><a href="#filter-for-1-ticker" id="toc-filter-for-1-ticker" class="nav-link" data-scroll-target="#filter-for-1-ticker"><span class="toc-section-number">2.2</span>  Filter for 1 ticker</a></li>
+  <li><a href="#calculate-moving-average" id="toc-calculate-moving-average" class="nav-link" data-scroll-target="#calculate-moving-average"><span class="toc-section-number">2.3</span>  Calculate Moving Average</a></li>
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="toc-section-number">2.4</span>  Plot</a></li>
+  <li><a href="#full-solution" id="toc-full-solution" class="nav-link" data-scroll-target="#full-solution"><span class="toc-section-number">2.5</span>  Full Solution</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,8 +175,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="tabular-data" class="level1">
-<h1>Tabular Data</h1>
+<section id="tabular-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Tabular Data</h1>
 <p>This article will get us started reading and working with tabular data. The goal is to read in some csv data, do a few basic operations (filtering, aggregation, etc.), and create some basic plots.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>]box on -style=max</code></pre>
@@ -187,8 +188,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="moving-average" class="level1">
-<h1>Moving Average</h1>
+<section id="moving-average" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Moving Average</h1>
 <p>We will start with a moving average as the simplest model. To do this we need to accomplish a few things:</p>
 <ol type="1">
 <li>Load data from CSV</li>
@@ -196,8 +197,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Calculate Moving Average</li>
 <li>Plot</li>
 </ol>
-<section id="load-data-from-csv" class="level2">
-<h2 class="anchored" data-anchor-id="load-data-from-csv">Load Data from CSV</h2>
+<section id="load-data-from-csv" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="load-data-from-csv"><span class="header-section-number">2.1</span> Load Data from CSV</h2>
 <p>APL has a CSV function to read csv data in that we can use. I am using simple stock ticker data for a moving average.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>eod ← 'eod-quotemedia.csv'
@@ -235,8 +236,8 @@ eod_ar ← ⎕CSV eod '' 4
 </div>
 </div>
 </section>
-<section id="filter-for-1-ticker" class="level2">
-<h2 class="anchored" data-anchor-id="filter-for-1-ticker">Filter for 1 ticker</h2>
+<section id="filter-for-1-ticker" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="filter-for-1-ticker"><span class="header-section-number">2.2</span> Filter for 1 ticker</h2>
 <p>Next, we need to filter for a particular ticker. The first thing we need to know is where the column we want to sort on is located. We can of course see that it’s the second column, but let’s pretend we need to use APL for this to get some practice.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>⎕ ← ticker_loc ← ,/ ⍸ 1⌷eod_ar ∊ ⊂'ticker'</code></pre>
@@ -309,8 +310,8 @@ AAPL ← eod_ar ⌿⍨ eod_ar[;col_loc] ∊ ⊂ 'AAPL'  ⍝ Filter Array
 </div>
 </div>
 </section>
-<section id="calculate-moving-average" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-moving-average">Calculate Moving Average</h2>
+<section id="calculate-moving-average" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="calculate-moving-average"><span class="header-section-number">2.3</span> Calculate Moving Average</h2>
 <p>We will calculate a 90 period moving average over the stock prices for the AAPL ticker we just filtered for.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>ws ← 90</code></pre>
@@ -360,8 +361,8 @@ AAPL ← eod_ar ⌿⍨ eod_ar[;col_loc] ∊ ⊂ 'AAPL'  ⍝ Filter Array
 <pre class="apl cell-code"><code>movavg ← (ws ↑ AAPL[;3]) , ws ÷⍨ ws +⌿ AAPL[;3]</code></pre>
 </div>
 </section>
-<section id="plot" class="level2">
-<h2 class="anchored" data-anchor-id="plot">Plot</h2>
+<section id="plot" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="plot"><span class="header-section-number">2.4</span> Plot</h2>
 <p>We can not plot our original data with our moving average. It’s a bit annoying I have to pass in <code>movavg</code> twice to get it to work. It is probably something I am not understanding about how plotting works in APL.</p>
 <div class="cell">
 <pre class="apl cell-code"><code>]Plot AAPL[;3] movavg movavg</code></pre>
@@ -442,8 +443,8 @@ AAPL ← eod_ar ⌿⍨ eod_ar[;col_loc] ∊ ⊂ 'AAPL'  ⍝ Filter Array
 </div>
 </div>
 </section>
-<section id="full-solution" class="level2">
-<h2 class="anchored" data-anchor-id="full-solution">Full Solution</h2>
+<section id="full-solution" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="full-solution"><span class="header-section-number">2.5</span> Full Solution</h2>
 <div class="cell">
 <pre class="apl cell-code"><code>eod_ar ← ⎕CSV 'eod-quotemedia.csv' '' 4
 col_loc ← ,/ ⍸ 1⌷eod_ar ∊ ⊂'ticker'       
