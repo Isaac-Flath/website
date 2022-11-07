@@ -2,8 +2,12 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/PythonTips/Python.html",
-      "/posts/K-Means/KMeansFromScratch.html"
+      "/posts/Python/Python.html",
+      "/posts/Clustering/KMeansFromScratch.html",
+      "/posts/APL/Basic Stats.html",
+      "/posts/APL/MatrixMultiplication.html",
+      "/posts/APL/Fastai_Numerical_Linear_Algebra_1.html",
+      "/posts/APL/TabularData.html"
     ]
   }
 ]
