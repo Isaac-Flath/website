@@ -1,45 +1,143 @@
 [
   {
-    "objectID": "posts/K-Means/ClusteringFromScratch.html",
-    "href": "posts/K-Means/ClusteringFromScratch.html",
+    "objectID": "posts/K-Means/KMeansFromScratch.html",
+    "href": "posts/K-Means/KMeansFromScratch.html",
     "title": "K-Means From Scratch",
     "section": "",
     "text": "import math, random, matplotlib.pyplot as plt, operator, torch\nfrom functools import partial\nfrom fastcore.all import *\nfrom torch.distributions.multivariate_normal import MultivariateNormal\nfrom torch import tensor\n\n\ntorch.manual_seed(42)\ntorch.set_printoptions(precision=3, linewidth=140, sci_mode=False)\n\n\ndef plot_data(centroids:torch.Tensor,# Centroid coordinates\n              data:torch.Tensor, # Data Coordinates\n              n_samples:int, # Number of samples\n              ax:plt.Axes=None # Matplotlib Axes object\n             )-> None:\n    '''Creates a visualization of centroids and data points for clustering problems'''\n    if ax is None: _,ax = plt.subplots()\n    for i, centroid in enumerate(centroids):\n        samples = data[i*n_samples:(i+1)*n_samples]\n        ax.scatter(samples[:,0], samples[:,1], s=1)\n        ax.plot(*centroid, markersize=10, marker=\"x\", color='k', mew=5)\n        ax.plot(*centroid, markersize=5, marker=\"x\", color='m', mew=2)"
   },
   {
-    "objectID": "posts/K-Means/ClusteringFromScratch.html#calculate-distance",
-    "href": "posts/K-Means/ClusteringFromScratch.html#calculate-distance",
+    "objectID": "posts/K-Means/KMeansFromScratch.html#calculate-distance",
+    "href": "posts/K-Means/KMeansFromScratch.html#calculate-distance",
     "title": "K-Means From Scratch",
     "section": "Calculate Distance",
     "text": "Calculate Distance\nIn order to initialize our centroids we need to be able to calculate distances, so let’s do that first.\nGiven a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract centroids coordinates from data points coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root\nThat gives us the euclidean distance between each data point and each centroid.\n\ndef calculate_distances(centroids:torch.Tensor, # Centroid coordinates\n                        data:torch.Tensor # Data points you want to cluster\n                       )-> torch.Tensor: # Tensor containing euclidean distance between each centroid and data point    \n    '''Calculate distance between centroids and each datapoint'''\n    axis_distances = data.reshape(-1,1,2).sub(centroids.reshape(1,-1,2)).abs()\n    euclid_distances = axis_distances.square().sum(axis=-1).sqrt()\n    return euclid_distances"
   },
   {
-    "objectID": "posts/K-Means/ClusteringFromScratch.html#initialize-centroids",
-    "href": "posts/K-Means/ClusteringFromScratch.html#initialize-centroids",
+    "objectID": "posts/K-Means/KMeansFromScratch.html#initialize-centroids",
+    "href": "posts/K-Means/KMeansFromScratch.html#initialize-centroids",
     "title": "K-Means From Scratch",
     "section": "Initialize Centroids",
     "text": "Initialize Centroids\nWhere we initialize our centroids is really important. If we don’t have good initialization we are very likely to get stuck in a local optimum. Especially with 6 centroids. One option is to run the algorithm many times and pick the best solution, but it’s a much better idea to try to have good initializations.\nWe pick centroid locations in the following way:\n\nPick a random data point and use those coordinates as the first centroid\nLoop to create remaining centroids\n\nCalculate the distance between existing centroids and data points.\nGet the distance from each data point to it’s closest centroid\nPlace the next centroid at the point with the max distance from previous step\n\n\nThis ensures we get initialization that are nice and far away from each other and spread out amonth the data, minimizing the risk of hitting local optimums.\n\ndef initialize_centroids(data:torch.Tensor,# Data points you want to cluster\n                         k:torch.Tensor # Number of centroids you want to initialize\n                        )->torch.Tensor: # Returns starting centroid coordinates\n    '''Initialize starting points for centroids as far from each other as possible.'''\n    pred_centroids = data[random.sample(range(0,len(data)),1)]\n    for i in range(k-1): \n        _centroid = data[calculate_distances(pred_centroids,data).min(axis=1).values.argmax()]\n        pred_centroids = torch.stack([*pred_centroids,_centroid])\n    return pred_centroids"
   },
   {
-    "objectID": "posts/K-Means/ClusteringFromScratch.html#classify-data-points",
-    "href": "posts/K-Means/ClusteringFromScratch.html#classify-data-points",
+    "objectID": "posts/K-Means/KMeansFromScratch.html#classify-data-points",
+    "href": "posts/K-Means/KMeansFromScratch.html#classify-data-points",
     "title": "K-Means From Scratch",
     "section": "Classify Data Points",
     "text": "Classify Data Points\nOnce we have centroids (or updated centroids), we need to assign a centroid to each data point. We do this by calculating the distance between each data point and each centroid, and assigning each datapoint to it’s closes centroid.\n\ndef assign_centroids(centroids:torch.Tensor, # Centroid coordinates\n                     data:torch.Tensor # Data points you want to cluster\n                    )->torch.Tensor: # Tensor containing new centroid assignments for each data point\n    '''Based on distances update centroid assignments'''\n    euclid_distances = calculate_distances(centroids,data)\n    assigned_cluster = euclid_distances.squeeze().argmin(axis=1)\n    return assigned_cluster"
   },
   {
-    "objectID": "posts/K-Means/ClusteringFromScratch.html#update-centroids",
-    "href": "posts/K-Means/ClusteringFromScratch.html#update-centroids",
+    "objectID": "posts/K-Means/KMeansFromScratch.html#update-centroids",
+    "href": "posts/K-Means/KMeansFromScratch.html#update-centroids",
     "title": "K-Means From Scratch",
     "section": "Update Centroids",
     "text": "Update Centroids\nTo update the centroid locations, we take the mean of all the data point assigned to that centroid. We make the new centroid that point.\n\ndef update_centroids(centroid_assignments:torch.Tensor, # Centroid coordinates\n                     data:torch.Tensor # Data points you want to cluster\n                    )->torch.Tensor: # Tensor containing updated centroid coodinates\n    '''Update centroid locations'''\n    n_centroids = len(centroid_assignments.unique())\n    pred_centroids = [data[centroid_assignments==i].mean(axis=0) for i in range(n_centroids)]\n    return torch.stack(pred_centroids)"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html",
+    "href": "posts/PythonTips/Python.html",
+    "title": "Python Programming Tips",
+    "section": "",
+    "text": "Code\nfrom functools import partial\nfrom datetime import datetime\nimport logging, string, pandas as pd, sqlparse\nfrom fastcore.all import *\nfrom fastcore.docments import *\nfrom IPython.display import Markdown,display, HTML\nimport pandas as pd\n\nfrom pygments import highlight\nfrom pygments.lexers import PythonLexer\nfrom pygments.formatters import HtmlFormatter\n\ndef print_function_source(fn):\n    fn = print_decorator\n    formatter = HtmlFormatter()\n    display(HTML('<style type=\"text/css\">{}</style>{}'.format(\n        formatter.get_style_defs('.highlight'),\n        highlight(inspect.getsource(fn), PythonLexer(), formatter))))"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#parallel-processing",
+    "href": "posts/PythonTips/Python.html#parallel-processing",
+    "title": "Python Programming Tips",
+    "section": "Parallel Processing",
+    "text": "Parallel Processing\nSee this blog post\n\nDocments\nNice way of documenting code concisely and being able to access info from code. It’s concise, easy to manipulate to display how you want, and easy to read. I much prefer it over the large numpy style docstrings that are big string blocks\n\nfrom fastcore.docments import *\n\ndef distance(pointa:tuple,  # tuple representing the coordinates of the first point (x,y)\n             pointb:tuple=(0,0) # tuple representing the coordinates of the first point (x,y)\n            )->float: # float representing distance between pointa and pointb\n    '''Calculates the distance between pointa and pointb'''\n    edges = np.abs(np.subtract(pointa,pointa))\n    distance = np.sqrt((edges**2).sum())\n    return distance\n\n\ndocstring(distance)\n\n'Calculates the distance between pointa and pointb'\n\n\n\ndocments(distance)\n\n{ 'pointa': 'tuple representing the coordinates of the first point (x,y)',\n  'pointb': 'tuple representing the coordinates of the first point (x,y)',\n  'return': 'float representing distance between pointa and pointb'}\n\n\n\ndocments(distance,full=True)\n\n{ 'pointa': { 'anno': <class 'tuple'>,\n              'default': <class 'inspect._empty'>,\n              'docment': 'tuple representing the coordinates of the first '\n                         'point (x,y)'},\n  'pointb': { 'anno': <class 'tuple'>,\n              'default': (0, 0),\n              'docment': 'tuple representing the coordinates of the first '\n                         'point (x,y)'},\n  'return': { 'anno': <class 'float'>,\n              'default': <class 'inspect._empty'>,\n              'docment': 'float representing distance between pointa and '\n                         'pointb'}}\n\n\n\n\nTesting\nEveryone agrees testing is important. But not all testing is equal. The needs for unit testing the google code base are not the same as the needs a data scientist needs for building and deploying models, libraries, and most software.\nFastcore is a great tool for most of my testing needs. Fast and simple enough that I can add tests as I build and as I am exploring and building models. I want testing to enhance my development workflow, not be something I have to painstakingly build at the end.\nSometimes simple assert statements are sufficient, but there’s small annoyances. For example, a small change in type can mean a failed test. Sometimes that change in type should cause a failure, sometimes I’m ok if it’s a different type if the values are the same\n\nfrom fastcore.test import *\n\n\ntest_eq([1,2],(1,2))\n\nFor floating points it has handy functionality for that, which is very common in data science. For example, we may want .1 + .1 + .1 == .3 to be true, because they are close enough based on floating point precision\n\n.1 + .1 + .1 == .3\n\nFalse\n\n\n\ntest_close(.1 + .1 + .1, .3)\n\nWe can test that something fails, if there are particular situation we want to ensure raise errors.\n\ndef _fail(): raise Exception(\"foobar\")\ntest_fail(_fail)\n\nWe can test if 2 lists have the same values, just in different orders (convenient for testing some situations with random mini-batches).\n\na = list(range(5))\nb = a.copy()\nb.reverse()\ntest_shuffled(a,b)\n\nThere’s more of course, check out the docs\n\n\nL\nL is a replacement for a list, but with lots of adding functionality. Some of it are functional programming concepts, some is numpy like stuff, and some is just niceities (like cleaner printing).\n\nalist = L(1,2,3,4,3)\n\n\nalist.sort()\nalist.sorted()\n\n(#5) [1,2,3,3,4]\n\n\n\nalist.unique()\n\n(#4) [1,2,3,4]\n\n\n\nalist.filter(lambda x: x < 3)\n\n(#2) [1,2]\n\n\n\nalist.map(lambda x: x * 2)\n\n(#5) [2,4,6,8,6]\n\n\n\n\nAttrDict\nAttrdict is another nice thing from fastcore, that makes dictionaries a bit nicer to use.\n\nregdict = {'a':2,'b':3}\nadict = AttrDict({'a':2,'b':3})\n\n\nadict\n\n{'a': 2, 'b': 3}\n\n\n\nadict.a\n\n2\n\n\n\ndef _fail(): return regdict.a\ntest_fail(_fail)"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#filter",
+    "href": "posts/PythonTips/Python.html#filter",
+    "title": "Python Programming Tips",
+    "section": "Filter",
+    "text": "Filter\nFilter is a common higher order function.\n\nL(1,2,3,4,5).filter(lambda x: x>3)\n\n(#2) [4,5]\n\n\nThis is very flexible because we can put filtering logic of any complexity in a function and use that to filter a list of any type."
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#map",
+    "href": "posts/PythonTips/Python.html#map",
+    "title": "Python Programming Tips",
+    "section": "Map",
+    "text": "Map\nMap is another very common higher order function.\n\nL(1,2,3,4,5).map(lambda x: x**2)\n\n(#5) [1,4,9,16,25]\n\n\nIt is again super flexible because we can apply a function of any complexity to have it be applied and modify each element of the list.\n\nL(1,2,3,4,5).map(lambda x: string.ascii_lowercase[x])\n\n(#5) ['b','c','d','e','f']"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#simple-logging",
+    "href": "posts/PythonTips/Python.html#simple-logging",
+    "title": "Python Programming Tips",
+    "section": "Simple Logging",
+    "text": "Simple Logging\nWe could make a function for logging, where we can pass a function in that we want to use for logging (ie info vs warning).\n\ndef log_stuff(msg,fn=logger.info,**kwargs): \n    dt = get_current_time()\n    fn(f\"{dt}|{msg}\")\n    for k,v in kwargs.items(): fn(f\"{dt}|{k}={v}\")\n\n\nlog_stuff('abcd',a=1,b=55)\n\n\n!tail -3 mylog.log\n\nINFO:root:20221106_193211|abcd\nINFO:root:20221106_193211|a=1\nINFO:root:20221106_193211|b=55\n\n\n\nlog_stuff('something might be awry',fn=logger.critical,a=1,b=55)\n\n\n!tail -3 mylog.log\n\nCRITICAL:root:20221106_193211|something might be awry\nCRITICAL:root:20221106_193211|a=1\nCRITICAL:root:20221106_193211|b=55"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#file-processor",
+    "href": "posts/PythonTips/Python.html#file-processor",
+    "title": "Python Programming Tips",
+    "section": "File Processor",
+    "text": "File Processor\nYou can also make a generic file processor that you can pass callbacks to. This file processor can include log statements to log what you’re doing, so you can minimize repeating lots of code. For now, we’ll do a simple processor, and callbacks to clean and format a messy sql file.\n\ndef process_file(fpath,callbacks): \n    with open(fpath, \"r\") as f: contents = f.read()\n    for callback in callbacks: contents = callback(contents)\n    return contents"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#format-and-clean-sql-file",
+    "href": "posts/PythonTips/Python.html#format-and-clean-sql-file",
+    "title": "Python Programming Tips",
+    "section": "Format and clean SQL file",
+    "text": "Format and clean SQL file\n\nsql_formatter_cb = partial(sqlparse.format,\n                strip_comments=True,comma_first=True,\n                keyword_case='upper', identifier_case='lower',\n                reindent=True, indent_width=4,)\n\n\n\nqrys = process_file('test.sql',[sql_formatter_cb,sqlparse.split])\n\n\ndef sql_pprint(sql): display(Markdown(f\"```sql\\n\\n{sql}\\n\\n```\"))\nfor qry in qrys: sql_pprint(qry)\n\n\nSELECT top 25 *\nFROM some_table;\n\n\n\nSELECT count(1)\nFROM another TABLE ;\n\n\n\nSELECT date_time\n     , mbr_id\n     , transactions\n     , count(1)\nFROM table3\nWHERE date_time > '2021-02-02'\nGROUP BY 1\n       , 2\n       , 3;"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#silly-simple-example",
+    "href": "posts/PythonTips/Python.html#silly-simple-example",
+    "title": "Python Programming Tips",
+    "section": "Silly Simple Example",
+    "text": "Silly Simple Example\n\ndef add_another(func):\n    def wrapper(number):\n        print(f\"The decorator took over!\")\n        print(f\"I could log the original number ({number}) here!\")\n        print(f\"Or I could log the original answer ({func(number)}) here!\")\n        return func(number) + 1\n    return wrapper\n    \n@add_another\ndef add_one(number): return number + 1\n\nSo when we use a decorator, the code in the wrapper function is called instead of the original function. Typically the wrapper function calls the original function (otherwise there would be no point in decorating it as you’d just have a new unrelated function)."
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#useful-example",
+    "href": "posts/PythonTips/Python.html#useful-example",
+    "title": "Python Programming Tips",
+    "section": "Useful Example",
+    "text": "Useful Example\nFor example, maybe you want to print (or log) particular function call times and the args. See this decorator that does just that (and can be used on methods too)\n\nfrom datetime import datetime\n\n\ndef print_decorator(func):\n    def wrapper(*args, **kwargs):\n        print(f\"{datetime.now()}:{func}:args={args}:kwargs={kwargs}\")\n        return func(*args, **kwargs)\n    return wrapper\n\n\n@print_decorator\ndef simple_add(a,b): return a + b\n\n\nsimple_add(2,4)\n\n2022-11-02 14:18:56.635936:<function simple_add>:args=(2, 4):kwargs={}\n\n\n6\n\n\n\n@print_decorator\ndef complex_add(a,b,*args,**kwargs): \n    out = a + b\n    for arg in args: out = out + arg\n    for kwarg in kwargs.values(): out = out + kwarg\n    return out\n\n\ncomplex_add(5,2,3,foo=6,bar=10)\n\n2022-11-02 14:18:57.716085:<function complex_add>:args=(5, 2, 3):kwargs={'foo': 6, 'bar': 10}\n\n\n26"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#use-on-existing-functions",
+    "href": "posts/PythonTips/Python.html#use-on-existing-functions",
+    "title": "Python Programming Tips",
+    "section": "Use on Existing Functions",
+    "text": "Use on Existing Functions\nWhat we have seen is applying a decorator to functions we fully define but we can also apply them to previously existing functions like ones we import from a library. This is helpful not just in understanding one way you can extend an existing libraries functionality, but also in understanding what decorators are. They aren’t magical.\nLet’s add logging to pd.DataFrame using our existing decorator so we can see when a dataframe is constructed.\n\nLoggingDataFrame = print_decorator(pd.DataFrame)\ndf = LoggingDataFrame([1,2,3])\n\n2022-11-02 14:53:16.323144:<class 'pandas.core.frame.DataFrame'>:args=([1, 2, 3],):kwargs={}\n\n\n\ndf.head()\n\n\n\n\n\n  \n    \n      \n      0\n    \n  \n  \n    \n      0\n      1\n    \n    \n      1\n      2\n    \n    \n      2\n      3\n    \n  \n\n\n\n\nThe key thing to notice here is that the @ syntax really isn’t doing anything magical. It’s just passing the function into the decorator and using that as the function definition. It’s just syntactic sugar for a higher order function that takes a function and returns a function.\nTo understand why this works, think through what our decorator is doing. 1. It’s a function that takes a function as an argument 2. It creates a new function called wrapper. This wrapper function called the argument passed into it, but also has other code. 3. It returns that function as the output\n\nprint_function_source(print_decorator)\n\ndef print_decorator(func):\n    def wrapper(*args, **kwargs):\n        print(f\"{datetime.now()}:{func}:args={args}:kwargs={kwargs}\")\n        return func(*args, **kwargs)\n    return wrapper"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#silly-simple-example-1",
+    "href": "posts/PythonTips/Python.html#silly-simple-example-1",
+    "title": "Python Programming Tips",
+    "section": "Silly Simple Example",
+    "text": "Silly Simple Example\n\nclass aClass: a = 2\n    \nclass bClass(aClass): pass\n    \naClass.a == bClass.a\n\nTrue"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#useful-examples",
+    "href": "posts/PythonTips/Python.html#useful-examples",
+    "title": "Python Programming Tips",
+    "section": "Useful Examples",
+    "text": "Useful Examples\nIn many cases there are common things we want to inherit in lots of classes. One example is having access to the date. Often you want this for logging, or printing, or any number of things. By subclassing you don’t have to reformat the date each time in your classes.\n\nclass DateMinuteMixin:\n    date_format='%Y%m%d_%H%M%S'\n    dte = datetime.now()\n\n    @property\n    def date_str(self): return self.dte.strftime(self.date_format)\n\nAnother handy use is to have generic behavior for handling different file types. In this case, we have a mixin where it opens and reads a sql file. Rather than rewriting this code for every class that needs to read a sql file, you can inherit from a class when you need that functionality.\n\n\n\n\n\n\nTip\n\n\n\nYou can define an abstract property like below to let users know that after inheriting this class, they need to define that property. In this case, they define the sql_filepath, and they get the contents of the file for free via the other methods.\n\n\n\nimport abc\n\nclass SqlFileMixin:\n    @abc.abstractproperty\n    def sql_filepath(self):\n        pass\n\n    @property\n    def sql_file(self):\n        return open(self.sql_filepath)\n\n    @property\n    def query(self):\n        return self.sql_file.read()"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#silly-simple-example-2",
+    "href": "posts/PythonTips/Python.html#silly-simple-example-2",
+    "title": "Python Programming Tips",
+    "section": "Silly Simple Example",
+    "text": "Silly Simple Example\n\ndef mapper(items,fn):\n    for item in items: yield item\n\n\nit = mapper([2,4,6,8],square)\nit\n\n<generator object mapper>\n\n\n\nnext(it), next(it), next(it)\n\n(2, 4, 6)\n\n\nYou can also process it sequentially in a loop.\n\nfor item in mapper([2,4,6,8],square): \n    print(item)\n\n2\n4\n6\n8"
+  },
+  {
+    "objectID": "posts/PythonTips/Python.html#useful-example-1",
+    "href": "posts/PythonTips/Python.html#useful-example-1",
+    "title": "Python Programming Tips",
+    "section": "Useful Example",
+    "text": "Useful Example\n\nFile Streaming\n\nprint_plus = partial(print,end='\\n++++++\\n')\n\nwith open('test.txt', 'rb') as f:\n    iterator = iter(partial(f.read, 64), b'')\n    print_plus(type(iterator))\n    for block in iterator: print_plus(block)\n\n<class 'callable_iterator'>\n++++++\nb'one\\ntwo\\nthree\\nfour\\nfive\\nsix\\nseven\\neight\\nnine\\nten\\neleven\\ntwelve\\nt'\n++++++\nb'hirteen\\nninety nine thousand nine hundred ninety\\nninety nine tho'\n++++++\nb'usand nine hundred ninety one\\nninety nine thousand nine hundred '\n++++++\nb'ninety two\\nninety nine thousand nine hundred ninety three\\nninety'\n++++++\nb' nine thousand nine hundred ninety four\\nninety nine thousand nin'\n++++++\nb'e hundred ninety five\\nninety nine thousand nine hundred ninety s'\n++++++\nb'ix\\nninety nine thousand nine hundred ninety seven\\nninety nine th'\n++++++\nb'ousand nine hundred ninety eight\\nninety nine thousand nine hundr'\n++++++\nb'ed ninety nine\\n'\n++++++"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Isaac’s Tech Blog",
     "section": "",
-    "text": "K-Means From Scratch\n\n\n\n\n\n\n\nClustering\n\n\n\n\nA deep dive on K-Means where smart initialization and the full algorithm is implemented from scratch using pytorch\n\n\n\n\n\n\nNov 6, 2022\n\n\nIsaac Flath\n\n\n\n\n\n\nNo matching items"
+    "text": "Python Programming Tips\n\n\n\n\n\n\n\nPython\n\n\nProgramming\n\n\n\n\nA list of handy tips and tricks when programming in python\n\n\n\n\n\n\nNov 6, 2022\n\n\nIsaac Flath\n\n\n\n\n\n\n  \n\n\n\n\nK-Means From Scratch\n\n\n\n\n\n\n\nClustering\n\n\nPython\n\n\n\n\nA deep dive on K-Means where smart initialization and the full algorithm is implemented from scratch using pytorch\n\n\n\n\n\n\nNov 5, 2022\n\n\nIsaac Flath\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
