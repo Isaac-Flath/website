@@ -15,7 +15,7 @@ about:
       href: https://twitter.com/isaac_flath
     - icon: mastadon
       text: Mastadon
-      href: https://mathstodon.xyz/web/@isaac_flath
+      href: https://sigmoid.social/web/@isaac_flath
         
 ---
 
@@ -33,8 +33,8 @@ My primary hobby is dance.  I used to teach ballroom dance, but now I mostly dan
 
 ## My professional journey in stages 🚀
 
-1. **My Start*:  assembly line worker ➢ assembly line management ➢ assembly line efficiency optimization
-2. **Moving up**: business process engineering ➢ product management
-3. **My Data Start**: data Analyst ➢ dynamics CRM developer
-4. **Trying New Things**: accounting ➢ call center ➢ full-time ballroom dance teacher
-5. **Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data scientist
+**My Start**:  assembly line worker ➢ assembly line management ➢ assembly line efficiency optimization
+**Moving up**: business process engineering ➢ product management
+**My Data Start**: data Analyst ➢ dynamics CRM developer
+**Trying New Things**: accounting ➢ call center ➢ full-time ballroom dance teacher
+**Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data scientist
