@@ -41,4 +41,4 @@ My primary hobby is dance.  I used to teach ballroom dance, but now I mostly dan
 
 **Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data science
 
-Find me on: <a rel="me" href="https://sigmoid.social/@isaac_flath">Mastodon</a>
+<a rel="me" href="https://sigmoid.social/@isaac_flath"></a>
