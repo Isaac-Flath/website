@@ -12,7 +12,7 @@ website:
         href: https://github.com/isaac-flath
       - icon: twitter
         href: https://twitter.com/isaac_flath
-      - icon: mastadon
+      - icon: mastodon
         href: https://mathstodon.xyz/web/@isaac_flath
 format:
   html:
