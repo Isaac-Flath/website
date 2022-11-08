@@ -9,7 +9,28 @@
       "/posts/TimeSeries/SimpleTimeSeries.html",
       "/posts/APL/MatrixMultiplication.html",
       "/posts/APL/Fastai_Numerical_Linear_Algebra_1.html",
-      "/posts/APL/TabularData.html"
+      "/posts/APL/TabularData.html",
+      "/posts/Python/CodingStyle.html",
+      "/posts/Other/MarketingAttribution.html",
+      "/posts/NeuralNetworks/ChatBots.html",
+      "/posts/Other/MultiArmedBandits.html",
+      "/posts/Python/PythonConcurrency.html",
+      "/posts/GenerativeModels/CycleGanWalkThrough.html",
+      "/posts/GenerativeModels/StyleGanComponents.html",
+      "/posts/GenerativeModels/GANIntroduction.html",
+      "/posts/NeuralNetworks/PlantPathologyKaggle.html",
+      "/posts/NeuralNetworks/NeuralNetworksXOR.html",
+      "/posts/Tabular/TabularModeling.html",
+      "/posts/NeuralNetworks/PseudoLabelingDataCleaning.html",
+      "/posts/Tabular/PartialDependencePlotting.html",
+      "/posts/NeuralNetworks/RNNFoundations.html",
+      "/posts/NeuralNetworks/NLPTokenizationFoundations.html",
+      "/posts/NeuralNetworks/MixupDeepDive.html",
+      "/posts/NeuralNetworks/NeuralNetworkFoundationsP2.html",
+      "/posts/NeuralNetworks/NeuralNetworkFoundationsP1.html",
+      "/posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html",
+      "/posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html",
+      "/posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html"
     ]
   }
 ]

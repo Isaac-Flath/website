@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.156">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2021-02-20">
+<meta name="description" content="Summarizing the foundational concepts relating to GANs">
+
+<title>myblog - GAN Introduction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">myblog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/isaac-flath"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/isaac_flath"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">GAN Introduction</h1>
+                  <div>
+        <div class="description">
+          Summarizing the foundational concepts relating to GANs
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Neural Networks</div>
+                <div class="quarto-category">Image Generation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 20, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose"><span class="toc-section-number">1</span>  Purpose</a></li>
+  <li><a href="#what-is-a-gan-and-what-can-it-do" id="toc-what-is-a-gan-and-what-can-it-do" class="nav-link" data-scroll-target="#what-is-a-gan-and-what-can-it-do"><span class="toc-section-number">2</span>  What is a GAN and what can it do?</a>
+  <ul class="collapse">
+  <li><a href="#a-gan-can-enhance-images" id="toc-a-gan-can-enhance-images" class="nav-link" data-scroll-target="#a-gan-can-enhance-images"><span class="toc-section-number">2.1</span>  A GAN can enhance images</a></li>
+  <li><a href="#a-gan-can-change-image-style" id="toc-a-gan-can-change-image-style" class="nav-link" data-scroll-target="#a-gan-can-change-image-style"><span class="toc-section-number">2.2</span>  A GAN can change image style</a></li>
+  <li><a href="#a-gan-can-create-new-images" id="toc-a-gan-can-create-new-images" class="nav-link" data-scroll-target="#a-gan-can-create-new-images"><span class="toc-section-number">2.3</span>  A GAN can create new images</a></li>
+  <li><a href="#a-gan-can-help-you-draw" id="toc-a-gan-can-help-you-draw" class="nav-link" data-scroll-target="#a-gan-can-help-you-draw"><span class="toc-section-number">2.4</span>  A GAN can help you draw</a></li>
+  <li><a href="#a-gan-can-compose-music" id="toc-a-gan-can-compose-music" class="nav-link" data-scroll-target="#a-gan-can-compose-music"><span class="toc-section-number">2.5</span>  A GAN can compose music</a></li>
+  </ul></li>
+  <li><a href="#how-does-it-work" id="toc-how-does-it-work" class="nav-link" data-scroll-target="#how-does-it-work"><span class="toc-section-number">3</span>  How Does it Work?</a>
+  <ul class="collapse">
+  <li><a href="#how-they-train-together" id="toc-how-they-train-together" class="nav-link" data-scroll-target="#how-they-train-together"><span class="toc-section-number">3.1</span>  How they train together</a></li>
+  </ul></li>
+  <li><a href="#first-challenges" id="toc-first-challenges" class="nav-link" data-scroll-target="#first-challenges"><span class="toc-section-number">4</span>  First Challenges</a>
+  <ul class="collapse">
+  <li><a href="#co-learning" id="toc-co-learning" class="nav-link" data-scroll-target="#co-learning"><span class="toc-section-number">4.1</span>  Co-learning</a></li>
+  <li><a href="#mode-collapse" id="toc-mode-collapse" class="nav-link" data-scroll-target="#mode-collapse"><span class="toc-section-number">4.2</span>  Mode Collapse</a></li>
+  </ul></li>
+  <li><a href="#improvements-tweaks" id="toc-improvements-tweaks" class="nav-link" data-scroll-target="#improvements-tweaks"><span class="toc-section-number">5</span>  Improvements &amp; Tweaks</a>
+  <ul class="collapse">
+  <li><a href="#conditional-gans" id="toc-conditional-gans" class="nav-link" data-scroll-target="#conditional-gans"><span class="toc-section-number">5.1</span>  Conditional GANs</a></li>
+  <li><a href="#controllable-gans" id="toc-controllable-gans" class="nav-link" data-scroll-target="#controllable-gans"><span class="toc-section-number">5.2</span>  Controllable GANs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="purpose" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Purpose</h1>
+<p>This blog is targeted to people wanting a general intuition about GANs. We will talk about the most basic high level concepts to understand, not going to cover how to code one or build one</p>
+<p>You do not need to understand GANs prior to reading this post. I do assume that you generally are familiar with modeling.</p>
+</section>
+<section id="what-is-a-gan-and-what-can-it-do" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> What is a GAN and what can it do?</h1>
+<p>A GAN is a Generative Adversarial Network. They excel in creating data. Let’s take a look at a few examples:</p>
+<section id="a-gan-can-enhance-images" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="a-gan-can-enhance-images"><span class="header-section-number">2.1</span> A GAN can enhance images</h2>
+<p>Google Brain did research to show how GANs can be used to enhance images. The left super blurry unrecognizable pictures were given to a GAN. The Middle column is what the GAN made when enhancing the image. The right column is what the image should look like if the GAN was perfect.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../_my_icons/SuperEnhancement.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Image Enhancement</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="a-gan-can-change-image-style" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="a-gan-can-change-image-style"><span class="header-section-number">2.2</span> A GAN can change image style</h2>
+<p>We can also transfer images from one style to another. Whether that’s changing video of a horse to a zerbra or combining photos with art, <a href="https://medium.com/@purnasaigudikandula/artistic-neural-style-transfer-with-pytorch-1543e08cc38f">this medium aricle</a> shows a cool example!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../_my_icons/DogStyleTransfer.jpeg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Dog Style Transfer</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="a-gan-can-create-new-images" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="a-gan-can-create-new-images"><span class="header-section-number">2.3</span> A GAN can create new images</h2>
+<p>In the paper <a href="https://arxiv.org/pdf/1710.10196.pdf">Progressive Growing of GANs for Improved Quality, Stability, and Variation</a>, NVIDIA showed the capability of GANs to create realistic super resolution photos of people that do not exist. These are fictional people made up by the GAN.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../_my_icons/SuperResolution.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Super Resolution Images</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="a-gan-can-help-you-draw" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="a-gan-can-help-you-draw"><span class="header-section-number">2.4</span> A GAN can help you draw</h2>
+<p>NVIDIA again shows a really cool video of how basic sketches can be turned into realistic photos. I can imagine how this could help people create art, visualize designs, and more!</p>
+<p></p>
+</section>
+<section id="a-gan-can-compose-music" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="a-gan-can-compose-music"><span class="header-section-number">2.5</span> A GAN can compose music</h2>
+<p>Another example is this song that was composed by AI. The lyrics is a person, but the instrumentation is AI - a great example of Machine-Human collaboration. You can see the GAN understood basic musical phrasing, hits, understood it can build to hits and go quiet for a couple beats before a large hit to add impact. If I didn’t know, I wouldn’t have realized is was using AI</p>
+<p></p>
+</section>
+</section>
+<section id="how-does-it-work" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> How Does it Work?</h1>
+<p>This is more complex than your average Neural Network because it is relying on 2 (or more) Neural Networks training in conjunction. You have 2 models with different roles:</p>
+<p>The Critic is the quality gauge on the Generator while the generator is what’s actually producing the data. Let’s look at a summary of each of those.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../_my_icons/CriticGenerator.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Critic Generator Summary</figcaption><p></p>
+</figure>
+</div>
+<section id="how-they-train-together" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="how-they-train-together"><span class="header-section-number">3.1</span> How they train together</h2>
+<p>There is a big loop where they pass information back and forth an dlearn. Here’s generally how it works</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../_my_icons/GANTrainingLoop.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">GAN Training Loop</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="first-challenges" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> First Challenges</h1>
+<section id="co-learning" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="co-learning"><span class="header-section-number">4.1</span> Co-learning</h2>
+<p>As these models learn together they need to be evenly match in terms of skill. This can be especially challenging because the critic has a much easier job. Think about it. You paint a fake Monet and I will determine whether it’s a real Monet or a fake. Who do you think will be more competent at their task? Clearly painting the Monet is the much harder job.</p>
+<p>So what can we do about it? The simplest 2 approaches are:</p>
+<ol type="1">
+<li>Set how many times the generator gets updated vs the critic.</li>
+<li>Set the learning rates different for the generator vs the critic</li>
+</ol>
+</section>
+<section id="mode-collapse" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="mode-collapse"><span class="header-section-number">4.2</span> Mode Collapse</h2>
+<p>Mode collapse happens when the generator finds a weakness in the critic and exploits it. For example, the generator might do really well with golden retrievers - so rather than making all types of dogs is just learns to make lots of golden retrievers.</p>
+</section>
+</section>
+<section id="improvements-tweaks" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Improvements &amp; Tweaks</h1>
+<p>What I have covered above is simple data generation in an unsupervised manner. There’s several modification that can be made to let these GANs do fancier things - and Ill briefly touch on two of those here.</p>
+<section id="conditional-gans" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="conditional-gans"><span class="header-section-number">5.1</span> Conditional GANs</h2>
+<p>A conditional GAN is where you can tell it what kind of image you want. For example if you are generating different dog breeds, you tell the GAN you want a specific breed (ie Golden Retriever). The way this works:</p>
+<ol type="1">
+<li>The Generator is given a specific class to generate data for.</li>
+<li>The Critic determines whether is is real or fake data for that class. For example rather than “Predict if this is a real dog or not” it’s “Predict if this is a real golden retriever or not”. In order to fool the critic, the generator now has to not just create a dog - but the right species of dog. The generator could predict a perfect image of a pitbull, but it would be easy for the critic to determine that it’s a not a real golden retriever as pitbulls look completely different!</li>
+</ol>
+</section>
+<section id="controllable-gans" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="controllable-gans"><span class="header-section-number">5.2</span> Controllable GANs</h2>
+<p>A Controllable GAN allows you to control different aspects of the image. For example, I want to be able to take an image and tell it to generate the same image but add a beard. Or generate the same image but make the person look older.</p>
+<p>A bit of background and how it’s accomplished: A generator creates data from random noise vectors. These random noise vectors can be thought of as random seeds in a sense. If I give the generator the exact same vector of random numbers, it will generate the exact same data. So those random number translate to output features in the data, so you can figure out how they map and then tweak away!</p>
+<p>Here’s an example of what Photoshop is working on when it comes to controllable GANs.</p>
+<p></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
