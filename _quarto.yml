@@ -4,7 +4,9 @@ project:
   
 
 website:
-  title: "myblog"
+  title: "IsaacTechBlog"
+  site-url: https://isaac-flath.github.io/TechBlog/
+  description: "Blog for machine learning, programming, computer science and other data science related topics"
   navbar:
     right:
       - about.qmd
