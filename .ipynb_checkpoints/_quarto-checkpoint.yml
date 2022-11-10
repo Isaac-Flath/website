@@ -16,6 +16,8 @@ website:
         href: https://twitter.com/isaac_flath
       - icon: mastodon
         href: https://sigmoid.social/web/@isaac_flath
+      - icon: rss
+        href: index.xml
 format:
   html:
     theme: cosmo
