@@ -43,13 +43,12 @@ My primary hobby is dance.  I used to teach ballroom dance but now I mostly danc
 
 [fastai courses](course.fast.ai)
 
-Tinker with everything.  Try to never ask "Would it work if I did X?".  Instead, try it and see if it works.
+**Tinker with everything.**  Try to never ask "Would it work if I did X?" or "Can I accomplish X by doing Y?".  Instead, try it and see if it works.  It's worth the time investment.
 
-Build build build.  Do projects.  Do projects in parallel with courses, and after courses.  Don't wait.
+**Do projects**  Do projects in parallel with courses, and after courses.  Don't wait.  Build stuff.  Doing projects should be where you put most of your time. 
 
-Teach to learn and build portfolio.  I am a fan of blogging as you can get going quick.  But others have been successful with making courses, podcasts, and youtube series.  Give the lesson or tutorial that would have helped you 6 months ago.
+**Teach to learn**  I think blogging is the fastest way to get started and easiest to be consistent, so go with that unless you have another you are very passionate about.  Others have been successful with making courses, podcasts, and youtube series.  Create the lesson, course, discussion, or tutorial that would have helped you 6 months ago.
 
-Keep at it and be tenacious.  When you go to the gym for the first time you expect some soreness and discomfort.  Over time that soreness and discomfort lessons but it's still there.  Same thing with data science.  There will be discomfort and frustration - push past it.  That's a sign that there's a concept there for you to learn!
-
+**Keep at it** and be tenacious.  There is discomfort with learning any skill. You'll be frustrated at times.  That's a sign that there's a concept worth learning and once you do figure it out you'll have made a big step forward.
 
 <a rel="me" href="https//sigmoid.social/@isaac_flath"></a>
