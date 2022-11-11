@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2022-11-05">
+<meta name="dcterms.date" content="2022-11-10">
 <meta name="description" content="A deep dive on meanshift clustering with the full algorithm implemented from scratch using pytorch">
 
 <title>IsaacTechBlog - MeanShift From Scratch</title>
@@ -147,23 +147,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">About Me</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/isaac-flath"><i class="bi bi-github" role="img">
-</i> 
- <span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/isaac_flath"><i class="bi bi-twitter" role="img">
-</i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
-</i> 
- <span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html">
+ <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="../../index.xml"><i class="bi bi-rss" role="img">
@@ -205,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 5, 2022</p>
+        <p class="date">November 10, 2022</p>
       </div>
     </div>
     
@@ -221,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">1</span>  Setup</a></li>
-  <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro"><span class="toc-section-number">2</span>  Intro</a></li>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="toc-section-number">1</span>  Intro</a></li>
+  <li><a href="#imports-and-setup" id="toc-imports-and-setup" class="nav-link" data-scroll-target="#imports-and-setup"><span class="toc-section-number">2</span>  Imports and setup</a></li>
   <li><a href="#generate-dataset" id="toc-generate-dataset" class="nav-link" data-scroll-target="#generate-dataset"><span class="toc-section-number">3</span>  Generate Dataset</a></li>
   <li><a href="#meanshift" id="toc-meanshift" class="nav-link" data-scroll-target="#meanshift"><span class="toc-section-number">4</span>  Meanshift</a>
   <ul class="collapse">
@@ -231,15 +224,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#update-centroids" id="toc-update-centroids" class="nav-link" data-scroll-target="#update-centroids"><span class="toc-section-number">4.3</span>  Update Centroids</a></li>
   <li><a href="#all-together" id="toc-all-together" class="nav-link" data-scroll-target="#all-together"><span class="toc-section-number">4.4</span>  All Together</a></li>
   </ul></li>
-  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments"><span class="toc-section-number">5</span>  Experiments</a>
+  <li><a href="#train-algorithm" id="toc-train-algorithm" class="nav-link" data-scroll-target="#train-algorithm"><span class="toc-section-number">5</span>  Train Algorithm</a>
   <ul class="collapse">
   <li><a href="#baseline" id="toc-baseline" class="nav-link" data-scroll-target="#baseline"><span class="toc-section-number">5.1</span>  Baseline</a></li>
   <li><a href="#ramp" id="toc-ramp" class="nav-link" data-scroll-target="#ramp"><span class="toc-section-number">5.2</span>  Ramp</a></li>
   <li><a href="#sampling" id="toc-sampling" class="nav-link" data-scroll-target="#sampling"><span class="toc-section-number">5.3</span>  Sampling</a></li>
-  <li><a href="#ball-tree" id="toc-ball-tree" class="nav-link" data-scroll-target="#ball-tree"><span class="toc-section-number">5.4</span>  Ball Tree</a></li>
-  <li><a href="#kd-tree" id="toc-kd-tree" class="nav-link" data-scroll-target="#kd-tree"><span class="toc-section-number">5.5</span>  KD Tree</a></li>
-  <li><a href="#octree" id="toc-octree" class="nav-link" data-scroll-target="#octree"><span class="toc-section-number">5.6</span>  OCTree</a></li>
-  <li><a href="#locality-sensitive-hash" id="toc-locality-sensitive-hash" class="nav-link" data-scroll-target="#locality-sensitive-hash"><span class="toc-section-number">5.7</span>  Locality Sensitive Hash</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -250,21 +239,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="setup" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<section id="intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
+<p>Meanshift is a clustering algorithm in the same family as K-Means. K-Means is the much more widely known well known clustering algorithm, but is advantageous in a lot of situations.</p>
+<p>First, you don’t have to decide how many clusters ahead of time. This is important because in many datasets especially as they get very complex it can be hard to know how many clusters you really should have. Meanshift requires bandwidth which is much easier to select.</p>
+<p>Second, k-means looks at circular clusters. You need to do some custom work to make it work for non-circular clusters. Sometimes data doesn’t split nicely into circular clusters. Meanshift can handle clusters of any shape.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Credit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This follows what Jeremy Howard did in a notebook as part of the <a href="https://www.fast.ai/posts/part2-2022.html">2022 part 2 course</a>. I’m changing a few things, explaining things slightly different, and doing a few additional things - but his lecture covers the bulk of what in here and was the inspiration and starting point!</p>
+</div>
+</div>
+</section>
+<section id="imports-and-setup" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Imports and setup</h1>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, random, matplotlib.pyplot <span class="im">as</span> plt, operator, torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.distributions.multivariate_normal <span class="im">import</span> MultivariateNormal</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> tensor</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>torch.set_printoptions(precision<span class="op">=</span><span class="dv">3</span>, linewidth<span class="op">=</span><span class="dv">140</span>, sci_mode<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_data(centroids:torch.Tensor,<span class="co"># Centroid coordinates</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              data:torch.Tensor, <span class="co"># Data Coordinates</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              n_samples:<span class="bu">int</span>, <span class="co"># Number of samples</span></span>
@@ -277,17 +293,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        ax.scatter(samples[:,<span class="dv">0</span>], samples[:,<span class="dv">1</span>], s<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        ax.plot(<span class="op">*</span>centroid, markersize<span class="op">=</span><span class="dv">10</span>, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">'k'</span>, mew<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ax.plot(<span class="op">*</span>centroid, markersize<span class="op">=</span><span class="dv">5</span>, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">'m'</span>, mew<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</section>
-<section id="intro" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Intro</h1>
-<p>This follows what Jeremy Howard did in a notebook as part of the <a href="https://www.fast.ai/posts/part2-2022.html">2022 part 2 course</a>. I’m changing a few things and explaining things slightly different, but that’s the inspiration and starting point! K-Means is a more well known clustering approach than meanshift, but meanshift is newer and is advantageous in a lot of situations.</p>
-<p>First, you don’t have to decide how many clusters ahead of time. This is important because in many datasets especially as they get very complex it can be hard to know how many clusters you really should have. Meanshift requires bandwidth which is much easier to select.</p>
-<p>Second, k-means looks at circular clusters. You need to do some custom work to make it work for non-circular clusters. Sometimes data doesn’t split nicely into circular clusters. Meanshift handles clusters of any shape.</p>
 </section>
 <section id="generate-dataset" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Generate Dataset</h1>
-<p>I’m doing the same thing Jeremy did as the same dataset can be used, I used his approach and refactored is as I plan to re-use it later on for larger experiments.</p>
+<p>I’m using the same generated data that Jeremy did. I refactored a bit, but it’s the same thing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataset(n_clusters,n_samples):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> torch.rand(n_clusters, <span class="dv">2</span>)<span class="op">*</span><span class="dv">70</span><span class="op">-</span><span class="dv">35</span> <span class="co"># Points between -35 and 35</span></span>
@@ -309,23 +320,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="meanshift" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Meanshift</h1>
-<p>MeanShift is a clustering algorithm. There’s 3 main steps to the process:</p>
-<pre><code>+ Calculate distances between every point
-+ Calculate weights based on distance and bandwidth
-+ Update centroid predictions using weights and distances to calculate weighted average</code></pre>
-<p>Once you have those steps, you can repeat these until you have your final centroid locations</p>
+<p>MeanShift is a clustering algorithm. There’s 3 main steps to the process.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Meanshift Algorithm
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Calculate distances between every point</li>
+<li>Calculate weights based on distance and bandwidth</li>
+<li>Update centroid predictions using weights and distances to calculate weighted average</li>
+</ol>
+</div>
+</div>
+<p>Once you have those steps, you can repeat them until you have your final centroid locations</p>
 <section id="calculate-distance" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="calculate-distance"><span class="header-section-number">4.1</span> Calculate Distance</h2>
-<p>In K-Means, you calculate the distance between each point and the cluster centroids. In meanshift we calculate the distance between each point and every other point.</p>
-<p>Given a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract data points coordinates from all other data point coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root</p>
-<p>That gives us the euclidean distance between each data point.</p>
+<p>In K-Means, you calculate the distance between each point and the cluster centroids. In meanshift we calculate the distance between each point and every other point. Given a tensor of centroid coordinates and a tensor of data coordinates we calculate distance.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Distance Calculation Steps
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Subtract data points coordinates from all other data point coordinates</li>
+<li>Take absolute value of distances</li>
+<li>Pythagorean Calculation
+<ul>
+<li>Square coordinates</li>
+<li>Add them together</li>
+<li>Take the Square Root</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>Let’s put that in a function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_distances(data:torch.Tensor <span class="co"># Data points you want to cluster</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       )<span class="op">-&gt;</span> torch.Tensor: <span class="co"># Tensor containing euclidean distance between each centroid and data point    </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Calculate distance between centroids and each datapoint'''</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    axis_distances <span class="op">=</span> data.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>).sub(data.reshape(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>)).<span class="bu">abs</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    euclid_distances <span class="op">=</span> axis_distances.square().<span class="bu">sum</span>(axis<span class="op">=-</span><span class="dv">1</span>).sqrt()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> euclid_distances</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_distances(data:torch.Tensor <span class="co"># Data points you want to cluster</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                       )<span class="op">-&gt;</span> torch.Tensor: <span class="co"># Tensor containing euclidean distance between each centroid and data point    </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Calculate distance between centroids and each datapoint'''</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    axis_distances <span class="op">=</span> data.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>).sub(data.reshape(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>))<span class="co">#.abs()</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    euclid_distances <span class="op">=</span> axis_distances.square().<span class="bu">sum</span>(axis<span class="op">=-</span><span class="dv">1</span>).sqrt()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> euclid_distances</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="calculate-weights" class="level2" data-number="4.2">
@@ -337,11 +383,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The way we use this is we create a gaussian function to determine the weight based on distance. That looks like this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gaussian(x): <span class="cf">return</span> torch.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>((x))<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (math.sqrt(<span class="dv">2</span><span class="op">*</span>math.pi))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gaussian(x): <span class="cf">return</span> torch.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>((x))<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (math.sqrt(<span class="dv">2</span><span class="op">*</span>math.pi))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>_x<span class="op">=</span>torch.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(_x,gaussian(_x))<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>_x<span class="op">=</span>torch.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.plot(_x,gaussian(_x))<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="MeanShiftFromScratch_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
@@ -362,16 +408,16 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gaussian(x, bw): <span class="cf">return</span> torch.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>((x<span class="op">/</span>bw))<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (bw<span class="op">*</span>math.sqrt(<span class="dv">2</span><span class="op">*</span>torch.pi))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gaussian(x, bw): <span class="cf">return</span> torch.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>((x<span class="op">/</span>bw))<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (bw<span class="op">*</span>math.sqrt(<span class="dv">2</span><span class="op">*</span>torch.pi))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>_x<span class="op">=</span>torch.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">3</span>,figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">3</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a,bw <span class="kw">in</span> <span class="bu">zip</span>(ax,[<span class="fl">.5</span>,<span class="dv">1</span>,<span class="dv">2</span>]):</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    a.plot(_x, gaussian(_x, bw))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    a.set_title(<span class="ss">f"Gaussian with bandwidth=</span><span class="sc">{</span>bw<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    a.set_xlabel(<span class="st">'Distance'</span>)<span class="op">;</span> a.set_ylabel(<span class="st">'Weight'</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>_x<span class="op">=</span>torch.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">3</span>,figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">3</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a,bw <span class="kw">in</span> <span class="bu">zip</span>(ax,[<span class="fl">.5</span>,<span class="dv">1</span>,<span class="dv">2</span>]):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    a.plot(_x, gaussian(_x, bw))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    a.set_title(<span class="ss">f"Gaussian with bandwidth=</span><span class="sc">{</span>bw<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    a.set_xlabel(<span class="st">'Distance'</span>)<span class="op">;</span> a.set_ylabel(<span class="st">'Weight'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="MeanShiftFromScratch_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
@@ -380,200 +426,161 @@ Tip
 <section id="update-centroids" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="update-centroids"><span class="header-section-number">4.3</span> Update Centroids</h2>
 <p>Now that we have our distance and weights we can update our centroid predictions and loop through until the points converge to give us cluster locations. We do this by taking a weighted average of all the other points based (using the weights calculated previously).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift(X):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> gaussian(dist, <span class="fl">2.5</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="all-together" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="all-together"><span class="header-section-number">4.4</span> All Together</h2>
+<p>Now that we have our meanshift function, we can create a function to run the model for several epochs and a function to plot the results. A few nuances here:</p>
+<ul>
+<li>I am making <code>run_exp</code> a higher order function so it’s easy to try tweaks to the algorithm</li>
+<li>I am testing if the coordinates change. If coordinates do not change I consider it converged and stop the training. I will run the model until it converges or after 100 epochs.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_exp(data,fn,max_epochs<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    coord <span class="op">=</span> data.clone() </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_epochs):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        _coord <span class="op">=</span> fn(coord)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i<span class="op">&gt;</span><span class="dv">0</span>) <span class="kw">and</span> (coord<span class="op">==</span>_coord).<span class="bu">all</span>()<span class="op">==</span><span class="va">True</span>: <span class="cf">break</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            coord <span class="op">=</span> _coord</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            p_centroids <span class="op">=</span> torch.unique(coord,dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_centroids,coord,i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next I create a couple functions to help me try things quickly and not have to scroll through duplicate print/plot code lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_results(centroids,p_centroids):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    _,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ax.scatter(p_centroids[:,<span class="dv">0</span>],p_centroids[:,<span class="dv">1</span>],label<span class="op">=</span><span class="st">'Predicted'</span>,marker<span class="op">=</span><span class="st">'x'</span>,s<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centroids[:,<span class="dv">0</span>],centroids[:,<span class="dv">1</span>],label<span class="op">=</span><span class="st">'Target'</span>,marker<span class="op">=</span><span class="st">'o'</span>,s<span class="op">=</span><span class="dv">200</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_results(fn,data):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">%</span>timeit p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Algorithm found </span><span class="sc">{</span>p_centroids<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> Centroids in </span><span class="sc">{</span>p_epochs<span class="sc">}</span><span class="ss"> epochs"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    plot_results(centroids,p_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="train-algorithm" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Train Algorithm</h1>
+<section id="baseline" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="baseline"><span class="header-section-number">5.1</span> Baseline</h2>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Note
+Algorithm Results
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I am calling it <code>meanshift1</code> because we will be iterating on it later to speed the algorithm up.</p>
+<ul>
+<li>Found the right number of centroids (6)</li>
+<li>Converged in 9 epochs</li>
+<li>Plot looks good - centroids are accurately placed</li>
+</ul>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift1(X):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> gaussian(dist, <span class="fl">2.5</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="all-together" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="all-together"><span class="header-section-number">4.4</span> All Together</h2>
-<p>Now that we have our meanshift function, we can create a function to run the model for several epochs and plot it.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_exp(data,fn,max_epochs<span class="op">=</span><span class="dv">100</span>,cuda<span class="op">=</span><span class="va">False</span>):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    coord <span class="op">=</span> data.clone()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cuda: coord <span class="op">=</span> coord.cuda()</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_epochs):</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        coord <span class="op">=</span> fn(coord)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        p_centroids <span class="op">=</span> torch.unique(coord,dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(p_centroids) <span class="op">==</span> <span class="dv">6</span>: <span class="cf">break</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_centroids,coord,i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift1(X):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> gaussian(dist, <span class="fl">2.5</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_results(centroids:torch.Tensor,<span class="co"># Centroid coordinates</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              p_centroids:torch.Tensor, <span class="co"># Data Coordinates</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>              ax:plt.Axes<span class="op">=</span><span class="va">None</span> <span class="co"># Matplotlib Axes object</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>             )<span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Creates a visualization of centroids and data points for clustering problems'''</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>: _,ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    ax.scatter(p_centroids[:,<span class="dv">0</span>],p_centroids[:,<span class="dv">1</span>],label<span class="op">=</span><span class="st">'Predicted'</span>,marker<span class="op">=</span><span class="st">'x'</span>,s<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centroids[:,<span class="dv">0</span>],centroids[:,<span class="dv">1</span>],label<span class="op">=</span><span class="st">'Target'</span>,marker<span class="op">=</span><span class="st">'o'</span>,s<span class="op">=</span><span class="dv">200</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="experiments" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Experiments</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> <span class="dv">6</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">250</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>data,centroids <span class="op">=</span> create_dataset(n_clusters,n_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_data(centroids, data, n_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="MeanShiftFromScratch_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<section id="baseline" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="baseline"><span class="header-section-number">5.1</span> Baseline</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift1(X):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> gaussian(dist, <span class="fl">2.5</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cuda<span class="op">=</span><span class="va">False</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fn<span class="op">=</span>meanshift1</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>p_centroids.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>print_results(meanshift1,data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>127 ms ± 443 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+<pre><code>151 ms ± 457 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+Algorithm found 6 Centroids in 9 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>torch.Size([6, 2])</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_results(centroids,p_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="MeanShiftFromScratch_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+<p><img src="MeanShiftFromScratch_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="ramp" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="ramp"><span class="header-section-number">5.2</span> Ramp</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tri(d, i): <span class="cf">return</span> (<span class="op">-</span>d<span class="op">+</span>i).clamp_min(<span class="dv">0</span>)<span class="op">/</span>i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I tried using a linear decline then flat at 0 instead of a gaussian to see if that speeds things up. This was from Jeremy’s lecture as an idea to try that seemed to work.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Algorithm Results
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Found the right number of centroids (6)</li>
+<li>Converged in 9 epochs</li>
+<li>Plot looks good - centroids are accurately placed</li>
+<li>Ran in same speed as the gaussian. I figure that might change if scaled up and put on a GPU with lots of data. Worth more testing!</li>
+</ul>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift2(X):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> tri(dist, <span class="dv">8</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tri(d, i): <span class="cf">return</span> (<span class="op">-</span>d<span class="op">+</span>i).clamp_min(<span class="dv">0</span>)<span class="op">/</span>i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cuda<span class="op">=</span><span class="va">False</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fn<span class="op">=</span>meanshift2</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>p_centroids.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift2(X):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> tri(dist, <span class="dv">8</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>print_results(meanshift1,data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.41 s ± 9.63 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</code></pre>
+<pre><code>151 ms ± 1.13 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+Algorithm found 6 Centroids in 9 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>torch.Size([24, 2])</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plot_results(centroids,p_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="MeanShiftFromScratch_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+<p><img src="MeanShiftFromScratch_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="sampling" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="sampling"><span class="header-section-number">5.3</span> Sampling</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift3(X):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> X[np.random.choice(<span class="bu">len</span>(X),<span class="dv">150</span>)]</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> calculate_distances(X)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> tri(dist, <span class="dv">6</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is the original meanshift (with gaussian) with a random sample of the data. Even with 20% of the data it got really good centroids (though not perfect) but run much faster. It also converged to 6 cluster in 8 epochs. This seems useful.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Algorithm Results
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Found the right number of centroids (6)</li>
+<li>Converged in 8 epochs</li>
+<li>Plot looks good - centroids are reasonably accurately (but not perfectly) placed</li>
+<li>Ran in less than 10% of the time of the original</li>
+<li>Can control size of random sample based on needs (ie if more accuracy needed)</li>
+</ul>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>cuda<span class="op">=</span><span class="va">False</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>fn<span class="op">=</span>meanshift3</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>p_centroids.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>print_results(meanshift1,data[np.random.choice(<span class="bu">len</span>(data),<span class="dv">300</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>22.5 ms ± 3.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+<pre><code>13.8 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+Algorithm found 6 Centroids in 8 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>torch.Size([6, 2])</code></pre>
+<p><img src="MeanShiftFromScratch_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plot_results(centroids,p_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="MeanShiftFromScratch_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="ball-tree" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="ball-tree"><span class="header-section-number">5.4</span> Ball Tree</h2>
-</section>
-<section id="kd-tree" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="kd-tree"><span class="header-section-number">5.5</span> KD Tree</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> spatial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.spatial</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> meanshift4(X):</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># X = X[np.random.choice(len(X),50)]</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    _dist,idxs <span class="op">=</span> scipy.spatial.KDTree(X).query(X,<span class="dv">100</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    _dist <span class="op">=</span> torch.Tensor(_dist)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    dist <span class="op">=</span> torch.zeros(<span class="bu">len</span>(X),<span class="bu">len</span>(X))</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i,idx <span class="kw">in</span> <span class="bu">enumerate</span>(idxs): dist[i][idx] <span class="op">=</span> _dist[i]</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    weight <span class="op">=</span> tri(dist, <span class="dv">6</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (weight<span class="op">@</span>X<span class="op">/</span>weight.<span class="bu">sum</span>(<span class="dv">1</span>,keepdim<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cuda<span class="op">=</span><span class="va">False</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>fn<span class="op">=</span>meanshift4</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>p_centroids,p_coord,p_epochs <span class="op">=</span> run_exp(data,fn)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>p_centroids.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>2.65 s ± 4.19 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>torch.Size([1, 2])</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plot_results(centroids,p_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="MeanShiftFromScratch_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="octree" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="octree"><span class="header-section-number">5.6</span> OCTree</h2>
-</section>
-<section id="locality-sensitive-hash" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="locality-sensitive-hash"><span class="header-section-number">5.7</span> Locality Sensitive Hash</h2>
 
 
 </section>
@@ -714,6 +721,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath">Mastadon</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 

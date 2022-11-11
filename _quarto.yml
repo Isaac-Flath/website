@@ -1,27 +1,40 @@
 project:
   type: website
   output-dir: docs
-  
-
+execute:
+  freeze: true
 website:
   title: "IsaacTechBlog"
   site-url: https://isaac-flath.github.io/TechBlog/
   description: "Blog for machine learning, programming, computer science and other data science related topics"
   navbar:
     right:
-      - about.qmd
-      - icon: github
-        href: https://github.com/isaac-flath
-      - icon: twitter
-        href: https://twitter.com/isaac_flath
-      - icon: mastodon
-        href: https://sigmoid.social/web/@isaac_flath
+      - text: "About Me"
+        file: index.qmd
+      - text: "Blog"
+        file: blog.qmd
+      - text: "TIL"
+        file: til.qmd
       - icon: rss
         href: index.xml
+  page-footer: 
+    left: "Isaac Flath" 
+    right: 
+      - icon: linkedin
+        text: LinkedIn
+        href: https://linkedin.com/in/isaacflath/
+      - icon: github
+        text: Github
+        href: https://github.com/isaac-flath
+      - icon: twitter
+        text: Twitter
+        href: https://twitter.com/isaac_flath
+      - icon: mastadon
+        text: Mastadon
+        href: https://sigmoid.social/web/@isaac_flath
 format:
   html:
     theme: cosmo
     css: styles.css
-
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>IsaacTechBlog - Isaac’s Tech Blog</title>
+<title>IsaacTechBlog - Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,12 +30,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -60,43 +57,12 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      page: 25,
-    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="IsaacTechBlog" href="index.xml"></head>
+</head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -113,23 +79,16 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">
- <span class="menu-text">About</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page">
+ <span class="menu-text">About Me</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/isaac-flath"><i class="bi bi-github" role="img">
-</i> 
- <span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./blog.html">
+ <span class="menu-text">Blog</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/isaac_flath"><i class="bi bi-twitter" role="img">
-</i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath"><i class="bi bi-mastodon" role="img">
-</i> 
- <span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./til.html">
+ <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="./index.xml"><i class="bi bi-rss" role="img">
@@ -143,1115 +102,60 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Isaac’s Tech Blog</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(29)</span></div><div class="category" data-category="APL">APL <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Clustering">Clustering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Data Exploration">Data Exploration <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Gradient Descent">Gradient Descent <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Image Generation">Image Generation <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Linear Algebra">Linear Algebra <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Neural Networks">Neural Networks <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Optimization">Optimization <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Programming">Programming <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Tabular Modeling">Tabular Modeling <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Testing">Testing <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Time Series">Time Series <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
-
-
-
-
+<div class="quarto-about-jolla">
+  <img src="profile.jpeg" class="about-image
+  round " style="height: 15em; width: 15em;">
+ <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Isaac Flath</h1>
+</div>
+<div class="quarto-title-meta">
+  </div>
+</header><main class="content" id="quarto-document-content">
+<section id="about-me" class="level1">
+<h1>About Me 👋</h1>
+<p>I’m a data scientist with a varied background that likes doing varied things. It’s also given me a wide range of skills that prove useful in all sorts of surprising ways.</p>
+<p>My most important ability is understanding strategic goals and being able to translate that into all the detailed steps needed to get there (and seeing what steps that are not needed). I developed this skill by getting experience in very different roles in lots of different parts of the business.</p>
+<p>My primary hobby is dance. I used to teach ballroom dance but now I mostly dance West Coast Swing as a hobby.</p>
+</section>
+<section id="my-professional-journey-in-stages" class="level1">
+<h1>My professional journey in stages 🚀</h1>
+<p><strong>My Start</strong>: assembly line worker ➢ assembly line management ➢ assembly line efficiency optimization</p>
+<p><strong>Moving up</strong>: business process engineering ➢ product management</p>
+<p><strong>Starting Technical Journey</strong>: data analyst ➢ dynamics CRM developer</p>
+<p><strong>Trying New Things</strong>: accounting ➢ call center ➢ full-time ballroom dance teacher</p>
+<p><strong>Finding my home ❤️</strong>: product owner ➢ machine learning researcher ➢ data science</p>
 <p><a rel="me" href="https://sigmoid.social/@isaac_flath"></a></p>
 
 
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Python,Programming" data-listing-date-sort="1667707200000" data-listing-file-modified-sort="1667870179580" data-listing-reading-time-sort="7.135">
-<div class="thumbnail">
-<p><a href="./posts/Python/Python.html"> <img src="./posts/_TopicImages/python.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Python/Python.html">
-<h3 class="no-anchor listing-title">
-Python Programming Tips
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Programming'); return false;">
-Programming
-</div>
-</div>
-<a href="./posts/Python/Python.html">
-<div class="listing-description">
-<p>A list of handy tips and tricks when programming in python</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Python/Python.html">
-<div class="listing-date">
-Nov 6, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Clustering" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1667864530169" data-listing-reading-time-sort="2.375">
-<div class="thumbnail">
-<p><a href="./posts/Clustering/KMeansFromScratch.html"> <img src="./posts/_TopicImages/clustering.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Clustering/KMeansFromScratch.html">
-<h3 class="no-anchor listing-title">
-K-Means From Scratch
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Clustering'); return false;">
-Clustering
-</div>
-</div>
-<a href="./posts/Clustering/KMeansFromScratch.html">
-<div class="listing-description">
-<p>A deep dive on K-Means where smart initialization and the full algorithm is implemented from scratch using pytorch</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Clustering/KMeansFromScratch.html">
-<div class="listing-date">
-Nov 5, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Time Series,Testing" data-listing-date-sort="1664510400000" data-listing-file-modified-sort="1667864590048" data-listing-reading-time-sort="19.745">
-<div class="thumbnail">
-<p><a href="./posts/Statistics/BasicTesting.html"> <img src="./posts/_TopicImages/TimeSeries.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Statistics/BasicTesting.html">
-<h3 class="no-anchor listing-title">
-Introduction To Statistical Testing
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Time Series'); return false;">
-Time Series
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Testing'); return false;">
-Testing
-</div>
-</div>
-<a href="./posts/Statistics/BasicTesting.html">
-<div class="listing-description">
-<p>An introduction to Statistical Testing applied to Stock Trading</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Statistics/BasicTesting.html">
-<div class="listing-date">
-Sep 30, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="APL,Data Exploration,Testing" data-listing-date-sort="1663646400000" data-listing-file-modified-sort="1667874065949" data-listing-reading-time-sort="8.24">
-<div class="thumbnail">
-<p><a href="./posts/APL/Basic Stats.html"> <img src="./posts/_TopicImages/bootstrap.jpeg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/APL/Basic Stats.html">
-<h3 class="no-anchor listing-title">
-Bootstrapping
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('APL'); return false;">
-APL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Data Exploration'); return false;">
-Data Exploration
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Testing'); return false;">
-Testing
-</div>
-</div>
-<a href="./posts/APL/Basic Stats.html">
-<div class="listing-description">
-<p>Sampling and Bootstrapping Statistics in APL</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/APL/Basic Stats.html">
-<div class="listing-date">
-Sep 20, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Time Series" data-listing-date-sort="1659672000000" data-listing-file-modified-sort="1667864597555" data-listing-reading-time-sort="14.43">
-<div class="thumbnail">
-<p><a href="./posts/TimeSeries/SimpleTimeSeries.html"> <img src="./posts/_TopicImages/TimeSeries.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/TimeSeries/SimpleTimeSeries.html">
-<h3 class="no-anchor listing-title">
-Simple Time Series (Stock Prices)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Time Series'); return false;">
-Time Series
-</div>
-</div>
-<a href="./posts/TimeSeries/SimpleTimeSeries.html">
-<div class="listing-description">
-<p>An introduction to basic time series for stock prediction</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/TimeSeries/SimpleTimeSeries.html">
-<div class="listing-date">
-Aug 5, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="APL,Linear Algebra" data-listing-date-sort="1657425600000" data-listing-file-modified-sort="1667864516579" data-listing-reading-time-sort="5.08">
-<div class="thumbnail">
-<p><a href="./posts/APL/MatrixMultiplication.html"> <img src="./posts/_TopicImages/APL.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/APL/MatrixMultiplication.html">
-<h3 class="no-anchor listing-title">
-Matrix Multiplication
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('APL'); return false;">
-APL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Linear Algebra'); return false;">
-Linear Algebra
-</div>
-</div>
-<a href="./posts/APL/MatrixMultiplication.html">
-<div class="listing-description">
-<p>Matrix multiplication deep dive in APL</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/APL/MatrixMultiplication.html">
-<div class="listing-date">
-Jul 10, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="APL,Linear Algebra" data-listing-date-sort="1657425600000" data-listing-file-modified-sort="1667864517151" data-listing-reading-time-sort="16.065">
-<div class="thumbnail">
-<p><a href="./posts/APL/Fastai_Numerical_Linear_Algebra_1.html"> <img src="./posts/_TopicImages/LinearAlgebra1.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/APL/Fastai_Numerical_Linear_Algebra_1.html">
-<h3 class="no-anchor listing-title">
-Numerical Linear Algebra Part 1
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('APL'); return false;">
-APL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Linear Algebra'); return false;">
-Linear Algebra
-</div>
-</div>
-<a href="./posts/APL/Fastai_Numerical_Linear_Algebra_1.html">
-<div class="listing-description">
-<p>Numerical Linear Algebra Part 1 with translations to APL</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/APL/Fastai_Numerical_Linear_Algebra_1.html">
-<div class="listing-date">
-Jul 10, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="APL,Tabular Modeling" data-listing-date-sort="1657166400000" data-listing-file-modified-sort="1667873914998" data-listing-reading-time-sort="2.855">
-<div class="thumbnail">
-<p><a href="./posts/APL/TabularData.html"> <img src="./posts/_TopicImages/TabularData1.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/APL/TabularData.html">
-<h3 class="no-anchor listing-title">
-Tabular Data Intro
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('APL'); return false;">
-APL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tabular Modeling'); return false;">
-Tabular Modeling
-</div>
-</div>
-<a href="./posts/APL/TabularData.html">
-<div class="listing-description">
-<p>Introduction to tabular data analysis in APL</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/APL/TabularData.html">
-<div class="listing-date">
-Jul 7, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="Python,Programming" data-listing-date-sort="1641013200000" data-listing-file-modified-sort="1667873848972" data-listing-reading-time-sort="3.155">
-<div class="thumbnail">
-<p><a href="./posts/Python/CodingStyle.html"> <img src="./posts/_TopicImages/ModelWhiteboarding.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Python/CodingStyle.html">
-<h3 class="no-anchor listing-title">
-My Coding Style
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Programming'); return false;">
-Programming
-</div>
-</div>
-<a href="./posts/Python/CodingStyle.html">
-<div class="listing-description">
-<p>A summary of what principle guide how I code, and why I don’t do pep8 if left on my own</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Python/CodingStyle.html">
-<div class="listing-date">
-Jan 1, 2022
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="Tabular Modeling" data-listing-date-sort="1626494400000" data-listing-file-modified-sort="1667874110817" data-listing-reading-time-sort="12.305">
-<div class="thumbnail">
-<p><a href="./posts/Other/MarketingAttribution.html"> <img src="./posts/_TopicImages/Algorithm.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Other/MarketingAttribution.html">
-<h3 class="no-anchor listing-title">
-Introduction to Attribution
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Tabular Modeling'); return false;">
-Tabular Modeling
-</div>
-</div>
-<a href="./posts/Other/MarketingAttribution.html">
-<div class="listing-description">
-<p>Last Touch, Multi Touch, and Markov Chain Attribution Introduction</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Other/MarketingAttribution.html">
-<div class="listing-date">
-Jul 17, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="10" data-categories="Neural Networks" data-listing-date-sort="1624420800000" data-listing-file-modified-sort="1667870270698" data-listing-reading-time-sort="0.525">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/ChatBots.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/ChatBots.html">
-<h3 class="no-anchor listing-title">
-Practical Chatbots
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/ChatBots.html">
-<div class="listing-description">
-<p>Improving business processes using ML-Based chatbots</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/ChatBots.html">
-<div class="listing-date">
-Jun 23, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="11" data-categories="Tabular Modeling" data-listing-date-sort="1618459200000" data-listing-file-modified-sort="1667874103458" data-listing-reading-time-sort="7.665">
-<div class="thumbnail">
-<p><a href="./posts/Other/MultiArmedBandits.html"> <img src="./posts/_TopicImages/Algorithm.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Other/MultiArmedBandits.html">
-<h3 class="no-anchor listing-title">
-Multi-Armed Bandits
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Tabular Modeling'); return false;">
-Tabular Modeling
-</div>
-</div>
-<a href="./posts/Other/MultiArmedBandits.html">
-<div class="listing-description">
-<p>How can a Multi Armed Bandit (probabilistic model) help choose the right action</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Other/MultiArmedBandits.html">
-<div class="listing-date">
-Apr 15, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="12" data-categories="Python,Programming" data-listing-date-sort="1617249600000" data-listing-file-modified-sort="1667870188927" data-listing-reading-time-sort="8.215">
-<div class="thumbnail">
-<p><a href="./posts/Python/PythonConcurrency.html"> <img src="./posts/_TopicImages/python.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Python/PythonConcurrency.html">
-<h3 class="no-anchor listing-title">
-Python Concurrency
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Programming'); return false;">
-Programming
-</div>
-</div>
-<a href="./posts/Python/PythonConcurrency.html">
-<div class="listing-description">
-<p>Easy python poncurrency and parallel processing for Data Science</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Python/PythonConcurrency.html">
-<div class="listing-date">
-Apr 1, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="13" data-categories="Neural Networks,Image Generation" data-listing-date-sort="1616212800000" data-listing-file-modified-sort="1667870201549" data-listing-reading-time-sort="11.49">
-<div class="thumbnail">
-<p><a href="./posts/GenerativeModels/CycleGanWalkThrough.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GenerativeModels/CycleGanWalkThrough.html">
-<h3 class="no-anchor listing-title">
-CycleGAN Walk Through
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Image Generation'); return false;">
-Image Generation
-</div>
-</div>
-<a href="./posts/GenerativeModels/CycleGanWalkThrough.html">
-<div class="listing-description">
-<p>A walkthrough of key components to a pytorch CycleGAN implementation.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GenerativeModels/CycleGanWalkThrough.html">
-<div class="listing-date">
-Mar 20, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="14" data-categories="Neural Networks,Image Generation" data-listing-date-sort="1614574800000" data-listing-file-modified-sort="1667870197628" data-listing-reading-time-sort="6.435">
-<div class="thumbnail">
-<p><a href="./posts/GenerativeModels/StyleGanComponents.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GenerativeModels/StyleGanComponents.html">
-<h3 class="no-anchor listing-title">
-StyleGAN Components
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Image Generation'); return false;">
-Image Generation
-</div>
-</div>
-<a href="./posts/GenerativeModels/StyleGanComponents.html">
-<div class="listing-description">
-<p>Showing the key components to StyleGAN and how &amp; why they work</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GenerativeModels/StyleGanComponents.html">
-<div class="listing-date">
-Mar 1, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="15" data-categories="Neural Networks,Image Generation" data-listing-date-sort="1613797200000" data-listing-file-modified-sort="1667875165378" data-listing-reading-time-sort="4.655">
-<div class="thumbnail">
-<p><a href="./posts/GenerativeModels/GANIntroduction.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GenerativeModels/GANIntroduction.html">
-<h3 class="no-anchor listing-title">
-GAN Introduction
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Image Generation'); return false;">
-Image Generation
-</div>
-</div>
-<a href="./posts/GenerativeModels/GANIntroduction.html">
-<div class="listing-description">
-<p>Summarizing the foundational concepts relating to GANs</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GenerativeModels/GANIntroduction.html">
-<div class="listing-date">
-Feb 20, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="16" data-categories="Neural Networks" data-listing-date-sort="1613365200000" data-listing-file-modified-sort="1667872786319" data-listing-reading-time-sort="8.63">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/PlantPathologyKaggle.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/PlantPathologyKaggle.html">
-<h3 class="no-anchor listing-title">
-Plant Pathology Kaggle
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/PlantPathologyKaggle.html">
-<div class="listing-description">
-<p>Creating a top 10 leaderboard submission for the Plant Pathology Image Classification Kaggle Competition</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/PlantPathologyKaggle.html">
-<div class="listing-date">
-Feb 15, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="17" data-categories="Neural Networks" data-listing-date-sort="1610168400000" data-listing-file-modified-sort="1667868306321" data-listing-reading-time-sort="3.03">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/NeuralNetworksXOR.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/NeuralNetworksXOR.html">
-<h3 class="no-anchor listing-title">
-Neural Networks and XOR
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/NeuralNetworksXOR.html">
-<div class="listing-description">
-<p>How does a neural network transform non-linear data to solve complex problems. Fitting a neural Network to the XOR function.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/NeuralNetworksXOR.html">
-<div class="listing-date">
-Jan 9, 2021
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="18" data-categories="Tabular Modeling" data-listing-date-sort="1609304400000" data-listing-file-modified-sort="1667870911072" data-listing-reading-time-sort="10.27">
-<div class="thumbnail">
-<p><a href="./posts/Tabular/TabularModeling.html"> <img src="./posts/_TopicImages/decisionTree.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Tabular/TabularModeling.html">
-<h3 class="no-anchor listing-title">
-Tabular Modeling
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Tabular Modeling'); return false;">
-Tabular Modeling
-</div>
-</div>
-<a href="./posts/Tabular/TabularModeling.html">
-<div class="listing-description">
-<p>How to approach tabular modeling</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Tabular/TabularModeling.html">
-<div class="listing-date">
-Dec 30, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="19" data-categories="Neural Networks,Data Exploration" data-listing-date-sort="1608008400000" data-listing-file-modified-sort="1667872072767" data-listing-reading-time-sort="4.75">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/PseudoLabelingDataCleaning.html"> <img src="./posts/_TopicImages/DataAnalysis.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/PseudoLabelingDataCleaning.html">
-<h3 class="no-anchor listing-title">
-Pseudo Labeling for Data Cleaning
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Data Exploration'); return false;">
-Data Exploration
-</div>
-</div>
-<a href="./posts/NeuralNetworks/PseudoLabelingDataCleaning.html">
-<div class="listing-description">
-<p>Pseudo labeling for noise reduction and data creation in MNIST</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/PseudoLabelingDataCleaning.html">
-<div class="listing-date">
-Dec 15, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="20" data-categories="Data Exploration,Tabular Modeling" data-listing-date-sort="1605848400000" data-listing-file-modified-sort="1667870908989" data-listing-reading-time-sort="6.41">
-<div class="thumbnail">
-<p><a href="./posts/Tabular/PartialDependencePlotting.html"> <img src="./posts/_TopicImages/DataAnalysis.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/Tabular/PartialDependencePlotting.html">
-<h3 class="no-anchor listing-title">
-Partial Dependence Plotting
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Data Exploration'); return false;">
-Data Exploration
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tabular Modeling'); return false;">
-Tabular Modeling
-</div>
-</div>
-<a href="./posts/Tabular/PartialDependencePlotting.html">
-<div class="listing-description">
-<p>UA guide for showing the benefits and technique to Partial Dependence Plotting</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/Tabular/PartialDependencePlotting.html">
-<div class="listing-date">
-Nov 20, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="21" data-categories="Neural Networks" data-listing-date-sort="1598068800000" data-listing-file-modified-sort="1667872602201" data-listing-reading-time-sort="9.1">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/RNNFoundations.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/RNNFoundations.html">
-<h3 class="no-anchor listing-title">
-NLP Recurrent NN Foundations
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/RNNFoundations.html">
-<div class="listing-description">
-<p>What is an RNN? How does NLP work?</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/RNNFoundations.html">
-<div class="listing-date">
-Aug 22, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="22" data-categories="Neural Networks" data-listing-date-sort="1597809600000" data-listing-file-modified-sort="1667872775357" data-listing-reading-time-sort="3.35">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/NLPTokenizationFoundations.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/NLPTokenizationFoundations.html">
-<h3 class="no-anchor listing-title">
-NLP Tokenization Foundations
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/NLPTokenizationFoundations.html">
-<div class="listing-description">
-<p>What is Tokenization? What is numericalization?</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/NLPTokenizationFoundations.html">
-<div class="listing-date">
-Aug 19, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="23" data-categories="Neural Networks" data-listing-date-sort="1597118400000" data-listing-file-modified-sort="1667868310520" data-listing-reading-time-sort="3.94">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/MixupDeepDive.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/MixupDeepDive.html">
-<h3 class="no-anchor listing-title">
-Mixup Deep Dive
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/MixupDeepDive.html">
-<div class="listing-description">
-<p>What is Mixup Data Augmentation really?</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/MixupDeepDive.html">
-<div class="listing-date">
-Aug 11, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="24" data-categories="Neural Networks" data-listing-date-sort="1592712000000" data-listing-file-modified-sort="1667865444691" data-listing-reading-time-sort="6.18">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP2.html"> <img src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP2.html">
-<h3 class="no-anchor listing-title">
-Neural Network Foundations (Part 2)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP2.html">
-<div class="listing-description">
-<p>MNIST multi-class classification from scratch with deep Learning</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP2.html">
-<div class="listing-date">
-Jun 21, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="25" data-categories="Neural Networks" data-listing-date-sort="1592539200000" data-listing-file-modified-sort="1667864675672" data-listing-reading-time-sort="8.315">
-<div class="thumbnail">
-<p><a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP1.html"> <img data-src="./posts/_TopicImages/NeuralNetwork.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP1.html">
-<h3 class="no-anchor listing-title">
-Neural Network Foundations (Part 1)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Neural Networks'); return false;">
-Neural Networks
-</div>
-</div>
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP1.html">
-<div class="listing-description">
-<p>MNIST 3/7 classification from scratch with deep Learning</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/NeuralNetworks/NeuralNetworkFoundationsP1.html">
-<div class="listing-date">
-Jun 19, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="26" data-categories="Optimization,Gradient Descent" data-listing-date-sort="1591848000000" data-listing-file-modified-sort="1667864541554" data-listing-reading-time-sort="5.955">
-<div class="thumbnail">
-<p><a href="./posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html"> <img data-src="./posts/_TopicImages/Math.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html">
-<h3 class="no-anchor listing-title">
-Gradient Descent for Linear Regression - Part 2
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Optimization'); return false;">
-Optimization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gradient Descent'); return false;">
-Gradient Descent
-</div>
-</div>
-<a href="./posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html">
-<div class="listing-description">
-<p>Unders the hood of gradient descent for model optimization</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html">
-<div class="listing-date">
-Jun 11, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="27" data-categories="Optimization,Gradient Descent" data-listing-date-sort="1590984000000" data-listing-file-modified-sort="1667864546692" data-listing-reading-time-sort="3.985">
-<div class="thumbnail">
-<p><a href="./posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html"> <img data-src="./posts/_TopicImages/Math.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html">
-<h3 class="no-anchor listing-title">
-Gradient Descent for Linear Regression - Part 1B
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Optimization'); return false;">
-Optimization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gradient Descent'); return false;">
-Gradient Descent
-</div>
-</div>
-<a href="./posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html">
-<div class="listing-description">
-<p>Unders the hood of gradient descent for model optimization</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html">
-<div class="listing-date">
-Jun 1, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="28" data-categories="Optimization,Gradient Descent" data-listing-date-sort="1588996800000" data-listing-file-modified-sort="1667864547340" data-listing-reading-time-sort="2.56">
-<div class="thumbnail">
-<p><a href="./posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html"> <img data-src="./posts/_TopicImages/Math.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html">
-<h3 class="no-anchor listing-title">
-Gradient Descent for Linear Regression - Part 1
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Optimization'); return false;">
-Optimization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gradient Descent'); return false;">
-Gradient Descent
-</div>
-</div>
-<a href="./posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html">
-<div class="listing-description">
-<p>Unders the hood of gradient descent for model optimization</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html">
-<div class="listing-date">
-May 9, 2020
-</div>
-<div class="listing-author">
-Isaac Flath
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
-  <ul class="pagination"></ul>
-</nav>
-</div></main> <!-- /main -->
+</section>
+</main> 
+  <hr class="about-sep">
+   <div class="about-links">
+  <a href="https://linkedin.com/in/isaacflath/" class="about-link">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="https://github.com/isaac-flath" class="about-link">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+  <a href="https://twitter.com/isaac_flath" class="about-link">
+    <i class="bi bi-twitter"></i>
+     <span class="about-link-text">Twitter</span>
+  </a>
+  <a href="https://sigmoid.social/web/@isaac_flath" class="about-link">
+    <i class="bi bi-mastadon"></i>
+     <span class="about-link-text">Mastadon</span>
+  </a>
+</div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1272,13 +176,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
@@ -1386,6 +283,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath">Mastadon</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 

@@ -1,0 +1,16 @@
+---
+title: "TIL"
+listing:
+  contents: TIL
+  sort: "date desc"
+  type: table
+  categories: true
+  sort-ui: [date, title, categories]
+  filter-ui: true
+  feed: true
+  fields: [date, title, categories]
+
+page-layout: full
+title-block-banner: true
+---
+<a rel="me" href="https://sigmoid.social/@isaac_flath"></a>
