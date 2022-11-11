@@ -1,11 +1,15 @@
 project:
   type: website
   output-dir: docs
-  
-
+execute:
+  freeze: true
 website:
-  title: "IsaacTechBlog"
-  site-url: https://isaac-flath.github.io/TechBlog/
+  title: "Isaac Flath"
+  favicon: favicon/favicon-32x32.png
+  open-graph:
+    locale: en_US
+  twitter-card: true
+  site-url: https://isaac-flath.tech/
   description: "Blog for machine learning, programming, computer science and other data science related topics"
   navbar:
     right:

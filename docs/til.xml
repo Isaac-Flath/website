@@ -5,16 +5,16 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>IsaacTechBlog</title>
-<link>https://isaac-flath.github.io/TechBlog/til.html</link>
-<atom:link href="https://isaac-flath.github.io/TechBlog/til.xml" rel="self" type="application/rss+xml"/>
+<title>Isaac Flath</title>
+<link>https://isaac-flath.tech/til.html</link>
+<atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
 <generator>quarto-1.2.267</generator>
 <lastBuildDate>Thu, 10 Nov 2022 05:00:00 GMT</lastBuildDate>
 <item>
   <title>Quarto Conditional Content</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/QuartoConditionalContent.html</link>
+  <link>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</link>
   <description><![CDATA[ 
 
 
@@ -50,13 +50,13 @@
 
  ]]></description>
   <category>Quarto</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/QuartoConditionalContent.html</guid>
+  <guid>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</guid>
   <pubDate>Thu, 10 Nov 2022 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Random State Duplication</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/RandomSeedDuplication.html</link>
+  <link>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</link>
   <description><![CDATA[ 
 
 
@@ -66,7 +66,7 @@
 <p>You should be really careful about random state when parallel processing. If you aren’t careful, the random seed will be copied over to other processes and each process will generate the same random numbers! I learned this from a <a href="fast.ai">fastai</a> lecture in the 2022 part 2 course.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://isaac-flath.github.io/TechBlog/TIL/imgs/RandomNumberForkDuplicate.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Image showing duplicate random numbers being creating on separate processes due to random seeds being accidentally duplicated to multiple processes</figcaption><p></p>
 </figure>
 </div>
@@ -76,14 +76,14 @@
 
  ]]></description>
   <category>Python</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/RandomSeedDuplication.html</guid>
+  <guid>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</guid>
   <pubDate>Sat, 05 Nov 2022 04:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.github.io/TechBlog/TIL/imgs/RandomNumberForkDuplicate.png" medium="image" type="image/png" height="90" width="144"/>
+  <media:content url="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" medium="image" type="image/png" height="90" width="144"/>
 </item>
 <item>
   <title>Run Python on Github Actions</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/PythonScriptGithubActions.html</link>
+  <link>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</link>
   <description><![CDATA[ 
 
 
@@ -127,13 +127,13 @@
  ]]></description>
   <category>Python</category>
   <category>Github</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/PythonScriptGithubActions.html</guid>
+  <guid>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</guid>
   <pubDate>Wed, 10 Aug 2022 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Shelve Python Database</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/ShelveDB.html</link>
+  <link>https://isaac-flath.tech/TIL/ShelveDB.html</link>
   <description><![CDATA[ 
 
 
@@ -154,13 +154,13 @@
 
  ]]></description>
   <category>Python</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/ShelveDB.html</guid>
+  <guid>https://isaac-flath.tech/TIL/ShelveDB.html</guid>
   <pubDate>Sat, 15 May 2021 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Secrets for Github Actions</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/SecretsForGithubActions.html</link>
+  <link>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</link>
   <description><![CDATA[ 
 
 
@@ -188,13 +188,13 @@
 
  ]]></description>
   <category>Github</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/SecretsForGithubActions.html</guid>
+  <guid>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</guid>
   <pubDate>Sun, 06 Dec 2020 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Connecting Jupyter to EC2</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/ConnectingJupyterEC2.html</link>
+  <link>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</link>
   <description><![CDATA[ 
 
 
@@ -218,13 +218,13 @@
 
  ]]></description>
   <category>Cloud</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/ConnectingJupyterEC2.html</guid>
+  <guid>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</guid>
   <pubDate>Thu, 25 Jun 2020 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Jupyter is JSON</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.github.io/TechBlog/TIL/JupyterIsJson.html</link>
+  <link>https://isaac-flath.tech/TIL/JupyterIsJson.html</link>
   <description><![CDATA[ 
 
 
@@ -245,7 +245,7 @@
 
  ]]></description>
   <category>Python</category>
-  <guid>https://isaac-flath.github.io/TechBlog/TIL/JupyterIsJson.html</guid>
+  <guid>https://isaac-flath.tech/TIL/JupyterIsJson.html</guid>
   <pubDate>Wed, 15 Jan 2020 05:00:00 GMT</pubDate>
 </item>
 </channel>
