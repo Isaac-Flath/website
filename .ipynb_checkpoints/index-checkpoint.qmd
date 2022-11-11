@@ -39,13 +39,17 @@ My primary hobby is dance.  I used to teach ballroom dance but now I mostly danc
 
 **Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data science
 
-# How to get into data science
+# 👨‍💻 How to get into data science 👩🏻‍💻
 
-+ [fastai courses](course.fast.ai)
-+ Tinker with everything.  Try to never ask "Would it work if I did X?".  Instead, try it and see if it works.
-+ Build build build.  Do projects.  Do projects in parallel with courses, and after courses.  Don't wait.
-+ Teach to learn and build portfolio.  I am a fan of blogging as you can get going quick.  But others have been successful with making courses, podcasts, and youtube series.  Give the lesson or tutorial that would have helped you 6 months ago.
-+ Keep at it and be tenacious.  When you go to the gym for the first time you expect some soreness and discomfort.  Over time that soreness and discomfort lessons but it's still there.  Same thing with data science.  There will be discomfort and frustration - push past it.  That's a sign that there's a concept there for you to learn!
+[fastai courses](course.fast.ai)
+
+Tinker with everything.  Try to never ask "Would it work if I did X?".  Instead, try it and see if it works.
+
+Build build build.  Do projects.  Do projects in parallel with courses, and after courses.  Don't wait.
+
+Teach to learn and build portfolio.  I am a fan of blogging as you can get going quick.  But others have been successful with making courses, podcasts, and youtube series.  Give the lesson or tutorial that would have helped you 6 months ago.
+
+Keep at it and be tenacious.  When you go to the gym for the first time you expect some soreness and discomfort.  Over time that soreness and discomfort lessons but it's still there.  Same thing with data science.  There will be discomfort and frustration - push past it.  That's a sign that there's a concept there for you to learn!
 
 
 <a rel="me" href="https//sigmoid.social/@isaac_flath"></a>
