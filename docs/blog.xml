@@ -371,7 +371,7 @@ Algorithm found 6 Centroids in 8 epochs</code></pre>
   <category>Clustering</category>
   <guid>https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch.html</guid>
   <pubDate>Thu, 10 Nov 2022 05:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.tech/posts/_TopicImages/clustering.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://isaac-flath.tech/posts/_TopicImages/ClusteringGraph.png" medium="image" type="image/png" height="95" width="144"/>
 </item>
 <item>
   <title>Python Programming Tips</title>
