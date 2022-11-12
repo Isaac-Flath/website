@@ -10,7 +10,191 @@
 <atom:link href="https://isaac-flath.tech/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
 <generator>quarto-1.2.267</generator>
-<lastBuildDate>Thu, 10 Nov 2022 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 11 Nov 2022 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Quarto Document Best Practices</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/posts/Other/QuartoDocuments.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="why-quarto" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Why Quarto</h1>
+<p>I use quarto documents every day. It is used when I am developing, I use it for my website, and I use it for client presentations. There are many reasons I use Quarto</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Quarto Benefits
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Version control is very nice for presentations</li>
+<li>Text, docs, code ouputs, plots, code, tests all in one place.</li>
+<li>Easy to make really good looking outputs</li>
+<li>Learn one tool for lots of formats - documents, presentations, websites, development</li>
+<li>Rendering to html is a option for sharing. It’s more powerful than pdf and everyone can open it in their browser.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="text-formatting" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Text Formatting</h1>
+<div class="panel-tabset" data-group="setup">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" aria-controls="tabset-1-1" aria-selected="true">Markdown</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" aria-controls="tabset-1-2" aria-selected="false">Panel Tabsets</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" aria-controls="tabset-1-3" aria-selected="false">Callout Blocks</a></li></ul>
+<div class="tab-content" data-group="setup">
+<div id="tabset-1-1" class="tab-pane active" aria-labelledby="tabset-1-1-tab">
+<p>It’s important to get comfortable with <a href="https://quarto.org//docs/authoring/markdown-basics.html">markdown</a>. I see people use markdown for text. But you need to mix in other features liberally such as:</p>
+<ul>
+<li>Bulleted or numbered lists</li>
+<li>Making accent words <strong>bold</strong> or <em>italized</em></li>
+<li>Use single ticks to reference object and <code>function</code> names</li>
+<li>Use headings liberally</li>
+<li>Use hyperlinks to things you are referencing in <a href="https://quarto.org/">quarto</a></li>
+</ul>
+<blockquote class="blockquote">
+<p>Blockquotes are also useful</p>
+</blockquote>
+</div>
+<div id="tabset-1-2" class="tab-pane" aria-labelledby="tabset-1-2-tab">
+<p><a href="https://quarto.org/docs/interactive/layout.html#tabset-panel">Panel tabsets</a> creates the tabs you click through in the <code>Formatting Tips</code> section. This is useful for limiting what’s shows on the screen and gives a really high quality feel above and beyond a pdf document. Use it to organize and make your document clearer and less static.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" aria-labelledby="tabset-1-3-tab">
+<p><a href="https://quarto.org/docs/authoring/markdown-basics.html#callout-blocks">Callout blocks</a> can be used extremely liberally in documents. In a given document or presentation I use them to organize content in color coded sections, based on what I think makes most sense in the context.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example Document Usage
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Recommended actions in a blue <code>note</code> callout blocks</li>
+<li>Definitions or clarification points in green <code>tip</code> callout blocks</li>
+<li>Discussion points or questions in gold <code>warning</code> callout blocks</li>
+<li>Problems or issues in red <code>important</code> callout blocsk</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="code-formatting" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Code Formatting</h1>
+<p>The most important items for code cell formatting are controlling what’s included and what is hidden. Here are the top ones I use for that.</p>
+<ul>
+<li>Code
+<ul>
+<li><code>code-fold</code> - Fold code with option to expand?</li>
+<li><code>echo</code> - Include code in your document?</li>
+<li><code>include</code> - Include code and outputs?</li>
+</ul></li>
+<li>Outputs
+<ul>
+<li><code>output</code> - Include code outputs?</li>
+<li><code>include</code> - Include code and outputs?</li>
+</ul></li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use a one of these <code>directives</code> start a code cell with <code>#|</code>.</p>
+<p>For example <code>#| echo: false</code> will exclude that code cell from the document.</p>
+</div>
+</div>
+</section>
+<section id="document-setup" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Document Setup</h1>
+<section id="front-matter" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="front-matter"><span class="header-section-number">4.1</span> Front Matter</h2>
+<p>For documents here’s my default front matter. A few things that are important:</p>
+<pre><code>---
+title: "My Title"
+author: "Isaac Flath"
+date: "9/20/2022"
+format:
+  html:
+    css: 'styles.css'
+    number-sections: true
+    toc: true
+    theme: cosmo
+    highlight-style: tango
+    code-fold: true
+    self-contained: true
+---</code></pre>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>number-sections</code> makes the sections stand out more organization wise</li>
+<li><code>toc</code> (table of contents) is clickable to jump to sections and I review it as my agenda at the start of meetings</li>
+<li><code>code-fold</code> I often like to have all code folded by default and unhide what’s needed.</li>
+<li><code>self-contained</code> is critical. This allows you to share the document for anyone to open in their browser with no hassle.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="css" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="css"><span class="header-section-number">4.2</span> CSS</h2>
+<p>There were two things that bothered me about quarto:</p>
+<ul>
+<li>Table of contents was too light</li>
+<li>Major sections didn’t stand out enough</li>
+</ul>
+<p>These are fixed with a short bit of css. I sometimes add an h2 gradient from <code>lightblue</code> to <code>white</code> as well.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb2-1"></span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;">.title.toc-ignore</span> {</span>
+<span id="cb2-3">  <span class="kw" style="color: #003B4F;">font-weight</span>: <span class="dv" style="color: #AD0000;">1000</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-4">}</span>
+<span id="cb2-5">h1<span class="in" style="color: #5E5E5E;">:not(</span><span class="fu" style="color: #4758AB;">.title</span><span class="in" style="color: #5E5E5E;">)</span>{</span>
+<span id="cb2-6">  <span class="kw" style="color: #003B4F;">background-image</span>: <span class="fu" style="color: #4758AB;">linear-gradient(</span><span class="dv" style="color: #AD0000;">120</span><span class="dt" style="color: #AD0000;">deg</span><span class="op" style="color: #5E5E5E;">,</span> <span class="cn" style="color: #8f5902;">lightblue</span><span class="op" style="color: #5E5E5E;">,</span> <span class="cn" style="color: #8f5902;">blue</span><span class="fu" style="color: #4758AB;">)</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-7">}</span></code></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the <code>frontmatter</code> section it references a <code>styles.css</code> where this is stored.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Efficiency</category>
+  <guid>https://isaac-flath.tech/posts/Other/QuartoDocuments.html</guid>
+  <pubDate>Fri, 11 Nov 2022 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>MeanShift From Scratch</title>
   <dc:creator>Isaac Flath</dc:creator>
@@ -22,7 +206,7 @@
 
 <section id="intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
-<p>Meanshift is a clustering algorithm in the same family as K-Means. K-Means is the much more widely known well known clustering algorithm, but is advantageous in a lot of situations.</p>
+<p>Meanshift is a clustering algorithm in the same family as <a href="../../posts/Clustering/KMeansFromScratch.html">K-Means</a>. K-Means is the much more widely known well known clustering algorithm, but is advantageous in a lot of situations.</p>
 <p>First, you don’t have to decide how many clusters ahead of time. This is important because in many datasets especially as they get very complex it can be hard to know how many clusters you really should have. Meanshift requires bandwidth which is much easier to select.</p>
 <p>Second, k-means looks at circular clusters. You need to do some custom work to make it work for non-circular clusters. Sometimes data doesn’t split nicely into circular clusters. Meanshift can handle clusters of any shape.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -371,7 +555,7 @@ Algorithm found 6 Centroids in 8 epochs</code></pre>
   <category>Clustering</category>
   <guid>https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch.html</guid>
   <pubDate>Thu, 10 Nov 2022 05:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.tech/posts/_TopicImages/ClusteringGraph.png" medium="image" type="image/png" height="95" width="144"/>
+  <media:content url="https://isaac-flath.tech/posts/_TopicImages/clustering.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Python Programming Tips</title>
@@ -1222,17 +1406,25 @@ b'ed ninety nine\n'
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> math, random, matplotlib.pyplot <span class="im" style="color: #00769E;">as</span> plt, operator, torch</span>
 <span id="cb1-2"><span class="im" style="color: #00769E;">from</span> functools <span class="im" style="color: #00769E;">import</span> partial</span>
 <span id="cb1-3"><span class="im" style="color: #00769E;">from</span> fastcore.<span class="bu" style="color: null;">all</span> <span class="im" style="color: #00769E;">import</span> <span class="op" style="color: #5E5E5E;">*</span></span>
 <span id="cb1-4"><span class="im" style="color: #00769E;">from</span> torch.distributions.multivariate_normal <span class="im" style="color: #00769E;">import</span> MultivariateNormal</span>
 <span id="cb1-5"><span class="im" style="color: #00769E;">from</span> torch <span class="im" style="color: #00769E;">import</span> tensor</span></code></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">torch.manual_seed(<span class="dv" style="color: #AD0000;">42</span>)</span>
 <span id="cb2-2">torch.set_printoptions(precision<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">3</span>, linewidth<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">140</span>, sci_mode<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">False</span>)</span></code></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;">def</span> plot_data(centroids:torch.Tensor,<span class="co" style="color: #5E5E5E;"># Centroid coordinates</span></span>
 <span id="cb3-2">              data:torch.Tensor, <span class="co" style="color: #5E5E5E;"># Data Coordinates</span></span>
 <span id="cb3-3">              n_samples:<span class="bu" style="color: null;">int</span>, <span class="co" style="color: #5E5E5E;"># Number of samples</span></span>
@@ -1245,11 +1437,13 @@ b'ed ninety nine\n'
 <span id="cb3-10">        ax.scatter(samples[:,<span class="dv" style="color: #AD0000;">0</span>], samples[:,<span class="dv" style="color: #AD0000;">1</span>], s<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">1</span>)</span>
 <span id="cb3-11">        ax.plot(<span class="op" style="color: #5E5E5E;">*</span>centroid, markersize<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">10</span>, marker<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">"x"</span>, color<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'k'</span>, mew<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">5</span>)</span>
 <span id="cb3-12">        ax.plot(<span class="op" style="color: #5E5E5E;">*</span>centroid, markersize<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">5</span>, marker<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">"x"</span>, color<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'m'</span>, mew<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">2</span>)</span></code></pre></div>
+</details>
 </div>
 </section>
 <section id="generate-dataset" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Generate Dataset</h1>
-<p>We need to create a dataset. This follows what Jeremy did in a notebook he did on meanshift clustering, which is a different clustering algorithm. Since the same dataset can be used, I used his and removed some unneeded print statements. See the plot for what the data looks like.</p>
+<p>We need to create a dataset. This data generation step follows what Jeremy Howard did in a notebook he did on meanshift clustering, which is a different clustering algorithm. That notebook was part of the <a href="fast.ai">fast.ai</a> <a href="https://www.fast.ai/posts/part2-2022.html">2022 part 2 course</a>.</p>
+<p>Since the same dataset can be used, I used his and removed some unneeded print statements. See the plot for what the data looks like.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">n_clusters <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">6</span></span>
 <span id="cb4-2">n_samples <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">250</span></span>
@@ -8356,189 +8550,6 @@ Note
   <guid>https://isaac-flath.tech/posts/NeuralNetworks/NeuralNetworksXOR.html</guid>
   <pubDate>Sat, 09 Jan 2021 05:00:00 GMT</pubDate>
   <media:content url="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Tabular Modeling</title>
-  <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.tech/posts/Tabular/TabularModeling.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p><strong>Background:</strong> The most common type of data in most organizations is tabular data stored in a SQL database. Tabular is also a great thing to model with because it’s often already structured in a database and in a good format to start working with. The uses for tabular data range from recommendation engines, to marketing action prediction, to churn prediction, predicting fraud, and much more.</p>
-<p><strong>Purpose:</strong> The purpose of this post is to walk through the things I think about for every tabular modeling problem. I may not use every technique for every problem, and there are others that I may use on occasion - but these core ones should always be at least considered carefully (in my opinion)</p>
-<p><strong>Assumptions:</strong> In this guide I am assuming you have experience building tabular models in the past and are able to look up these techniques on your own. This will offer brief descriptions of what things are and why they are important, but won’t go into the level of depth needed in this post to implement these ideas.</p>
-<p><strong>What’s missing from this post:</strong> Modeling is only a small piece of the puzzle. I am not covering how to define a problem, how to do ETL processes, how to deploy and productionalize things, how to communicate to the organization so it can be used, how to build processes around it so people can leverage your model, etc.. This is only covering the modeling portion.</p>
-<section id="project-structure" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Project Structure</h1>
-<p>There are 5 main phases to a tabular modeling project. Each serves it’s own role. + <strong>Baseline Models</strong> + <strong>Preliminary EDA</strong> + <strong>Predictive EDA</strong> + <strong>Model Construction</strong> + <strong>Mode Evaluation</strong></p>
-<p>The one thing that is common in <strong>EVERY</strong> phase is you should be constantly iterating. Every time you learn something add it to your model and try it. Experiment with the actual model. A big mistake that people often make is building lots and lots of stuff and then trying to put it all together at the end. You should be doing small micro adjustments to your model frequently and running experiments constantly.</p>
-</section>
-<section id="baseline-models" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Baseline Models</h1>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Goals
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Validate you’ve created and loaded the dataset properly.<br>
-</li>
-<li>Verify that what you are predicting can be predicted and understand the difficulty of the problem.<br>
-</li>
-<li>Verify there’s no obvious data leakage in train vs valid</li>
-</ul>
-</div>
-</div>
-<p>In this phase we are making baseline models. The more complex the problem the more important this is. Get an idea of the distribution of the labels. What would your accuracy be if you predicted the dominant class all the time? How good is just predicting the average value? You can build these as formal models or if it’s simple enough looking at the distribution.</p>
-<p>From there we add a bit of complexity as we start to iterate. You can move to a linear regression, logistic regression, random forest, or something else that is easy to train and set up. Keep an eye on your metrics and look for things that are “too good to be true”. If you’re getting a really high score in these early phases you should verify that you don’t have a data leakage problem. You do want to make sure you are doing better than just predicting the most common label. If a simple model isn’t better than that, a super advance complex model probably wont help either.</p>
-<p>During this step you should also be verifying that you have created and loaded the dataset properly (including train/valid/test splits). Do not just assume previous steps were done correctly.</p>
-<p>You need to create your train and validation sets in this phase, which is crucial. It’s a good idea to use adversarial validation to check for data leakage between your train and valid sets as well.</p>
-</section>
-<section id="preliminary-eda" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Preliminary EDA</h1>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Goal
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Identify a smaller set of columns to start working with.**</p>
-</div>
-</div>
-<p>The goal of this phase is to narrow the search. Other than the obvious reasons of focusing time on higher value items, it also is important for determining feature importance later.</p>
-<p>In the Preliminary EDA phase there’s 4 main things I look at.</p>
-<ol type="1">
-<li>Hierarchical clustering</li>
-<li>Standard correlation matrices</li>
-<li>Null Value Analysis</li>
-<li>Understanding hierarchies</li>
-</ol>
-<section id="hierarchical-clustering" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="hierarchical-clustering"><span class="header-section-number">3.1</span> Hierarchical Clustering</h2>
-<p><strong>Are any of these columns in the same sort order (regardless of scale or actual values)?</strong></p>
-<p>Hierarchical clustering is underused and very valuable. Tree based models (RF, XGboost, Catboost, etc) do not care about scale, just sort order. A decision tree treats [1,2,3] the same as [1,20,300]. Because of that doing hierarchical clustering can help identify variables that are very similar for the purposes of modeling and is a powerful tool. Instead of doing the clustering you could just do a spearman rank correlation matrix, which is the foundation for the hierarchical clustering.</p>
-</section>
-<section id="standard-correlation-matrices" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="standard-correlation-matrices"><span class="header-section-number">3.2</span> Standard Correlation Matrices</h2>
-<p><strong>Are any of these columns really highly correlated with other features and can be thrown out?</strong></p>
-<p>Standard Correlation Matrices can be helpful as a secondary tool to identify similar columns</p>
-</section>
-<section id="null-value-analysis" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="null-value-analysis"><span class="header-section-number">3.3</span> Null Value Analysis</h2>
-<p><strong>Are there patterns of null values where several columns are all always null as the same times?</strong></p>
-<p>Analyzing where Null Values appear can be helpful in understanding how data was gathered or how processes effect the data. There also may be groups of columns that are always null at the same time and you can avoid having null columns for each column and just have 1 for the set.</p>
-</section>
-<section id="understanding-hierarchies" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="understanding-hierarchies"><span class="header-section-number">3.4</span> Understanding Hierarchies</h2>
-<p>Giving careful thought to what a unique record is and understanding hierarchies is important? Often there may be product hierarchies, or account hierarchies, or billing hierarchies to be aware of.</p>
-</section>
-</section>
-<section id="predictive-eda" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Predictive EDA</h1>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Goal
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Understand what features are most important and how they relate to the dependent variable.</p>
-</div>
-</div>
-<section id="feature-importance" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="feature-importance"><span class="header-section-number">4.1</span> Feature Importance</h2>
-<p><strong>When building a model of remaining features, which features are most important? Are there any that are not important?</strong></p>
-<p>This is where we do our feature importance. It’s important to get rid of as many redundant features as possible before doing feature importance because having redundant features skews feature importance. If there are 10 identical columns, then they each show as 1/10 the predictive power as any of the individual column. You could easily filter then all out thinking none are important, when in reality you should have filtered 9 of them out. The hierarchical Clustering in the previous section removes these redundancies.</p>
-<p>Once you have the most important features you need to do a few things. First, learn as much as you can about those columns. How is data collected? How is data updated? Is there any data leakage? What’s the distribution? What’s the significance to the business? The more you can learn about these important features the better.</p>
-<p>If features are very unimportant you can cut them. Simply choose an importance threshold, cut the features and measure performance of the model. If the model still performs well then those features were not crucial.</p>
-</section>
-<section id="time-consistency" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="time-consistency"><span class="header-section-number">4.2</span> Time Consistency</h2>
-<p><strong>How consistent is the predictive power of a feature over time?</strong></p>
-<p>Measuring time consistency is an absolute necessity. We are training on data to predict future data - and in production we will be predicting data even further in the future. If features are unstable over time we need to be aware of that, and there’s a good chance we can’t use those features reliably.</p>
-<p>To measure this you can build a 1 feature model to predict the dependent variable and see if predictive power remains constant over time for that feature. You can then go to 2 feature models and do the same thing. If features are extremely predictive for a few months and then not other months, your model will need some way to determine when to rely on that and when not to. Sometimes it’s in the months close to a contract start/end date but often it’s just a feature we have to throw away.</p>
-</section>
-<section id="column-sort-order" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="column-sort-order"><span class="header-section-number">4.3</span> Column sort order</h2>
-<p><strong>How does the order in which we evaluate columns matter? If we have 2 highly correlated columns, does it matter which we choose to keep?</strong></p>
-<p>Earlier we threw away columns that were correlated to only keep 1. In this step you can do tests to identify which should be thrown away. If 2 columns are correlated and you threw 1 of them out, was that the right choice or should you have thrown the other out?</p>
-<p>This often doesn’t make a huge difference but it does sometimes so it is worth considering.</p>
-</section>
-</section>
-<section id="model-construction" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Model Construction</h1>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Goal
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Take our model and everything we have learned and put it together into a final model</p>
-</div>
-</div>
-<p>This is constructing the final model using everything we knew previously. There are a lot of components. I will touch on a few of the most critical ones.</p>
-<section id="feature-engineering" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="feature-engineering"><span class="header-section-number">5.1</span> Feature Engineering:</h2>
-<p><strong>How can we engineer and encode features to improve feature importance and/or time consistency?</strong></p>
-<p>I wish there was great universal guidance here, but it’s very domain specific. Try an idea, measure validation performance keep if it helps. Graph and visualize as much as you can and keep trying new ideas.</p>
-</section>
-<section id="model-architecture-random-forest-xgb-nn" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="model-architecture-random-forest-xgb-nn"><span class="header-section-number">5.2</span> Model Architecture: Random Forest, XGB, NN</h2>
-<p>Considering architecture is important. For most supervised tabular modeling you will want a Random Forest, XGBoost, or a Neural Network. Random Forest is the simplest. It is fairly accurate, fast to train and hard to screw up. It’s also the model with the more interpretability so if explainability is important this can be a good option.</p>
-<p>XGboost often gives a performance boost, but it is more sensitive to hyperparameters and overfitting so it will take a bit longer to get it tuned properly.</p>
-<p>A Neural Network is not usually the right answer for tabular data. It might be worth trying if you have super high cardinality features, or really complex data you want to use alongside it (ie combining with text NLP model).</p>
-</section>
-<section id="categorical-encoding" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="categorical-encoding"><span class="header-section-number">5.3</span> Categorical encoding</h2>
-<p>The main ways to encode categorical variables are label, order, target encoding, count, and catboost. I won’t cover what each of them are, but try encoding things in different ways and see if it helps!</p>
-</section>
-<section id="class-imbalance" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="class-imbalance"><span class="header-section-number">5.4</span> Class imbalance</h2>
-<p>Most problems in the real world I have run into have a class imbalance. For example predicting customer churn there are way more customers staying than churning (hopefully). Churn may account for 2% of the base. There’s several things that can be done to address this, the most common approaches are using a weighted loss or over/under sampling.</p>
-<p>In Class imbalance problems it is also important that you have a good metric. I am not discussing metrics here because the metric should have been defined before the dataset was even created.</p>
-</section>
-<section id="ensemble-approaches-try-a-few-ensemble-approaches." class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="ensemble-approaches-try-a-few-ensemble-approaches."><span class="header-section-number">5.5</span> Ensemble Approaches: Try a few ensemble approaches.</h2>
-<p>Ensembling is common, but not always necessary. You can do cross-folding, but be aware it adds complexity at inference time. Sometimes ensembling different architectures together can be valuable.</p>
-<p>It really depends on the business use case and how much the increase in accuracy amounts to in real-world impact.</p>
-</section>
-<section id="model-tuning" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="model-tuning"><span class="header-section-number">5.6</span> Model Tuning</h2>
-<p>Model tuning can give improvements as well - most libraries have a built in tuning framework. You will need to set hyperparameter ranges to try and run tests with different features. There are many guides to fine tune a model - I will do a future post on how I approach tuning. Sometimes a grid search is sufficient, but for XGBoosts I often use Bayesian Optimization with HYPEROPT.</p>
-</section>
-</section>
-<section id="model-eda" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Model EDA</h1>
-<p>The goal of this phase is to build a model with what we found out in the first 2 and look to understand the model more deeply. Hopefully this understanding can lead to us iterating and improving out model. We may revisit any or all of previous steps as we explore.</p>
-<p>This phase we do a lot of <a href="https://isaac-flath.github.io/fastblog/tabular/data%20exploration/2020/11/20/PartialDependencePlotting.html">Partial Dependence Plotting</a>. I won’t cover the details here because they are covered in the linked post.</p>
-<p>The second thing I use in this phase is the <code>treeinterpreter</code> and <code>waterfallcharts</code> libraries. This allows me to look at individual or groups of predictions and see the contributions of different features. For more information see <a href="https://github.com/fastai/fastbook/blob/master/09_tabular.ipynb">Chapter 9 of the fastai book</a></p>
-
-
-</section>
-
- ]]></description>
-  <category>Tabular Modeling</category>
-  <guid>https://isaac-flath.tech/posts/Tabular/TabularModeling.html</guid>
-  <pubDate>Wed, 30 Dec 2020 05:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.tech/posts/_TopicImages/decisionTree.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

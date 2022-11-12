@@ -131,16 +131,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Isaac Flath - MeanShift From Scratch">
 <meta property="og:description" content="A deep dive on meanshift clustering with the full algorithm implemented from scratch using pytorch">
-<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/ClusteringGraph.png">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/clustering.jpg">
 <meta property="og:site-name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta property="og:image:height" content="248">
-<meta property="og:image:width" content="377">
 <meta name="twitter:title" content="Isaac Flath - MeanShift From Scratch">
 <meta name="twitter:description" content="A deep dive on meanshift clustering with the full algorithm implemented from scratch using pytorch">
-<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/ClusteringGraph.png">
-<meta name="twitter:image-height" content="248">
-<meta name="twitter:image-width" content="377">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/clustering.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -250,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
-<p>Meanshift is a clustering algorithm in the same family as K-Means. K-Means is the much more widely known well known clustering algorithm, but is advantageous in a lot of situations.</p>
+<p>Meanshift is a clustering algorithm in the same family as <a href="../../posts/Clustering/KMeansFromScratch.html">K-Means</a>. K-Means is the much more widely known well known clustering algorithm, but is advantageous in a lot of situations.</p>
 <p>First, you don’t have to decide how many clusters ahead of time. This is important because in many datasets especially as they get very complex it can be hard to know how many clusters you really should have. Meanshift requires bandwidth which is much easier to select.</p>
 <p>Second, k-means looks at circular clusters. You need to do some custom work to make it work for non-circular clusters. Sometimes data doesn’t split nicely into circular clusters. Meanshift can handle clusters of any shape.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
