@@ -61,3 +61,11 @@ Pick 1 or 2.  But don't try to do all of these in the same post.  You could have
 + Write a tutorial or resource for your future self.  If you don't think about this topic for the next year, what's the resource that help you get back up to speed and refresh your memory?  There's people out there in that exact situation that it would help!
 + Write a tutorial or resource for your past self.  What's the resource that you wish had existed when you were learning about this topic that would have made learning it easier?  There's people out there like you that this will help!
 :::
+
+:::{.callout-tip{
+
+### How do I create a blog?
+
+My recommendation is to create a blog using quarto.  [See this tutorial that walks you through setting it up]( https://quarto.org/docs/websites/website-blog.html)
+
+::::
