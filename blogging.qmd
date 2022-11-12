@@ -62,7 +62,7 @@ Pick 1 or 2.  But don't try to do all of these in the same post.  You could have
 + Write a tutorial or resource for your past self.  What's the resource that you wish had existed when you were learning about this topic that would have made learning it easier?  There's people out there like you that this will help!
 :::
 
-:::{.callout-tip{
+:::{.callout-tip}
 
 ### How do I create a blog?
 
