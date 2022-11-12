@@ -1,0 +1,27 @@
+---
+title: "Isaac Flath"
+image: profile.jpeg
+draft: true
+about:
+  template: jolla
+---
+
+From time to time I am approached about consulting work.  This page outlines a few details that you'll need to know.  This is only for decision makers looking to work with me directly.  I will not jump through a ton of hoops in order to start freelance work with you.  If there's a lot of red-tape it's not for me.
+
+# Why me?
+
+I have 3 core competencies and passions that I think makes me valuable:
+
++ Technical
++ Business
++ Teaching
+
+# How to Hire
+
++ Reach out to me with a short simple description of what you are trying to accomplish and how.  It doesn't need to be formal, and if you don't know the how that's ok!  I love working with people who admit when they don't know something!
++ Give me relevant links or search terms so I can learn more about your problem or related problems.  Before we talk I want to have done some research so I am not wasting your time or mine discussing things that could have been a google search.
++ My freelance rate is $200 per hour.  I might be willing to work with you on price.  Here are things that make me willing to negotiate on price:
+    + Are you doing work for the good of others (ie nonprofits, charities, other)?
+    + Are you doing something novel, interesting, or exciting (in my opinion)?
+    + When you communicated with me, was it clear and concise or did I have to coax lots of critical information out of you?
+    + How busy am I?  Or to make it sound more businessy, how much demand is there in the market for my services?

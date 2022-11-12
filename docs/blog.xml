@@ -14,7 +14,7 @@
 <item>
   <title>Quarto Document Best Practices</title>
   <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.tech/posts/Other/QuartoDocuments.html</link>
+  <link>https://isaac-flath.tech/posts/Other/QuartoDocumentsBestPractices.html</link>
   <description><![CDATA[ 
 
 
@@ -22,7 +22,7 @@
 
 <section id="why-quarto" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Why Quarto</h1>
-<p>I use quarto documents every day. It is used when I am developing, I use it for my website, and I use it for client presentations. There are many reasons I use Quarto</p>
+<p>I use quarto documents <strong>every day</strong>. It is used when I am developing, I use it for my website, and I use it for client presentations.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -42,6 +42,7 @@ Quarto Benefits
 </ul>
 </div>
 </div>
+<p>I have some starter Quarto templates <a href="https://github.com/Isaac-Flath/QuartoTemplates">here</a> that will be useful in conjunction with this post.</p>
 </section>
 <section id="text-formatting" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Text Formatting</h1>
@@ -65,7 +66,7 @@ Quarto Benefits
 <p><a href="https://quarto.org/docs/interactive/layout.html#tabset-panel">Panel tabsets</a> creates the tabs you click through in the <code>Formatting Tips</code> section. This is useful for limiting what’s shows on the screen and gives a really high quality feel above and beyond a pdf document. Use it to organize and make your document clearer and less static.</p>
 </div>
 <div id="tabset-1-3" class="tab-pane" aria-labelledby="tabset-1-3-tab">
-<p><a href="https://quarto.org/docs/authoring/markdown-basics.html#callout-blocks">Callout blocks</a> can be used extremely liberally in documents. In a given document or presentation I use them to organize content in color coded sections, based on what I think makes most sense in the context.</p>
+<p><a href="https://quarto.org/docs/authoring/markdown-basics.html#callout-blocks">Callout blocks</a> can be used extremely liberally in documents. In a given document or presentation I use them to organize content in color coded sections based on what I think makes most sense in the context.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -192,7 +193,7 @@ Tip
 
  ]]></description>
   <category>Efficiency</category>
-  <guid>https://isaac-flath.tech/posts/Other/QuartoDocuments.html</guid>
+  <guid>https://isaac-flath.tech/posts/Other/QuartoDocumentsBestPractices.html</guid>
   <pubDate>Fri, 11 Nov 2022 05:00:00 GMT</pubDate>
 </item>
 <item>
