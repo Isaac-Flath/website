@@ -1,27 +1,78 @@
 ---
-title: "Isaac Flath"
-image: profile.jpeg
-draft: true
-about:
-  template: jolla
+title: "Consulting"
+editor: visual
+jupyter: python3
+page-layout: full
+title-block-banner: true
 ---
 
-From time to time I am approached about consulting work.  This page outlines a few details that you'll need to know.  This is only for decision makers looking to work with me directly.  I will not jump through a ton of hoops in order to start freelance work with you.  If there's a lot of red-tape it's not for me.
+From time to time I am approached about contract consulting work.  This page outlines a few details that you'll need to know.  Before you read further, please realize:
+
+:::{.callout-important}
+
+This is for decision makers looking to work with me directly.  **I am not interested in working with third party firms**.  I am happy with where I am at and what I do and don't need/want help finding additional work.
+
+:::
 
 # Why me?
 
-I have 3 core competencies and passions that I think makes me valuable:
+I have three core competencies and passions that combine to make me very valuable.
 
-+ Technical
-+ Business
-+ Teaching
+:::{.callout-tip}
+## Technical
+
+A good technical consultant has significant technical skills.  I have expertise in a large range of technical topics including:
+
++ Fundamentals
+    + A/B testing
+    + Metric design and how measures relate to behavior
+    + Experimentation mindset and design
++ Fundamental modeling
+    + Life Time Value
+    + Multi-armed bandits
+    + Decision Tree processes
++ AI Modeling
+    + Deep Learning (computer vision & NLP)
+    + Tabular data (random forest, XGboost, linear/logistic regression, etc.)
+    + Clustering (K-Means, Meanshift, Hierarchical, etc.)
++ Communication & Logistics
+    + Model and application design and deployment
+    + Cloud Infrastructure
+    + Documentation
+:::
+    
+
+:::{.callout-tip}
+## Teaching
+
+**A good consultant is a teacher**.  This is important because:
+
++ Buying a solution is not enough to know how to use it proficiently.  **A good consultant teaches you so you are not dependent on them forever.**
+
++ Businesses are made up of people.  **A good consultant enriches people as they work.**   The more skills your people have the faster you can move.  Employees that are learning and developing will be more engaged and motivated
+
+:::
+
+:::{.callout-tip}
+## Business
+I have worked as a business process engineer.  I have worked in product management.  I have been a product owner.  I have managed many projects as head of data science.
+
+I understand how to **identify, prioritize, and manage what's important**.  More importantly I know how to **design processes to maintain the important things.**  When you move on to a new project or priority it's critical that you can still **maintain the value created by previous projects.**
+:::
+
 
 # How to Hire
 
-+ Reach out to me with a short simple description of what you are trying to accomplish and how.  It doesn't need to be formal, and if you don't know the how that's ok!  I love working with people who admit when they don't know something!
-+ Give me relevant links or search terms so I can learn more about your problem or related problems.  Before we talk I want to have done some research so I am not wasting your time or mine discussing things that could have been a google search.
-+ My freelance rate is $200 per hour.  I might be willing to work with you on price.  Here are things that make me willing to negotiate on price:
+:::{.callout-note}
+
+### How to hire me
+
++ **Reach out to me** with a short simple description of what you are trying to accomplish and how.  It doesn't need to be formal and if you don't know something that's ok!  I love working with people who admit when they don't know something!
++ **Give me relevant links I can research** so I can learn more about your problem, industry, or related problems.  Before we talk I want to have done some research so I am not wasting your time or mine discussing things that could have been a google search.
++ **My freelance rate is $250 per hour.**  I may be willing to work with you on price.  Here are things that make me willing to negotiate on price:
     + Are you doing work for the good of others (ie nonprofits, charities, other)?
+    + Are you a minority or female owned small business?
     + Are you doing something novel, interesting, or exciting (in my opinion)?
-    + When you communicated with me, was it clear and concise or did I have to coax lots of critical information out of you?
-    + How busy am I?  Or to make it sound more businessy, how much demand is there in the market for my services?
+    + When you communicated with me, was it clear and concise? Do you have a clear vision for what you want?  Unclear communication and unclear vision leads to extra back-and-forth and extra risk.  As with any business I expect to be compensated for additional risk.
+    + How busy am I?  Or to make it sound more professional, how much demand is there in the market for my services? 
+:::

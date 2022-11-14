@@ -19,14 +19,15 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>Today I learned that you can control what markdown renders. This is called <a href="https://quarto.org/docs/authoring/conditional.html">conditional content in the Quarto docs</a>.</p>
 <p>When I create a quarto notebook I can add full markdown note for myself or other contributors that do not render to the output format, whether that output is a html, pdf, python library, or website. Yoformats it will render to and which it will not.u can control which</p>
-<section id="ways-i-will-use-this" class="level2">
-<h2 class="anchored" data-anchor-id="ways-i-will-use-this">Ways I will use this</h2>
-<section id="html-reports" class="level3">
-<h3 class="anchored" data-anchor-id="html-reports">HTML Reports</h3>
+<section id="ways-i-will-use-this" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="ways-i-will-use-this"><span class="header-section-number">1.1</span> Ways I will use this</h2>
+<section id="html-reports" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="html-reports"><span class="header-section-number">1.1.1</span> HTML Reports</h3>
 <p>Now-a-days all my presentations are really Quarto html outputs that I walk through with clients. I can now add sections of notes for myself that I don’t want the client to see. Lots of things I will use this for such as:</p>
 <ul>
 <li>Documenting some nuance about why I did something that isn’t relevant to business users</li>
@@ -35,12 +36,12 @@
 </ul>
 <p>And much more</p>
 </section>
-<section id="nbdev" class="level3">
-<h3 class="anchored" data-anchor-id="nbdev">NBdev</h3>
+<section id="nbdev" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="nbdev"><span class="header-section-number">1.1.2</span> NBdev</h3>
 <p><a href="nbdev.fast.ai">nbdev</a> is a tool to write, test, document, and distribute software packages and technical articles — all in one place, your notebook. It takes notebooks and outputs documentation and a python library. This is great because now in the same place I can write development notes or to-do’s right in the place where the code/tests/docs are sourced from. Maybe a note for myself or for other developers in full markdown that won’t get rendered to the user documentation.</p>
 </section>
-<section id="websiteblogs" class="level3">
-<h3 class="anchored" data-anchor-id="websiteblogs">Website/Blogs</h3>
+<section id="websiteblogs" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="websiteblogs"><span class="header-section-number">1.1.3</span> Website/Blogs</h3>
 <p>I think it’ll be really nice to have notes on blogs. Sometimes I go back and improve old blogs, or add sections. I try not to let not being “finished” prevent me from posting. Once I have something I think is good it ships, even if there’s more I could do. Because there’s always more I can do. Being able to add the to-do’s to myself for when I come back later will be fantastic!</p>
 
 
@@ -61,8 +62,9 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>You should be really careful about random state when parallel processing. If you aren’t careful, the random seed will be copied over to other processes and each process will generate the same random numbers! I learned this from a <a href="fast.ai">fastai</a> lecture in the 2022 part 2 course.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -88,8 +90,9 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>How to run a python script on a cron using github actions, or on push of a branch.</p>
 <p>Key parts of <code>workflow.yaml</code></p>
 <p>Define the how the job runs and what the triggers are</p>
@@ -138,8 +141,9 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p><code>Shelve</code> is dictionary database that stored in a single file without installation needed. It’s like a nosql version of sqlite.</p>
 <p>There’s some really cool things about shelve:</p>
 <ul>
@@ -165,12 +169,13 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>I always assumed it was possible to pass secrets github actions, but I never really dove into it until now. So today I learned how to add secrets to github for use in the CI/CD for testing. I’m using it with <a href="nbdev.fast.ai">nbdev</a></p>
 </section>
-<section id="how-to" class="level1">
-<h1>How to</h1>
+<section id="how-to" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> How to</h1>
 <ol type="1">
 <li>In your repository go to Settings -&gt; Secrets -&gt; Add New Secret and add your secret</li>
 <li>Add to your <code>workflow.yml</code> file</li>
@@ -199,12 +204,13 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>I needed to use an EC2 instance to run a jupyter notebook. Here’s the steps it took to set do it.</p>
 </section>
-<section id="how-to" class="level1">
-<h1>How to</h1>
+<section id="how-to" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> How to</h1>
 <ol type="1">
 <li>Launch EC2 instance</li>
 <li>SSH into instance</li>
@@ -229,8 +235,9 @@
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
+
+<section id="today-i-learned" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Today I Learned</h1>
 <p>Jupyter notebooks are JSON files that can be manipulated easily.</p>
 <p>To read them:</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> json</span>

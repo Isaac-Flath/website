@@ -6,6 +6,7 @@ execute:
 website:
   title: "Isaac Flath"
   favicon: favicon/favicon-32x32.png
+  margin-header: subscribe.html
   open-graph:
     locale: en_US
   twitter-card: true
@@ -19,12 +20,10 @@ website:
         file: blog.qmd
       - text: "TIL"
         file: til.qmd
-      # - icon: rss
-      #   text: Blog
-      #   href: blog.xml
-      # - icon: rss
-      #   text: TIL
-      #   href: til.xml
+      - text: "Consulting"
+        file: consulting.qmd
+      - text: "Testimonials"
+        file: testimonials.ipynb
   page-footer: 
     left: "Isaac Flath" 
     right: 

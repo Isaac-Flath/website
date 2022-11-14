@@ -16,7 +16,12 @@ about:
     - icon: mastadon
       text: Mastadon
       href: https://sigmoid.social/web/@isaac_flath
-        
+    - icon: rss
+      text: Blog RSS
+      href: blog.xml
+    - icon: rss
+      text: TIL RSS
+      href: til.xml        
 ---
 
 # About Me 👋
@@ -47,7 +52,7 @@ My primary hobby is dance.  I used to teach ballroom dance but now I mostly danc
 
 **Do projects**  Do projects in parallel with courses, and after courses.  Don't wait.  Build stuff.  Doing projects should be where you put most of your time. 
 
-**Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [this page](blogging.qmd) for my thoughts on getting started.
+**Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [my FAQ](other/bloggingFAQ.qmd) for some help getting started!
 
 **Keep at it** and be tenacious.  There is discomfort with learning any skill. You'll be frustrated at times.  That's a sign that there's a concept worth learning and once you do figure it out you'll have made a big step forward.
 
