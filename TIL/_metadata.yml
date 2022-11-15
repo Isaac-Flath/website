@@ -8,10 +8,13 @@ freeze: true
 title-block-banner: true
 
 # Table of content settings
-toc: true
-toc-depth: 3
+toc: false
 
 css: styles.css
-number-sections: true
+number-sections: false
 theme: cosmo
 highlight-style: tango
+
+comments: 
+  utterances: 
+    repo:  AlbertRapp/blogComments

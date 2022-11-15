@@ -15,3 +15,7 @@ css: styles.css
 number-sections: true
 theme: cosmo
 highlight-style: tango
+
+comments: 
+  utterances: 
+    repo:  AlbertRapp/blogComments
