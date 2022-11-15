@@ -1,7 +1,5 @@
 ---
 title: "Consulting"
-editor: visual
-jupyter: python3
 page-layout: full
 title-block-banner: true
 ---
