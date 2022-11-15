@@ -9,7 +9,7 @@ website:
   margin-header: subscribe.html
   open-graph:
     locale: en_US
-  twitter-card: true
+  twitter-card: false
   site-url: https://isaac-flath.tech/
   description: "Blog for machine learning, programming, computer science and other data science related topics"
   navbar:
