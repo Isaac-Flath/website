@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Isaac Flath</title>
+<link>https://isaac-flath.tech/til.html</link>
+<atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
+<description>Blog for machine learning, programming, computer science and other data science related topics</description>
+<generator>quarto-1.2.267</generator>
+<lastBuildDate>Mon, 14 Nov 2022 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Quarto Column Formatting</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>Today I learned that it’s very easy to make multi-column layouts in <a href="https://quarto.org">quarto</a>.</p>
+<p>By having this ability to easily create and control the width of columns in different sections of markdown I can do a lot of nice things. For example, I combined this concept with my favorite quarto feature (callout blocks) to create my <a href="../testimonials.html">testimonials page</a>!</p>
+<pre><code>::: {.columns}
+
+::: {.column width="42%"}
+Column on the Left
+:::
+
+::: {.column width="6%"}
+&lt;!-- empty column to create gap --&gt;
+:::
+
+::: {.column width="42%"}
+Column on the right
+:::
+
+:::</code></pre>
+
+
+</section>
+
+ ]]></description>
+  <category>Quarto</category>
+  <guid>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</guid>
+  <pubDate>Mon, 14 Nov 2022 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Quarto Conditional Content</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>Today I learned that you can control what markdown renders. This is called <a href="https://quarto.org/docs/authoring/conditional.html">conditional content in the Quarto docs</a>.</p>
+<p>When I create a quarto notebook I can add full markdown note for myself or other contributors that do not render to the output format, whether that output is a html, pdf, python library, or website. Yoformats it will render to and which it will not.u can control which</p>
+<section id="ways-i-will-use-this" class="level2">
+<h2 class="anchored" data-anchor-id="ways-i-will-use-this">Ways I will use this</h2>
+<section id="html-reports" class="level3">
+<h3 class="anchored" data-anchor-id="html-reports">HTML Reports</h3>
+<p>Now-a-days all my presentations are really Quarto html outputs that I walk through with clients. I can now add sections of notes for myself that I don’t want the client to see. Lots of things I will use this for such as:</p>
+<ul>
+<li>Documenting some nuance about why I did something that isn’t relevant to business users</li>
+<li>Notes to look into some data issue if the project gets approved</li>
+<li>Markdown to break my setup into sections (imports, UDF, db connections, etc.)</li>
+</ul>
+<p>And much more</p>
+</section>
+<section id="nbdev" class="level3">
+<h3 class="anchored" data-anchor-id="nbdev">NBdev</h3>
+<p><a href="nbdev.fast.ai">nbdev</a> is a tool to write, test, document, and distribute software packages and technical articles — all in one place, your notebook. It takes notebooks and outputs documentation and a python library. This is great because now in the same place I can write development notes or to-do’s right in the place where the code/tests/docs are sourced from. Maybe a note for myself or for other developers in full markdown that won’t get rendered to the user documentation.</p>
+</section>
+<section id="websiteblogs" class="level3">
+<h3 class="anchored" data-anchor-id="websiteblogs">Website/Blogs</h3>
+<p>I think it’ll be really nice to have notes on blogs. Sometimes I go back and improve old blogs, or add sections. I try not to let not being “finished” prevent me from posting. Once I have something I think is good it ships, even if there’s more I could do. Because there’s always more I can do. Being able to add the to-do’s to myself for when I come back later will be fantastic!</p>
+
+
+</section>
+</section>
+</section>
+
+ ]]></description>
+  <category>Quarto</category>
+  <guid>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</guid>
+  <pubDate>Thu, 10 Nov 2022 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Random State Duplication</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>You should be really careful about random state when parallel processing. If you aren’t careful, the random seed will be copied over to other processes and each process will generate the same random numbers! I learned this from a <a href="fast.ai">fastai</a> lecture in the 2022 part 2 course.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Image showing duplicate random numbers being creating on separate processes due to random seeds being accidentally duplicated to multiple processes</figcaption><p></p>
+</figure>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <guid>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</guid>
+  <pubDate>Sat, 05 Nov 2022 04:00:00 GMT</pubDate>
+  <media:content url="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" medium="image" type="image/png" height="90" width="144"/>
+</item>
+<item>
+  <title>Run Python on Github Actions</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>How to run a python script on a cron using github actions, or on push of a branch.</p>
+<p>Key parts of <code>workflow.yaml</code></p>
+<p>Define the how the job runs and what the triggers are</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> myWorkflow</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">on</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb1-3"><span class="at" style="color: #657422;">   </span><span class="fu" style="color: #4758AB;">push</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb1-4"><span class="at" style="color: #657422;">      </span><span class="fu" style="color: #4758AB;">branches</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="kw" style="color: #003B4F;">[</span><span class="at" style="color: #657422;">main</span><span class="kw" style="color: #003B4F;">]</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">schedule</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">cron</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"0 0 * * *"</span><span class="at" style="color: #657422;"> </span></span></code></pre></div>
+<p>Define system to run on.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;">jobs</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb2-2"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">build</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb2-3"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">runs-on</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> ubuntu-latest</span></span>
+<span id="cb2-4"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">steps</span><span class="kw" style="color: #003B4F;">:</span></span></code></pre></div>
+<p>Checkout the github repo you are in (so you can access the files)</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> checkout repo content</span></span>
+<span id="cb3-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">uses</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> actions/checkout@v2</span></span></code></pre></div>
+<p>Setup Python 3</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">uses</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> actions/setup-python@v3</span></span>
+<span id="cb4-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">with</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb4-3"><span class="at" style="color: #657422;">          </span><span class="fu" style="color: #4758AB;">python-version</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"3.9"</span></span>
+<span id="cb4-4"><span class="at" style="color: #657422;">          </span><span class="fu" style="color: #4758AB;">architecture</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"x64"</span></span></code></pre></div>
+<p>Install dependencies as needed and run a python script in the repository</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> Install Dependencies</span></span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;">        run</span><span class="kw" style="color: #003B4F;">: </span><span class="ch" style="color: #20794D;">|</span></span>
+<span id="cb5-3">          python -m pip install --upgrade pip</span>
+<span id="cb5-4">          pip install -Uq git+https://github.com/fastai/fastcore.git</span>
+<span id="cb5-5"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> execute py script</span></span>
+<span id="cb5-6"><span class="fu" style="color: #4758AB;">        run</span><span class="kw" style="color: #003B4F;">: </span><span class="ch" style="color: #20794D;">|</span></span>
+<span id="cb5-7">          python run.py</span></code></pre></div>
+
+
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <category>Github</category>
+  <guid>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</guid>
+  <pubDate>Wed, 10 Aug 2022 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Shelve Python Database</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/ShelveDB.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p><code>Shelve</code> is dictionary database that stored in a single file without installation needed. It’s like a nosql version of sqlite.</p>
+<p>There’s some really cool things about shelve:</p>
+<ul>
+<li>You can add to it with the same syntax as dictionaries, so not much new syntax or api to learn or thing about</li>
+<li>It’s stored in a file but it’s all pickled so read/write pretty fast and is stored on disk</li>
+<li>Anything that can be pickled can be stored as a value. In python, that is most things.</li>
+<li>It’s nosql and you don’t need to have a set schema.</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <guid>https://isaac-flath.tech/TIL/ShelveDB.html</guid>
+  <pubDate>Sat, 15 May 2021 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Secrets for Github Actions</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>I always assumed it was possible to pass secrets github actions, but I never really dove into it until now. So today I learned how to add secrets to github for use in the CI/CD for testing. I’m using it with <a href="nbdev.fast.ai">nbdev</a></p>
+</section>
+<section id="how-to" class="level1">
+<h1>How to</h1>
+<ol type="1">
+<li>In your repository go to Settings -&gt; Secrets -&gt; Add New Secret and add your secret</li>
+<li>Add to your <code>workflow.yml</code> file</li>
+</ol>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">env</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">key</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> ${{ secrets.your_secret_key }}</span></span></code></pre></div>
+<ol start="3" type="1">
+<li>Access in code as a normal environment variable</li>
+</ol>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">    <span class="im" style="color: #00769E;">import</span> os</span>
+<span id="cb2-2">    your_secret_key <span class="op" style="color: #5E5E5E;">=</span> os.environ[<span class="st" style="color: #20794D;">'your_secret_key'</span>]</span></code></pre></div>
+
+
+</section>
+
+ ]]></description>
+  <category>Github</category>
+  <guid>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</guid>
+  <pubDate>Sun, 06 Dec 2020 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Connecting Jupyter to EC2</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>I needed to use an EC2 instance to run a jupyter notebook. Here’s the steps it took to set do it.</p>
+</section>
+<section id="how-to" class="level1">
+<h1>How to</h1>
+<ol type="1">
+<li>Launch EC2 instance</li>
+<li>SSH into instance</li>
+<li>Run JupyterLab in EC2 <code>jupyter-lab --no-browser --port=8889</code></li>
+<li>Use ssh for port forwarding <code>-L 8000:localhost:8889</code></li>
+<li>Open jupyter on your local browser at <code>localhost:8000</code></li>
+</ol>
+
+
+</section>
+
+ ]]></description>
+  <category>Cloud</category>
+  <guid>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</guid>
+  <pubDate>Thu, 25 Jun 2020 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Jupyter is JSON</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/JupyterIsJson.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>Jupyter notebooks are JSON files that can be manipulated easily.</p>
+<p>To read them:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> json</span>
+<span id="cb1-2">nb <span class="op" style="color: #5E5E5E;">=</span> json.load(<span class="bu" style="color: null;">open</span>(fpath))</span></code></pre></div>
+<p>To clear outputs</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="cf" style="color: #003B4F;">for</span> cell <span class="kw" style="color: #003B4F;">in</span> nb[<span class="st" style="color: #20794D;">'cell'</span>]:</span>
+<span id="cb2-2">    <span class="cf" style="color: #003B4F;">if</span> cell.cell_type<span class="op" style="color: #5E5E5E;">==</span><span class="st" style="color: #20794D;">'code'</span>: cell[<span class="st" style="color: #20794D;">'outputs'</span>]<span class="op" style="color: #5E5E5E;">=</span>[]</span></code></pre></div>
+<p>All normal json and easy to work with when needed. <a href="nbdev.fast.ai">nbdev</a> has lots of functions and tools to make most of this easier too.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <guid>https://isaac-flath.tech/TIL/JupyterIsJson.html</guid>
+  <pubDate>Wed, 15 Jan 2020 05:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

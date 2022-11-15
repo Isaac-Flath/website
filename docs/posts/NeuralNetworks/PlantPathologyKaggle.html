@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.267">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2021-02-15">
+<meta name="description" content="Creating a top 10 leaderboard submission for the Plant Pathology Image Classification Kaggle Competition">
+
+<title>Isaac Flath - Plant Pathology Kaggle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Isaac Flath - Plant Pathology Kaggle">
+<meta property="og:description" content="Creating a top 10 leaderboard submission for the Plant Pathology Image Classification Kaggle Competition">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
+<meta property="og:site-name" content="Isaac Flath">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Isaac Flath - Plant Pathology Kaggle">
+<meta name="twitter:description" content="Creating a top 10 leaderboard submission for the Plant Pathology Image Classification Kaggle Competition">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Isaac Flath</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html">
+ <span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../consulting.html">
+ <span class="menu-text">Consulting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../testimonials.html">
+ <span class="menu-text">Testimonials</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Plant Pathology Kaggle</h1>
+                  <div>
+        <div class="description">
+          Creating a top 10 leaderboard submission for the Plant Pathology Image Classification Kaggle Competition
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Neural Networks</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 15, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+
+<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1667811");</style>
+    <style type="text/css">
+    /* LOADER */
+    .ml-form-embedSubmitLoad {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .g-recaptcha {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    height: ;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    .ml-form-embedSubmitLoad:after {
+      content: " ";
+      display: block;
+      width: 11px;
+      height: 11px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    border-color: #ffffff #ffffff #ffffff transparent;
+    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+    }
+    @keyframes ml-form-embedSubmitLoad {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+    }
+      #mlb2-2128741.ml-form-embedContainer {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 auto;
+        position: static;
+        width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer h4,
+      #mlb2-2128741.ml-form-embedContainer p,
+      #mlb2-2128741.ml-form-embedContainer span,
+      #mlb2-2128741.ml-form-embedContainer button {
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper {
+        background-color: #ffffff;
+        
+        border-width: 0px;
+        border-color: transparent;
+        border-radius: 4px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        position: relative;
+              }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-left { text-align: left; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-center { text-align: center; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-right { text-align: right; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: auto;
+        margin: 0 auto !important;
+        max-width: 100%;
+        width: undefinedpx;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+        padding: 20px 20px 0 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
+        padding-bottom: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+        text-align: left;
+        margin: 0 0 20px 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
+        list-style-type: lower-alpha;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
+        list-style-type: lower-roman;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+        text-align: left!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+        margin-bottom: 5px;
+        color: #333333;
+        font-size: 14px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-weight: bold; font-style: normal; text-decoration: none;;
+        display: inline-block;
+        line-height: 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+        margin: 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        margin: 0 0 20px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
+        margin: 0;
+        padding: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          border-color: #cccccc!important;
+          background-color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+        border-radius: 4px!important;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+          border-color: #2780e3!important;
+          background-color: #2780e3!important;
+          color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
+           top: 2px;
+           box-sizing: border-box;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+           top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+        top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+       #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
+            top: 0px!important;
+            box-sizing: border-box!important;
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+       }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
+        top: 0px!important;
+        box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
+          position: absolute;
+          top: 2px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
+          background: no-repeat 50%/50% 50%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          background: no-repeat 50%/50% 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          box-sizing: border-box;
+          padding: 0;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
+          color: #000000;
+          font-size: 12px!important;
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          line-height: 22px;
+          margin-bottom: 0;
+          position: relative;
+          vertical-align: top;
+          font-style: normal;
+          font-weight: 700;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 28px 10px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('https://cdn.mailerlite.com/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
+        height: auto;
+        width: 100%;
+        float: left;
+      }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
+        background-color: #ffffff;
+        color: #333333;
+        border-color: #cccccc;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: initial;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
+        background-color: #2780e3 !important;
+        border-color: #2780e3;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 4px;
+        box-shadow: none;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100%;
+        height: auto;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
+        background-color: #f059d6 !important;
+        border-color: #f059d6 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
+        color: #000000;
+        display: block;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
+        color: #000000;
+        text-decoration: underline;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
+        color: #000000 !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        line-height: 18px !important;
+        padding: 0 !important;
+        margin: 0 5px 0 0 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+        margin: 0 0 20px 0;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+        background-color: #2780e3 !important;
+        border: none !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 21px !important;
+        height: auto;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+        display: none;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+        background-color: #f059d6 !important;
+      }
+      .ml-subscribe-close {
+        width: 30px;
+        height: 30px;
+        background: url('https://cdn.mailerlite.com/images/default/modal_close.png') no-repeat;
+        background-size: 30px;
+        cursor: pointer;
+        margin-top: -10px;
+        margin-right: -10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .ml-error input, .ml-error textarea, .ml-error select {
+        border-color: red!important;
+      }
+
+      .ml-error .custom-checkbox-radio-list {
+        border: 1px solid red !important;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      .ml-error .label-description,
+      .ml-error .label-description p,
+      .ml-error .label-description p a,
+      .ml-error label:first-child {
+        color: #ff0000 !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
+        color: #ff0000 !important;
+      }
+            @media only screen and (max-width: 400px){
+
+        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
+        .ml-form-formContent.horozintalForm { float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+
+      }
+    </style>
+
+    
+  
+    <style type="text/css">
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow {
+        margin-bottom: 20px;
+        text-align: left;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox.last-group {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow h4 {
+        color: ;
+        font-family: ;
+        font-size: px;
+        font-weight: ;
+        line-height: px;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+        font-style: normal;
+        font-weight: 700;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .description {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 5px 0 0 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+    </style>
+    
+
+    
+    
+
+    
+    
+
+    
+
+      
+        
+        
+      
+
+      
+        
+        
+      
+
+      
+
+            
+            
+            
+            
+            
+            
+      
+
+      
+
+      
+        
+        
+         
+        
+        
+      
+
+        
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+        
+        
+        
+       
+
+
+      
+        
+        
+        
+        
+  
+
+
+
+  
+        
+        
+        
+      
+
+
+      
+    
+    
+    
+    
+    
+  
+
+  
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+       
+
+       
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+        
+        
+       
+
+    
+
+    
+
+
+      
+
+
+      
+
+      
+      
+
+      
+
+      
+
+
+
+
+
+    
+
+      
+    <div id="mlb2-2128741" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2128741">
+      <div class="ml-form-align-center ">
+        <div class="ml-form-embedWrapper embedForm">
+
+          
+          
+
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+
+            <div class="ml-form-embedContent" style=" ">
+              
+                <h4>Subscribe</h4>
+                <p><br></p>
+              
+            </div>
+
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/220832/forms/71614977134299121/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                
+
+                  
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                      
+
+
+                      <!-- input -->
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                      <!-- /input -->
+
+                      <!-- textarea -->
+                      
+                      <!-- /textarea -->
+
+                      <!-- select -->
+                      
+                      <!-- /select -->
+
+                      <!-- checkboxes -->
+            
+            <!-- /checkboxes -->
+
+                      <!-- radio -->
+                      
+                      <!-- /radio -->
+
+                      <!-- countries -->
+                      
+                      <!-- /countries -->
+
+
+
+
+
+                    </div>
+                  </div>
+                
+              </div>
+
+              
+
+              <!-- Privacy policy -->
+              
+              <!-- /Privacy policy -->
+
+              
+
+              <div class="ml-form-interestGroupsRow ml-block-groups ml-validate-required">
+                
+                    <div class="ml-form-interestGroupsRowCheckbox group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71614988342527788">
+                        <div class="label-description">Blog</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+                    <div class="ml-form-interestGroupsRowCheckbox last-group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71615004795733097">
+                        <div class="label-description">TIL</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+              </div>
+
+              
+
+
+
+
+
+
+              
+              <input type="hidden" name="ml-submit" value="1">
+
+              <div class="ml-form-embedSubmit">
+                
+                  <button type="submit" class="primary">Subscribe</button>
+                
+                <button disabled="disabled" style="display: none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+
+              
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+
+          <div class="ml-form-successBody row-success" style="display: none">
+
+            <div class="ml-form-successContent">
+              
+                <h4>Thank you!</h4>
+                
+                  <p>You have successfully joined our subscriber list.</p>
+                
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  
+  
+  <script>
+    function ml_webform_success_2128741() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-2128741 .row-success').show();
+      $('.ml-subscribe-form-2128741 .row-form').hide();
+    }
+      </script>
+  
+  
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v491724307ca3b85c1c754857e93994e5" type="text/javascript"></script>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#transforms" id="toc-transforms" class="nav-link active" data-scroll-target="#transforms"><span class="toc-section-number">1</span>  Transforms</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">2</span>  Data</a></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="toc-section-number">3</span>  Loss Function</a></li>
+  <li><a href="#optimizer-scheduler" id="toc-optimizer-scheduler" class="nav-link" data-scroll-target="#optimizer-scheduler"><span class="toc-section-number">4</span>  Optimizer &amp; Scheduler</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5</span>  Model</a></li>
+  <li><a href="#soft-label-callback" id="toc-soft-label-callback" class="nav-link" data-scroll-target="#soft-label-callback"><span class="toc-section-number">6</span>  Soft Label Callback</a></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="toc-section-number">7</span>  Inference</a></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="toc-section-number">8</span>  Training</a>
+  <ul class="collapse">
+  <li><a href="#getting-distilled-soft-labels" id="toc-getting-distilled-soft-labels" class="nav-link" data-scroll-target="#getting-distilled-soft-labels"><span class="toc-section-number">8.1</span>  Getting Distilled (soft) labels</a></li>
+  <li><a href="#training-with-soft-labeling" id="toc-training-with-soft-labeling" class="nav-link" data-scroll-target="#training-with-soft-labeling"><span class="toc-section-number">8.2</span>  Training with Soft Labeling</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>This post is looking at the <a href="https://www.kaggle.com/c/plant-pathology-2020-fgvc7/">plant pathology kaggle competition</a> and showing how you could create a top 10 kaggle submission with <a href="fast.ai">fastai</a>. This is the first of a blog series where I will do this with historical kaggle competitions. Many techniques will come from the <a href="https://github.com/alipay/cvpr2020-plant-pathology">winning solution code base</a> by the “Alipay Tian Suan Security Lab Kaggle” team, but I will make a modifications as I see fit. I will explain those as they come up.</p>
+<p>The original code was in pytorch lightning. I will be using Fastai, which will allow me to simplify the solution considerably without sacrificing results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, cv2</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> albumentations <span class="im">import</span> (</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    Compose,GaussianBlur,HorizontalFlip,MedianBlur,MotionBlur,OneOf,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    RandomBrightness,RandomContrast,Resize,ShiftScaleRotate,VerticalFlip</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'./data/images'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="transforms" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Transforms</h1>
+<p>First, let’s set up our transforms. The solution I am using as a starting point used <code>Albumentations</code> so I will use that as well and will use their transforms. I grabbed the <code>AlbumentationsTransform</code> class from <a href="https://docs.fast.ai/tutorial.albumentations.html">the fastai docs tutorial on albumentations</a>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As you can see, super easy to mix and match Albumentations with Fastai transforms and use other libraries with fastai even when there is not “built-in” integration with that library.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AlbumentationsTransform(RandTransform):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"A transform handler for multiple `Albumentation` transforms"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    split_idx,order<span class="op">=</span><span class="va">None</span>,<span class="dv">2</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, train_aug, valid_aug): store_attr()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> before_call(<span class="va">self</span>, b, split_idx):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.idx <span class="op">=</span> split_idx</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> encodes(<span class="va">self</span>, img: PILImage):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.idx <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            aug_img <span class="op">=</span> <span class="va">self</span>.train_aug(image<span class="op">=</span>np.array(img))[<span class="st">'image'</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            aug_img <span class="op">=</span> <span class="va">self</span>.valid_aug(image<span class="op">=</span>np.array(img))[<span class="st">'image'</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> PILImage.create(aug_img)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now define our transforms as normal. These are from the code base I am working from. I move Normalize to batch transforms and use the fastai normalize instead, which does it in batches on the GPU in fastai. It’s a small performance boost. With a dataset this small it probably just wasn’t worth the time to set that up on the GPU using pytorch lightning, but it’s free in fastai so may as well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>image_size <span class="op">=</span> [<span class="dv">480</span>, <span class="dv">768</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_train_aug(image_size): <span class="cf">return</span> Compose(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        Resize(height<span class="op">=</span>image_size[<span class="dv">0</span>], width<span class="op">=</span>image_size[<span class="dv">1</span>]),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        OneOf([RandomBrightness(limit<span class="op">=</span><span class="fl">0.1</span>, p<span class="op">=</span><span class="dv">1</span>), RandomContrast(limit<span class="op">=</span><span class="fl">0.1</span>, p<span class="op">=</span><span class="dv">1</span>)]), <span class="co">#fastai has</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        OneOf([MotionBlur(blur_limit<span class="op">=</span><span class="dv">3</span>), MedianBlur(blur_limit<span class="op">=</span><span class="dv">3</span>), GaussianBlur(blur_limit<span class="op">=</span><span class="dv">3</span>)], p<span class="op">=</span><span class="fl">0.5</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        VerticalFlip(p<span class="op">=</span><span class="fl">0.5</span>),<span class="co">#Dihedral</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        HorizontalFlip(p<span class="op">=</span><span class="fl">0.5</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        ShiftScaleRotate(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            shift_limit<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            scale_limit<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            rotate_limit<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            interpolation<span class="op">=</span>cv2.INTER_LINEAR,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            border_mode<span class="op">=</span>cv2.BORDER_REFLECT_101,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            p<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_valid_aug(image_size): <span class="cf">return</span>  Compose(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        Resize(height<span class="op">=</span>image_size[<span class="dv">0</span>], width<span class="op">=</span>image_size[<span class="dv">1</span>]),</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>item_tfms <span class="op">=</span> [AlbumentationsTransform(get_train_aug(image_size), get_valid_aug(image_size))]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>batch_tfms <span class="op">=</span> [Normalize.from_stats(<span class="op">*</span>imagenet_stats)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/conda/lib/python3.6/site-packages/albumentations/augmentations/transforms.py:2611: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  "blur_limit and sigma_limit minimum value can not be both equal to 0. "</code></pre>
+</div>
+</div>
+</section>
+<section id="data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data</h1>
+<p>Next, let’s load the dataframe with the training labels that was provided. The data was given to us in one hot encoded format, but we’ll add an decoded column for simplicity. Since we will need to do the same processing for the test set, I put it in a function so we can use it later.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am adding the path to the image folder in the train dataframe. You can also just pass the path to your fasatai dataloaders and do the same thing that way.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_df(path):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'image_id'</span>] <span class="op">=</span> <span class="st">'data/images/'</span> <span class="op">+</span> df.image_id <span class="op">+</span> <span class="st">'.jpg'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'label'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">" "</span>.join([cat <span class="cf">for</span> cat <span class="kw">in</span> df.columns <span class="cf">if</span> x[cat] <span class="op">==</span> <span class="dv">1</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> process_df(<span class="st">'data/train.csv'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>train.sample(n<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>image_id</th>
+      <th>healthy</th>
+      <th>multiple_diseases</th>
+      <th>rust</th>
+      <th>scab</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1390</th>
+      <td>data/images/Train_1390.jpg</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>multiple_diseases</td>
+    </tr>
+    <tr>
+      <th>783</th>
+      <td>data/images/Train_783.jpg</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>scab</td>
+    </tr>
+    <tr>
+      <th>1195</th>
+      <td>data/images/Train_1195.jpg</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>healthy</td>
+    </tr>
+    <tr>
+      <th>1804</th>
+      <td>data/images/Train_1804.jpg</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>scab</td>
+    </tr>
+    <tr>
+      <th>1622</th>
+      <td>data/images/Train_1622.jpg</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>scab</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Now we are ready to get out data loaded up. I will start with data cleaning. In the training set there are 2 images that are not the same as the others. This can be fixed by a transpose.</p>
+<p>The winning solution added the transpose into their dataloader by checking image shapes as they are loaded and transpose as needed. I am going to fix it in the data upfront. This way, I don’t need an if statement in the dataloader to check the image size on every image and if it’s the wrong one transpose. And then repeat that every epoch. If I fix it here I only have to fix it once vs having it fixed every epoch.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img <span class="kw">in</span> train.image_id:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    img_loaded<span class="op">=</span> Image.<span class="bu">open</span>(img)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> img_loaded.shape <span class="op">==</span> (<span class="dv">1365</span>, <span class="dv">2048</span>): <span class="cf">continue</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(img,img_loaded.shape)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    img_loaded.transpose(Image.TRANSPOSE).save(img)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, there is nothing special about the data so we can use the high level API to create a dataloaders object. We can take a look at a few images with fastai’s built in visualizations. They look good - so we can feel good that we are looking at the data in the right way and that our transforms aren’t doing something super weird.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> ImageDataLoaders.from_df(train,bs<span class="op">=</span><span class="dv">16</span>,seed<span class="op">=</span><span class="dv">2020</span>,item_tfms<span class="op">=</span>item_tfms, batch_tfms<span class="op">=</span>batch_tfms,label_col<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dls.show_batch(max_n<span class="op">=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="PlantPathologyKaggle_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="loss-function" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Loss Function</h1>
+<p>The codebase I am working off of uses Cross Entropy Loss on one-hot encoded values and I will as well. The one hot encoding will be important later for soft labeling. Using pure pytorch is completely compatible with fastai and we can pass this directly to our learner no problem.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CrossEntropyLossOneHot(nn.Module):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(CrossEntropyLossOneHot, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_softmax <span class="op">=</span> nn.LogSoftmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, preds, labels):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> torch.mean(torch.<span class="bu">sum</span>(<span class="op">-</span>labels <span class="op">*</span> <span class="va">self</span>.log_softmax(preds), <span class="op">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="optimizer-scheduler" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Optimizer &amp; Scheduler</h1>
+<p>In the original code base they had to write an Optimizer and Scheduler themselves in pytorch for use in pytorch lightning, but we can skip this. The approach they used is the approach fastai uses by default. It’s a good example of fastai having SoTA defaults that saves time without sacrificing results.</p>
+<p><img src="../_my_icons/fitonecycledoc.png" class="img-fluid"></p>
+</section>
+<section id="model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model</h1>
+<p>I will use the winning solution’s <code>se_resnext50_32x4d</code> architecture. Again, pure pytorch is just fine with fastai if you want to do custom stuff - so we don’t need to modify anything from the winner’s model code to make it work with fastai. I am going to go ahead and use the same architecture they used and port is straight into the fastai learner. A fastai model IS a pytorch model - so there’s no problem with this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pretrainedmodels</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> l2_norm(<span class="bu">input</span>, axis<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    norm <span class="op">=</span> torch.norm(<span class="bu">input</span>, <span class="dv">2</span>, axis, <span class="va">True</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> torch.div(<span class="bu">input</span>, norm)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BinaryHead(nn.Module):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_class<span class="op">=</span><span class="dv">4</span>, emb_size<span class="op">=</span><span class="dv">2048</span>, s<span class="op">=</span><span class="fl">16.0</span>):</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(BinaryHead, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.s <span class="op">=</span> s</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc <span class="op">=</span> nn.Sequential(nn.Linear(emb_size, num_class))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, fea):</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        fea <span class="op">=</span> l2_norm(fea)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        logit <span class="op">=</span> <span class="va">self</span>.fc(fea) <span class="op">*</span> <span class="va">self</span>.s</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> logit</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> se_resnext50_32x4d(nn.Module):</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(se_resnext50_32x4d, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model_ft <span class="op">=</span> nn.Sequential(</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span><span class="bu">list</span>(pretrainedmodels.__dict__[<span class="st">"se_resnext50_32x4d"</span>](num_classes<span class="op">=</span><span class="dv">1000</span>, pretrained<span class="op">=</span><span class="st">"imagenet"</span>).children())[</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>                :<span class="op">-</span><span class="dv">2</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.avg_pool <span class="op">=</span> nn.AdaptiveAvgPool2d((<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model_ft.last_linear <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fea_bn <span class="op">=</span> nn.BatchNorm1d(<span class="dv">2048</span>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fea_bn.bias.requires_grad_(<span class="va">False</span>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.binary_head <span class="op">=</span> BinaryHead(<span class="dv">4</span>, emb_size<span class="op">=</span><span class="dv">2048</span>, s<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dropout <span class="op">=</span> nn.Dropout(p<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        img_feature <span class="op">=</span> <span class="va">self</span>.model_ft(x)</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        img_feature <span class="op">=</span> <span class="va">self</span>.avg_pool(img_feature)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>        img_feature <span class="op">=</span> img_feature.view(img_feature.size(<span class="dv">0</span>), <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>        fea <span class="op">=</span> <span class="va">self</span>.fea_bn(img_feature)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># fea = self.dropout(fea)</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.binary_head(fea)</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="soft-label-callback" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Soft Label Callback</h1>
+<p>Now, I write a callback to grab the one-hot encoded labels instead of the encoded column in our training loop. This won’t do anything until we have our distilled labels, but I will set the model up this way now so I don’t have to modify anything later</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SoftLabelCB(Callback):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> before_train(<span class="va">self</span>):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.imgs_list <span class="op">=</span> L(o <span class="cf">for</span> o <span class="kw">in</span> <span class="va">self</span>.dl.items.iloc[:,<span class="dv">0</span>].values) <span class="co"># get list of images in the order they are drawn this epoch</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.df <span class="op">=</span> <span class="va">self</span>.dl.items.set_index(<span class="st">'image_id'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> before_validate(<span class="va">self</span>):</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.imgs_list <span class="op">=</span> L(o <span class="cf">for</span> o <span class="kw">in</span> <span class="va">self</span>.dl.items.iloc[:,<span class="dv">0</span>].values) <span class="co"># get list of images in the order they are drawn this epoch</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.df <span class="op">=</span> <span class="va">self</span>.dl.items.set_index(<span class="st">'image_id'</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> before_batch(<span class="va">self</span>):</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> <span class="va">self</span>.df</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        imgs <span class="op">=</span> <span class="va">self</span>.imgs_list[<span class="va">self</span>.dl._DataLoader__idxs[<span class="va">self</span>.<span class="bu">iter</span><span class="op">*</span><span class="va">self</span>.dl.bs:<span class="va">self</span>.<span class="bu">iter</span><span class="op">*</span><span class="va">self</span>.dl.bs<span class="op">+</span><span class="va">self</span>.dl.bs]]</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        one_hot_yb <span class="op">=</span> df.loc[imgs,df.columns[:<span class="op">-</span><span class="dv">1</span>]].values</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learn.yb <span class="op">=</span> (Tensor(one_hot_yb).cuda(),)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When I train I will be doing folds to generate new labels for the training set for knowledge distillation. I might as well set up inference and make predictions for each of the folds. I’m also adding 4 fold TTA - it’s no effort for me to do it in fastai (<code>learn.get_preds</code> vs <code>learn.tta</code>.)</p>
+</section>
+<section id="inference" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Inference</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_predict(cnt,msg):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create Test Dataloaders</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> process_df(<span class="st">'data/sample_submission.csv'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    test_dl <span class="op">=</span> dls.test_dl(test) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predict with test time augmentation</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    preds, _ <span class="op">=</span> learn.tta(dl<span class="op">=</span>test_dl) </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> preds.softmax(axis<span class="op">=</span><span class="dv">1</span>) </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># format submission file</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> pd.read_csv(<span class="st">'data/sample_submission.csv'</span>)[<span class="st">'image_id'</span>]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    out_a <span class="op">=</span> pd.concat([test,pd.DataFrame(p,columns <span class="op">=</span> learn.dls.vocab)],axis<span class="op">=</span><span class="dv">1</span>)[[<span class="st">'image_id'</span>,<span class="st">'healthy'</span>,<span class="st">'multiple_diseases'</span>,<span class="st">'rust'</span>,<span class="st">'scab'</span>]]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># write to csv and submit to kaggle</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    out_a.to_csv(<span class="ss">f'submission</span><span class="sc">{</span>cnt<span class="sc">}</span><span class="ss">.csv'</span>,index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    os.system(<span class="ss">f'''kaggle competitions submit -c plant-pathology-2020-fgvc7 -f submission</span><span class="sc">{</span>cnt<span class="sc">}</span><span class="ss">.csv -m "</span><span class="sc">{</span>msg<span class="sc">}</span><span class="ss">"'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="training" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Training</h1>
+<p>That’s all I need for the model. Here’s what’s going on:</p>
+<ul>
+<li>I am doing a stratified k fold instead of a normal k fold</li>
+<li>In the learner I pass in all the stuff defined above, some of which was fastai stuff and others from pytorch. Super easy to mix and match as needed.
+<ul>
+<li>dataloaders (<code>dls</code>) that was defined using the <code>fastai</code> api</li>
+<li>Model that was defined using <code>pretrainedmodels</code> and <code>pytorch</code></li>
+<li>Loss function that is <code>pytorch</code></li>
+<li>Callbacks for gradient clipping as well as what will be soft labeling (for now it just uses the one hot encoded labels)</li>
+<li>to_fp16 does the half precision for me</li>
+</ul></li>
+<li>fine_tune takes care of the training for me. Ill go with the default freeze_epochs, learning rate, optimizer, and scheduler.</li>
+<li>Instead of generating a normal predictions, I am doing a 4 count tta. As you can see, it’s very easy to do.</li>
+</ul>
+<p>Lets pass the data (<code>dls</code>) the model (<code>se_resnext50_32x4d</code>), the loss function (<code>CrossEntropyLossOneHot</code>), the cbs (<code>GradientClip</code> and <code>SoftLabelCB</code>), and convert that to fp16. This will generate our distilled labels, which is just predictions on the training set.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am skipping picking a learning rate. Fastai’s default is pretty good most of the time and is plenty good to demonstrate top tier results in this instance for the blog post, but the lr_find in fastai is recommended to find an appropriate learning rate when you are looking for the best results possible.</p>
+</div>
+</div>
+<p>I am also not going to do early stopping like in the winning solution. If the model overfits I would rather retrain from scratch with fewer epochs due to the nature of cyclic learning rates. That said you can add the <code>EarlyStoppingCallback</code> in about 2 seconds if you want to. <a href="https://docs.fast.ai/callback.tracker.html#EarlyStoppingCallback">Here’s the docs for it</a></p>
+<section id="getting-distilled-soft-labels" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="getting-distilled-soft-labels"><span class="header-section-number">8.1</span> Getting Distilled (soft) labels</h2>
+<p>Here’s the 5 fold to get predictions on our entire training set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #hide_output</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>skf <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>splits, preds, targs, preds_c,  <span class="op">=</span> [],[],[],[]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>true <span class="op">=</span> pd.DataFrame(columns <span class="op">=</span> L(o <span class="cf">for</span> o <span class="kw">in</span> train.columns))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> pd.DataFrame(columns <span class="op">=</span> L(o <span class="cf">for</span> o <span class="kw">in</span> train.columns))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>i<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, val_idx <span class="kw">in</span> skf.split(train.image_id,train.label):</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    splitter <span class="op">=</span> IndexSplitter(val_idx)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create dataloaders splittin on indexes defined by StratifiedKFold</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    db <span class="op">=</span> DataBlock(blocks<span class="op">=</span>(ImageBlock,CategoryBlock),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                    get_x<span class="op">=</span>ColReader(<span class="dv">0</span>),get_y<span class="op">=</span>ColReader(<span class="dv">5</span>),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                    item_tfms<span class="op">=</span>item_tfms,batch_tfms<span class="op">=</span>batch_tfms,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>                    splitter<span class="op">=</span>splitter)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    dls <span class="op">=</span> db.dataloaders(train,bs<span class="op">=</span><span class="dv">24</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#train model with fastai dataloaders, pytorch model, pytorch loss function, fastai gradient clipping, custom callback, on fp16 precision </span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    learn <span class="op">=</span> Learner(dls,se_resnext50_32x4d(),loss_func<span class="op">=</span>CrossEntropyLossOneHot(),cbs<span class="op">=</span>[GradientClip,SoftLabelCB()]).to_fp16()</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    learn.fine_tune(<span class="dv">80</span>,reset_opt<span class="op">=</span><span class="va">True</span>) <span class="co"># Train freeze epoch then unfreeze for 80 epochs   </span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    p, _ <span class="op">=</span> learn.tta() <span class="co"># test time augmentation</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    p<span class="op">=</span>p.softmax(axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># Convert to probabilities</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Format dataframe to save</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    items_pred<span class="op">=</span>pd.DataFrame(p,columns<span class="op">=</span>dls.vocab)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    items_pred[<span class="st">'label'</span>] <span class="op">=</span> [dls.vocab[<span class="bu">int</span>(o)] <span class="cf">for</span> o <span class="kw">in</span> p.argmax(dim<span class="op">=</span><span class="dv">1</span>)]</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    items_pred[<span class="st">'image_id'</span>] <span class="op">=</span> dls.valid.items.image_id.values</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    items_pred <span class="op">=</span> items_pred[train.columns]</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    true <span class="op">=</span> pd.concat([true,dls.valid.items])</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> pd.concat([pred,items_pred])</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predict and submit to kaggle</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    test_predict(i,<span class="ss">f'distilling labels fold count </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>) </span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    i<span class="op">+=</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pred.to_csv(<span class="st">'distilled_labels.csv'</span>,index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Great! So that got us to third place with the best model already! Here’s the fold scores. Our second place model as well as an average of all 5 fold predictions were both also in the top 10. We successfully got into the top 10 already with 3 submissions. It is also helpful to note that the most reasonable 2 models to pick would be the average of all 5 fold predictions as well as the 3rd place submission based on the public leaderboard (as when choosing which to use in an active competition you wouldn’t be able to see the private leaderboard score). Mission accomplished!</p>
+<p>First place in the competition had a Private Leaderboard score of 0.98445 with 10th place had 0.97883 for reference.</p>
+<p>As you can see, fastai is plenty capable to compete on the cutting edge at the top of kaggle competitions.</p>
+<p><img src="../_my_icons/First5Fold.png" class="img-fluid"></p>
+</section>
+<section id="training-with-soft-labeling" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="training-with-soft-labeling"><span class="header-section-number">8.2</span> Training with Soft Labeling</h2>
+<p>I am not going to go through the rest of the implementation, but the key technique in the rest is soft labeling. Since this is not a super commonly known technique I am going to explain how to do it in fastai.</p>
+<p>Soft labeling is taking a weighted average of a predicted label and a truth label and training your model on that. This tends to be a good thing to try when some of your labels are wrong. Generally labels that the model get wrong are more likely to be the mislabeled ones, and so when you take a weighted average those get label smoothing applies which makes your model react less to those outliers.</p>
+<p>So how to do it within fastai? Well we already had the callback set up that allows our model to take one hot encoded labels, so all we need to do is set the weights in our dataframe and re-run what we did before. At this point the fastai implementation is done (the callback), and all I need to do is pass it the soft labeled values as the targets instead of the one hot encoded I was using before.</p>
+<p>To demonstrate:</p>
+<ul>
+<li>Load training labels and datat</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> process_df(<span class="st">'data/train.csv'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> train.sort_values(<span class="st">'image_id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Load predictions from previous k-fold</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>distilled_labels <span class="op">=</span> pd.read_csv(<span class="st">'distilled_labels.csv'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>distilled_labels <span class="op">=</span> distilled_labels.sort_values(<span class="st">'image_id'</span>)<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get one hot encoded labels (zeros and ones)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>distilled_labels.iloc[:,<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> pd.get_dummies(distilled_labels.label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Weight as you see fit (winner did 7:3 ratio)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check to make sure the data matches</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> (train.image_id.values<span class="op">==</span>distilled_labels.image_id.values).<span class="bu">all</span>()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>distilled_labels.reset_index(drop<span class="op">=</span><span class="va">True</span>,inplace<span class="op">=</span><span class="va">True</span>)<span class="op">;</span> train.reset_index(drop<span class="op">=</span><span class="va">True</span>,inplace<span class="op">=</span><span class="va">True</span>)<span class="op">;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get soft labels</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>train.iloc[:,<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> distilled_labels.iloc[:,<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> <span class="fl">.3</span> <span class="op">+</span> train.iloc[:,<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> <span class="fl">.7</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>train.loc[train.healthy <span class="op">==</span> <span class="fl">0.3</span>][:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>image_id</th>
+      <th>healthy</th>
+      <th>multiple_diseases</th>
+      <th>rust</th>
+      <th>scab</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>33</th>
+      <td>data/images/Train_1027.jpg</td>
+      <td>0.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.7</td>
+      <td>scab</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>data/images/Train_104.jpg</td>
+      <td>0.3</td>
+      <td>0.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>multiple_diseases</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>data/images/Train_1129.jpg</td>
+      <td>0.3</td>
+      <td>0.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>multiple_diseases</td>
+    </tr>
+    <tr>
+      <th>392</th>
+      <td>data/images/Train_1350.jpg</td>
+      <td>0.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.7</td>
+      <td>scab</td>
+    </tr>
+    <tr>
+      <th>574</th>
+      <td>data/images/Train_1514.jpg</td>
+      <td>0.3</td>
+      <td>0.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>multiple_diseases</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>image_id</th>
+      <th>healthy</th>
+      <th>multiple_diseases</th>
+      <th>rust</th>
+      <th>scab</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>data/images/Train_0.jpg</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>scab</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>data/images/Train_1.jpg</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>multiple_diseases</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>data/images/Train_10.jpg</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>rust</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>data/images/Train_100.jpg</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>healthy</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>data/images/Train_1000.jpg</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>rust</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Great - that’s exactly what we want. We were already using the SoftLabelCB above - so that’s it. You can rerun the same kfold code above or train a single model. Feel free to check out the repository linked above to see the exact implementation and details if you want to do a recreation of their results and the rest of their solution!</p>
+<p>Just remember If you got the results you are looking for in a significantly easier way than you have thought - This is a good thing and a testament to the power of the library (fastai). This not an indication that you are using a beginner tool. Fastai takes care of all the normal SoTA best practices for you so you can focus on bleeding edge implementations or problem specific challenges. Sometimes that means when you go to implement something or work a problem it “just works” with lot less effort than you were expecting and you are left thinking “That’s it?”. How could that possibly be a reasonable reason not to use the library or to think it’s not an effective library?</p>
+<blockquote class="blockquote">
+<p>twitter: https://twitter.com/BBrainkite/status/1359192051837984778</p>
+</blockquote>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath">Mastadon</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../blog.xml">Blog RSS</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../til.xml">TIL RSS</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

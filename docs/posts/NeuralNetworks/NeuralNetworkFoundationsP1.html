@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.267">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2020-06-19">
+<meta name="description" content="MNIST 3/7 classification from scratch with deep Learning">
+
+<title>Isaac Flath - Neural Network Foundations (Part 1)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Isaac Flath - Neural Network Foundations (Part 1)">
+<meta property="og:description" content="MNIST 3/7 classification from scratch with deep Learning">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
+<meta property="og:site-name" content="Isaac Flath">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Isaac Flath - Neural Network Foundations (Part 1)">
+<meta name="twitter:description" content="MNIST 3/7 classification from scratch with deep Learning">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Isaac Flath</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html">
+ <span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../consulting.html">
+ <span class="menu-text">Consulting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../testimonials.html">
+ <span class="menu-text">Testimonials</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Neural Network Foundations (Part 1)</h1>
+                  <div>
+        <div class="description">
+          MNIST 3/7 classification from scratch with deep Learning
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Neural Networks</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 19, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+
+<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1667811");</style>
+    <style type="text/css">
+    /* LOADER */
+    .ml-form-embedSubmitLoad {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .g-recaptcha {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    height: ;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    .ml-form-embedSubmitLoad:after {
+      content: " ";
+      display: block;
+      width: 11px;
+      height: 11px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    border-color: #ffffff #ffffff #ffffff transparent;
+    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+    }
+    @keyframes ml-form-embedSubmitLoad {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+    }
+      #mlb2-2128741.ml-form-embedContainer {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 auto;
+        position: static;
+        width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer h4,
+      #mlb2-2128741.ml-form-embedContainer p,
+      #mlb2-2128741.ml-form-embedContainer span,
+      #mlb2-2128741.ml-form-embedContainer button {
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper {
+        background-color: #ffffff;
+        
+        border-width: 0px;
+        border-color: transparent;
+        border-radius: 4px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        position: relative;
+              }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-left { text-align: left; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-center { text-align: center; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-right { text-align: right; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: auto;
+        margin: 0 auto !important;
+        max-width: 100%;
+        width: undefinedpx;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+        padding: 20px 20px 0 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
+        padding-bottom: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+        text-align: left;
+        margin: 0 0 20px 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
+        list-style-type: lower-alpha;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
+        list-style-type: lower-roman;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+        text-align: left!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+        margin-bottom: 5px;
+        color: #333333;
+        font-size: 14px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-weight: bold; font-style: normal; text-decoration: none;;
+        display: inline-block;
+        line-height: 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+        margin: 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        margin: 0 0 20px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
+        margin: 0;
+        padding: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          border-color: #cccccc!important;
+          background-color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+        border-radius: 4px!important;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+          border-color: #2780e3!important;
+          background-color: #2780e3!important;
+          color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
+           top: 2px;
+           box-sizing: border-box;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+           top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+        top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+       #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
+            top: 0px!important;
+            box-sizing: border-box!important;
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+       }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
+        top: 0px!important;
+        box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
+          position: absolute;
+          top: 2px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
+          background: no-repeat 50%/50% 50%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          background: no-repeat 50%/50% 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          box-sizing: border-box;
+          padding: 0;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
+          color: #000000;
+          font-size: 12px!important;
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          line-height: 22px;
+          margin-bottom: 0;
+          position: relative;
+          vertical-align: top;
+          font-style: normal;
+          font-weight: 700;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 28px 10px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('https://cdn.mailerlite.com/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
+        height: auto;
+        width: 100%;
+        float: left;
+      }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
+        background-color: #ffffff;
+        color: #333333;
+        border-color: #cccccc;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: initial;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
+        background-color: #2780e3 !important;
+        border-color: #2780e3;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 4px;
+        box-shadow: none;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100%;
+        height: auto;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
+        background-color: #f059d6 !important;
+        border-color: #f059d6 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
+        color: #000000;
+        display: block;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
+        color: #000000;
+        text-decoration: underline;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
+        color: #000000 !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        line-height: 18px !important;
+        padding: 0 !important;
+        margin: 0 5px 0 0 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+        margin: 0 0 20px 0;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+        background-color: #2780e3 !important;
+        border: none !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 21px !important;
+        height: auto;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+        display: none;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+        background-color: #f059d6 !important;
+      }
+      .ml-subscribe-close {
+        width: 30px;
+        height: 30px;
+        background: url('https://cdn.mailerlite.com/images/default/modal_close.png') no-repeat;
+        background-size: 30px;
+        cursor: pointer;
+        margin-top: -10px;
+        margin-right: -10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .ml-error input, .ml-error textarea, .ml-error select {
+        border-color: red!important;
+      }
+
+      .ml-error .custom-checkbox-radio-list {
+        border: 1px solid red !important;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      .ml-error .label-description,
+      .ml-error .label-description p,
+      .ml-error .label-description p a,
+      .ml-error label:first-child {
+        color: #ff0000 !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
+        color: #ff0000 !important;
+      }
+            @media only screen and (max-width: 400px){
+
+        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
+        .ml-form-formContent.horozintalForm { float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+
+      }
+    </style>
+
+    
+  
+    <style type="text/css">
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow {
+        margin-bottom: 20px;
+        text-align: left;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox.last-group {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow h4 {
+        color: ;
+        font-family: ;
+        font-size: px;
+        font-weight: ;
+        line-height: px;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+        font-style: normal;
+        font-weight: 700;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .description {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 5px 0 0 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+    </style>
+    
+
+    
+    
+
+    
+    
+
+    
+
+      
+        
+        
+      
+
+      
+        
+        
+      
+
+      
+
+            
+            
+            
+            
+            
+            
+      
+
+      
+
+      
+        
+        
+         
+        
+        
+      
+
+        
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+        
+        
+        
+       
+
+
+      
+        
+        
+        
+        
+  
+
+
+
+  
+        
+        
+        
+      
+
+
+      
+    
+    
+    
+    
+    
+  
+
+  
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+       
+
+       
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+        
+        
+       
+
+    
+
+    
+
+
+      
+
+
+      
+
+      
+      
+
+      
+
+      
+
+
+
+
+
+    
+
+      
+    <div id="mlb2-2128741" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2128741">
+      <div class="ml-form-align-center ">
+        <div class="ml-form-embedWrapper embedForm">
+
+          
+          
+
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+
+            <div class="ml-form-embedContent" style=" ">
+              
+                <h4>Subscribe</h4>
+                <p><br></p>
+              
+            </div>
+
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/220832/forms/71614977134299121/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                
+
+                  
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                      
+
+
+                      <!-- input -->
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                      <!-- /input -->
+
+                      <!-- textarea -->
+                      
+                      <!-- /textarea -->
+
+                      <!-- select -->
+                      
+                      <!-- /select -->
+
+                      <!-- checkboxes -->
+            
+            <!-- /checkboxes -->
+
+                      <!-- radio -->
+                      
+                      <!-- /radio -->
+
+                      <!-- countries -->
+                      
+                      <!-- /countries -->
+
+
+
+
+
+                    </div>
+                  </div>
+                
+              </div>
+
+              
+
+              <!-- Privacy policy -->
+              
+              <!-- /Privacy policy -->
+
+              
+
+              <div class="ml-form-interestGroupsRow ml-block-groups ml-validate-required">
+                
+                    <div class="ml-form-interestGroupsRowCheckbox group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71614988342527788">
+                        <div class="label-description">Blog</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+                    <div class="ml-form-interestGroupsRowCheckbox last-group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71615004795733097">
+                        <div class="label-description">TIL</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+              </div>
+
+              
+
+
+
+
+
+
+              
+              <input type="hidden" name="ml-submit" value="1">
+
+              <div class="ml-form-embedSubmit">
+                
+                  <button type="submit" class="primary">Subscribe</button>
+                
+                <button disabled="disabled" style="display: none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+
+              
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+
+          <div class="ml-form-successBody row-success" style="display: none">
+
+            <div class="ml-form-successContent">
+              
+                <h4>Thank you!</h4>
+                
+                  <p>You have successfully joined our subscriber list.</p>
+                
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  
+  
+  <script>
+    function ml_webform_success_2128741() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-2128741 .row-success').show();
+      $('.ml-subscribe-form-2128741 .row-form').hide();
+    }
+      </script>
+  
+  
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v491724307ca3b85c1c754857e93994e5" type="text/javascript"></script>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="toc-section-number">1</span>  Intro</a></li>
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="toc-section-number">2</span>  Load the Data</a></li>
+  <li><a href="#defining-our-linear-equation" id="toc-defining-our-linear-equation" class="nav-link" data-scroll-target="#defining-our-linear-equation"><span class="toc-section-number">3</span>  Defining our Linear Equation</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">3.0.1</span>  Setup</a></li>
+  </ul></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="toc-section-number">4</span>  Loss Function</a></li>
+  <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent"><span class="toc-section-number">5</span>  Gradient Descent</a>
+  <ul class="collapse">
+  <li><a href="#background-and-setup" id="toc-background-and-setup" class="nav-link" data-scroll-target="#background-and-setup"><span class="toc-section-number">5.0.1</span>  Background and Setup</a></li>
+  <li><a href="#calculate-the-gradient" id="toc-calculate-the-gradient" class="nav-link" data-scroll-target="#calculate-the-gradient"><span class="toc-section-number">5.0.2</span>  Calculate the Gradient</a></li>
+  <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model"><span class="toc-section-number">5.0.3</span>  Training the Model</a></li>
+  <li><a href="#linear-recap" id="toc-linear-recap" class="nav-link" data-scroll-target="#linear-recap"><span class="toc-section-number">5.0.4</span>  Linear Recap</a></li>
+  </ul></li>
+  <li><a href="#relu" id="toc-relu" class="nav-link" data-scroll-target="#relu"><span class="toc-section-number">6</span>  ReLu</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it"><span class="toc-section-number">6.0.1</span>  What is it?</a></li>
+  <li><a href="#in-a-neural-network" id="toc-in-a-neural-network" class="nav-link" data-scroll-target="#in-a-neural-network"><span class="toc-section-number">6.0.2</span>  In a Neural Network</a></li>
+  </ul></li>
+  <li><a href="#train-the-full-neural-network" id="toc-train-the-full-neural-network" class="nav-link" data-scroll-target="#train-the-full-neural-network"><span class="toc-section-number">7</span>  Train the Full Neural Network</a></li>
+  <li><a href="#recap-of-tensor-shapes" id="toc-recap-of-tensor-shapes" class="nav-link" data-scroll-target="#recap-of-tensor-shapes"><span class="toc-section-number">8</span>  Recap of Tensor Shapes</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="toc-section-number">9</span>  What’s Next?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.data.external <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;torch._C.Generator&gt;</code></pre>
+</div>
+</div>
+<section id="intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
+<p>Today we will be working with a subset of the MNIST dataset. The goal is going to be to take an image of handwritten digits and automatically predict whether it is a 3 or a 7. We will be building a Neural Network to do this.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you get through this and want more detail, I highly recommend checking out <a href="https://www.amazon.com/Deep-Learning-Coders-fastai-PyTorch/dp/1492045527">Deep Learning for Coders with fastai &amp; Pytorch by Jeremy Howard and Sylvain Gugger</a>. All of the material in this guide and more is covered in much greater detail in that book. They also have some awesome courses on the <a href="fast.ai">fast.ai</a> website, such as <a href="course.fast.ai">their deep learning course</a></p>
+</div>
+</div>
+</section>
+<section id="load-the-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Load the Data</h1>
+<p>The first step is to get and load the data. We’ll look at it a bit along the way to make sure it was loaded properly and we understand it. We will be using fastai’s built in dataset feature rather than sourcing it ourself.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This command downloads the MNIST_TINY dataset and returns the path where it was downloaded</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(URLs.MNIST_TINY)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This takes that path from above, and get the path for the threes and the sevens</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>threes <span class="op">=</span> (path<span class="op">/</span><span class="st">'train'</span><span class="op">/</span><span class="st">'3'</span>).ls().<span class="bu">sorted</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sevens <span class="op">=</span> (path<span class="op">/</span><span class="st">'train'</span><span class="op">/</span><span class="st">'7'</span>).ls().<span class="bu">sorted</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s take a look at an image. The first thing I reccomend doing for any dataset is to view something to verify you loaded it right. The second thing is to look at the size of it. This is not just for memory concerns, but you want to generally know some basics about whatever you are working with.</p>
+<p>Now that we’ve loaded our images let’s look at what one looks like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>im3 <span class="op">=</span> Image.<span class="bu">open</span>(threes[<span class="dv">1</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>im3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Under the hood it’s just a 28x28 matrix!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tensor(im3).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>torch.Size([28, 28])</code></pre>
+</div>
+</div>
+<p>Let’s put the matrix into a pandas dataframe. We will then color each cell based on the value in that cell.</p>
+<p>When we do that, we can clearly see that this is a 3 just from the values in the tensor. This should give a good idea for the data we are working with and how an image can be worked with (it’s just a bunch of numbers).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(tensor(im3)).loc[<span class="dv">3</span>:<span class="dv">24</span>,<span class="dv">6</span>:<span class="dv">20</span>].style.set_properties(<span class="op">**</span>{<span class="st">'font-size'</span>:<span class="st">'6pt'</span>}).background_gradient(<span class="st">'Greys'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<style type="text/css">
+#T_62b58_row0_col0, #T_62b58_row0_col1, #T_62b58_row0_col2, #T_62b58_row0_col3, #T_62b58_row0_col4, #T_62b58_row0_col5, #T_62b58_row0_col6, #T_62b58_row0_col7, #T_62b58_row0_col8, #T_62b58_row0_col9, #T_62b58_row0_col10, #T_62b58_row0_col11, #T_62b58_row0_col12, #T_62b58_row0_col13, #T_62b58_row0_col14, #T_62b58_row1_col0, #T_62b58_row1_col1, #T_62b58_row1_col2, #T_62b58_row1_col9, #T_62b58_row1_col10, #T_62b58_row1_col11, #T_62b58_row1_col12, #T_62b58_row1_col13, #T_62b58_row1_col14, #T_62b58_row2_col0, #T_62b58_row2_col11, #T_62b58_row2_col12, #T_62b58_row2_col13, #T_62b58_row2_col14, #T_62b58_row3_col0, #T_62b58_row3_col12, #T_62b58_row3_col13, #T_62b58_row3_col14, #T_62b58_row4_col0, #T_62b58_row4_col1, #T_62b58_row4_col12, #T_62b58_row4_col13, #T_62b58_row4_col14, #T_62b58_row5_col0, #T_62b58_row5_col1, #T_62b58_row5_col2, #T_62b58_row5_col6, #T_62b58_row5_col13, #T_62b58_row5_col14, #T_62b58_row6_col0, #T_62b58_row6_col1, #T_62b58_row6_col2, #T_62b58_row6_col3, #T_62b58_row6_col4, #T_62b58_row6_col6, #T_62b58_row6_col13, #T_62b58_row6_col14, #T_62b58_row7_col0, #T_62b58_row7_col1, #T_62b58_row7_col2, #T_62b58_row7_col3, #T_62b58_row7_col4, #T_62b58_row7_col5, #T_62b58_row7_col6, #T_62b58_row7_col13, #T_62b58_row7_col14, #T_62b58_row8_col0, #T_62b58_row8_col1, #T_62b58_row8_col2, #T_62b58_row8_col3, #T_62b58_row8_col4, #T_62b58_row8_col5, #T_62b58_row8_col6, #T_62b58_row8_col12, #T_62b58_row8_col13, #T_62b58_row8_col14, #T_62b58_row9_col0, #T_62b58_row9_col1, #T_62b58_row9_col2, #T_62b58_row9_col3, #T_62b58_row9_col4, #T_62b58_row9_col5, #T_62b58_row9_col6, #T_62b58_row9_col12, #T_62b58_row9_col13, #T_62b58_row9_col14, #T_62b58_row10_col0, #T_62b58_row10_col1, #T_62b58_row10_col2, #T_62b58_row10_col3, #T_62b58_row10_col4, #T_62b58_row10_col12, #T_62b58_row10_col13, #T_62b58_row10_col14, #T_62b58_row11_col0, #T_62b58_row11_col1, #T_62b58_row11_col2, #T_62b58_row11_col3, #T_62b58_row11_col4, #T_62b58_row11_col11, #T_62b58_row11_col12, #T_62b58_row11_col13, #T_62b58_row11_col14, #T_62b58_row12_col0, #T_62b58_row12_col1, #T_62b58_row12_col2, #T_62b58_row12_col3, #T_62b58_row12_col4, #T_62b58_row12_col12, #T_62b58_row12_col13, #T_62b58_row12_col14, #T_62b58_row13_col0, #T_62b58_row13_col1, #T_62b58_row13_col2, #T_62b58_row13_col3, #T_62b58_row13_col4, #T_62b58_row13_col13, #T_62b58_row13_col14, #T_62b58_row14_col0, #T_62b58_row14_col1, #T_62b58_row14_col2, #T_62b58_row14_col3, #T_62b58_row14_col4, #T_62b58_row14_col5, #T_62b58_row14_col6, #T_62b58_row14_col13, #T_62b58_row14_col14, #T_62b58_row15_col0, #T_62b58_row15_col1, #T_62b58_row15_col2, #T_62b58_row15_col14, #T_62b58_row16_col0, #T_62b58_row16_col1, #T_62b58_row16_col2, #T_62b58_row16_col14, #T_62b58_row17_col0, #T_62b58_row17_col1, #T_62b58_row17_col2, #T_62b58_row17_col13, #T_62b58_row17_col14, #T_62b58_row18_col0, #T_62b58_row18_col1, #T_62b58_row18_col2, #T_62b58_row18_col13, #T_62b58_row18_col14, #T_62b58_row19_col0, #T_62b58_row19_col1, #T_62b58_row19_col2, #T_62b58_row19_col3, #T_62b58_row19_col13, #T_62b58_row19_col14, #T_62b58_row20_col0, #T_62b58_row20_col1, #T_62b58_row20_col2, #T_62b58_row20_col3, #T_62b58_row20_col4, #T_62b58_row20_col5, #T_62b58_row20_col6, #T_62b58_row20_col12, #T_62b58_row20_col13, #T_62b58_row20_col14, #T_62b58_row21_col0, #T_62b58_row21_col1, #T_62b58_row21_col2, #T_62b58_row21_col3, #T_62b58_row21_col4, #T_62b58_row21_col5, #T_62b58_row21_col6, #T_62b58_row21_col7, #T_62b58_row21_col8, #T_62b58_row21_col9, #T_62b58_row21_col10, #T_62b58_row21_col11, #T_62b58_row21_col12, #T_62b58_row21_col13, #T_62b58_row21_col14 {
+  font-size: 6pt;
+  background-color: #ffffff;
+  color: #000000;
+}
+#T_62b58_row1_col3 {
+  font-size: 6pt;
+  background-color: #cdcdcd;
+  color: #000000;
+}
+#T_62b58_row1_col4 {
+  font-size: 6pt;
+  background-color: #5b5b5b;
+  color: #f1f1f1;
+}
+#T_62b58_row1_col5, #T_62b58_row1_col6, #T_62b58_row2_col4, #T_62b58_row2_col7, #T_62b58_row3_col1, #T_62b58_row3_col2, #T_62b58_row3_col3, #T_62b58_row3_col4, #T_62b58_row3_col7, #T_62b58_row3_col8, #T_62b58_row3_col9, #T_62b58_row4_col4, #T_62b58_row4_col8, #T_62b58_row4_col9, #T_62b58_row4_col10, #T_62b58_row5_col8, #T_62b58_row5_col9, #T_62b58_row5_col10, #T_62b58_row6_col8, #T_62b58_row6_col9, #T_62b58_row6_col10, #T_62b58_row6_col11, #T_62b58_row7_col8, #T_62b58_row7_col9, #T_62b58_row7_col10, #T_62b58_row8_col8, #T_62b58_row8_col9, #T_62b58_row8_col10, #T_62b58_row9_col8, #T_62b58_row9_col9, #T_62b58_row9_col10, #T_62b58_row10_col7, #T_62b58_row10_col8, #T_62b58_row10_col9, #T_62b58_row11_col7, #T_62b58_row11_col8, #T_62b58_row11_col9, #T_62b58_row12_col7, #T_62b58_row12_col8, #T_62b58_row12_col9, #T_62b58_row13_col8, #T_62b58_row13_col9, #T_62b58_row13_col10, #T_62b58_row14_col9, #T_62b58_row14_col10, #T_62b58_row14_col11, #T_62b58_row15_col10, #T_62b58_row15_col11, #T_62b58_row15_col12, #T_62b58_row15_col13, #T_62b58_row16_col4, #T_62b58_row16_col10, #T_62b58_row16_col11, #T_62b58_row17_col4, #T_62b58_row17_col7, #T_62b58_row17_col8, #T_62b58_row17_col9, #T_62b58_row17_col10, #T_62b58_row17_col11, #T_62b58_row18_col7, #T_62b58_row18_col8, #T_62b58_row18_col9, #T_62b58_row18_col10, #T_62b58_row18_col11, #T_62b58_row19_col8, #T_62b58_row19_col9, #T_62b58_row19_col10, #T_62b58_row20_col8, #T_62b58_row20_col9 {
+  font-size: 6pt;
+  background-color: #000000;
+  color: #f1f1f1;
+}
+#T_62b58_row1_col7 {
+  font-size: 6pt;
+  background-color: #bdbdbd;
+  color: #000000;
+}
+#T_62b58_row1_col8 {
+  font-size: 6pt;
+  background-color: #c3c3c3;
+  color: #000000;
+}
+#T_62b58_row2_col1 {
+  font-size: 6pt;
+  background-color: #ececec;
+  color: #000000;
+}
+#T_62b58_row2_col2 {
+  font-size: 6pt;
+  background-color: #999999;
+  color: #f1f1f1;
+}
+#T_62b58_row2_col3 {
+  font-size: 6pt;
+  background-color: #0d0d0d;
+  color: #f1f1f1;
+}
+#T_62b58_row2_col5, #T_62b58_row3_col5, #T_62b58_row16_col5, #T_62b58_row17_col5, #T_62b58_row18_col5 {
+  font-size: 6pt;
+  background-color: #010101;
+  color: #f1f1f1;
+}
+#T_62b58_row2_col6, #T_62b58_row2_col8, #T_62b58_row3_col6, #T_62b58_row11_col6, #T_62b58_row12_col6, #T_62b58_row16_col6, #T_62b58_row17_col6, #T_62b58_row18_col6, #T_62b58_row19_col7 {
+  font-size: 6pt;
+  background-color: #020202;
+  color: #f1f1f1;
+}
+#T_62b58_row2_col9 {
+  font-size: 6pt;
+  background-color: #a2a2a2;
+  color: #f1f1f1;
+}
+#T_62b58_row2_col10 {
+  font-size: 6pt;
+  background-color: #f8f8f8;
+  color: #000000;
+}
+#T_62b58_row3_col10, #T_62b58_row16_col12 {
+  font-size: 6pt;
+  background-color: #101010;
+  color: #f1f1f1;
+}
+#T_62b58_row3_col11 {
+  font-size: 6pt;
+  background-color: #dcdcdc;
+  color: #000000;
+}
+#T_62b58_row4_col2, #T_62b58_row4_col11, #T_62b58_row8_col11, #T_62b58_row9_col11 {
+  font-size: 6pt;
+  background-color: #898989;
+  color: #f1f1f1;
+}
+#T_62b58_row4_col3 {
+  font-size: 6pt;
+  background-color: #060606;
+  color: #f1f1f1;
+}
+#T_62b58_row4_col5 {
+  font-size: 6pt;
+  background-color: #0c0c0c;
+  color: #f1f1f1;
+}
+#T_62b58_row4_col6 {
+  font-size: 6pt;
+  background-color: #292929;
+  color: #f1f1f1;
+}
+#T_62b58_row4_col7 {
+  font-size: 6pt;
+  background-color: #1a1a1a;
+  color: #f1f1f1;
+}
+#T_62b58_row5_col3 {
+  font-size: 6pt;
+  background-color: #aaaaaa;
+  color: #f1f1f1;
+}
+#T_62b58_row5_col4 {
+  font-size: 6pt;
+  background-color: #939393;
+  color: #f1f1f1;
+}
+#T_62b58_row5_col5, #T_62b58_row10_col10 {
+  font-size: 6pt;
+  background-color: #616161;
+  color: #f1f1f1;
+}
+#T_62b58_row5_col7, #T_62b58_row6_col7, #T_62b58_row7_col7, #T_62b58_row8_col7 {
+  font-size: 6pt;
+  background-color: #c8c8c8;
+  color: #000000;
+}
+#T_62b58_row5_col11 {
+  font-size: 6pt;
+  background-color: #4b4b4b;
+  color: #f1f1f1;
+}
+#T_62b58_row5_col12, #T_62b58_row6_col5 {
+  font-size: 6pt;
+  background-color: #f3f3f3;
+  color: #000000;
+}
+#T_62b58_row6_col12, #T_62b58_row16_col3, #T_62b58_row17_col3 {
+  font-size: 6pt;
+  background-color: #e3e3e3;
+  color: #000000;
+}
+#T_62b58_row7_col11 {
+  font-size: 6pt;
+  background-color: #525252;
+  color: #f1f1f1;
+}
+#T_62b58_row7_col12, #T_62b58_row18_col3 {
+  font-size: 6pt;
+  background-color: #f5f5f5;
+  color: #000000;
+}
+#T_62b58_row9_col7 {
+  font-size: 6pt;
+  background-color: #585858;
+  color: #f1f1f1;
+}
+#T_62b58_row10_col5, #T_62b58_row13_col6 {
+  font-size: 6pt;
+  background-color: #d8d8d8;
+  color: #000000;
+}
+#T_62b58_row10_col6 {
+  font-size: 6pt;
+  background-color: #0a0a0a;
+  color: #f1f1f1;
+}
+#T_62b58_row10_col11, #T_62b58_row13_col12 {
+  font-size: 6pt;
+  background-color: #fdfdfd;
+  color: #000000;
+}
+#T_62b58_row11_col5 {
+  font-size: 6pt;
+  background-color: #656565;
+  color: #f1f1f1;
+}
+#T_62b58_row11_col10 {
+  font-size: 6pt;
+  background-color: #d4d4d4;
+  color: #000000;
+}
+#T_62b58_row12_col5 {
+  font-size: 6pt;
+  background-color: #d7d7d7;
+  color: #000000;
+}
+#T_62b58_row12_col10 {
+  font-size: 6pt;
+  background-color: #111111;
+  color: #f1f1f1;
+}
+#T_62b58_row12_col11 {
+  font-size: 6pt;
+  background-color: #e0e0e0;
+  color: #000000;
+}
+#T_62b58_row13_col5 {
+  font-size: 6pt;
+  background-color: #f7f7f7;
+  color: #000000;
+}
+#T_62b58_row13_col7 {
+  font-size: 6pt;
+  background-color: #181818;
+  color: #f1f1f1;
+}
+#T_62b58_row13_col11 {
+  font-size: 6pt;
+  background-color: #7d7d7d;
+  color: #f1f1f1;
+}
+#T_62b58_row14_col7, #T_62b58_row19_col12 {
+  font-size: 6pt;
+  background-color: #e7e7e7;
+  color: #000000;
+}
+#T_62b58_row14_col8 {
+  font-size: 6pt;
+  background-color: #868686;
+  color: #f1f1f1;
+}
+#T_62b58_row14_col12 {
+  font-size: 6pt;
+  background-color: #959595;
+  color: #f1f1f1;
+}
+#T_62b58_row15_col3 {
+  font-size: 6pt;
+  background-color: #e9e9e9;
+  color: #000000;
+}
+#T_62b58_row15_col4 {
+  font-size: 6pt;
+  background-color: #3c3c3c;
+  color: #f1f1f1;
+}
+#T_62b58_row15_col5 {
+  font-size: 6pt;
+  background-color: #3d3d3d;
+  color: #f1f1f1;
+}
+#T_62b58_row15_col6 {
+  font-size: 6pt;
+  background-color: #3f3f3f;
+  color: #f1f1f1;
+}
+#T_62b58_row15_col7 {
+  font-size: 6pt;
+  background-color: #efefef;
+  color: #000000;
+}
+#T_62b58_row15_col8 {
+  font-size: 6pt;
+  background-color: #fefefe;
+  color: #000000;
+}
+#T_62b58_row15_col9 {
+  font-size: 6pt;
+  background-color: #949494;
+  color: #f1f1f1;
+}
+#T_62b58_row16_col7 {
+  font-size: 6pt;
+  background-color: #303030;
+  color: #f1f1f1;
+}
+#T_62b58_row16_col8 {
+  font-size: 6pt;
+  background-color: #919191;
+  color: #f1f1f1;
+}
+#T_62b58_row16_col9 {
+  font-size: 6pt;
+  background-color: #5d5d5d;
+  color: #f1f1f1;
+}
+#T_62b58_row16_col13 {
+  font-size: 6pt;
+  background-color: #7b7b7b;
+  color: #f1f1f1;
+}
+#T_62b58_row17_col12, #T_62b58_row18_col12, #T_62b58_row19_col11 {
+  font-size: 6pt;
+  background-color: #282828;
+  color: #f1f1f1;
+}
+#T_62b58_row18_col4 {
+  font-size: 6pt;
+  background-color: #545454;
+  color: #f1f1f1;
+}
+#T_62b58_row19_col4 {
+  font-size: 6pt;
+  background-color: #fbfbfb;
+  color: #000000;
+}
+#T_62b58_row19_col5 {
+  font-size: 6pt;
+  background-color: #dddddd;
+  color: #000000;
+}
+#T_62b58_row19_col6 {
+  font-size: 6pt;
+  background-color: #5f5f5f;
+  color: #f1f1f1;
+}
+#T_62b58_row20_col7 {
+  font-size: 6pt;
+  background-color: #888888;
+  color: #f1f1f1;
+}
+#T_62b58_row20_col10 {
+  font-size: 6pt;
+  background-color: #929292;
+  color: #f1f1f1;
+}
+#T_62b58_row20_col11 {
+  font-size: 6pt;
+  background-color: #e4e4e4;
+  color: #000000;
+}
+</style>
+<table id="T_62b58_">
+  <thead>
+    <tr>
+      <th class="blank level0">&nbsp;</th>
+      <th class="col_heading level0 col0">6</th>
+      <th class="col_heading level0 col1">7</th>
+      <th class="col_heading level0 col2">8</th>
+      <th class="col_heading level0 col3">9</th>
+      <th class="col_heading level0 col4">10</th>
+      <th class="col_heading level0 col5">11</th>
+      <th class="col_heading level0 col6">12</th>
+      <th class="col_heading level0 col7">13</th>
+      <th class="col_heading level0 col8">14</th>
+      <th class="col_heading level0 col9">15</th>
+      <th class="col_heading level0 col10">16</th>
+      <th class="col_heading level0 col11">17</th>
+      <th class="col_heading level0 col12">18</th>
+      <th class="col_heading level0 col13">19</th>
+      <th class="col_heading level0 col14">20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_62b58_level0_row0" class="row_heading level0 row0">3</th>
+      <td id="T_62b58_row0_col0" class="data row0 col0">0</td>
+      <td id="T_62b58_row0_col1" class="data row0 col1">0</td>
+      <td id="T_62b58_row0_col2" class="data row0 col2">0</td>
+      <td id="T_62b58_row0_col3" class="data row0 col3">0</td>
+      <td id="T_62b58_row0_col4" class="data row0 col4">0</td>
+      <td id="T_62b58_row0_col5" class="data row0 col5">0</td>
+      <td id="T_62b58_row0_col6" class="data row0 col6">0</td>
+      <td id="T_62b58_row0_col7" class="data row0 col7">0</td>
+      <td id="T_62b58_row0_col8" class="data row0 col8">0</td>
+      <td id="T_62b58_row0_col9" class="data row0 col9">0</td>
+      <td id="T_62b58_row0_col10" class="data row0 col10">0</td>
+      <td id="T_62b58_row0_col11" class="data row0 col11">0</td>
+      <td id="T_62b58_row0_col12" class="data row0 col12">0</td>
+      <td id="T_62b58_row0_col13" class="data row0 col13">0</td>
+      <td id="T_62b58_row0_col14" class="data row0 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row1" class="row_heading level0 row1">4</th>
+      <td id="T_62b58_row1_col0" class="data row1 col0">0</td>
+      <td id="T_62b58_row1_col1" class="data row1 col1">0</td>
+      <td id="T_62b58_row1_col2" class="data row1 col2">0</td>
+      <td id="T_62b58_row1_col3" class="data row1 col3">77</td>
+      <td id="T_62b58_row1_col4" class="data row1 col4">181</td>
+      <td id="T_62b58_row1_col5" class="data row1 col5">254</td>
+      <td id="T_62b58_row1_col6" class="data row1 col6">255</td>
+      <td id="T_62b58_row1_col7" class="data row1 col7">95</td>
+      <td id="T_62b58_row1_col8" class="data row1 col8">88</td>
+      <td id="T_62b58_row1_col9" class="data row1 col9">0</td>
+      <td id="T_62b58_row1_col10" class="data row1 col10">0</td>
+      <td id="T_62b58_row1_col11" class="data row1 col11">0</td>
+      <td id="T_62b58_row1_col12" class="data row1 col12">0</td>
+      <td id="T_62b58_row1_col13" class="data row1 col13">0</td>
+      <td id="T_62b58_row1_col14" class="data row1 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row2" class="row_heading level0 row2">5</th>
+      <td id="T_62b58_row2_col0" class="data row2 col0">0</td>
+      <td id="T_62b58_row2_col1" class="data row2 col1">3</td>
+      <td id="T_62b58_row2_col2" class="data row2 col2">97</td>
+      <td id="T_62b58_row2_col3" class="data row2 col3">242</td>
+      <td id="T_62b58_row2_col4" class="data row2 col4">253</td>
+      <td id="T_62b58_row2_col5" class="data row2 col5">253</td>
+      <td id="T_62b58_row2_col6" class="data row2 col6">253</td>
+      <td id="T_62b58_row2_col7" class="data row2 col7">253</td>
+      <td id="T_62b58_row2_col8" class="data row2 col8">251</td>
+      <td id="T_62b58_row2_col9" class="data row2 col9">117</td>
+      <td id="T_62b58_row2_col10" class="data row2 col10">15</td>
+      <td id="T_62b58_row2_col11" class="data row2 col11">0</td>
+      <td id="T_62b58_row2_col12" class="data row2 col12">0</td>
+      <td id="T_62b58_row2_col13" class="data row2 col13">0</td>
+      <td id="T_62b58_row2_col14" class="data row2 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row3" class="row_heading level0 row3">6</th>
+      <td id="T_62b58_row3_col0" class="data row3 col0">0</td>
+      <td id="T_62b58_row3_col1" class="data row3 col1">20</td>
+      <td id="T_62b58_row3_col2" class="data row3 col2">198</td>
+      <td id="T_62b58_row3_col3" class="data row3 col3">253</td>
+      <td id="T_62b58_row3_col4" class="data row3 col4">253</td>
+      <td id="T_62b58_row3_col5" class="data row3 col5">253</td>
+      <td id="T_62b58_row3_col6" class="data row3 col6">253</td>
+      <td id="T_62b58_row3_col7" class="data row3 col7">253</td>
+      <td id="T_62b58_row3_col8" class="data row3 col8">253</td>
+      <td id="T_62b58_row3_col9" class="data row3 col9">253</td>
+      <td id="T_62b58_row3_col10" class="data row3 col10">239</td>
+      <td id="T_62b58_row3_col11" class="data row3 col11">59</td>
+      <td id="T_62b58_row3_col12" class="data row3 col12">0</td>
+      <td id="T_62b58_row3_col13" class="data row3 col13">0</td>
+      <td id="T_62b58_row3_col14" class="data row3 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row4" class="row_heading level0 row4">7</th>
+      <td id="T_62b58_row4_col0" class="data row4 col0">0</td>
+      <td id="T_62b58_row4_col1" class="data row4 col1">0</td>
+      <td id="T_62b58_row4_col2" class="data row4 col2">108</td>
+      <td id="T_62b58_row4_col3" class="data row4 col3">248</td>
+      <td id="T_62b58_row4_col4" class="data row4 col4">253</td>
+      <td id="T_62b58_row4_col5" class="data row4 col5">244</td>
+      <td id="T_62b58_row4_col6" class="data row4 col6">220</td>
+      <td id="T_62b58_row4_col7" class="data row4 col7">231</td>
+      <td id="T_62b58_row4_col8" class="data row4 col8">253</td>
+      <td id="T_62b58_row4_col9" class="data row4 col9">253</td>
+      <td id="T_62b58_row4_col10" class="data row4 col10">253</td>
+      <td id="T_62b58_row4_col11" class="data row4 col11">138</td>
+      <td id="T_62b58_row4_col12" class="data row4 col12">0</td>
+      <td id="T_62b58_row4_col13" class="data row4 col13">0</td>
+      <td id="T_62b58_row4_col14" class="data row4 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row5" class="row_heading level0 row5">8</th>
+      <td id="T_62b58_row5_col0" class="data row5 col0">0</td>
+      <td id="T_62b58_row5_col1" class="data row5 col1">0</td>
+      <td id="T_62b58_row5_col2" class="data row5 col2">0</td>
+      <td id="T_62b58_row5_col3" class="data row5 col3">110</td>
+      <td id="T_62b58_row5_col4" class="data row5 col4">129</td>
+      <td id="T_62b58_row5_col5" class="data row5 col5">176</td>
+      <td id="T_62b58_row5_col6" class="data row5 col6">0</td>
+      <td id="T_62b58_row5_col7" class="data row5 col7">83</td>
+      <td id="T_62b58_row5_col8" class="data row5 col8">253</td>
+      <td id="T_62b58_row5_col9" class="data row5 col9">253</td>
+      <td id="T_62b58_row5_col10" class="data row5 col10">253</td>
+      <td id="T_62b58_row5_col11" class="data row5 col11">194</td>
+      <td id="T_62b58_row5_col12" class="data row5 col12">24</td>
+      <td id="T_62b58_row5_col13" class="data row5 col13">0</td>
+      <td id="T_62b58_row5_col14" class="data row5 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row6" class="row_heading level0 row6">9</th>
+      <td id="T_62b58_row6_col0" class="data row6 col0">0</td>
+      <td id="T_62b58_row6_col1" class="data row6 col1">0</td>
+      <td id="T_62b58_row6_col2" class="data row6 col2">0</td>
+      <td id="T_62b58_row6_col3" class="data row6 col3">0</td>
+      <td id="T_62b58_row6_col4" class="data row6 col4">0</td>
+      <td id="T_62b58_row6_col5" class="data row6 col5">26</td>
+      <td id="T_62b58_row6_col6" class="data row6 col6">0</td>
+      <td id="T_62b58_row6_col7" class="data row6 col7">83</td>
+      <td id="T_62b58_row6_col8" class="data row6 col8">253</td>
+      <td id="T_62b58_row6_col9" class="data row6 col9">253</td>
+      <td id="T_62b58_row6_col10" class="data row6 col10">253</td>
+      <td id="T_62b58_row6_col11" class="data row6 col11">253</td>
+      <td id="T_62b58_row6_col12" class="data row6 col12">48</td>
+      <td id="T_62b58_row6_col13" class="data row6 col13">0</td>
+      <td id="T_62b58_row6_col14" class="data row6 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row7" class="row_heading level0 row7">10</th>
+      <td id="T_62b58_row7_col0" class="data row7 col0">0</td>
+      <td id="T_62b58_row7_col1" class="data row7 col1">0</td>
+      <td id="T_62b58_row7_col2" class="data row7 col2">0</td>
+      <td id="T_62b58_row7_col3" class="data row7 col3">0</td>
+      <td id="T_62b58_row7_col4" class="data row7 col4">0</td>
+      <td id="T_62b58_row7_col5" class="data row7 col5">0</td>
+      <td id="T_62b58_row7_col6" class="data row7 col6">0</td>
+      <td id="T_62b58_row7_col7" class="data row7 col7">83</td>
+      <td id="T_62b58_row7_col8" class="data row7 col8">253</td>
+      <td id="T_62b58_row7_col9" class="data row7 col9">253</td>
+      <td id="T_62b58_row7_col10" class="data row7 col10">253</td>
+      <td id="T_62b58_row7_col11" class="data row7 col11">189</td>
+      <td id="T_62b58_row7_col12" class="data row7 col12">22</td>
+      <td id="T_62b58_row7_col13" class="data row7 col13">0</td>
+      <td id="T_62b58_row7_col14" class="data row7 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row8" class="row_heading level0 row8">11</th>
+      <td id="T_62b58_row8_col0" class="data row8 col0">0</td>
+      <td id="T_62b58_row8_col1" class="data row8 col1">0</td>
+      <td id="T_62b58_row8_col2" class="data row8 col2">0</td>
+      <td id="T_62b58_row8_col3" class="data row8 col3">0</td>
+      <td id="T_62b58_row8_col4" class="data row8 col4">0</td>
+      <td id="T_62b58_row8_col5" class="data row8 col5">0</td>
+      <td id="T_62b58_row8_col6" class="data row8 col6">0</td>
+      <td id="T_62b58_row8_col7" class="data row8 col7">83</td>
+      <td id="T_62b58_row8_col8" class="data row8 col8">253</td>
+      <td id="T_62b58_row8_col9" class="data row8 col9">253</td>
+      <td id="T_62b58_row8_col10" class="data row8 col10">253</td>
+      <td id="T_62b58_row8_col11" class="data row8 col11">138</td>
+      <td id="T_62b58_row8_col12" class="data row8 col12">0</td>
+      <td id="T_62b58_row8_col13" class="data row8 col13">0</td>
+      <td id="T_62b58_row8_col14" class="data row8 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row9" class="row_heading level0 row9">12</th>
+      <td id="T_62b58_row9_col0" class="data row9 col0">0</td>
+      <td id="T_62b58_row9_col1" class="data row9 col1">0</td>
+      <td id="T_62b58_row9_col2" class="data row9 col2">0</td>
+      <td id="T_62b58_row9_col3" class="data row9 col3">0</td>
+      <td id="T_62b58_row9_col4" class="data row9 col4">0</td>
+      <td id="T_62b58_row9_col5" class="data row9 col5">0</td>
+      <td id="T_62b58_row9_col6" class="data row9 col6">0</td>
+      <td id="T_62b58_row9_col7" class="data row9 col7">183</td>
+      <td id="T_62b58_row9_col8" class="data row9 col8">253</td>
+      <td id="T_62b58_row9_col9" class="data row9 col9">253</td>
+      <td id="T_62b58_row9_col10" class="data row9 col10">253</td>
+      <td id="T_62b58_row9_col11" class="data row9 col11">138</td>
+      <td id="T_62b58_row9_col12" class="data row9 col12">0</td>
+      <td id="T_62b58_row9_col13" class="data row9 col13">0</td>
+      <td id="T_62b58_row9_col14" class="data row9 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row10" class="row_heading level0 row10">13</th>
+      <td id="T_62b58_row10_col0" class="data row10 col0">0</td>
+      <td id="T_62b58_row10_col1" class="data row10 col1">0</td>
+      <td id="T_62b58_row10_col2" class="data row10 col2">0</td>
+      <td id="T_62b58_row10_col3" class="data row10 col3">0</td>
+      <td id="T_62b58_row10_col4" class="data row10 col4">0</td>
+      <td id="T_62b58_row10_col5" class="data row10 col5">65</td>
+      <td id="T_62b58_row10_col6" class="data row10 col6">246</td>
+      <td id="T_62b58_row10_col7" class="data row10 col7">253</td>
+      <td id="T_62b58_row10_col8" class="data row10 col8">253</td>
+      <td id="T_62b58_row10_col9" class="data row10 col9">253</td>
+      <td id="T_62b58_row10_col10" class="data row10 col10">175</td>
+      <td id="T_62b58_row10_col11" class="data row10 col11">4</td>
+      <td id="T_62b58_row10_col12" class="data row10 col12">0</td>
+      <td id="T_62b58_row10_col13" class="data row10 col13">0</td>
+      <td id="T_62b58_row10_col14" class="data row10 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row11" class="row_heading level0 row11">14</th>
+      <td id="T_62b58_row11_col0" class="data row11 col0">0</td>
+      <td id="T_62b58_row11_col1" class="data row11 col1">0</td>
+      <td id="T_62b58_row11_col2" class="data row11 col2">0</td>
+      <td id="T_62b58_row11_col3" class="data row11 col3">0</td>
+      <td id="T_62b58_row11_col4" class="data row11 col4">0</td>
+      <td id="T_62b58_row11_col5" class="data row11 col5">172</td>
+      <td id="T_62b58_row11_col6" class="data row11 col6">253</td>
+      <td id="T_62b58_row11_col7" class="data row11 col7">253</td>
+      <td id="T_62b58_row11_col8" class="data row11 col8">253</td>
+      <td id="T_62b58_row11_col9" class="data row11 col9">253</td>
+      <td id="T_62b58_row11_col10" class="data row11 col10">70</td>
+      <td id="T_62b58_row11_col11" class="data row11 col11">0</td>
+      <td id="T_62b58_row11_col12" class="data row11 col12">0</td>
+      <td id="T_62b58_row11_col13" class="data row11 col13">0</td>
+      <td id="T_62b58_row11_col14" class="data row11 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row12" class="row_heading level0 row12">15</th>
+      <td id="T_62b58_row12_col0" class="data row12 col0">0</td>
+      <td id="T_62b58_row12_col1" class="data row12 col1">0</td>
+      <td id="T_62b58_row12_col2" class="data row12 col2">0</td>
+      <td id="T_62b58_row12_col3" class="data row12 col3">0</td>
+      <td id="T_62b58_row12_col4" class="data row12 col4">0</td>
+      <td id="T_62b58_row12_col5" class="data row12 col5">66</td>
+      <td id="T_62b58_row12_col6" class="data row12 col6">253</td>
+      <td id="T_62b58_row12_col7" class="data row12 col7">253</td>
+      <td id="T_62b58_row12_col8" class="data row12 col8">253</td>
+      <td id="T_62b58_row12_col9" class="data row12 col9">253</td>
+      <td id="T_62b58_row12_col10" class="data row12 col10">238</td>
+      <td id="T_62b58_row12_col11" class="data row12 col11">54</td>
+      <td id="T_62b58_row12_col12" class="data row12 col12">0</td>
+      <td id="T_62b58_row12_col13" class="data row12 col13">0</td>
+      <td id="T_62b58_row12_col14" class="data row12 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row13" class="row_heading level0 row13">16</th>
+      <td id="T_62b58_row13_col0" class="data row13 col0">0</td>
+      <td id="T_62b58_row13_col1" class="data row13 col1">0</td>
+      <td id="T_62b58_row13_col2" class="data row13 col2">0</td>
+      <td id="T_62b58_row13_col3" class="data row13 col3">0</td>
+      <td id="T_62b58_row13_col4" class="data row13 col4">0</td>
+      <td id="T_62b58_row13_col5" class="data row13 col5">17</td>
+      <td id="T_62b58_row13_col6" class="data row13 col6">65</td>
+      <td id="T_62b58_row13_col7" class="data row13 col7">232</td>
+      <td id="T_62b58_row13_col8" class="data row13 col8">253</td>
+      <td id="T_62b58_row13_col9" class="data row13 col9">253</td>
+      <td id="T_62b58_row13_col10" class="data row13 col10">253</td>
+      <td id="T_62b58_row13_col11" class="data row13 col11">149</td>
+      <td id="T_62b58_row13_col12" class="data row13 col12">5</td>
+      <td id="T_62b58_row13_col13" class="data row13 col13">0</td>
+      <td id="T_62b58_row13_col14" class="data row13 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row14" class="row_heading level0 row14">17</th>
+      <td id="T_62b58_row14_col0" class="data row14 col0">0</td>
+      <td id="T_62b58_row14_col1" class="data row14 col1">0</td>
+      <td id="T_62b58_row14_col2" class="data row14 col2">0</td>
+      <td id="T_62b58_row14_col3" class="data row14 col3">0</td>
+      <td id="T_62b58_row14_col4" class="data row14 col4">0</td>
+      <td id="T_62b58_row14_col5" class="data row14 col5">0</td>
+      <td id="T_62b58_row14_col6" class="data row14 col6">0</td>
+      <td id="T_62b58_row14_col7" class="data row14 col7">45</td>
+      <td id="T_62b58_row14_col8" class="data row14 col8">141</td>
+      <td id="T_62b58_row14_col9" class="data row14 col9">253</td>
+      <td id="T_62b58_row14_col10" class="data row14 col10">253</td>
+      <td id="T_62b58_row14_col11" class="data row14 col11">253</td>
+      <td id="T_62b58_row14_col12" class="data row14 col12">123</td>
+      <td id="T_62b58_row14_col13" class="data row14 col13">0</td>
+      <td id="T_62b58_row14_col14" class="data row14 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row15" class="row_heading level0 row15">18</th>
+      <td id="T_62b58_row15_col0" class="data row15 col0">0</td>
+      <td id="T_62b58_row15_col1" class="data row15 col1">0</td>
+      <td id="T_62b58_row15_col2" class="data row15 col2">0</td>
+      <td id="T_62b58_row15_col3" class="data row15 col3">41</td>
+      <td id="T_62b58_row15_col4" class="data row15 col4">205</td>
+      <td id="T_62b58_row15_col5" class="data row15 col5">205</td>
+      <td id="T_62b58_row15_col6" class="data row15 col6">205</td>
+      <td id="T_62b58_row15_col7" class="data row15 col7">33</td>
+      <td id="T_62b58_row15_col8" class="data row15 col8">2</td>
+      <td id="T_62b58_row15_col9" class="data row15 col9">128</td>
+      <td id="T_62b58_row15_col10" class="data row15 col10">253</td>
+      <td id="T_62b58_row15_col11" class="data row15 col11">253</td>
+      <td id="T_62b58_row15_col12" class="data row15 col12">245</td>
+      <td id="T_62b58_row15_col13" class="data row15 col13">99</td>
+      <td id="T_62b58_row15_col14" class="data row15 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row16" class="row_heading level0 row16">19</th>
+      <td id="T_62b58_row16_col0" class="data row16 col0">0</td>
+      <td id="T_62b58_row16_col1" class="data row16 col1">0</td>
+      <td id="T_62b58_row16_col2" class="data row16 col2">0</td>
+      <td id="T_62b58_row16_col3" class="data row16 col3">50</td>
+      <td id="T_62b58_row16_col4" class="data row16 col4">253</td>
+      <td id="T_62b58_row16_col5" class="data row16 col5">253</td>
+      <td id="T_62b58_row16_col6" class="data row16 col6">253</td>
+      <td id="T_62b58_row16_col7" class="data row16 col7">213</td>
+      <td id="T_62b58_row16_col8" class="data row16 col8">131</td>
+      <td id="T_62b58_row16_col9" class="data row16 col9">179</td>
+      <td id="T_62b58_row16_col10" class="data row16 col10">253</td>
+      <td id="T_62b58_row16_col11" class="data row16 col11">253</td>
+      <td id="T_62b58_row16_col12" class="data row16 col12">231</td>
+      <td id="T_62b58_row16_col13" class="data row16 col13">59</td>
+      <td id="T_62b58_row16_col14" class="data row16 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row17" class="row_heading level0 row17">20</th>
+      <td id="T_62b58_row17_col0" class="data row17 col0">0</td>
+      <td id="T_62b58_row17_col1" class="data row17 col1">0</td>
+      <td id="T_62b58_row17_col2" class="data row17 col2">0</td>
+      <td id="T_62b58_row17_col3" class="data row17 col3">50</td>
+      <td id="T_62b58_row17_col4" class="data row17 col4">253</td>
+      <td id="T_62b58_row17_col5" class="data row17 col5">253</td>
+      <td id="T_62b58_row17_col6" class="data row17 col6">253</td>
+      <td id="T_62b58_row17_col7" class="data row17 col7">253</td>
+      <td id="T_62b58_row17_col8" class="data row17 col8">253</td>
+      <td id="T_62b58_row17_col9" class="data row17 col9">253</td>
+      <td id="T_62b58_row17_col10" class="data row17 col10">253</td>
+      <td id="T_62b58_row17_col11" class="data row17 col11">253</td>
+      <td id="T_62b58_row17_col12" class="data row17 col12">212</td>
+      <td id="T_62b58_row17_col13" class="data row17 col13">0</td>
+      <td id="T_62b58_row17_col14" class="data row17 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row18" class="row_heading level0 row18">21</th>
+      <td id="T_62b58_row18_col0" class="data row18 col0">0</td>
+      <td id="T_62b58_row18_col1" class="data row18 col1">0</td>
+      <td id="T_62b58_row18_col2" class="data row18 col2">0</td>
+      <td id="T_62b58_row18_col3" class="data row18 col3">21</td>
+      <td id="T_62b58_row18_col4" class="data row18 col4">187</td>
+      <td id="T_62b58_row18_col5" class="data row18 col5">253</td>
+      <td id="T_62b58_row18_col6" class="data row18 col6">253</td>
+      <td id="T_62b58_row18_col7" class="data row18 col7">253</td>
+      <td id="T_62b58_row18_col8" class="data row18 col8">253</td>
+      <td id="T_62b58_row18_col9" class="data row18 col9">253</td>
+      <td id="T_62b58_row18_col10" class="data row18 col10">253</td>
+      <td id="T_62b58_row18_col11" class="data row18 col11">253</td>
+      <td id="T_62b58_row18_col12" class="data row18 col12">212</td>
+      <td id="T_62b58_row18_col13" class="data row18 col13">0</td>
+      <td id="T_62b58_row18_col14" class="data row18 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row19" class="row_heading level0 row19">22</th>
+      <td id="T_62b58_row19_col0" class="data row19 col0">0</td>
+      <td id="T_62b58_row19_col1" class="data row19 col1">0</td>
+      <td id="T_62b58_row19_col2" class="data row19 col2">0</td>
+      <td id="T_62b58_row19_col3" class="data row19 col3">0</td>
+      <td id="T_62b58_row19_col4" class="data row19 col4">9</td>
+      <td id="T_62b58_row19_col5" class="data row19 col5">58</td>
+      <td id="T_62b58_row19_col6" class="data row19 col6">179</td>
+      <td id="T_62b58_row19_col7" class="data row19 col7">251</td>
+      <td id="T_62b58_row19_col8" class="data row19 col8">253</td>
+      <td id="T_62b58_row19_col9" class="data row19 col9">253</td>
+      <td id="T_62b58_row19_col10" class="data row19 col10">253</td>
+      <td id="T_62b58_row19_col11" class="data row19 col11">219</td>
+      <td id="T_62b58_row19_col12" class="data row19 col12">44</td>
+      <td id="T_62b58_row19_col13" class="data row19 col13">0</td>
+      <td id="T_62b58_row19_col14" class="data row19 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row20" class="row_heading level0 row20">23</th>
+      <td id="T_62b58_row20_col0" class="data row20 col0">0</td>
+      <td id="T_62b58_row20_col1" class="data row20 col1">0</td>
+      <td id="T_62b58_row20_col2" class="data row20 col2">0</td>
+      <td id="T_62b58_row20_col3" class="data row20 col3">0</td>
+      <td id="T_62b58_row20_col4" class="data row20 col4">0</td>
+      <td id="T_62b58_row20_col5" class="data row20 col5">0</td>
+      <td id="T_62b58_row20_col6" class="data row20 col6">0</td>
+      <td id="T_62b58_row20_col7" class="data row20 col7">139</td>
+      <td id="T_62b58_row20_col8" class="data row20 col8">253</td>
+      <td id="T_62b58_row20_col9" class="data row20 col9">253</td>
+      <td id="T_62b58_row20_col10" class="data row20 col10">130</td>
+      <td id="T_62b58_row20_col11" class="data row20 col11">49</td>
+      <td id="T_62b58_row20_col12" class="data row20 col12">0</td>
+      <td id="T_62b58_row20_col13" class="data row20 col13">0</td>
+      <td id="T_62b58_row20_col14" class="data row20 col14">0</td>
+    </tr>
+    <tr>
+      <th id="T_62b58_level0_row21" class="row_heading level0 row21">24</th>
+      <td id="T_62b58_row21_col0" class="data row21 col0">0</td>
+      <td id="T_62b58_row21_col1" class="data row21 col1">0</td>
+      <td id="T_62b58_row21_col2" class="data row21 col2">0</td>
+      <td id="T_62b58_row21_col3" class="data row21 col3">0</td>
+      <td id="T_62b58_row21_col4" class="data row21 col4">0</td>
+      <td id="T_62b58_row21_col5" class="data row21 col5">0</td>
+      <td id="T_62b58_row21_col6" class="data row21 col6">0</td>
+      <td id="T_62b58_row21_col7" class="data row21 col7">0</td>
+      <td id="T_62b58_row21_col8" class="data row21 col8">0</td>
+      <td id="T_62b58_row21_col9" class="data row21 col9">0</td>
+      <td id="T_62b58_row21_col10" class="data row21 col10">0</td>
+      <td id="T_62b58_row21_col11" class="data row21 col11">0</td>
+      <td id="T_62b58_row21_col12" class="data row21 col12">0</td>
+      <td id="T_62b58_row21_col13" class="data row21 col13">0</td>
+      <td id="T_62b58_row21_col14" class="data row21 col14">0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="defining-our-linear-equation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Defining our Linear Equation</h1>
+<p>One of the foundations of neural networks are linear layers, in this case <code>xw + b = y</code>.</p>
+<section id="setup" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">3.0.1</span> Setup</h3>
+<p>We will need a weight matrix <code>w</code> with 1 weight per pixel, meaning this will be a 784 row by 1 column matrix.</p>
+<p>We are also going to add <code>b</code>, so let’s initialize that as well. Since we haven’t solved the problem yet, we don’t know what good values for w and b are so we will make them random to start with.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When we checked the shape above, we saw our images were 28 x 28 pixels, which is 784 total pixels.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_params(size, std<span class="op">=</span><span class="fl">1.0</span>): <span class="cf">return</span> (torch.randn(size)<span class="op">*</span>std).requires_grad_()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">1</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">max</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([2.8108], grad_fn=&lt;UnbindBackward0&gt;)</code></pre>
+</div>
+</div>
+<p>Now we just need <code>x</code> and <code>y</code>. A <code>784x1</code> matrix times a <code>1x784</code> matrix. We want all values to be between 0 and 1 so we divide by the max pixel value (255).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open each image and convert them to a tensor</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>threes_t <span class="op">=</span> [tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> threes]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sevens_t <span class="op">=</span> [tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> sevens]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get list of tensors and "stack" them.  Also dividing by 255 so all values are between 0 and 1</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>threes_s <span class="op">=</span> torch.stack(threes_t).<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>sevens_s <span class="op">=</span> torch.stack(sevens_t).<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify max and min pixel values</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>torch.<span class="bu">min</span>(threes_s), torch.<span class="bu">max</span>(threes_s), torch.<span class="bu">min</span>(sevens_s), torch.<span class="bu">max</span>(sevens_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(tensor(0.), tensor(1.), tensor(0.), tensor(1.))</code></pre>
+</div>
+</div>
+<p>Next we do a simple average of all our threes together and see what we get. It’s a nice sanity check to see that we did things ok. We can see that after averaging, we pretty much get a three!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>show_image(threes_s.mean(<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Lets finish defining our x. We want <code>x</code> to have both threes and sevens, but right now they are separated into different variables. We will use <code>torch.cat</code> to con<strong>cat</strong>enate them, and <code>.view</code> to change the format of the matrix to the right shape. <code>Y</code> is being defined as a long matrix with 1 row per image (prediction) and 1 column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine our threes and sevens into 1 matrix.  Convert Rank 3 matrix to rank 2.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.cat([threes_s, sevens_s]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set my y, or dependent variable matrix.  A three will be 1, and seven will be 0.  So we will be prediction 0 or 1.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(threes) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(sevens)).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine by xs and ys into 1 dataset for convenience.</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(x,y))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>x_0,y_0 <span class="op">=</span> dset[<span class="dv">0</span>]</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>x_0.shape,y_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([784]), tensor([1]))</code></pre>
+</div>
+</div>
+<p>Perfect. We have exactly what we need and defined above. A 784 x 1 matrix times a 1 x 784 matrix + a constanct = our prediction. Let’s take a look to verify things are the right shape, and if we actually multiply these things together we get 1 prediction per image.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>w.shape,x_0.shape,b.shape,y_0.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([784, 1]), torch.Size([784]), torch.Size([1]), torch.Size([1]))</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((x<span class="op">@</span>w<span class="op">+</span>b).shape)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>(x<span class="op">@</span>w<span class="op">+</span>b)[<span class="dv">1</span>:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>torch.Size([709, 1])</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([[ 3.3164],
+        [ 5.2035],
+        [-3.7491],
+        [ 1.2665],
+        [ 2.2916],
+        [ 1.3741],
+        [-7.6092],
+        [ 1.3464],
+        [ 2.7644]], grad_fn=&lt;SliceBackward0&gt;)</code></pre>
+</div>
+</div>
+<p>Great! We have the right number of predictions. The predictions are not good, because weights and biases are all random. Let’s do something about that.</p>
+<p>We will need to do everything that we did above on out validation set, so let’s do that now.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'3'</span>).ls()])</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> valid_3_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'7'</span>).ls()])</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> valid_7_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>valid_3_tens.shape,valid_7_tens.shape</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>valid_x <span class="op">=</span> torch.cat([valid_3_tens, valid_7_tens]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>valid_y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(valid_3_tens) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(valid_7_tens)).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>valid_dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(valid_x,valid_y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="loss-function" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Loss Function</h1>
+<p>We need to improve our weights and biases (w and b) and we do that using gradient descent. I have a few posts on gradient descent, feel free to check those out if you want details on how it works. Here we will use the built-in pytorch functionality.</p>
+<p>The first thing we need to use gradient descent is we need a loss function. Let’s use something simple; how far off we were. If the correct answer was 1, and we predicted a 0.5 that would be a loss of 0.5.</p>
+<p>The one addition is that we will add something called a sigmoid. All a sigmoid is doing is ensuring that all of our predictions land between 0 and 1. We never want to predict anything outside of these ranges as those are our 2 categories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mnist_loss(predictions, targets):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make all prediction between 0 and 1</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.sigmoid()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Difference between predictions and target</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.where(targets<span class="op">==</span><span class="dv">1</span>, <span class="dv">1</span><span class="op">-</span>predictions, predictions).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="gradient-descent" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Gradient Descent</h1>
+<section id="background-and-setup" class="level3" data-number="5.0.1">
+<h3 data-number="5.0.1" class="anchored" data-anchor-id="background-and-setup"><span class="header-section-number">5.0.1</span> Background and Setup</h3>
+<ul>
+<li>predict</li>
+<li>calculate loss</li>
+<li>calculate gradient</li>
+<li>subtract from weights and bias</li>
+</ul>
+<p>Now we have a function we need to optimize and a loss function to tell us our error. We are ready for gradient descent. Let’s create a function to change our weights.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want more of a background on what is going on here, please take a look at my series on Gradient Descent where I dive deeper on this. We will be calculating a gradient - which are equivalent to the “Path Value”</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the function to minimize xw + b</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear1(xb): <span class="cf">return</span> xb<span class="op">@</span>weights <span class="op">+</span> bias</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is how we will initialize paramaters.  This is just giving me random numbers.</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_params(size, std<span class="op">=</span><span class="fl">1.0</span>): <span class="cf">return</span> (torch.randn(size)<span class="op">*</span>std).requires_grad_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First we will make sure our datasets are in a DataLoader. This is convenience class that helps manage our data and get batches.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dl <span class="op">=</span> DataLoader(dset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>valid_dl <span class="op">=</span> DataLoader(valid_dset, batch_size<span class="op">=</span><span class="dv">256</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We are now going to get the first batch out. We’ll use a batch size of 256, but feel free to change that based on your memory. You can see that we can just simply call first dl, and it creates our shuffled batch for us.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>xb,yb <span class="op">=</span> first(dl)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>xb.shape,yb.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([256, 784]), torch.Size([256, 1]))</code></pre>
+</div>
+</div>
+<p>Let’s Initialize our paramaters we will need.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">1</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculate-the-gradient" class="level3" data-number="5.0.2">
+<h3 data-number="5.0.2" class="anchored" data-anchor-id="calculate-the-gradient"><span class="header-section-number">5.0.2</span> Calculate the Gradient</h3>
+<p>We now have our batch of x and y, and we have our weights and biases. The next step is to make a prediction. Since our batch size is 256, we see 256x1 tensor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> linear1(xb)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>preds.shape, preds[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([256, 1]),
+ tensor([[-14.7916],
+         [  2.7240],
+         [ -6.8821],
+         [ -2.5954],
+         [ -1.3394]], grad_fn=&lt;SliceBackward0&gt;))</code></pre>
+</div>
+</div>
+<p>Now we calculate our loss to see how we did. Probably not well considering all our weights at this point are random.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> mnist_loss(preds, yb)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>loss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor(0.5753, grad_fn=&lt;MeanBackward0&gt;)</code></pre>
+</div>
+</div>
+<p>Let’s calculate our Gradients</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>loss.backward()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>weights.grad.shape,weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([784, 1]), tensor(-0.0014), tensor([-0.0099]))</code></pre>
+</div>
+</div>
+<p>Since we are going to want to calculate gradients every since step, let’s create a function that we can call that does these three steps above. Let’s put all that in a function. From here on out, we will use this function.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s always a good idea to periodically reviewing and trying to simplify re-usable code. I recommend doing following the above approach, make something that works - then simplify. It often wastes a lot of time trying to write things in the most perfect way from the start.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_grad(xb, yb, model):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model(xb)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> mnist_loss(preds, yb)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>calc_grad(xb, yb, linear1)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(tensor(-0.0028), tensor([-0.0198]))</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>weights.grad.zero_()</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bias.grad.zero_()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="training-the-model" class="level3" data-number="5.0.3">
+<h3 data-number="5.0.3" class="anchored" data-anchor-id="training-the-model"><span class="header-section-number">5.0.3</span> Training the Model</h3>
+<p>We are ready to create a function that trains for 1 epoch.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Epoch is just a fancy way of saying 1 pass through all our data.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_epoch(model, lr, params):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xb,yb <span class="kw">in</span> dl:</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        calc_grad(xb, yb, model)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> p <span class="kw">in</span> params:</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>            p.data <span class="op">-=</span> p.grad<span class="op">*</span>lr</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            p.grad.zero_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We want to be able to measure accuracy so we know how well we are doing. It’s hard for us to gauge how well the model is doing from our loss function. We create an accuracy metric to look at accuracy for that batch.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A loss function is designed to be good for gradient descent. A Metric is designed to be good for human understanding. This is why they are different sometimes.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> batch_accuracy(xb, yb):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> xb.sigmoid()</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    correct <span class="op">=</span> (preds<span class="op">&gt;</span><span class="fl">0.5</span>) <span class="op">==</span> yb</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> correct.<span class="bu">float</span>().mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>batch_accuracy(linear1(xb), yb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor(0.4141)</code></pre>
+</div>
+</div>
+<p>Looking at accuracy of our batch is great, but we also want to look at our accuracy for the validation set. This is our way to do that using the accuracy funcion we just defined.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> validate_epoch(model):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    accs <span class="op">=</span> [batch_accuracy(model(xb), yb) <span class="cf">for</span> xb,yb <span class="kw">in</span> valid_dl]</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(torch.stack(accs).mean().item(), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>validate_epoch(linear1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>0.4372</code></pre>
+</div>
+</div>
+<p>Awesome! Let’s throw this all in a loop and see what we get.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> weights,bias</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(linear1, lr, params)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(linear1)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 0 accuracy: 0.4916
+Epoch 1 accuracy: 0.5477
+Epoch 2 accuracy: 0.5953
+Epoch 3 accuracy: 0.6459
+Epoch 4 accuracy: 0.6781
+Epoch 5 accuracy: 0.7277
+Epoch 6 accuracy: 0.77
+Epoch 7 accuracy: 0.7931
+Epoch 8 accuracy: 0.8118
+Epoch 9 accuracy: 0.8358
+Epoch 10 accuracy: 0.8568
+Epoch 11 accuracy: 0.8711
+Epoch 12 accuracy: 0.8882
+Epoch 13 accuracy: 0.8957
+Epoch 14 accuracy: 0.9001
+Epoch 15 accuracy: 0.9093
+Epoch 16 accuracy: 0.9199
+Epoch 17 accuracy: 0.9286
+Epoch 18 accuracy: 0.9335
+Epoch 19 accuracy: 0.9348</code></pre>
+</div>
+</div>
+</section>
+<section id="linear-recap" class="level3" data-number="5.0.4">
+<h3 data-number="5.0.4" class="anchored" data-anchor-id="linear-recap"><span class="header-section-number">5.0.4</span> Linear Recap</h3>
+<p>Let’s recap really what we did:</p>
+<ul>
+<li>Make a prediction</li>
+<li>Measure how we did</li>
+<li>Change our weights so we do slightly better next time</li>
+<li>Print out accuracy metrics along the way so we can see how we are doing</li>
+</ul>
+<p>This is a great start, but what we have is a linear model. Now we need to add non-linearities so that we can have a true Neural Network.</p>
+</section>
+</section>
+<section id="relu" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> ReLu</h1>
+<section id="what-is-it" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="what-is-it"><span class="header-section-number">6.0.1</span> What is it?</h3>
+<p>A ReLu is a common non-linearity in a neural network. A neural network is just alternating linear and nonlinear layers. We defined the Linear layer above, here we will talk about the non-linear ones. So what exactly does the non-linear layer do? It’s actually much simpler than people like to believe. It’s taking a max.</p>
+<p>For example, I am going to apply a ReLu to a matrix.</p>
+<p><span class="math inline">\(\begin{bmatrix}-1&amp;1\\-1&amp;-1\\0&amp;0\\0&amp;1\\1&amp;-1\\1&amp;0\\-1&amp;0\\-1&amp;-1\\1&amp;1\end{bmatrix}\)</span> <span class="math inline">\(=&gt;\)</span> <span class="math inline">\(\begin{bmatrix}0&amp;1\\0&amp;0\\0&amp;0\\0&amp;1\\1&amp;0\\1&amp;0\\0&amp;0\\0&amp;0\\1&amp;1\end{bmatrix}\)</span></p>
+<p>As you will see I just took max(x,0). Another way of saying that is I replaced any negative values with 0. That’s all a ReLu is.</p>
+</section>
+<section id="in-a-neural-network" class="level3" data-number="6.0.2">
+<h3 data-number="6.0.2" class="anchored" data-anchor-id="in-a-neural-network"><span class="header-section-number">6.0.2</span> In a Neural Network</h3>
+<p>These ReLus go between our linear layers. Here’s what a simple Neural Net looks like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize random weights.  </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's a simple Neural Network.  </span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This can have more layers by duplicating the patten seen below, this is just the simplest model.</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_net(xb): </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> xb<span class="op">@</span>w1 <span class="op">+</span> b1 <span class="co">#Linear</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res.<span class="bu">max</span>(tensor(<span class="fl">0.0</span>)) <span class="co">#ReLu</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res<span class="op">@</span>w2 <span class="op">+</span> b2 <span class="co">#Linear</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="train-the-full-neural-network" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Train the Full Neural Network</h1>
+<p>We have our new model with new weights. It’s more than just the linear model, so how do we use gradient descent? We now have 4 weights (<code>w1</code>,<code>w2</code>,<code>b1</code>,<code>b2</code>).</p>
+<p>Turns our it’s exactly what we already did. Let’s add the new parameters and change out the linear model with the simple_net we just defined. We end up with a pretty decent accuracy!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> w1,b1,w2,b2</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(simple_net, lr, params)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(simple_net)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 0 accuracy: 0.5979
+Epoch 1 accuracy: 0.7431
+Epoch 2 accuracy: 0.8324
+Epoch 3 accuracy: 0.8753
+Epoch 4 accuracy: 0.9045
+Epoch 5 accuracy: 0.9288
+Epoch 6 accuracy: 0.9322
+Epoch 7 accuracy: 0.9387
+Epoch 8 accuracy: 0.9406
+Epoch 9 accuracy: 0.941
+Epoch 10 accuracy: 0.9436
+Epoch 11 accuracy: 0.948
+Epoch 12 accuracy: 0.9511
+Epoch 13 accuracy: 0.9501
+Epoch 14 accuracy: 0.9532
+Epoch 15 accuracy: 0.9524
+Epoch 16 accuracy: 0.9581
+Epoch 17 accuracy: 0.9576
+Epoch 18 accuracy: 0.9607
+Epoch 19 accuracy: 0.9602</code></pre>
+</div>
+</div>
+</section>
+<section id="recap-of-tensor-shapes" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Recap of Tensor Shapes</h1>
+<p>Understanding the shapes of these tensors and how the network works is crucial. Here’s the network we built. You can see how each layer can fit into the next layer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x.shape,w1.shape,b1.shape,w2.shape,b2.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(torch.Size([709, 784]),
+ torch.Size([784, 30]),
+ torch.Size([30]),
+ torch.Size([30, 1]),
+ torch.Size([1]))</code></pre>
+</div>
+</div>
+<p><img src="../_my_icons/simple_net.png" class="img-fluid"></p>
+</section>
+<section id="whats-next" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> What’s Next?</h1>
+<p>This is a Neural Network. Now we can do tweaks to enhance performance. I will talk about those in future posts, but here’s a few concepts.</p>
+<ul>
+<li>Instead of a Linear Layer, A ReLu, then a linear layer - Can we add more layers to have a deeper net?</li>
+<li>What if we average some of the pixels in our image together before dong matrix multiplication (ie a convolutions)?</li>
+<li>Can we randomly ignore pixels to prevent overfitting (ie dropout)?</li>
+</ul>
+<p>There are many advanced variations of Neural Networks, but the concepts are typically along the lines of above. If you boil them down to what they are really doing - they are pretty simple concepts.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://sigmoid.social/web/@isaac_flath">Mastadon</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../blog.xml">Blog RSS</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../til.xml">TIL RSS</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
