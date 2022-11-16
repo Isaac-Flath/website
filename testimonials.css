@@ -1,0 +1,7 @@
+
+.title.toc-ignore {
+  font-weight: 1000;
+}
+h1:not(.title){
+  background-image: linear-gradient(120deg, lightblue, blue);
+}
