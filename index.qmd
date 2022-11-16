@@ -46,7 +46,7 @@ My primary hobby is dance.  I used to teach ballroom dance but now I mostly danc
 
 # 👨‍💻 How to get into data science 👩🏻‍💻
 
-[fastai courses](course.fast.ai)
+[fastai courses](https://course.fast.ai/)
 
 **Tinker with everything.**  Try to never ask "Would it work if I did X?" or "Can I accomplish X by doing Y?".  Instead, try it and see if it works.  It's worth the time investment.
 
