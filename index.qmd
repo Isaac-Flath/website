@@ -1,6 +1,6 @@
 ---
 title: "Isaac Flath"
-image: profile.jpeg
+image: street.jpg
 about:
   template: jolla
   links:
