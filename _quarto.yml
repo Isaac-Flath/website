@@ -9,7 +9,9 @@ website:
   margin-header: subscribe.html
   open-graph:
     locale: en_US
-  twitter-card: false
+  twitter-card:
+    image: posts/_TopicImages/NeuralNetwork.jpg
+    creator: "@isaac_flath"
   site-url: https://isaac-flath.tech/
   description: "Blog for machine learning, programming, computer science and other data science related topics"
   navbar:
