@@ -4,6 +4,7 @@ project:
 execute:
   freeze: true
 website:
+  google-analytics: "G-XNZGT59XWP"
   title: "Isaac Flath"
   favicon: favicon/favicon-32x32.png
   margin-header: subscribe.html
