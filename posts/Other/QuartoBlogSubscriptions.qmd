@@ -6,7 +6,7 @@ author:
 date: "2022-12-23"
 description: "How to add subscriptions to a quarto blog"
 categories: [Quarto]
-image: "images/thumbnail.png"
+image: "../_TopicImages/Quarto.jpg"
 ---
 
 The [Quarto Documenation](https://quarto.org/docs/websites/website-blog.html#subscriptions) covers how to implement website subscriptions at a surface level. This guide goes into the details on how one could do so, with three different options. **That said**, this guide can also be helpful for sites that do not use Quarto.
