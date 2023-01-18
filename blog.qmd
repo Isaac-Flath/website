@@ -12,4 +12,3 @@ listing:
 page-layout: full
 title-block-banner: true
 ---
-<a rel="me" href="https://sigmoid.social/@isaac_flath"></a>

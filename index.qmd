@@ -13,9 +13,6 @@ about:
     - icon: twitter
       text: Twitter
       href: https://twitter.com/isaac_flath
-    - icon: mastodon
-      text: Mastodon
-      href: https://sigmoid.social/web/@isaac_flath
     - icon: rss
       text: Blog RSS
       href: blog.xml
@@ -55,5 +52,3 @@ I recommend working through the [fastai courses](https://course.fast.ai/).  Thes
 **Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [my FAQ](other/bloggingFAQ.qmd) for some help getting started!
 
 **Keep at it** and be tenacious.  There is discomfort with learning any skill. You'll be frustrated at times.  That's a sign that there's a concept worth learning and once you do figure it out you'll have made a big step forward.
-
-<a rel="me" href="https//sigmoid.social/@isaac_flath"></a>

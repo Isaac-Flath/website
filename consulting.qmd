@@ -4,12 +4,18 @@ page-layout: full
 title-block-banner: true
 ---
 
-From time to time I am approached about contract consulting work.  This page outlines a few details that you'll need to know.  Before you read further, please realize:
+My most important ability is understanding strategic goals and being able to translate that into all the detailed steps needed to get there (and seeing what steps are not needed).  This is supported by deep technical skills and a passion for teaching.
 
-:::{.callout-important}
+I design solutions that fall into two broad categories, automation and decision support.  Automation is about **making things easier**.  Decision support is about **making better decisions**.
 
-This is for decision makers looking to work with me directly.  **I am not interested in working with third party firms**.  I am happy with where I am at and what I do and don't need/want help finding additional work.
+# How to Hire
 
+:::{.callout-note}
+
+### How to hire me
+
++ **Reach out to me** at <isaac@flath.email>
++ **My consulting rate is $250 per hour**
 :::
 
 # Why me?
@@ -17,28 +23,56 @@ This is for decision makers looking to work with me directly.  **I am not intere
 I have three core competencies and passions that combine to make me very valuable.
 
 :::{.callout-tip}
+
 ## Technical
 
 A good technical consultant has significant technical skills.  I have expertise in a large range of technical topics including:
 
-+ Fundamentals
++ Fundamental Analytics
     + A/B testing
     + Metric design and how measures relate to behavior
     + Experimentation mindset and design
-+ Fundamental modeling
++ Fundamental Modeling
     + Life Time Value
+    + Segmentation
     + Multi-armed bandits
     + Decision Tree processes
-+ AI Modeling
+    + Linear & Logistic regression
++ Advanced Modeling
     + Deep Learning (computer vision & NLP)
-    + Tabular data (random forest, XGboost, linear/logistic regression, etc.)
+    + Recommendation Systems
+    + Tabular data (random forest, XGboost, etc.)
     + Clustering (K-Means, Meanshift, Hierarchical, etc.)
 + Communication & Logistics
     + Model and application design and deployment
     + Cloud Infrastructure
     + Documentation
+
+And more!
+
 :::
     
+
+:::{.callout-tip}
+## Business
+
+In order for a technical solution to be successful it needs to fit into the business.  The most important thing when creating technical solutions is to understand how people will benefit from it and what it will incentivize.  Two commonly overlooked aspects of technical solutions are:
+
++ **It's a tool to empower people** : Technical solutions are never entirely technical and they are never hands off things that "just run".  A technical solution must empower the people who use it to do their jobs better.  If you do not consider how people will use it and what information they need to make an educated decision - it will not be used.
++ **People must understand and be involved** : Technical solutions never "just run".  When creating any technical solution there are constant trade-offs that effect business outcomes.  If your business stakeholders do not understand the trade-offs and how they effect the business they will not be able to make good decisions.  This communication and education is challenging and often poorly done.  As a result, business decisions masquerading as technical details are often made by technical staff without input from the business team.  This is a recipe for disaster.
+
+As someone who has worked in all sides of the business and worked end-to-end on projects I understand how to design technical solutions that empower **people** to do their jobs better.  People use analytic assets to make decisions.  **A good consultant designs solutions that empower people to make better decisions.** I understand how to **identify, prioritize, and manage what's important**.  More importantly I know how to **design processes to maintain the important things.**  When you move on to a new project or priority it's critical that you can still **maintain the value created by previous projects.**
+
+A few of the areas I have experience in include: 
+
++ **Product management** : I have worked on product teams both as product owner, product manager, developer, and data scientist.  I have a deep understanding of how to design and build products that people want to use.
++ **Project management** : I have experience managing projects and understand how to keep teams on track and deliver value.
++ **Stakeholder management** : I have experience managing stakeholders and understand how to elicit reuqirements so the end product is what the business needs.
++ **Marketing** : I have designed many solutions to empower marketing teams.  I have added automation to repetitive tasks to enable marketing teams to spend less time on tedius work and more time on the creative aspects of their jobs.  I have also designed solutions to enable marketing to make better decisions, such as testing frameworks, content recommendation systems, and customer segmentation.
++ **Customer Service** : I have worked on customer service teams and have a deep understanding of how to design and build customer service solutions that people want to use.  
++ **Business Process** : I have deep understanding of how to create business process that people want to use.  This means they must be easy to use, easy to maintain, and easy to understand.
+:::
+
 
 :::{.callout-tip}
 ## Teaching
@@ -51,28 +85,4 @@ A good technical consultant has significant technical skills.  I have expertise 
 
 :::
 
-:::{.callout-tip}
-## Business
-I have worked as a business process engineer.  I have worked in product management.  I have been a product owner.  I have managed many projects as head of data science.
 
-I understand how to **identify, prioritize, and manage what's important**.  More importantly I know how to **design processes to maintain the important things.**  When you move on to a new project or priority it's critical that you can still **maintain the value created by previous projects.**
-:::
-
-
-# How to Hire
-
-:::{.callout-note}
-
-### How to hire me
-
-+ **Reach out to me** with a short simple description of what you are trying to accomplish and how.  It doesn't need to be formal and if you don't know something that's ok!  I love working with people who admit when they don't know something!
-+ **Give me relevant links I can research** so I can learn more about your problem, industry, or related problems.  Before we talk I want to have done some research so I am not wasting your time or mine discussing things that could have been a google search.
-+ **My freelance rate is $250 per hour.**  I may be willing to work with you on price.  Here are things that make me willing to negotiate on price:
-    + Are you doing work for the good of others (ie nonprofits, charities, other)?
-    + Are you a minority or female owned small business?
-    + Are you doing something novel, interesting, or exciting (in my opinion)?
-    + When you communicated with me, was it clear and concise? Do you have a clear vision for what you want?  Unclear communication and unclear vision leads to extra back-and-forth and extra risk.  As with any business I expect to be compensated for additional risk.
-    + How busy am I?  Or to make it sound more professional, how much demand is there in the market for my services? 
-:::
-
-<a rel="me" href="https//sigmoid.social/@isaac_flath"></a>
