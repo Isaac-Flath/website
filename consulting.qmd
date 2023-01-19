@@ -23,6 +23,17 @@ I design solutions that fall into two broad categories, automation and decision 
 I have three core competencies and passions that combine to make me very valuable.
 
 :::{.callout-tip}
+## Teaching
+
+**A good consultant is a teacher**.  This is important because:
+
++ Buying a solution is not enough to know how to use it proficiently.  **A good consultant teaches you so you are not dependent on them forever.**
+
++ Businesses are made up of people.  **A good consultant enriches people as they work.**   The more skills your people have the faster you can move.  Employees that are learning and developing will be more engaged and motivated.
+
+:::
+
+:::{.callout-tip}
 
 ## Technical
 
@@ -73,18 +84,6 @@ A few of the areas I have experience in include:
 + `Marketing` : I have designed many solutions to empower marketing teams.  I have added automation to repetitive tasks to enable marketing teams to spend less time on tedious work and more time on the creative aspects of their jobs.  I have also designed solutions to enable marketing to make better decisions, such as testing frameworks, content recommendation systems, and customer segmentation.
 + `Customer service` : I have worked on customer service teams and have a deep understanding of how to design and build customer service solutions that people want to use.  
 + `Business processes` : I have deep understanding of how to create business processes that people want to use.  This means they must be easy to use, easy to maintain, and easy to understand.
-:::
-
-
-:::{.callout-tip}
-## Teaching
-
-**A good consultant is a teacher**.  This is important because:
-
-+ Buying a solution is not enough to know how to use it proficiently.  **A good consultant teaches you so you are not dependent on them forever.**
-
-+ Businesses are made up of people.  **A good consultant enriches people as they work.**   The more skills your people have the faster you can move.  Employees that are learning and developing will be more engaged and motivated.
-
 :::
 
 
