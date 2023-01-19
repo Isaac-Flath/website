@@ -28,25 +28,27 @@ I have three core competencies and passions that combine to make me very valuabl
 
 A good technical consultant has significant technical skills.  I have expertise in a large range of technical topics including:
 
-+ Fundamental Analytics
++ `Fundamental Analytics`
     + A/B testing
     + Metric design and how measures relate to behavior
     + Experimentation mindset and design
-+ Fundamental Modeling
+    + Data driven decision making
++ `Fundamental Modeling`
     + Life Time Value
     + Segmentation
     + Multi-armed bandits
     + Decision Tree processes
     + Linear & Logistic regression
-+ Advanced Modeling
++ `Machine Learning & AI`
     + Deep Learning (computer vision & NLP)
     + Recommendation Systems
     + Tabular data (random forest, XGboost, etc.)
     + Clustering (K-Means, Meanshift, Hierarchical, etc.)
-+ Communication & Logistics
++ `Communication & Logistics`
     + Model and application design and deployment
     + Cloud Infrastructure
     + Documentation
+    + Data pipelines
 
 And more!
 
@@ -58,19 +60,19 @@ And more!
 
 In order for a technical solution to be successful it needs to fit into the business.  The most important thing when creating technical solutions is to understand how people will benefit from it and what it will incentivize.  Two commonly overlooked aspects of technical solutions are:
 
-+ **It's a tool to empower people** : Technical solutions are never entirely technical and they are never hands off things that "just run".  A technical solution must empower the people who use it to do their jobs better.  If you do not consider how people will use it and what information they need to make an educated decision - it will not be used.
-+ **People must understand and be involved** : Technical solutions never "just run".  When creating any technical solution there are constant trade-offs that effect business outcomes.  If your business stakeholders do not understand the trade-offs and how they effect the business they will not be able to make good decisions.  This communication and education is challenging and often poorly done.  As a result, business decisions masquerading as technical details are often made by technical staff without input from the business team.  This is a recipe for disaster.
++ `It's a tool to empower people` : Technical solutions are never entirely technical and they are never hands off things that "just run".  A technical solution must empower the people who use it to do their jobs better.  If you do not consider how people will use it and what information they need to make an educated decision - it will not be used.
++ `People must understand and be involved` : Technical solutions never "just run".  When creating any technical solution there are constant trade-offs that affect business outcomes.  If your business stakeholders do not understand the trade-offs and how they affect the business they will not be able to make good decisions.  This communication and education is challenging and often poorly done.  As a result, business decisions masquerading as technical details are often made by technical staff without input from the business team.  This is a recipe for disaster.
 
 As someone who has worked in all sides of the business and worked end-to-end on projects I understand how to design technical solutions that empower **people** to do their jobs better.  People use analytic assets to make decisions.  **A good consultant designs solutions that empower people to make better decisions.** I understand how to **identify, prioritize, and manage what's important**.  More importantly I know how to **design processes to maintain the important things.**  When you move on to a new project or priority it's critical that you can still **maintain the value created by previous projects.**
 
 A few of the areas I have experience in include: 
 
-+ **Product management** : I have worked on product teams both as product owner, product manager, developer, and data scientist.  I have a deep understanding of how to design and build products that people want to use.
-+ **Project management** : I have experience managing projects and understand how to keep teams on track and deliver value.
-+ **Stakeholder management** : I have experience managing stakeholders and understand how to elicit reuqirements so the end product is what the business needs.
-+ **Marketing** : I have designed many solutions to empower marketing teams.  I have added automation to repetitive tasks to enable marketing teams to spend less time on tedius work and more time on the creative aspects of their jobs.  I have also designed solutions to enable marketing to make better decisions, such as testing frameworks, content recommendation systems, and customer segmentation.
-+ **Customer Service** : I have worked on customer service teams and have a deep understanding of how to design and build customer service solutions that people want to use.  
-+ **Business Process** : I have deep understanding of how to create business process that people want to use.  This means they must be easy to use, easy to maintain, and easy to understand.
++ `Product management` : I have worked on product teams as a product owner, product manager, developer, and data scientist.  I have a deep understanding of how to design and build products that people want to use.
++ `Project management` : I have experience managing projects and understand how to keep teams on track and deliver value.
++ `Stakeholder management` : I have experience managing stakeholders and understand how to elicit requirements so the end product is what the business needs.
++ `Marketing` : I have designed many solutions to empower marketing teams.  I have added automation to repetitive tasks to enable marketing teams to spend less time on tedious work and more time on the creative aspects of their jobs.  I have also designed solutions to enable marketing to make better decisions, such as testing frameworks, content recommendation systems, and customer segmentation.
++ `Customer service` : I have worked on customer service teams and have a deep understanding of how to design and build customer service solutions that people want to use.  
++ `Business processes` : I have deep understanding of how to create business processes that people want to use.  This means they must be easy to use, easy to maintain, and easy to understand.
 :::
 
 
@@ -81,7 +83,7 @@ A few of the areas I have experience in include:
 
 + Buying a solution is not enough to know how to use it proficiently.  **A good consultant teaches you so you are not dependent on them forever.**
 
-+ Businesses are made up of people.  **A good consultant enriches people as they work.**   The more skills your people have the faster you can move.  Employees that are learning and developing will be more engaged and motivated
++ Businesses are made up of people.  **A good consultant enriches people as they work.**   The more skills your people have the faster you can move.  Employees that are learning and developing will be more engaged and motivated.
 
 :::
 
