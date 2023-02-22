@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2020-11-20">
-<meta name="description" content="UA guide for showing the benefits and technique to Partial Dependence Plotting">
+<meta name="dcterms.date" content="2022-01-24">
+<meta name="description" content="A walk though of the Fastcore L Class">
 
-<title>Isaac Flath - Partial Dependence Plotting</title>
+<title>Isaac Flath - Fastcore L Class</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -134,20 +134,17 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Isaac Flath - Partial Dependence Plotting">
-<meta property="og:description" content="UA guide for showing the benefits and technique to Partial Dependence Plotting">
-<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/DataAnalysis.jpg">
+<meta property="og:title" content="Isaac Flath - Fastcore L Class">
+<meta property="og:description" content="A walk though of the Fastcore L Class">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/ModelWhiteboarding.jpg">
 <meta property="og:site-name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Isaac Flath - Partial Dependence Plotting">
-<meta name="twitter:description" content="UA guide for showing the benefits and technique to Partial Dependence Plotting">
+<meta name="twitter:title" content="Isaac Flath - Fastcore L Class">
+<meta name="twitter:description" content="A walk though of the Fastcore L Class">
 <meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
@@ -199,15 +196,15 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Partial Dependence Plotting</h1>
+      <h1 class="title">Fastcore L Class</h1>
                   <div>
         <div class="description">
-          UA guide for showing the benefits and technique to Partial Dependence Plotting
+          A walk though of the Fastcore L Class
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Data Exploration</div>
-                <div class="quarto-category">Tabular Modeling</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">Programming</div>
               </div>
                   </div>
   </div>
@@ -225,7 +222,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 20, 2020</p>
+        <p class="date">January 24, 2022</p>
       </div>
     </div>
     
@@ -1206,13 +1203,37 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-partial-dependence-plotting" id="toc-what-is-partial-dependence-plotting" class="nav-link active" data-scroll-target="#what-is-partial-dependence-plotting"><span class="toc-section-number">1</span>  What is Partial Dependence Plotting?</a></li>
-  <li><a href="#why-use-it" id="toc-why-use-it" class="nav-link" data-scroll-target="#why-use-it"><span class="toc-section-number">2</span>  Why use it?</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">3</span>  Examples</a>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="toc-section-number">1</span>  Motivation</a></li>
+  <li><a href="#what-is-the-purpose-of-l" id="toc-what-is-the-purpose-of-l" class="nav-link" data-scroll-target="#what-is-the-purpose-of-l"><span class="toc-section-number">2</span>  What is the purpose of <code>L</code>?</a></li>
+  <li><a href="#l-functionality" id="toc-l-functionality" class="nav-link" data-scroll-target="#l-functionality"><span class="toc-section-number">3</span>  <code>L</code> functionality</a>
   <ul class="collapse">
-  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="toc-section-number">3.0.1</span>  Logistic Regression</a></li>
+  <li><a href="#initialize" id="toc-initialize" class="nav-link" data-scroll-target="#initialize"><span class="toc-section-number">3.1</span>  Initialize</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output"><span class="toc-section-number">3.2</span>  Output</a></li>
+  <li><a href="#getitem___" id="toc-getitem___" class="nav-link" data-scroll-target="#getitem___"><span class="toc-section-number">3.3</span>  <code>__getitem___</code></a></li>
+  <li><a href="#setitem__" id="toc-setitem__" class="nav-link" data-scroll-target="#setitem__"><span class="toc-section-number">3.4</span>  <code>__setitem__</code></a>
+  <ul class="collapse">
+  <li><a href="#unique" id="toc-unique" class="nav-link" data-scroll-target="#unique"><span class="toc-section-number">3.4.1</span>  Unique</a></li>
+  <li><a href="#val2idx" id="toc-val2idx" class="nav-link" data-scroll-target="#val2idx"><span class="toc-section-number">3.4.2</span>  <code>val2idx</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="toc-section-number">3.4.3</span>  <code>filter</code></a></li>
+  <li><a href="#argwhere" id="toc-argwhere" class="nav-link" data-scroll-target="#argwhere"><span class="toc-section-number">3.4.4</span>  <code>argwhere</code></a></li>
+  <li><a href="#argfirst" id="toc-argfirst" class="nav-link" data-scroll-target="#argfirst"><span class="toc-section-number">3.4.5</span>  <code>argfirst</code></a></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><span class="toc-section-number">3.4.6</span>  <code>map</code></a></li>
+  <li><a href="#map_dict" id="toc-map_dict" class="nav-link" data-scroll-target="#map_dict"><span class="toc-section-number">3.4.7</span>  <code>map_dict</code></a></li>
+  <li><a href="#zip" id="toc-zip" class="nav-link" data-scroll-target="#zip"><span class="toc-section-number">3.4.8</span>  <code>zip</code></a></li>
+  <li><a href="#map_zip" id="toc-map_zip" class="nav-link" data-scroll-target="#map_zip"><span class="toc-section-number">3.4.9</span>  <code>map_zip</code></a></li>
+  <li><a href="#zipwith" id="toc-zipwith" class="nav-link" data-scroll-target="#zipwith"><span class="toc-section-number">3.4.10</span>  <code>zipwith</code></a></li>
+  <li><a href="#map_zipwith" id="toc-map_zipwith" class="nav-link" data-scroll-target="#map_zipwith"><span class="toc-section-number">3.4.11</span>  <code>map_zipwith</code></a></li>
+  <li><a href="#itemgot" id="toc-itemgot" class="nav-link" data-scroll-target="#itemgot"><span class="toc-section-number">3.4.12</span>  <code>itemgot</code></a></li>
+  <li><a href="#attrgot" id="toc-attrgot" class="nav-link" data-scroll-target="#attrgot"><span class="toc-section-number">3.4.13</span>  <code>attrgot</code></a></li>
+  <li><a href="#sorted" id="toc-sorted" class="nav-link" data-scroll-target="#sorted"><span class="toc-section-number">3.4.14</span>  <code>sorted</code></a></li>
+  <li><a href="#split" id="toc-split" class="nav-link" data-scroll-target="#split"><span class="toc-section-number">3.4.15</span>  <code>split</code></a></li>
+  <li><a href="#range" id="toc-range" class="nav-link" data-scroll-target="#range"><span class="toc-section-number">3.4.16</span>  <code>range</code></a></li>
+  <li><a href="#concat" id="toc-concat" class="nav-link" data-scroll-target="#concat"><span class="toc-section-number">3.4.17</span>  <code>concat</code></a></li>
+  <li><a href="#copy" id="toc-copy" class="nav-link" data-scroll-target="#copy"><span class="toc-section-number">3.4.18</span>  <code>copy</code></a></li>
+  <li><a href="#map_first" id="toc-map_first" class="nav-link" data-scroll-target="#map_first"><span class="toc-section-number">3.4.19</span>  <code>map_first</code></a></li>
+  <li><a href="#setattrs" id="toc-setattrs" class="nav-link" data-scroll-target="#setattrs"><span class="toc-section-number">3.4.20</span>  <code>setattrs</code></a></li>
   </ul></li>
-  <li><a href="#what-now" id="toc-what-now" class="nav-link" data-scroll-target="#what-now"><span class="toc-section-number">4</span>  What now?</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1222,468 +1243,365 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 
-<section id="what-is-partial-dependence-plotting" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> What is Partial Dependence Plotting?</h1>
-<p>Traditional analysis looks at historical data and describes it. The data is fixed and you are looking to make a prediction based on the data. The person is responsible for finding <strong>and</strong> understanding the interactions. This gets exponentially more difficult in higher dimensional problems.</p>
-<p>Partial Dependence Plotting looks at a prediction, and modifies the data to see how it effects the prediction. The <strong>model</strong> is fixed and you are looking to understand interactions by modifying the data. <strong>The model is responsible for finding the interactions and the person just focuses on understanding the interactions the model found.</strong></p>
-<p>In this way, you can think of Descriptive Analysis as a method of analysis that focuses on understanding the data, where Partial Dependence Plotting is a method of analysis that focuses on understanding the predictions. They can accomplish similar goals but approach it differently.</p>
+<section id="motivation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivation</h1>
+<p><a href="fastcore.fast.ai">fastcore</a> has many really useful features that simplify coding. I use the library on most projects that I do, but I have only scratched the surface. I have decided to do a deep dive into fastcore.</p>
+<p>To decide the order to learn the fastcore library in I decided to start with the most common usages. I cloned all the repos from the <a href="fast.ai">fastai</a> github organization that created fastcore, as well as the 3 people that are members of that organization (Jeremy, Hamel, and Waseem). I did a rough count of what fastcore functions are used the most. Since they are likely to be among the top experts of the library, I decided to start with what they use most.</p>
+<p>The L class was the top winner - so this post is kicking it off!</p>
 </section>
-<section id="why-use-it" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Why use it?</h1>
-<p>One of the <strong>biggest challenges of statistics is that is requires a person to make a series of assumptions</strong>. Whether you are doing p-values, or correlations, or any other test you are typically making some assumption. Maybe you have to assume the data follows a particular distribution, maybe you have to assume that your variables are independent, or maybe you assume your variables and linearly dependent. Whatever the case may be, you typically have to make some assumption - and if you make the wrong assumptions you can get incorrect findings. It’s for this reason that P-Values are not recommended for use in validating results by the majority of the top statisticians (including the American Statistical Association), despite the fact that most business analysts use them heavily in their analysis and decision making.</p>
-<p>This leads me to the first advantage of the partial dependence plotting approach, which is a big differentiator between statistics and data science. <strong>With partial dependence plotting you are testing through experimentation rather than through descriptive statistics and statistical testing</strong>. For example a Neural Network can approximate any function, whether that is linear, exponential, logistic, or any other shape with any number of interactions. So I can use that, measure the accuracy, and understand the uncertainty of my analysis with no assumptions about distribution, co-linearity, or type of function.</p>
-<p>A second advantage is that if you have sufficient data for your analysis, but it’s not all the right type due to some data imbalance you can leverage all the data for the analysis. For example, if you are looking at customer churn you likely have many more accounts that did not churn than accounts that did churn. With descriptive statistics you will look at the few churned accounts and see what they have in common. With a model driven approach, <strong>you can look at accounts that did not churn and see what changes you could make to those accounts that makes them more likely to churn.</strong></p>
-<p>A third advantage is that the output you are seeing is the prediction. <strong>The prediction of the future is often what is of value</strong>, so if the goal is to make some decision based on what is likely to happen in the future <strong>keeping that in the forefront is ideal.</strong></p>
+<section id="what-is-the-purpose-of-l" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> What is the purpose of <code>L</code>?</h1>
+<p>The fastcore docs say:</p>
+<blockquote class="blockquote">
+<p>L is a drop in replacement for a python list. Inspired by NumPy, L, supports advanced indexing and has additional methods (outlined below) that provide additional functionality and encourage simple expressive code.</p>
+</blockquote>
+<p>In this tour I will attempt to walk through each piece of functionality of the L class and compare to using the standard python list.</p>
 </section>
-<section id="examples" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Examples</h1>
-<p>Enough jibber-jabber. Let’s look at some examples. We’ll start simple and get a little bit more complicated over time.</p>
-<section id="logistic-regression" class="level3" data-number="3.0.1">
-<h3 data-number="3.0.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">3.0.1</span> Logistic Regression</h3>
-<p>Let’s create a model on the classic iris dataset and fit a logistic regression to it. When we do this, we see we have a mean accuracy score of about 97%.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_iris(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">500</span>).fit(X, y)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>clf.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>0.9733333333333334</code></pre>
+<section id="l-functionality" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <code>L</code> functionality</h1>
+<section id="initialize" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="initialize"><span class="header-section-number">3.1</span> Initialize</h2>
+<p>We can initialize the <code>L</code> class similar to a list.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>L(<span class="bu">range</span>(<span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>(#15) [0,1,2,3,4,5,6,7,8,9...]</code></pre>
 </div>
 </div>
-<p>That’s pretty good, but we don’t really know what the important variables are. Let’s experiment a bit.</p>
-<p>for our first 2 rows of data we can see the model predicts 0, which is the correct answer. What changes could we make to the data to make it predict something else?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">0</span>:<span class="dv">2</span>, :]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>array([[5.1, 3.5, 1.4, 0.2],
-       [4.9, 3. , 1.4, 0.2]])</code></pre>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>L(<span class="st">'some words'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>(#1) ['some words']</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>clf.predict(X[<span class="dv">0</span>:<span class="dv">2</span>, :])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>array([0, 0])</code></pre>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>(#41) ['T','h','e',' ','q','u','i','c','k',' '...]</code></pre>
 </div>
 </div>
-<p>Let’s test adding to each of the columns and see if any change the predictions. Our original prediction is [0,0], so anything different tells us something</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,X_temp.shape[<span class="dv">1</span>]):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  X_temp <span class="op">=</span> X[<span class="dv">0</span>:<span class="dv">2</span>, :].copy()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  X_temp[:,i] <span class="op">=</span> X_temp[:,i]<span class="op">+</span><span class="dv">20</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'New Values'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(X_temp)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Prediction'</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(clf.predict(X_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="output" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="output"><span class="header-section-number">3.2</span> Output</h2>
+<p>The L class outputs much nicer that a list, and includes the length in that. Let’s compare.</p>
+<p>I’m using collapsable buttons, because the regular list is super obnoxious.</p>
+<div class="cell" data-execution_count="50">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L(<span class="op">*</span><span class="bu">range</span>(<span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>(#30) [0,1,2,3,4,5,6,7,8,9...]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="51">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">*</span><span class="bu">range</span>(<span class="dv">30</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>[0,
+ 1,
+ 2,
+ 3,
+ 4,
+ 5,
+ 6,
+ 7,
+ 8,
+ 9,
+ 10,
+ 11,
+ 12,
+ 13,
+ 14,
+ 15,
+ 16,
+ 17,
+ 18,
+ 19,
+ 20,
+ 21,
+ 22,
+ 23,
+ 24,
+ 25,
+ 26,
+ 27,
+ 28,
+ 29]</code></pre>
+</div>
+</div>
+</section>
+<section id="getitem___" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="getitem___"><span class="header-section-number">3.3</span> <code>__getitem___</code></h2>
+<p><code>L</code> has a defined <code>__getitem__</code> that allows more flexible indexing of lists. Here’s a few examples of the expanded functionality of <code>L</code>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While these don’t look terribly impressive they are extremely convenient, and it’s a bit surprising to me the base python list doesn’t have this already. All of these do not work on OOTB python lists.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">12</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l1[<span class="dv">1</span>,<span class="dv">2</span>]) <span class="co"># implied tuple</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l1[[<span class="dv">1</span>,<span class="dv">2</span>]]) <span class="co"># list</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l1[[<span class="va">False</span>]<span class="op">*</span><span class="dv">11</span> <span class="op">+</span> [<span class="va">True</span>]]) <span class="co"># mask</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>New Values
-[[25.1  3.5  1.4  0.2]
- [24.9  3.   1.4  0.2]]
-Prediction
-[1 1]
-New Values
-[[ 5.1 23.5  1.4  0.2]
- [ 4.9 23.   1.4  0.2]]
-Prediction
-[0 0]
-New Values
-[[ 5.1  3.5 21.4  0.2]
- [ 4.9  3.  21.4  0.2]]
-Prediction
-[2 2]
-New Values
-[[ 5.1  3.5  1.4 20.2]
- [ 4.9  3.   1.4 20.2]]
-Prediction
-[2 2]</code></pre>
+<pre><code>[1, 2]
+[1, 2]
+[11]</code></pre>
 </div>
 </div>
-<p>That’s interesting. We can see that adding to the 1st, 3rd, and 4th variable made our model make a different prediction. Since we know our model was about 97% accurate, we know this is meaningful. It is picking up on some trend in the data using each of these columns. Lets hone in on column 1 to see if we can understand this more.</p>
+</section>
+<section id="setitem__" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="setitem__"><span class="header-section-number">3.4</span> <code>__setitem__</code></h2>
+<p><code>L</code> also has a defined <code>__setitem__</code> that gives very convenient ways to set values in the list. Here’s an example of what you can do with the L class.</p>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">12</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>l1[<span class="dv">4</span>,<span class="dv">6</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>l1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
+<pre><code>(#12) [0,1,2,3,0,5,0,7,8,9...]</code></pre>
+</div>
+</div>
+<section id="unique" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="unique"><span class="header-section-number">3.4.1</span> Unique</h3>
+<p>Returns unique elements in a list. Nice handy method for a very common operation. It includes seveeral options, including the option to sort after the de-dupe&gt;</p>
+<div class="cell" data-execution_count="123">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>l1.unique(sort<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="123">
+<pre><code>(#4) [1,2,3,4]</code></pre>
+</div>
+</div>
+<p>If you were using a base python list there are several ways to do this. Here are a few common ones.</p>
+<p>Convert to another datatype and back</p>
+<div class="cell" data-execution_count="117">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get unique</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">set</span>(l1))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>_tmp <span class="op">=</span> <span class="bu">list</span>(<span class="bu">dict</span>.fromkeys(l1))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sort</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>_tmp.sort()</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>_tmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="117">
+<pre><code>[1, 2, 3, 4]</code></pre>
+</div>
+</div>
+<p>Loop or list comprehension</p>
+<div class="cell" data-execution_count="119">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>l2 <span class="op">=</span> []</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> l1:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> l2:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        l2.append(i)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>l2.sort()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>l2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="119">
+<pre><code>[1, 2, 3, 4]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="121">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>used <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>_tmp <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> l1 <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> used <span class="kw">and</span> (used.add(x) <span class="kw">or</span> <span class="va">True</span>)]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>_tmp.sort()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>_tmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="121">
+<pre><code>[1, 2, 3, 4]</code></pre>
+</div>
+</div>
+<p>Or do a reduction</p>
+<div class="cell" data-execution_count="122">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>_tmp <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> l, x: l.append(x) <span class="kw">or</span> l <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> l <span class="cf">else</span> l, l1, [])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>_tmp.sort()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>_tmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="122">
+<pre><code>[1, 2, 3, 4]</code></pre>
+</div>
+</div>
+</section>
+<section id="val2idx" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="val2idx"><span class="header-section-number">3.4.2</span> <code>val2idx</code></h3>
+<p>val2idx converts an <code>L</code> to a dictionary. This is handy a lot of times, especially if you have a list of labels and you want to create a lookup to numeric values for them, which comes up in data science a ton.</p>
+<div class="cell" data-execution_count="131">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="st">"cat"</span>,<span class="st">"dog"</span>,<span class="st">"Rabbit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="132">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>l1.val2idx()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="132">
+<pre><code>{'cat': 0, 'dog': 1, 'Rabbit': 2}</code></pre>
+</div>
+</div>
+<p>The normal way to do with base python list is dictionary comprehension, which is also how it’s implemented in fastcore.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  X_temp <span class="op">=</span> X[<span class="dv">0</span>:<span class="dv">2</span>, :].copy()</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  X_temp[:,<span class="dv">0</span>] <span class="op">=</span> X_temp[:,<span class="dv">0</span>]<span class="op">+</span>i</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (clf.predict(X_temp) <span class="op">==</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>])).<span class="bu">all</span>():</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">continue</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Prediction for adding '</span> <span class="op">+</span><span class="bu">str</span>(i))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(clf.predict(X_temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding 4
-[0 1]
-Prediction for adding 5
-[1 1]
-Prediction for adding 6
-[1 1]
-Prediction for adding 7
-[1 1]
-Prediction for adding 8
-[1 1]
-Prediction for adding 9
-[1 1]</code></pre>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>{v:k <span class="cf">for</span> k,v <span class="kw">in</span> <span class="bu">enumerate</span>(l1)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="133">
+<pre><code>{'cat': 0, 'dog': 1, 'Rabbit': 2}</code></pre>
 </div>
 </div>
-<p>Great, here we see that subtracting from that value does not change the prediction, but once we start adding 4 - 5 to it changes. Our original value for these rows were 5.1 and 4.9, so it seems that when we get to the 9 - 10 range for that value it becomes more likely that it is a different class all other things equal.</p>
-<p>This is great insight, and throughout this process we made no assumptions of co-linearity, distribution, or anything else. we just manipulated the data to see the change in predictions of the mode.</p>
-<section id="neural-network" class="level5" data-number="3.0.1.0.1">
-<h5 data-number="3.0.1.0.1" class="anchored" data-anchor-id="neural-network"><span class="header-section-number">3.0.1.0.1</span> Neural Network</h5>
-<p>Let’s try a slightly more difficult problem and use a Neural Net. I could have used an XGBoost or a random forest, or any other model choice.</p>
-<p>The goal of this dataset is to predict whether the person makes more or less than 50K salary. This could be useful for marketing reasons if you are trying to decide what products to market to whom. Let’s first look at the data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.tabular.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(<span class="st">'ADULT_SAMPLE'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path<span class="op">/</span><span class="st">'adult.csv'</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+</section>
+<section id="filter" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="filter"><span class="header-section-number">3.4.3</span> <code>filter</code></h3>
+<p>Filter is a common higher order function from functional programming. When given a list and a function that returns a boolean it applies the function to each arguement and filters with the boolean mask.</p>
+<p>Fastcore adds functionality of negating the function, so if you need to do the opposite filter you don’t need a second function. Your function can also take multiple arguments, with kwargs being passed to it for you.</p>
+<div class="cell" data-execution_count="160">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>l1.<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&lt;</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="160">
+<pre><code>(#3) [0,1,2]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="177">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>l1.<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&lt;</span> <span class="dv">3</span>, negate<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="177">
+<pre><code>(#10) [5,6,7,8,9,10,11,12,13,14]</code></pre>
+</div>
+</div>
+</section>
+<section id="argwhere" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="argwhere"><span class="header-section-number">3.4.4</span> <code>argwhere</code></h3>
+<p><code>argwhere</code> is very similar to filter, but instead of filtering out items it returns their index locations. This can also be negated.</p>
+<div class="cell" data-execution_count="186">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">5</span>,<span class="dv">15</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>l1.argwhere(<span class="kw">lambda</span> x: x<span class="op">&lt;</span><span class="dv">13</span>, negate<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="186">
+<pre><code>(#2) [8,9]</code></pre>
+</div>
+</div>
+</section>
+<section id="argfirst" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="argfirst"><span class="header-section-number">3.4.5</span> <code>argfirst</code></h3>
+<p>Argfirst returns the index of the first match.</p>
+<div class="cell" data-execution_count="203">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>l1.argfirst(<span class="kw">lambda</span> x: x<span class="op">&lt;</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="203">
+<pre><code>0</code></pre>
+</div>
+</div>
+</section>
+<section id="map" class="level3" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="map"><span class="header-section-number">3.4.6</span> <code>map</code></h3>
+<p>Map is another foundational higher order function. It transforms each element in <code>L</code> by passing it to the function provided and replacing the value with the result.</p>
+<div class="cell" data-execution_count="205">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>l1.<span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="205">
+<pre><code>(#10) [0,0,0,0,0,0,0,0,0,0]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>l1.<span class="bu">map</span>(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(#10) [0,1,4,9,16,25,36,49,64,81]</code></pre>
+</div>
+</div>
+</section>
+<section id="map_dict" class="level3" data-number="3.4.7">
+<h3 data-number="3.4.7" class="anchored" data-anchor-id="map_dict"><span class="header-section-number">3.4.7</span> <code>map_dict</code></h3>
+<p>map_dict is similar to map, but instead of returning only the new valuds, it returns both the old and the new values as a dict.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L(<span class="bu">range</span>(<span class="dv">2</span>,<span class="dv">6</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>l1.map_dict(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>{2: 4, 3: 9, 4: 16, 5: 25}</code></pre>
+</div>
+</div>
+</section>
+<section id="zip" class="level3" data-number="3.4.8">
+<h3 data-number="3.4.8" class="anchored" data-anchor-id="zip"><span class="header-section-number">3.4.8</span> <code>zip</code></h3>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="op">=</span> L([<span class="dv">0</span>,<span class="st">'a'</span>],[<span class="dv">1</span>,<span class="st">'b'</span>],[<span class="dv">2</span>,<span class="st">'c'</span>])</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>l1.<span class="bu">zip</span>(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>(#2) [(0, 1, 2),('a', 'b', 'c')]</code></pre>
+</div>
+</div>
+</section>
+<section id="map_zip" class="level3" data-number="3.4.9">
+<h3 data-number="3.4.9" class="anchored" data-anchor-id="map_zip"><span class="header-section-number">3.4.9</span> <code>map_zip</code></h3>
+<div class="cell" data-execution_count="230">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> torch.arange(<span class="fl">1.</span>, <span class="fl">5.</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> torch.empty(<span class="dv">4</span>).fill_(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="235">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>torch.lerp(start, end, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="235">
+<pre><code>tensor([5.5000, 6.0000, 6.5000, 7.0000])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="237">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>L(start,end).map_zip(torch.lerp,<span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>TypeError: lerp() received an invalid combination of arguments - got (float, Tensor, Tensor), but expected one of:
+ * (Tensor input, Tensor end, Tensor weight, *, Tensor out)
+ * (Tensor input, Tensor end, Number weight, *, Tensor out)</code></pre>
+</div>
+</div>
+</section>
+<section id="zipwith" class="level3" data-number="3.4.10">
+<h3 data-number="3.4.10" class="anchored" data-anchor-id="zipwith"><span class="header-section-number">3.4.10</span> <code>zipwith</code></h3>
+</section>
+<section id="map_zipwith" class="level3" data-number="3.4.11">
+<h3 data-number="3.4.11" class="anchored" data-anchor-id="map_zipwith"><span class="header-section-number">3.4.11</span> <code>map_zipwith</code></h3>
+</section>
+<section id="itemgot" class="level3" data-number="3.4.12">
+<h3 data-number="3.4.12" class="anchored" data-anchor-id="itemgot"><span class="header-section-number">3.4.12</span> <code>itemgot</code></h3>
+</section>
+<section id="attrgot" class="level3" data-number="3.4.13">
+<h3 data-number="3.4.13" class="anchored" data-anchor-id="attrgot"><span class="header-section-number">3.4.13</span> <code>attrgot</code></h3>
+</section>
+<section id="sorted" class="level3" data-number="3.4.14">
+<h3 data-number="3.4.14" class="anchored" data-anchor-id="sorted"><span class="header-section-number">3.4.14</span> <code>sorted</code></h3>
+</section>
+<section id="split" class="level3" data-number="3.4.15">
+<h3 data-number="3.4.15" class="anchored" data-anchor-id="split"><span class="header-section-number">3.4.15</span> <code>split</code></h3>
+</section>
+<section id="range" class="level3" data-number="3.4.16">
+<h3 data-number="3.4.16" class="anchored" data-anchor-id="range"><span class="header-section-number">3.4.16</span> <code>range</code></h3>
+</section>
+<section id="concat" class="level3" data-number="3.4.17">
+<h3 data-number="3.4.17" class="anchored" data-anchor-id="concat"><span class="header-section-number">3.4.17</span> <code>concat</code></h3>
+</section>
+<section id="copy" class="level3" data-number="3.4.18">
+<h3 data-number="3.4.18" class="anchored" data-anchor-id="copy"><span class="header-section-number">3.4.18</span> <code>copy</code></h3>
+</section>
+<section id="map_first" class="level3" data-number="3.4.19">
+<h3 data-number="3.4.19" class="anchored" data-anchor-id="map_first"><span class="header-section-number">3.4.19</span> <code>map_first</code></h3>
+</section>
+<section id="setattrs" class="level3" data-number="3.4.20">
+<h3 data-number="3.4.20" class="anchored" data-anchor-id="setattrs"><span class="header-section-number">3.4.20</span> <code>setattrs</code></h3>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unique_values(values):</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Iterate over iterable and return only unique values in order."""</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    seen <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> values:</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> value <span class="kw">not</span> <span class="kw">in</span> seen:</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            seen.add(value)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(unique_values([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]))</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(unique_values([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>[1, 2, 5, 4]</code></pre>
+</div>
+</div>
 
-<div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>age</th>
-      <th>workclass</th>
-      <th>fnlwgt</th>
-      <th>education</th>
-      <th>education-num</th>
-      <th>marital-status</th>
-      <th>occupation</th>
-      <th>relationship</th>
-      <th>race</th>
-      <th>sex</th>
-      <th>capital-gain</th>
-      <th>capital-loss</th>
-      <th>hours-per-week</th>
-      <th>native-country</th>
-      <th>salary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>49</td>
-      <td>Private</td>
-      <td>101320</td>
-      <td>Assoc-acdm</td>
-      <td>12.0</td>
-      <td>Married-civ-spouse</td>
-      <td>NaN</td>
-      <td>Wife</td>
-      <td>White</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>1902</td>
-      <td>40</td>
-      <td>United-States</td>
-      <td>&gt;=50k</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>44</td>
-      <td>Private</td>
-      <td>236746</td>
-      <td>Masters</td>
-      <td>14.0</td>
-      <td>Divorced</td>
-      <td>Exec-managerial</td>
-      <td>Not-in-family</td>
-      <td>White</td>
-      <td>Male</td>
-      <td>10520</td>
-      <td>0</td>
-      <td>45</td>
-      <td>United-States</td>
-      <td>&gt;=50k</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>38</td>
-      <td>Private</td>
-      <td>96185</td>
-      <td>HS-grad</td>
-      <td>NaN</td>
-      <td>Divorced</td>
-      <td>NaN</td>
-      <td>Unmarried</td>
-      <td>Black</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>32</td>
-      <td>United-States</td>
-      <td>&lt;50k</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>38</td>
-      <td>Self-emp-inc</td>
-      <td>112847</td>
-      <td>Prof-school</td>
-      <td>15.0</td>
-      <td>Married-civ-spouse</td>
-      <td>Prof-specialty</td>
-      <td>Husband</td>
-      <td>Asian-Pac-Islander</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>United-States</td>
-      <td>&gt;=50k</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>42</td>
-      <td>Self-emp-not-inc</td>
-      <td>82297</td>
-      <td>7th-8th</td>
-      <td>NaN</td>
-      <td>Married-civ-spouse</td>
-      <td>Other-service</td>
-      <td>Wife</td>
-      <td>Black</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>50</td>
-      <td>United-States</td>
-      <td>&lt;50k</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p>We can see we’ve got a lot of difference variables or both categorical and continuous to look at. Lets format this for a Neural Network and fit the model.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>to <span class="op">=</span> TabularPandas(df, procs<span class="op">=</span>[Categorify, FillMissing,Normalize],</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                   cat_names <span class="op">=</span> [<span class="st">'workclass'</span>, <span class="st">'education'</span>, <span class="st">'marital-status'</span>, <span class="st">'occupation'</span>, <span class="st">'relationship'</span>, <span class="st">'race'</span>],</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                   cont_names <span class="op">=</span> [<span class="st">'age'</span>, <span class="st">'fnlwgt'</span>, <span class="st">'education-num'</span>],</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                   y_names<span class="op">=</span><span class="st">'salary'</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                   splits<span class="op">=</span>RandomSplitter(valid_pct<span class="op">=</span><span class="fl">0.2</span>)(range_of(df)))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> to.dataloaders(bs<span class="op">=</span><span class="dv">64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> tabular_learner(dls, metrics<span class="op">=</span>accuracy, wd<span class="op">=</span><span class="fl">0.01</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to.valid.xs.shape)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>learn.fit_one_cycle(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th>epoch</th>
-      <th>train_loss</th>
-      <th>valid_loss</th>
-      <th>accuracy</th>
-      <th>time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>0.363723</td>
-      <td>0.374584</td>
-      <td>0.823710</td>
-      <td>00:04</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>0.350536</td>
-      <td>0.357585</td>
-      <td>0.832002</td>
-      <td>00:04</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>0.342484</td>
-      <td>0.354669</td>
-      <td>0.831081</td>
-      <td>00:04</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>to.y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>21805    0
-14537    0
-1399     0
-8107     0
-16255    0
-        ..
-3603     1
-15429    0
-3551     0
-1880     0
-30442    0
-Name: salary, Length: 32561, dtype: int8</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>age                                49
-workclass                     Private
-fnlwgt                         101320
-education                  Assoc-acdm
-education-num                      12
-marital-status     Married-civ-spouse
-occupation                        NaN
-relationship                     Wife
-race                            White
-sex                            Female
-capital-gain                        0
-capital-loss                     1902
-hours-per-week                     40
-native-country          United-States
-salary                          &gt;=50k
-Name: 0, dtype: object</code></pre>
-</div>
-</div>
-<p>Perfect - we have pretty good accuracy and our validation set has over 6000 data points. Let’s look at some features to see if we can understand what impacts our model’s prediction of the individuals salary.</p>
-<p>0 = &lt;50K, so it correctly predicts the first row is someone the makes more than 50k. Let’s see at what point the prediction switches if I reduce hours worked.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>row, clas, probs <span class="op">=</span> learn.predict(df.iloc[<span class="dv">0</span>])</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>clas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>tensor(1)</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="op">-</span><span class="dv">40</span>,<span class="dv">0</span>):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  X_temp <span class="op">=</span> df.iloc[<span class="dv">0</span>].copy()</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  X_temp[<span class="st">'hours-per-week'</span>] <span class="op">=</span> X_temp[<span class="st">'hours-per-week'</span>]<span class="op">+</span>i</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  row, clas, probs <span class="op">=</span> learn.predict(X_temp)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> clas <span class="op">==</span> tensor(<span class="dv">1</span>):</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">continue</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Prediction for adding '</span> <span class="op">+</span><span class="bu">str</span>(i))</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(clas)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> clear_output</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>clear_output()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Interestingly, the model isn’t convinced even if I change hours works to 0, maybe it thinks the money is passive income or comes from the husband. Let’s see if we can figure that out.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> df.relationship.unique():</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  X_temp <span class="op">=</span> df.iloc[<span class="dv">0</span>].copy()</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  X_temp[<span class="st">'relationship'</span>] <span class="op">=</span> i</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  row, clas, probs <span class="op">=</span> learn.predict(X_temp)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Prediction for adding '</span> <span class="op">+</span><span class="bu">str</span>(i))</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(clas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Wife
-tensor(1)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Not-in-family
-tensor(0)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Unmarried
-tensor(0)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Husband
-tensor(0)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Own-child
-tensor(0)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Prediction for adding  Other-relative
-tensor(0)</code></pre>
-</div>
-</div>
-<p>If we change the relationship to anything else, the model starts thinking she makes less than 50K instead of more. We can continue to experiment with individual rows, or when ready try some larger experiments across the larger dataset.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'salary'</span>,<span class="st">'age'</span>]][:<span class="dv">1000</span>].groupby(<span class="st">'salary'</span>).count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>age</th>
-    </tr>
-    <tr>
-      <th>salary</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>&lt;50k</th>
-      <td>754</td>
-    </tr>
-    <tr>
-      <th>&gt;=50k</th>
-      <td>246</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> <span class="bu">list</span>()</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> df.relationship.unique():</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  g50k, l50k <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  df_temp <span class="op">=</span> df[:<span class="dv">1000</span>].copy()</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  df_temp[<span class="st">'relationship'</span>] <span class="op">=</span> i</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> rownum <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df_temp)):</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> learn.predict(df_temp.iloc[rownum])[<span class="dv">1</span>] <span class="op">==</span> tensor(<span class="dv">1</span>):</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>      g50k <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>      l50k <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    clear_output()</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  results.append((i,g50k,l50k))</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[(' Wife', 232, 768),
- (' Not-in-family', 165, 835),
- (' Unmarried', 150, 850),
- (' Husband', 210, 790),
- (' Own-child', 161, 839),
- (' Other-relative', 107, 893)]</code></pre>
-</div>
-</div>
-<p>We see that changing the relationship did impact the predictions across 1000 samples. Married couples, both “Wife” and “Husband” seem to be much better off with making more than 50K per year. I wonder if their income is combined and thus being double counted. “Unmarried” and “Other-Relative” seem to be the relationship types that are least likely to make more than 50K. Keep iterating through experiment like we have been to dig deeper!</p>
-<p>You may be asking, how do I know 1000 samples is enough? The answer - I don’t. Try 1500 samples next and if the results show roughly the same thing you know you have a representative sample. This is again, the data science approach vs the statistical approach.</p>
 </section>
 </section>
-</section>
-<section id="what-now" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> What now?</h1>
-<p>Now, you keep digging like we have been. We can be completely sure that the model has found meaningful interactions. We saw that in the accuracy score. So rather than me trying to find interactions, I am trying to uncover the interactions that the model has found. Again, I am making no assumptions in regard to distribution, co-linearity, type of relationships between variable, sample size, or anything else so it allows for much safe analysis of complex datasets.</p>
-
-
 </section>
 
 </main> <!-- /main -->

@@ -9,8 +9,8 @@
 <link>https://isaac-flath.tech/til.html</link>
 <atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
-<generator>quarto-1.2.335</generator>
-<lastBuildDate>Sat, 21 Jan 2023 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.2.267</generator>
+<lastBuildDate>Sat, 21 Jan 2023 05:00:00 GMT</lastBuildDate>
 <item>
   <title>Finding All Quarto Drafts</title>
   <dc:creator>Isaac Flath</dc:creator>
@@ -58,7 +58,7 @@ Excluding Files
   <category>Quarto</category>
   <category>Bash</category>
   <guid>https://isaac-flath.tech/TIL/QuartoDrafts.html</guid>
-  <pubDate>Sat, 21 Jan 2023 00:00:00 GMT</pubDate>
+  <pubDate>Sat, 21 Jan 2023 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Quarto Column Formatting</title>
@@ -95,7 +95,7 @@ Column on the right
  ]]></description>
   <category>Quarto</category>
   <guid>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</guid>
-  <pubDate>Mon, 14 Nov 2022 00:00:00 GMT</pubDate>
+  <pubDate>Mon, 14 Nov 2022 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Quarto Conditional Content</title>
@@ -138,7 +138,7 @@ Column on the right
  ]]></description>
   <category>Quarto</category>
   <guid>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</guid>
-  <pubDate>Thu, 10 Nov 2022 00:00:00 GMT</pubDate>
+  <pubDate>Thu, 10 Nov 2022 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Random State Duplication</title>
@@ -165,7 +165,7 @@ Column on the right
  ]]></description>
   <category>Python</category>
   <guid>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</guid>
-  <pubDate>Sat, 05 Nov 2022 00:00:00 GMT</pubDate>
+  <pubDate>Sat, 05 Nov 2022 04:00:00 GMT</pubDate>
   <media:content url="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" medium="image" type="image/png" height="90" width="144"/>
 </item>
 <item>
@@ -217,7 +217,7 @@ Column on the right
   <category>Python</category>
   <category>Github</category>
   <guid>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</guid>
-  <pubDate>Wed, 10 Aug 2022 00:00:00 GMT</pubDate>
+  <pubDate>Wed, 10 Aug 2022 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Shelve Python Database</title>
@@ -245,7 +245,7 @@ Column on the right
  ]]></description>
   <category>Python</category>
   <guid>https://isaac-flath.tech/TIL/ShelveDB.html</guid>
-  <pubDate>Sat, 15 May 2021 00:00:00 GMT</pubDate>
+  <pubDate>Sat, 15 May 2021 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Secrets for Github Actions</title>
@@ -280,7 +280,7 @@ Column on the right
  ]]></description>
   <category>Github</category>
   <guid>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</guid>
-  <pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
+  <pubDate>Sun, 06 Dec 2020 05:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Connecting Jupyter to EC2</title>
@@ -311,7 +311,7 @@ Column on the right
  ]]></description>
   <category>Cloud</category>
   <guid>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</guid>
-  <pubDate>Thu, 25 Jun 2020 00:00:00 GMT</pubDate>
+  <pubDate>Thu, 25 Jun 2020 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Jupyter is JSON</title>
@@ -339,7 +339,7 @@ Column on the right
  ]]></description>
   <category>Python</category>
   <guid>https://isaac-flath.tech/TIL/JupyterIsJson.html</guid>
-  <pubDate>Wed, 15 Jan 2020 00:00:00 GMT</pubDate>
+  <pubDate>Wed, 15 Jan 2020 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
