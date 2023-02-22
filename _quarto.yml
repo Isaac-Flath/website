@@ -24,8 +24,6 @@ website:
         file: blog.qmd
       - text: "TIL"
         file: til.qmd
-      - text: "Consulting"
-        file: consulting.qmd
       - text: "Testimonials"
         file: testimonials.ipynb
   page-footer: 
