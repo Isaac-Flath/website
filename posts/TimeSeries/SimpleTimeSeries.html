@@ -1,0 +1,2899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2022-08-05">
+<meta name="description" content="An introduction to basic time series for stock prediction">
+
+<title>Isaac Flath - Simple Time Series (Stock Prices)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XNZGT59XWP"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Isaac Flath - Simple Time Series (Stock Prices)">
+<meta property="og:description" content="An introduction to basic time series for stock prediction">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/TimeSeries.jpg">
+<meta property="og:site-name" content="Isaac Flath">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Isaac Flath - Simple Time Series (Stock Prices)">
+<meta name="twitter:description" content="An introduction to basic time series for stock prediction">
+<meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
+<meta name="twitter:creator" content="@isaac_flath">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Isaac Flath</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html">
+ <span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../consulting.html">
+ <span class="menu-text">Consulting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../testimonials.html">
+ <span class="menu-text">Testimonials</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Simple Time Series (Stock Prices)</h1>
+                  <div>
+        <div class="description">
+          An introduction to basic time series for stock prediction
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Time Series</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 5, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+
+<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1667811");</style>
+    <style type="text/css">
+    /* LOADER */
+    .ml-form-embedSubmitLoad {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .g-recaptcha {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    height: ;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    .ml-form-embedSubmitLoad:after {
+      content: " ";
+      display: block;
+      width: 11px;
+      height: 11px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    border-color: #ffffff #ffffff #ffffff transparent;
+    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+    }
+    @keyframes ml-form-embedSubmitLoad {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+    }
+      #mlb2-2128741.ml-form-embedContainer {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 auto;
+        position: static;
+        width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer h4,
+      #mlb2-2128741.ml-form-embedContainer p,
+      #mlb2-2128741.ml-form-embedContainer span,
+      #mlb2-2128741.ml-form-embedContainer button {
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper {
+        background-color: #ffffff;
+        
+        border-width: 0px;
+        border-color: transparent;
+        border-radius: 4px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        position: relative;
+              }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-left { text-align: left; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-center { text-align: center; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-right { text-align: right; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: auto;
+        margin: 0 auto !important;
+        max-width: 100%;
+        width: undefinedpx;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+        padding: 20px 20px 0 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
+        padding-bottom: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+        text-align: left;
+        margin: 0 0 20px 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
+        list-style-type: lower-alpha;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
+        list-style-type: lower-roman;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+        text-align: left!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+        margin-bottom: 5px;
+        color: #333333;
+        font-size: 14px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-weight: bold; font-style: normal; text-decoration: none;;
+        display: inline-block;
+        line-height: 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+        margin: 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        margin: 0 0 20px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
+        margin: 0;
+        padding: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          border-color: #cccccc!important;
+          background-color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+        border-radius: 4px!important;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+          border-color: #2780e3!important;
+          background-color: #2780e3!important;
+          color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
+           top: 2px;
+           box-sizing: border-box;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+           top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+        top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+       #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
+            top: 0px!important;
+            box-sizing: border-box!important;
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+       }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
+        top: 0px!important;
+        box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
+          position: absolute;
+          top: 2px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
+          background: no-repeat 50%/50% 50%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          background: no-repeat 50%/50% 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          box-sizing: border-box;
+          padding: 0;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
+          color: #000000;
+          font-size: 12px!important;
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          line-height: 22px;
+          margin-bottom: 0;
+          position: relative;
+          vertical-align: top;
+          font-style: normal;
+          font-weight: 700;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 28px 10px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('https://cdn.mailerlite.com/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
+        height: auto;
+        width: 100%;
+        float: left;
+      }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
+        background-color: #ffffff;
+        color: #333333;
+        border-color: #cccccc;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: initial;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
+        background-color: #2780e3 !important;
+        border-color: #2780e3;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 4px;
+        box-shadow: none;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100%;
+        height: auto;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
+        background-color: #f059d6 !important;
+        border-color: #f059d6 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
+        color: #000000;
+        display: block;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
+        color: #000000;
+        text-decoration: underline;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
+        color: #000000 !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        line-height: 18px !important;
+        padding: 0 !important;
+        margin: 0 5px 0 0 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+        margin: 0 0 20px 0;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+        background-color: #2780e3 !important;
+        border: none !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 21px !important;
+        height: auto;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+        display: none;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+        background-color: #f059d6 !important;
+      }
+      .ml-subscribe-close {
+        width: 30px;
+        height: 30px;
+        background: url('https://cdn.mailerlite.com/images/default/modal_close.png') no-repeat;
+        background-size: 30px;
+        cursor: pointer;
+        margin-top: -10px;
+        margin-right: -10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .ml-error input, .ml-error textarea, .ml-error select {
+        border-color: red!important;
+      }
+
+      .ml-error .custom-checkbox-radio-list {
+        border: 1px solid red !important;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      .ml-error .label-description,
+      .ml-error .label-description p,
+      .ml-error .label-description p a,
+      .ml-error label:first-child {
+        color: #ff0000 !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
+        color: #ff0000 !important;
+      }
+            @media only screen and (max-width: 400px){
+
+        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
+        .ml-form-formContent.horozintalForm { float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+
+      }
+    </style>
+
+    
+  
+    <style type="text/css">
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow {
+        margin-bottom: 20px;
+        text-align: left;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox.last-group {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow h4 {
+        color: ;
+        font-family: ;
+        font-size: px;
+        font-weight: ;
+        line-height: px;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+        font-style: normal;
+        font-weight: 700;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .description {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 5px 0 0 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+    </style>
+    
+
+    
+    
+
+    
+    
+
+    
+
+      
+        
+        
+      
+
+      
+        
+        
+      
+
+      
+
+            
+            
+            
+            
+            
+            
+      
+
+      
+
+      
+        
+        
+         
+        
+        
+      
+
+        
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+        
+        
+        
+       
+
+
+      
+        
+        
+        
+        
+  
+
+
+
+  
+        
+        
+        
+      
+
+
+      
+    
+    
+    
+    
+    
+  
+
+  
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+       
+
+       
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+        
+        
+       
+
+    
+
+    
+
+
+      
+
+
+      
+
+      
+      
+
+      
+
+      
+
+
+
+
+
+    
+
+      
+    <div id="mlb2-2128741" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2128741">
+      <div class="ml-form-align-center ">
+        <div class="ml-form-embedWrapper embedForm">
+
+          
+          
+
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+
+            <div class="ml-form-embedContent" style=" ">
+              
+                <h4>Subscribe</h4>
+                <p><br></p>
+              
+            </div>
+
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/220832/forms/71614977134299121/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                
+
+                  
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                      
+
+
+                      <!-- input -->
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                      <!-- /input -->
+
+                      <!-- textarea -->
+                      
+                      <!-- /textarea -->
+
+                      <!-- select -->
+                      
+                      <!-- /select -->
+
+                      <!-- checkboxes -->
+            
+            <!-- /checkboxes -->
+
+                      <!-- radio -->
+                      
+                      <!-- /radio -->
+
+                      <!-- countries -->
+                      
+                      <!-- /countries -->
+
+
+
+
+
+                    </div>
+                  </div>
+                
+              </div>
+
+              
+
+              <!-- Privacy policy -->
+              
+              <!-- /Privacy policy -->
+
+              
+
+              <div class="ml-form-interestGroupsRow ml-block-groups ml-validate-required">
+                
+                    <div class="ml-form-interestGroupsRowCheckbox group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71614988342527788">
+                        <div class="label-description">Blog</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+                    <div class="ml-form-interestGroupsRowCheckbox last-group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71615004795733097">
+                        <div class="label-description">TIL</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+              </div>
+
+              
+
+
+
+
+
+
+              
+              <input type="hidden" name="ml-submit" value="1">
+
+              <div class="ml-form-embedSubmit">
+                
+                  <button type="submit" class="primary">Subscribe</button>
+                
+                <button disabled="disabled" style="display: none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+
+              
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+
+          <div class="ml-form-successBody row-success" style="display: none">
+
+            <div class="ml-form-successContent">
+              
+                <h4>Thank you!</h4>
+                
+                  <p>You have successfully joined our subscriber list.</p>
+                
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  
+  
+  <script>
+    function ml_webform_success_2128741() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-2128741 .row-success').show();
+      $('.ml-subscribe-form-2128741 .row-form').hide();
+    }
+      </script>
+  
+  
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v491724307ca3b85c1c754857e93994e5" type="text/javascript"></script>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#simple-time-series-stock-prices" id="toc-simple-time-series-stock-prices" class="nav-link active" data-scroll-target="#simple-time-series-stock-prices"><span class="toc-section-number">1</span>  Simple Time Series (Stock Prices)</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">2</span>  Setup</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="toc-section-number">3</span>  Overview</a></li>
+  <li><a href="#intuition" id="toc-intuition" class="nav-link" data-scroll-target="#intuition"><span class="toc-section-number">4</span>  Intuition</a>
+  <ul class="collapse">
+  <li><a href="#belief" id="toc-belief" class="nav-link" data-scroll-target="#belief"><span class="toc-section-number">4.1</span>  Belief</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis"><span class="toc-section-number">4.2</span>  Hypothesis</a></li>
+  </ul></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="toc-section-number">5</span>  The Data</a>
+  <ul class="collapse">
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="toc-section-number">5.1</span>  Load data</a></li>
+  <li><a href="#null-values" id="toc-null-values" class="nav-link" data-scroll-target="#null-values"><span class="toc-section-number">5.2</span>  Null Values</a></li>
+  <li><a href="#survivorship-bias" id="toc-survivorship-bias" class="nav-link" data-scroll-target="#survivorship-bias"><span class="toc-section-number">5.3</span>  Survivorship bias</a></li>
+  <li><a href="#reformat" id="toc-reformat" class="nav-link" data-scroll-target="#reformat"><span class="toc-section-number">5.4</span>  Reformat</a></li>
+  <li><a href="#validation-set" id="toc-validation-set" class="nav-link" data-scroll-target="#validation-set"><span class="toc-section-number">5.5</span>  Validation Set</a></li>
+  </ul></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models"><span class="toc-section-number">6</span>  Models</a>
+  <ul class="collapse">
+  <li><a href="#basic-momentum" id="toc-basic-momentum" class="nav-link" data-scroll-target="#basic-momentum"><span class="toc-section-number">6.1</span>  Basic Momentum</a></li>
+  <li><a href="#regression-momentum" id="toc-regression-momentum" class="nav-link" data-scroll-target="#regression-momentum"><span class="toc-section-number">6.2</span>  Regression Momentum</a></li>
+  <li><a href="#bollinger-bands" id="toc-bollinger-bands" class="nav-link" data-scroll-target="#bollinger-bands"><span class="toc-section-number">6.3</span>  Bollinger Bands</a></li>
+  </ul></li>
+  <li><a href="#momentum-conclusion" id="toc-momentum-conclusion" class="nav-link" data-scroll-target="#momentum-conclusion"><span class="toc-section-number">7</span>  Momentum Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="toc-section-number">8</span>  What’s next</a></li>
+  <li><a href="#homework-for-further-learnings" id="toc-homework-for-further-learnings" class="nav-link" data-scroll-target="#homework-for-further-learnings"><span class="toc-section-number">9</span>  Homework for Further Learnings</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="simple-time-series-stock-prices" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Simple Time Series (Stock Prices)</h1>
+</section>
+<section id="setup" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setup</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils <span class="im">import</span> view_source_code</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'../data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="overview" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Overview</h1>
+<p>In this post we will use recent stock price history to make buy and sell decisions. This is intended to be a first step in exploring quant trading. Because we believe in learning by doing, we will be building trading strategies!</p>
+<p>Before diving into the technical bits, it is <em>always</em> a good idea to take the time to think about things at a high level and why your idea might work. We can generate ideas <em>much</em> faster than we can code and test them, so we need to use intuition and experience to help guide us in which ideas we want to prioritize. Intuition is important and where I start - but intuition is not reliable enough on it’s own - we <strong>must</strong> then turn intuition into code with rigorous testing before we can decide whether to implement the strategy. .</p>
+</section>
+<section id="intuition" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Intuition</h1>
+<section id="belief" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="belief"><span class="header-section-number">4.1</span> Belief</h2>
+<p>I believe how a company is doing over the last month can be used to predict how how well it will do in the future. This isn’t much of a leap, but let’s think about a few reasons as to why this may be true.</p>
+<ul>
+<li><p><strong>Available Capital:</strong> If a company is doing well, it typically means they have more profit. More profit means more that can be reinvested. More reinvestment can mean faster growth.</p></li>
+<li><p><strong>Economies of Scale:</strong> Often the more successful a company is the more they can drive down cost in some areas. For example, General Mills can buy sugar at a lower price than a small business due to their buying power. As buying power increase, they can leverage that to drive down costs.</p></li>
+<li><p><strong>Brand Recognition:</strong> The more successful a business is and the larger it grows, the more brand recognition it has. The more brand recognition it has the more it can leverage it’s brand to grow.</p></li>
+</ul>
+</section>
+<section id="hypothesis" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="hypothesis"><span class="header-section-number">4.2</span> Hypothesis</h2>
+<p>The <em>hypothesis</em> for this post is that recent stock performance can be used on its own to predict future stock performance. Regardless of how much we believe that to be true, we should not trade based on this belief until we have evidence. This post will explore several options for using this hypothesis to make trades.</p>
+<p><a href="../../posts/Statistics/BasicTesting.html">The next post</a> will give a foundation in testing and show how we can test and evaluate how well these approaches perform and determine if these are ideas worth keeping.</p>
+</section>
+</section>
+<section id="the-data" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> The Data</h1>
+<section id="load-data" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="load-data"><span class="header-section-number">5.1</span> Load data</h2>
+<p>First let’s take a look at the data we will be using and talk a bit about it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(path<span class="op">/</span><span class="st">'eod-quotemedia.csv'</span>,parse_dates<span class="op">=</span>[<span class="st">'date'</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>raw.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>date</th>
+      <th>ticker</th>
+      <th>adj_close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2013-07-01</td>
+      <td>A</td>
+      <td>29.994186</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2013-07-02</td>
+      <td>A</td>
+      <td>29.650137</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2013-07-03</td>
+      <td>A</td>
+      <td>29.705185</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>L(<span class="op">*</span>raw.ticker.unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(#495) ['A','AAL','AAP','AAPL','ABBV','ABC','ABT','ACN','ADBE','ADI'...]</code></pre>
+</div>
+</div>
+<p>We can see that for each day we have a ticker.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ticker is a symbol associated with a company. For example Apple has the ticker <code>AAPL</code>. To buy shares in Apple you would buy <code>AAPL</code>.</p>
+</div>
+</div>
+<p>For each of these day|ticker combinations we have an <code>adj_close</code>, or adjusted close price. After every transaction, the price of a stock changes slightly. The <code>adjusted close price</code> is the last stock price of the day. While this is not as detailed as having the price at a more granular level (second, minute, hour, etc.), called <code>tick</code> data, we can use daily close price to test many types of strategies.</p>
+<p>::{note} This is the stock price for the ticker. <code>adjusted</code> means that the prices have been adjusted to account for various actions, such as stock splits (more discussion on this later). <code>close</code> means that it is the price at close of market.</p>
+<p>A good first step after getting tabular data is to use pandas’ describe method. As we do this we see a few good pieces of information to keep in mind: + Overall size of dataset - 409K rows + Very big range in values (~1 - ~1K), which most of them before $100</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>raw.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>adj_close</th>
+      <td>490737.0</td>
+      <td>75.100472</td>
+      <td>75.438804</td>
+      <td>1.59</td>
+      <td>36.782424</td>
+      <td>57.499593</td>
+      <td>87.4</td>
+      <td>1011.34</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="null-values" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="null-values"><span class="header-section-number">5.2</span> Null Values</h2>
+<p>Let’s take a look and make sure we don’t have any null values to handle. This is one of those things you need to do with every dataset. This is also a great opportunity to show how you can add in simple tests into your code as you go using an <code>assert</code> statement, which will help you catch issues as you iterate and change things.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.array([o<span class="op">==</span><span class="dv">0</span> <span class="cf">for</span> o <span class="kw">in</span> raw.isnull().<span class="bu">sum</span>()]).<span class="bu">all</span>() <span class="op">==</span> <span class="va">True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="survivorship-bias" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="survivorship-bias"><span class="header-section-number">5.3</span> Survivorship bias</h2>
+<p>We also want to take a quick look at the non-numeric columns to get an idea of what time frame we have and how many tickers. This is often known from the dataset, but it is good practice to look at the dataset and ensure that your understanding of the dataset aligns with what you see in the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Date column contains dates from </span><span class="sc">{</span>raw<span class="sc">.</span>date<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>raw<span class="sc">.</span>date<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date column contains dates from 2013-07-01 to 2017-06-30</code></pre>
+</div>
+</div>
+<p>Let’s see if all tickers in the dataset have the same start and end date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ticker_cnt <span class="op">=</span> <span class="bu">len</span>(raw.ticker.unique())</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>_min <span class="op">=</span> raw[[<span class="st">'ticker'</span>,<span class="st">'date'</span>]].groupby(<span class="st">'ticker'</span>).<span class="bu">min</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>_min <span class="op">=</span> _min[_min.date <span class="op">!=</span> <span class="st">'2013-07-01'</span>].count().date</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>_max <span class="op">=</span> raw[[<span class="st">'ticker'</span>,<span class="st">'date'</span>]].groupby(<span class="st">'ticker'</span>).<span class="bu">max</span>()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>_max <span class="op">=</span> _max[_max.date <span class="op">!=</span> <span class="st">'2017-06-30'</span>].count().date</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'''Out of </span><span class="sc">{</span>ticker_cnt<span class="sc">}</span><span class="ss"> tickers:</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ss">  + 20 do do not start on 2013-07-01</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  + 0 do not have an entry for 2017-06-30'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Out of 495 tickers:
+  + 20 do do not start on 2013-07-01
+  + 0 do not have an entry for 2017-06-30</code></pre>
+</div>
+</div>
+<p>Good thing we checked! Let’s think through what these two data points mean:</p>
+<ul>
+<li><strong>20 do do not start on 2013-07-01:</strong> This makes sense because some of the companies may not have been founded or fit our criteria until after the start date of the dataset. Maybe they were private companies that went public, or maybe they grew to a large enough size to be part of our universe.</li>
+<li><strong>0 do not have an entry for 2017-06-30:</strong> While it’s not definitive proof of an issue, it is cause for concern. This dataset may have a survivorship bias built in. Let’s talk about what survivorship bias is and why this could be a problem.</li>
+</ul>
+<p>In our dataset we see that every ticker has a close price on the last day of the dataset. This means that all of the companies are active at the end of our dataset. What this means is that either:</p>
+<ul>
+<li>No company went out of business or failed in our universe between our July 2013 and June 2017 dates</li>
+<li>Some companies did fail during our universe time period and our dataset does not reflect that.</li>
+</ul>
+<p>While either are possible, the second option is a common problem. Let’s talk about why failed companies not being a part of our universe is a problem.</p>
+<p>Let’s say I look at the S&amp;P 500 companies in 2022 and build a dataset of their stock prices for 2015 - 2022. We want to tests how well a strategy would have performed in that time range. Any trade has many outcomes for example:</p>
+<ol type="1">
+<li>You could buy a stock and then the company goes out of business and you lose lots of money</li>
+<li>You could buy a stock and then the price goes up and you profit</li>
+<li>You could buy a stock and then the price goes down and you lose money</li>
+</ol>
+<p>The problem is that option #1 is <strong>impossible</strong> in this dataset. We know none of the business went out of business between 2015 and 2022 because they were all in the S&amp;P 500 in 2022. Option #1 is more likely than it should be because we already know the companies on the list are among the largest companies in 2022, so regardless of what company we pick we know it ends up a large company. Option #3 is less likely than it should be because if a company shrunk in size to the point it’s not in the S&amp;P 500 in 2022 it’s not even in the dataset. Our strategies may perform extremely well on our dataset, but when we run it on real data with real money we could be in for a shock!</p>
+<p>Bottom line is we need <strong>point in time</strong> data, or rather data for a given date should only be as accurate as you could have known on that date.</p>
+<p>When we see all tickers in the universe have a stock price on the last day, it’s important to verify that this did not happen in your dataset. When we talk about testing later, we will talk about how we can test to ensure we have accurate results.</p>
+</section>
+<section id="reformat" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="reformat"><span class="header-section-number">5.4</span> Reformat</h2>
+<p>Now that we have an basic idea of what’s in our data we can reformat it to a format that will be easier to use for analysis. For what we are doing we will be applying things based on ticker, so let’s give each ticker it’s own column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> raw.pivot(index<span class="op">=</span><span class="st">'date'</span>, columns<span class="op">=</span><span class="st">'ticker'</span>,values<span class="op">=</span><span class="st">'adj_close'</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df.iloc[:,:<span class="dv">5</span>].head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>ticker</th>
+      <th>A</th>
+      <th>AAL</th>
+      <th>AAP</th>
+      <th>AAPL</th>
+      <th>ABBV</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013-07-01</th>
+      <td>29.994186</td>
+      <td>16.176093</td>
+      <td>81.138217</td>
+      <td>53.109173</td>
+      <td>34.924478</td>
+    </tr>
+    <tr>
+      <th>2013-07-02</th>
+      <td>29.650137</td>
+      <td>15.819834</td>
+      <td>80.722073</td>
+      <td>54.312247</td>
+      <td>35.428076</td>
+    </tr>
+    <tr>
+      <th>2013-07-03</th>
+      <td>29.705185</td>
+      <td>16.127950</td>
+      <td>81.237299</td>
+      <td>54.612043</td>
+      <td>35.444862</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We can use the same describe as above to see statistics about each ticker.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.iloc[:,:<span class="dv">5</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>ticker</th>
+      <th>A</th>
+      <th>AAL</th>
+      <th>AAP</th>
+      <th>AAPL</th>
+      <th>ABBV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1009.000000</td>
+      <td>1009.000000</td>
+      <td>1009.000000</td>
+      <td>1009.000000</td>
+      <td>1009.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>40.983757</td>
+      <td>37.811501</td>
+      <td>141.576280</td>
+      <td>100.360320</td>
+      <td>52.977953</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>5.850163</td>
+      <td>8.816410</td>
+      <td>26.260390</td>
+      <td>22.660593</td>
+      <td>7.897264</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>29.650137</td>
+      <td>14.770314</td>
+      <td>78.393647</td>
+      <td>53.109173</td>
+      <td>34.924478</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>37.656517</td>
+      <td>34.383874</td>
+      <td>125.561609</td>
+      <td>87.186576</td>
+      <td>46.981317</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>39.700762</td>
+      <td>39.218491</td>
+      <td>147.450711</td>
+      <td>102.884811</td>
+      <td>53.983957</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>43.944859</td>
+      <td>43.681272</td>
+      <td>159.019446</td>
+      <td>114.257784</td>
+      <td>59.212432</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>60.131015</td>
+      <td>54.071539</td>
+      <td>199.374304</td>
+      <td>153.694280</td>
+      <td>70.780784</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="validation-set" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="validation-set"><span class="header-section-number">5.5</span> Validation Set</h2>
+<p>We are going to split our data into 2 groups. This way we have a secondary unseen dataset to test my strategies. I want to develop models on one set of data but evaluate them on different data. This may not seem important but it is absolutely crucial and perhaps the most important concept. The more complex your model and analysis the more important this becomes. This will be discussed in much greater detail in [the next post]((../Statistics/BasicTesting.ipynb), but for now just take my word for it.</p>
+<p>With time series you generally want your validation set to be the most recent data. This reflects reality best; creating a model on data with the intent to use it on future data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> df.loc[:pd.Timestamp(<span class="st">'2017-1-1 01:00:00'</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>valid <span class="op">=</span> df.loc[pd.Timestamp(<span class="st">'2017-1-1 01:00:00'</span>):]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Train Dates: </span><span class="sc">{</span>train<span class="sc">.</span>index<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss"> thru </span><span class="sc">{</span>train<span class="sc">.</span>index<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Valid Dates: </span><span class="sc">{</span>valid<span class="sc">.</span>index<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss"> thru </span><span class="sc">{</span>valid<span class="sc">.</span>index<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Train Dates: 2013-07-01 thru 2016-12-30
+Valid Dates: 2017-01-03 thru 2017-06-30</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="models" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Models</h1>
+<section id="basic-momentum" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="basic-momentum"><span class="header-section-number">6.1</span> Basic Momentum</h2>
+<p>As our first model let’s use percent change over recent stock price history. We will take the percent difference between the current stock price and the stock price from a set time in the past. As we think about this approach there are several levers we can pull time find tune our approach:</p>
+<ul>
+<li><strong>Time Range:</strong> We could use the past 5 days, or past 30 days, or the past year. How far back should we be comparing?</li>
+<li><strong>Threshold:</strong> What threshold do we need to cross before we consider it momentous enough to take an action? Is a 1%, 5%, 10%?</li>
+<li><strong>What action?</strong> Is it just buy and sell? Could we use this to short?</li>
+<li><strong>When do we close our position</strong> Is it a set time period? Or based on another threshold?</li>
+</ul>
+<p>We will use 28 days for the time range and 8% for our threshold in this example to demonstrate the concept, but in the testing section we will show how to test different parameters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SimpleTimeSeries <span class="im">import</span> get_momentum_actions</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>view_source_code(get_momentum_actions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<!--
+generated by Pygments <https://pygments.org/>
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+-->
+
+
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+/*
+generated by Pygments <https: pygments.org="">
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+*/
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #ffffcc }
+body { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sa { color: #BB4444 } /* Literal.String.Affix */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .dl { color: #BB4444 } /* Literal.String.Delimiter */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .fm { color: #00A000 } /* Name.Function.Magic */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .vm { color: #B8860B } /* Name.Variable.Magic */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </https:></style>
+
+
+<h2 class="anchored"></h2>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_momentum_actions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_periods</span><span class="p">,</span><span class="n">threshold</span><span class="p">):</span>
+    <span class="n">_x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">n_periods</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate percent change</span>
+    <span class="n">momentum_rate</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">n_periods</span><span class="p">))</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">n_periods</span><span class="p">))[</span><span class="n">n_periods</span><span class="p">:]</span>
+
+    <span class="c1"># Select Action Based on Threshold</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">momentum_rate</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">threshold</span><span class="p">,</span> <span class="s1">'Short'</span><span class="p">,</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">momentum_rate</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span>  <span class="s1">'Buy'</span><span class="p">,</span>
+                                                                 <span class="s1">''</span><span class="p">)),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="n">momentum_rate</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">momentum_rate</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    
+    <span class="c1"># Because we use close price, we can't make the trade action until the following day</span>
+    <span class="n">actions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">actions</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">actions</span>
+</pre></div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>actions <span class="op">=</span> get_momentum_actions(train.iloc[:,:<span class="dv">5</span>],n_periods<span class="op">=</span><span class="dv">28</span>,threshold<span class="op">=</span><span class="fl">0.08</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>actions.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>ticker</th>
+      <th>A</th>
+      <th>AAL</th>
+      <th>AAP</th>
+      <th>AAPL</th>
+      <th>ABBV</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013-08-10</th>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+      <td>Buy</td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-13</th>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-14</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-15</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-16</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-17</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-20</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-21</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-22</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-23</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This leaves us with a table of what actions we are going to execute each day for each stock. Let’s look at some other options for using this momentum-esque concept, and then we can test them all and compare how they perform at the end.</p>
+</section>
+<section id="regression-momentum" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="regression-momentum"><span class="header-section-number">6.2</span> Regression Momentum</h2>
+<p>Our previous approach was just the percent change between 2 dates. But what if one of those days is an outlier? Should we really make a decision based on just 2 data points? To address this concerns we will define momentum slightly differently with the slope of a fit regression.</p>
+<p>First, let’s understand the general concept better. Creating these minimal examples and visuals is <em>not</em> just something educational for a post - you should do this in your own projects as well. It will help you think more deeply about your problem.</p>
+<p>Below I took the stock price for Apple in a 10 day period and plotted it as a scatter plot. Every 4 data points I fit a regression trend line fit to them. We can see that in some groups the trend a very aggressive upward slope, others it’s more neutral, and in others it is a strong negative slope. By using that slope we can determine how much momentum the group of points has. In this way we use all the recent data points to influence momentum and not just the first and last in a period.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Figure</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">8</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Window Regression Lines"</span>,fontsize<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 data points</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> train[<span class="st">'AAPL'</span>].iloc[:<span class="dv">10</span>] </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> _.index.day.values</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> _.values</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>sz <span class="op">=</span> <span class="dv">4</span> <span class="co"># Window Size</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Windows for x and y</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>regr_y <span class="op">=</span> [y1[i:i<span class="op">+</span>sz] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(y1)<span class="op">-</span>(sz<span class="op">-</span><span class="dv">1</span>))]</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>regr_x <span class="op">=</span> [x1[i:i<span class="op">+</span>sz].reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(x1)<span class="op">-</span>(sz<span class="op">-</span><span class="dv">1</span>))]</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Regression lines</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>regr <span class="op">=</span> [LinearRegression().fit(x,y).predict(x) <span class="cf">for</span> x,y <span class="kw">in</span> <span class="bu">zip</span>(regr_x,regr_y)]</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Pad Regression Lines for Plotting</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>regr_padded <span class="op">=</span> [[<span class="va">None</span>]<span class="op">*</span>i<span class="op">+</span><span class="bu">list</span>(r)<span class="op">+</span>[<span class="va">None</span>]<span class="op">*</span>(<span class="bu">len</span>(x1)<span class="op">-</span>sz<span class="op">-</span>i) <span class="cf">for</span> i,r <span class="kw">in</span> <span class="bu">enumerate</span>(regr)]</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>ax.scatter(_.index,y1)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(regr)): ax.plot(_.index,regr_padded[i])</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SimpleTimeSeries_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>So we take the slope of the trend line to be our momentum. There are very similar levers as before we can change to fine tune out approach:</p>
+<ul>
+<li><strong>Time Range:</strong> We could use the past 5 days, or past 30 days, or the past year. How far back should we be comparing?</li>
+<li><strong>Threshold:</strong> What threshold do we need to cross before we consider it momentous enough to take an action? Is a slope of 1? Slope of 10? Should we do something other than a set value?</li>
+<li><strong>What action?</strong> Is it just buy and sell? Could we use this to short?</li>
+<li><strong>When do we close our position</strong> Is it a set time period? Or based on another threshold?</li>
+</ul>
+<p>We will use 28 days for the time range and $5 for our threshold in this example to demonstrate the concept, but in the testing section we will show how to test different parameters.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are assuming that every day is equally spaced in this regression. I reality, the stock market is not open daily. We are ignoring this for this analysis to keep things simple, but it may be something for us to revisit in a future post!</p>
+</div>
+</div>
+<p>In this section we are using a straight dollar threshold instead of a percentage. This can cause difficulties because a ticker with a share price at 20 dollars increasing to 25 dollars is a HUGE increase. If a stock goes from 500 to 505 dollars that is not nearly as big of a deal. The point of this post is to show variety of options and get you thinking so we will keep this one as is and see how it shakes out when we test it the approach.</p>
+<p>Let’s codify our approach so we have a function we can use to test with later.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SimpleTimeSeries <span class="im">import</span> get_momentum_regr_actions</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>view_source_code(get_momentum_regr_actions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<!--
+generated by Pygments <https://pygments.org/>
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+-->
+
+
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+/*
+generated by Pygments <https: pygments.org="">
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+*/
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #ffffcc }
+body { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sa { color: #BB4444 } /* Literal.String.Affix */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .dl { color: #BB4444 } /* Literal.String.Delimiter */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .fm { color: #00A000 } /* Name.Function.Magic */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .vm { color: #B8860B } /* Name.Variable.Magic */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </https:></style>
+
+
+<h2 class="anchored"></h2>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_momentum_regr_actions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_periods</span><span class="p">,</span><span class="n">threshold</span><span class="p">):</span>
+    <span class="n">_x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">n_periods</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate Momentum</span>
+    <span class="n">mom_window</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">n_periods</span><span class="p">)</span>
+    <span class="n">mom_rate</span> <span class="o">=</span> <span class="n">mom_window</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span>
+                                    <span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_periods</span><span class="p">))</span><span class="o">.</span>
+                                    <span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+    <span class="n">mom_rate</span> <span class="o">=</span> <span class="n">mom_rate</span><span class="p">[</span><span class="n">n_periods</span><span class="p">:]</span>
+    
+    <span class="c1"># Select Action Based on Threshold</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mom_rate</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">threshold</span><span class="p">,</span> <span class="s1">'Short'</span><span class="p">,</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mom_rate</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span>  <span class="s1">'Buy'</span><span class="p">,</span>
+                                                                 <span class="s1">''</span><span class="p">)),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="n">mom_rate</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">mom_rate</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    
+    <span class="c1"># Because we use close price, we can't make the trade action until the following day</span>
+    <span class="n">actions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">actions</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">actions</span>
+</pre></div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>actions <span class="op">=</span> get_momentum_regr_actions(train.iloc[:,[<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">8</span>,<span class="dv">1</span>,<span class="dv">30</span>]],n_periods<span class="op">=</span><span class="dv">28</span>,threshold<span class="op">=</span><span class="fl">.24</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>actions.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>ticker</th>
+      <th>AAPL</th>
+      <th>ZBH</th>
+      <th>XOM</th>
+      <th>AAL</th>
+      <th>ALXN</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013-08-10</th>
+      <td>Buy</td>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-13</th>
+      <td>Buy</td>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-14</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-15</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-16</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Buy</td>
+    </tr>
+    <tr>
+      <th>2013-08-17</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-20</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-21</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-22</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-23</th>
+      <td>Buy</td>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="bollinger-bands" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="bollinger-bands"><span class="header-section-number">6.3</span> Bollinger Bands</h2>
+<p>A bollinger band uses a rolling standard deviation to determine when the stock price is unusually high or low. In theory if the price is doing something unexpected we can capitalize on that. So rather than a percent change, or a regression line, we are now picking it based on whether it’s unusually high or low per the standard deviation.</p>
+<p>Let’s walk through graphing a bolldinger band this on a couple tickers so we understand what’s going on. Then we can figure out how to use this to create a trading strategy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SimpleTimeSeries <span class="im">import</span> calculate_bollinger</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>view_source_code(calculate_bollinger)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<!--
+generated by Pygments <https://pygments.org/>
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+-->
+
+
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+/*
+generated by Pygments <https: pygments.org="">
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+*/
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #ffffcc }
+body { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sa { color: #BB4444 } /* Literal.String.Affix */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .dl { color: #BB4444 } /* Literal.String.Delimiter */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .fm { color: #00A000 } /* Name.Function.Magic */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .vm { color: #B8860B } /* Name.Variable.Magic */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </https:></style>
+
+
+<h2 class="anchored"></h2>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_bollinger</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tickers</span><span class="o">=</span><span class="p">[</span><span class="s1">'AAPL'</span><span class="p">,</span><span class="s1">'MSFT'</span><span class="p">],</span><span class="n">window_sz</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span><span class="n">band_sz</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">:</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">ticker</span><span class="p">]</span> 
+        
+        <span class="c1"># Calculate window statistics</span>
+        <span class="n">_mean</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window_sz</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">_std</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window_sz</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+        <span class="c1"># Calculate bands based on window statistics</span>
+        <span class="n">upper_band</span> <span class="o">=</span> <span class="n">_mean</span> <span class="o">+</span> <span class="p">(</span><span class="n">band_sz</span><span class="o">*</span><span class="n">_std</span><span class="p">)</span>
+        <span class="n">lower_band</span> <span class="o">=</span> <span class="n">_mean</span> <span class="o">-</span> <span class="p">(</span><span class="n">band_sz</span><span class="o">*</span><span class="n">_std</span><span class="p">)</span>
+        
+        <span class="c1"># Combine in a dataframe</span>
+        <span class="n">_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">lower_band</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">upper_band</span><span class="p">,</span> <span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">_out</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'lower_band'</span><span class="p">,</span><span class="s1">'raw'</span><span class="p">,</span><span class="s1">'upper_band'</span><span class="p">]</span>
+        <span class="n">_out</span><span class="p">[</span><span class="s1">'lower_limit'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out</span><span class="o">.</span><span class="n">raw</span> <span class="o">&lt;</span> <span class="n">_out</span><span class="o">.</span><span class="n">lower_band</span>
+        <span class="n">_out</span><span class="p">[</span><span class="s1">'upper_limit'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out</span><span class="o">.</span><span class="n">raw</span> <span class="o">&gt;</span> <span class="n">_out</span><span class="o">.</span><span class="n">upper_band</span>
+
+        <span class="n">out</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out</span>
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>calculate_bollinger(train,[<span class="st">'AAPL'</span>,<span class="st">'MSFT'</span>,<span class="st">'GOOG'</span>,<span class="st">'AMZN'</span>])[<span class="st">'AAPL'</span>].sample(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>lower_band</th>
+      <th>raw</th>
+      <th>upper_band</th>
+      <th>lower_limit</th>
+      <th>upper_limit</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-07-08</th>
+      <td>89.498384</td>
+      <td>93.405487</td>
+      <td>97.142827</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2014-10-02</th>
+      <td>91.353234</td>
+      <td>93.418008</td>
+      <td>96.999605</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2016-12-06</th>
+      <td>104.282310</td>
+      <td>107.352218</td>
+      <td>111.253007</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SimpleTimeSeries <span class="im">import</span> plot_bollinger</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>view_source_code(plot_bollinger)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<!--
+generated by Pygments <https://pygments.org/>
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+-->
+
+
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+/*
+generated by Pygments <https: pygments.org="">
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+*/
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #ffffcc }
+body { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sa { color: #BB4444 } /* Literal.String.Affix */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .dl { color: #BB4444 } /* Literal.String.Delimiter */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .fm { color: #00A000 } /* Name.Function.Magic */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .vm { color: #B8860B } /* Name.Variable.Magic */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </https:></style>
+
+
+<h2 class="anchored"></h2>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_bollinger</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">min_date</span><span class="p">,</span><span class="n">plt_cols</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># Create Plot    </span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">/</span><span class="n">plt_cols</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span><span class="n">plt_cols</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="o">*</span><span class="n">rows</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Bollinger Bands"</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">ticker</span><span class="p">,</span><span class="n">df</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="c1"># Determind plot location</span>
+        <span class="n">row_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="n">plt_cols</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">i</span>
+        <span class="n">col_num</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">row_num</span> <span class="o">*</span> <span class="n">plt_cols</span><span class="p">)</span>
+        
+        <span class="c1"># Filter for dates</span>
+        <span class="n">_d</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;=</span><span class="n">min_date</span><span class="p">]</span>
+        
+        <span class="c1"># Draw Plots</span>
+        <span class="k">if</span> <span class="n">plt_cols</span> <span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span> <span class="n">_tmp</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">row_num</span><span class="p">,</span><span class="n">col_num</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">_tmp</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">row_num</span><span class="p">]</span>
+        <span class="n">_tmp</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+        <span class="n">_tmp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_d</span><span class="p">[[</span><span class="s1">'lower_band'</span><span class="p">,</span><span class="s1">'raw'</span><span class="p">,</span><span class="s1">'upper_band'</span><span class="p">]])</span>
+        <span class="n">_tmp</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">_d</span><span class="p">[</span><span class="n">_d</span><span class="o">.</span><span class="n">lower_limit</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">_d</span><span class="p">[</span><span class="n">_d</span><span class="o">.</span><span class="n">lower_limit</span><span class="p">]</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+        <span class="n">_tmp</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">_d</span><span class="p">[</span><span class="n">_d</span><span class="o">.</span><span class="n">upper_limit</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">_d</span><span class="p">[</span><span class="n">_d</span><span class="o">.</span><span class="n">upper_limit</span><span class="p">]</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+</pre></div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot_bollinger(calculate_bollinger(train),min_date<span class="op">=</span><span class="st">'2016-01-01'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="SimpleTimeSeries_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>These charts show stock prices for Apple and Microsoft over time in orange. The green is our upper band, which in this case is 2 standard deviations above the mean when looking at the last 28 days of the adjusted close price. The blue is 2 standard deviations below the mean.</p>
+<p>We’ve plotted red dots anywhere the stock price crosses these bounds. This can only happen if there is a significant enough shift for it to be 2 standard deviations from the mean. Let’s code up this third momentum-esque approach as well so we have a 3rd method to test. Where the price crosses a bollinger band we will take an action!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SimpleTimeSeries <span class="im">import</span> get_bollinger_actions</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>view_source_code(get_bollinger_actions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<!--
+generated by Pygments <https://pygments.org/>
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+-->
+
+
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+/*
+generated by Pygments <https: pygments.org="">
+Copyright 2006-2021 by the Pygments team.
+Licensed under the BSD license, see LICENSE for details.
+*/
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #ffffcc }
+body { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sa { color: #BB4444 } /* Literal.String.Affix */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .dl { color: #BB4444 } /* Literal.String.Delimiter */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .fm { color: #00A000 } /* Name.Function.Magic */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .vm { color: #B8860B } /* Name.Variable.Magic */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </https:></style>
+
+
+<h2 class="anchored"></h2>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bollinger_actions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">window_sz</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span><span class="n">band_sz</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    
+    <span class="c1"># Calculate Statistics</span>
+    <span class="n">bollinger_data</span> <span class="o">=</span> <span class="n">calculate_bollinger</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tickers</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">window_sz</span><span class="o">=</span><span class="n">window_sz</span><span class="p">,</span><span class="n">band_sz</span><span class="o">=</span><span class="n">band_sz</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate Actions</span>
+    <span class="n">_d</span> <span class="o">=</span> <span class="n">L</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ticker</span><span class="p">,</span><span class="n">dataframe</span> <span class="ow">in</span> <span class="n">bollinger_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">_d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">'lower_limit'</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'Short'</span><span class="p">,</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">'upper_limit'</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span>  <span class="s1">'Buy'</span><span class="p">,</span>
+                                                                 <span class="s1">''</span><span class="p">)),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+    <span class="n">bollinger_actions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">_d</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Because we use close price, we can't make the trade action until the following day</span>
+    <span class="n">bollinger_actions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">bollinger_actions</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">bollinger_actions</span><span class="p">[</span><span class="n">window_sz</span><span class="p">:]</span>
+</pre></div>
+
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>actions <span class="op">=</span> get_bollinger_actions(train.iloc[:,:<span class="dv">5</span>],window_sz<span class="op">=</span><span class="dv">28</span>,band_sz<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>actions.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+      <th>AAL</th>
+      <th>AAP</th>
+      <th>AAPL</th>
+      <th>ABBV</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013-08-10</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-13</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-14</th>
+      <td></td>
+      <td>Short</td>
+      <td>Buy</td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-15</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-16</th>
+      <td></td>
+      <td>Short</td>
+      <td></td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-17</th>
+      <td></td>
+      <td>Short</td>
+      <td>Short</td>
+      <td>Buy</td>
+      <td>Short</td>
+    </tr>
+    <tr>
+      <th>2013-08-20</th>
+      <td></td>
+      <td>Short</td>
+      <td>Short</td>
+      <td>Buy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2013-08-21</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Short</td>
+    </tr>
+    <tr>
+      <th>2013-08-22</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Short</td>
+    </tr>
+    <tr>
+      <th>2013-08-23</th>
+      <td>Buy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="momentum-conclusion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Momentum Conclusion</h1>
+<p>In this post we took a simple idea of using recent stock price changes to define a trading strategy. One key thing I hope you took is even with simple concepts there are many ways that it can be approached - we created three. You <strong>must</strong> be able to think deeply about what your options are and experiment with different approaches and understand what are all the things in these approach you can control or tweak. You <strong>must</strong> be able to take ideas and translate them to code.</p>
+<p>There are many more trading strategies that could be done using the same concepts in this post. I encourage you to come up with one and implement it yourself. That will be more difficult than reading the post was, but you will also learn more by doing that. Once you do that write an explanation of why it might work, what you could tweak, and post share it. We’d love to see what you built!</p>
+<p>Learn by building + write to learn = success</p>
+</section>
+<section id="whats-next" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> What’s next</h1>
+<p>In <a href="../../posts/Statistics/BasicTesting.html">the next post</a> we will introduce the most important and challenging topic in any predictive or modeling discipline, testing. Effective testing is challenging and important because we need to be as confident as possible that the strategy we have will work “in the wild” just like we think it will.</p>
+<p>There are many horror stories of models being put into production and because they were not properly tested they failed and lost the company tons of money. When the tests performed do not provide an accurate view of how the model will perform in production, you’ve got a big problem. Understanding testing is crucial to a quant to minimize these unexpected catastrophic failures.</p>
+</section>
+<section id="homework-for-further-learnings" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Homework for Further Learnings</h1>
+<p>Entry-Level 1. Run the models in this post with different parameters. How does this effect the number of actions taken? 1. Create a <code>get_momentum_regr_actions</code> that is not (or less effected) by scale. For example you could combine the slope concept from <code>get_momentum_regr_actions</code> with the percent change concept from <code>get_momentum_actions</code>.</p>
+<p>Mid-Level 1. The models in this post gave actions to take to open a position (ie buy/short). Come up with two ideas for how we could determine when to close the position. If we bought a stock we must eventually close the position by selling it. Code them up! 1. Decisions are made in code all the time and are not always explicitly highlighted as a design choice. For example, in <code>get_momentum_actions</code> we used a threshold of 0.08. What would the effect be if it were increased vs decreased? How do you think that would impact your strategy? Find 3 more design choices and explain the trade-offs.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../blog.xml">Blog RSS</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../til.xml">TIL RSS</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

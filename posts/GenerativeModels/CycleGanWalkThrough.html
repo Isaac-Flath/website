@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2021-03-20">
+<meta name="description" content="A walkthrough of key components to a pytorch CycleGAN implementation.">
+
+<title>Isaac Flath - CycleGAN Walk Through</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XNZGT59XWP"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Isaac Flath - CycleGAN Walk Through">
+<meta property="og:description" content="A walkthrough of key components to a pytorch CycleGAN implementation.">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
+<meta property="og:site-name" content="Isaac Flath">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Isaac Flath - CycleGAN Walk Through">
+<meta name="twitter:description" content="A walkthrough of key components to a pytorch CycleGAN implementation.">
+<meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
+<meta name="twitter:creator" content="@isaac_flath">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Isaac Flath</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html">
+ <span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../consulting.html">
+ <span class="menu-text">Consulting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../testimonials.html">
+ <span class="menu-text">Testimonials</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CycleGAN Walk Through</h1>
+                  <div>
+        <div class="description">
+          A walkthrough of key components to a pytorch CycleGAN implementation.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Neural Networks</div>
+                <div class="quarto-category">Image Generation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 20, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+
+<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1667811");</style>
+    <style type="text/css">
+    /* LOADER */
+    .ml-form-embedSubmitLoad {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .g-recaptcha {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    height: ;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    .ml-form-embedSubmitLoad:after {
+      content: " ";
+      display: block;
+      width: 11px;
+      height: 11px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    border-color: #ffffff #ffffff #ffffff transparent;
+    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+    }
+    @keyframes ml-form-embedSubmitLoad {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+    }
+      #mlb2-2128741.ml-form-embedContainer {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 auto;
+        position: static;
+        width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer h4,
+      #mlb2-2128741.ml-form-embedContainer p,
+      #mlb2-2128741.ml-form-embedContainer span,
+      #mlb2-2128741.ml-form-embedContainer button {
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper {
+        background-color: #ffffff;
+        
+        border-width: 0px;
+        border-color: transparent;
+        border-radius: 4px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        position: relative;
+              }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-left { text-align: left; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-center { text-align: center; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-align-right { text-align: right; }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: auto;
+        margin: 0 auto !important;
+        max-width: 100%;
+        width: undefinedpx;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+        padding: 20px 20px 0 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
+        padding-bottom: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+        text-align: left;
+        margin: 0 0 20px 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
+        list-style-type: lower-alpha;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
+        list-style-type: lower-roman;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+        text-align: left!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+        margin-bottom: 5px;
+        color: #333333;
+        font-size: 14px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-weight: bold; font-style: normal; text-decoration: none;;
+        display: inline-block;
+        line-height: 20px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+        margin: 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        margin: 0 0 20px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
+        margin: 0;
+        padding: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          border-color: #cccccc!important;
+          background-color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+        border-radius: 4px!important;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+          border-color: #2780e3!important;
+          background-color: #2780e3!important;
+          color: #ffffff!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
+           top: 2px;
+           box-sizing: border-box;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+           top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+        top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+       #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
+            top: 0px!important;
+            box-sizing: border-box!important;
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+       }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
+        top: 0px!important;
+        box-sizing: border-box!important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
+          position: absolute;
+          top: 2px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
+          background: no-repeat 50%/50% 50%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          background: no-repeat 50%/50% 50%;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          box-sizing: border-box;
+          padding: 0;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
+          color: #000000;
+          font-size: 12px!important;
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          line-height: 22px;
+          margin-bottom: 0;
+          position: relative;
+          vertical-align: top;
+          font-style: normal;
+          font-weight: 700;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 28px 10px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('https://cdn.mailerlite.com/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
+        height: auto;
+        width: 100%;
+        float: left;
+      }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
+        background-color: #ffffff;
+        color: #333333;
+        border-color: #cccccc;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: initial;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
+        background-color: #2780e3 !important;
+        border-color: #2780e3;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 4px;
+        box-shadow: none;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 14px !important;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100%;
+        height: auto;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
+        background-color: #f059d6 !important;
+        border-color: #f059d6 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
+        color: #000000;
+        display: block;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
+        color: #000000;
+        text-decoration: underline;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
+        color: #000000 !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        line-height: 18px !important;
+        padding: 0 !important;
+        margin: 0 5px 0 0 !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+        margin: 0 0 20px 0;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+        background-color: #2780e3 !important;
+        border: none !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 21px !important;
+        height: auto;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+        display: none;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+        background-color: #f059d6 !important;
+      }
+      .ml-subscribe-close {
+        width: 30px;
+        height: 30px;
+        background: url('https://cdn.mailerlite.com/images/default/modal_close.png') no-repeat;
+        background-size: 30px;
+        cursor: pointer;
+        margin-top: -10px;
+        margin-right: -10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .ml-error input, .ml-error textarea, .ml-error select {
+        border-color: red!important;
+      }
+
+      .ml-error .custom-checkbox-radio-list {
+        border: 1px solid red !important;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      .ml-error .label-description,
+      .ml-error .label-description p,
+      .ml-error .label-description p a,
+      .ml-error label:first-child {
+        color: #ff0000 !important;
+      }
+
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
+        color: #ff0000 !important;
+      }
+            @media only screen and (max-width: 400px){
+
+        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
+        .ml-form-formContent.horozintalForm { float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+
+      }
+    </style>
+
+    
+  
+    <style type="text/css">
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow {
+        margin-bottom: 20px;
+        text-align: left;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox.last-group {
+        margin: 0;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow h4 {
+        color: ;
+        font-family: ;
+        font-size: px;
+        font-weight: ;
+        line-height: px;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description {
+        color: #000000;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+        font-style: normal;
+        font-weight: 700;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .description {
+        color: #000000;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 5px 0 0 0;
+        text-align: left;
+      }
+      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+    </style>
+    
+
+    
+    
+
+    
+    
+
+    
+
+      
+        
+        
+      
+
+      
+        
+        
+      
+
+      
+
+            
+            
+            
+            
+            
+            
+      
+
+      
+
+      
+        
+        
+         
+        
+        
+      
+
+        
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+        
+        
+        
+       
+
+
+      
+        
+        
+        
+        
+  
+
+
+
+  
+        
+        
+        
+      
+
+
+      
+    
+    
+    
+    
+    
+  
+
+  
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+      
+
+       
+
+        
+        
+        
+        
+       
+
+       
+        
+        
+        
+        
+      
+
+      
+        
+        
+        
+        
+        
+        
+        
+       
+
+    
+
+    
+
+
+      
+
+
+      
+
+      
+      
+
+      
+
+      
+
+
+
+
+
+    
+
+      
+    <div id="mlb2-2128741" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2128741">
+      <div class="ml-form-align-center ">
+        <div class="ml-form-embedWrapper embedForm">
+
+          
+          
+
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+
+            <div class="ml-form-embedContent" style=" ">
+              
+                <h4>Subscribe</h4>
+                <p><br></p>
+              
+            </div>
+
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/220832/forms/71614977134299121/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                
+
+                  
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                      
+
+
+                      <!-- input -->
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                      <!-- /input -->
+
+                      <!-- textarea -->
+                      
+                      <!-- /textarea -->
+
+                      <!-- select -->
+                      
+                      <!-- /select -->
+
+                      <!-- checkboxes -->
+            
+            <!-- /checkboxes -->
+
+                      <!-- radio -->
+                      
+                      <!-- /radio -->
+
+                      <!-- countries -->
+                      
+                      <!-- /countries -->
+
+
+
+
+
+                    </div>
+                  </div>
+                
+              </div>
+
+              
+
+              <!-- Privacy policy -->
+              
+              <!-- /Privacy policy -->
+
+              
+
+              <div class="ml-form-interestGroupsRow ml-block-groups ml-validate-required">
+                
+                    <div class="ml-form-interestGroupsRowCheckbox group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71614988342527788">
+                        <div class="label-description">Blog</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+                    <div class="ml-form-interestGroupsRowCheckbox last-group" style="">
+                      <label>
+                        
+                        <input type="checkbox" name="groups[]" value="71615004795733097">
+                        <div class="label-description">TIL</div>
+                      </label>
+                      
+                      
+                    </div>
+                  
+              </div>
+
+              
+
+
+
+
+
+
+              
+              <input type="hidden" name="ml-submit" value="1">
+
+              <div class="ml-form-embedSubmit">
+                
+                  <button type="submit" class="primary">Subscribe</button>
+                
+                <button disabled="disabled" style="display: none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+
+              
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+
+          <div class="ml-form-successBody row-success" style="display: none">
+
+            <div class="ml-form-successContent">
+              
+                <h4>Thank you!</h4>
+                
+                  <p>You have successfully joined our subscriber list.</p>
+                
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  
+  
+  <script>
+    function ml_webform_success_2128741() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-2128741 .row-success').show();
+      $('.ml-subscribe-form-2128741 .row-form').hide();
+    }
+      </script>
+  
+  
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v491724307ca3b85c1c754857e93994e5" type="text/javascript"></script>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#transforms" id="toc-transforms" class="nav-link active" data-scroll-target="#transforms"><span class="toc-section-number">1</span>  Transforms</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset"><span class="toc-section-number">2</span>  Dataset</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models"><span class="toc-section-number">3</span>  Models</a>
+  <ul class="collapse">
+  <li><a href="#discriminator---key-1" id="toc-discriminator---key-1" class="nav-link" data-scroll-target="#discriminator---key-1"><span class="toc-section-number">3.1</span>  Discriminator - Key 1</a></li>
+  <li><a href="#generator" id="toc-generator" class="nav-link" data-scroll-target="#generator"><span class="toc-section-number">3.2</span>  Generator</a>
+  <ul class="collapse">
+  <li><a href="#initial-layer" id="toc-initial-layer" class="nav-link" data-scroll-target="#initial-layer"><span class="toc-section-number">3.2.1</span>  Initial Layer</a></li>
+  <li><a href="#downsampling" id="toc-downsampling" class="nav-link" data-scroll-target="#downsampling"><span class="toc-section-number">3.2.2</span>  Downsampling</a></li>
+  <li><a href="#residual-blocks" id="toc-residual-blocks" class="nav-link" data-scroll-target="#residual-blocks"><span class="toc-section-number">3.2.3</span>  Residual Blocks</a></li>
+  <li><a href="#upsampling" id="toc-upsampling" class="nav-link" data-scroll-target="#upsampling"><span class="toc-section-number">3.2.4</span>  Upsampling</a></li>
+  <li><a href="#output-layer" id="toc-output-layer" class="nav-link" data-scroll-target="#output-layer"><span class="toc-section-number">3.2.5</span>  Output Layer</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions"><span class="toc-section-number">4</span>  Loss Functions</a>
+  <ul class="collapse">
+  <li><a href="#discriminator-loss" id="toc-discriminator-loss" class="nav-link" data-scroll-target="#discriminator-loss"><span class="toc-section-number">4.1</span>  Discriminator Loss</a></li>
+  <li><a href="#generator-loss---key-2" id="toc-generator-loss---key-2" class="nav-link" data-scroll-target="#generator-loss---key-2"><span class="toc-section-number">4.2</span>  Generator Loss - Key 2</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">5</span>  Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>In this post I will build on my <a href="../../posts/GenerativeModels/GANIntroduction.html">previous</a> <a href="../../posts/GenerativeModels/StyleGanComponents.html">posts</a> on GANs and talk about CycleGAN.</p>
+<p>In StyleGAN, we took noise and generated an image realistic enough to fool the discriminator. In CycleGAN we take an image and modify it to a different class to make that modified image realistic enough to fool the discriminator into believing it’s that class.</p>
+<p>I am going to walk through a great <a href="https://github.com/aitorzip/PyTorch-CycleGAN">Pytorch CycleGAN implementation</a> and explain what the pieces are doing in plain english so anyone can understand the important bits without diving through lots of code or reading an academic paper.</p>
+<p>Before we jump in - here’s the three most important pieces to CycleGAN to understand if you want to skip to the most crucial bits. I labeled the key sections in the Table of Contents for you.</p>
+<ol type="1">
+<li>There are 2 generators and 2 discriminators being trained. 4 total models!</li>
+<li>The Generator Loss function has 3 components: adversarial Loss, Cycle Loss, and Identity loss. Understanding these is key.</li>
+<li>The Discriminator predicts real or fake for lots of different chunks of the image, not just 1 prediction for the whole image.</li>
+</ol>
+<p>These will be explained in detail as we go so don’t worry if that doesn’t completely make sense just yet. It will :)</p>
+<p>So let’s get started!</p>
+<section id="transforms" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Transforms</h1>
+<p>This implementation of CycleGAN is using basic transforms that are not unique to CycleGAN so I won’t be diving into detail on those in this post. Please post a comment or message me on twitter if you have questions or want a post that talks in more detail on transforms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>transforms_train <span class="op">=</span> [ transforms.Resize(<span class="bu">int</span>(<span class="dv">256</span><span class="op">*</span><span class="fl">1.12</span>), Image.BICUBIC), </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                     transforms.RandomCrop(<span class="dv">256</span>), </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                     transforms.RandomHorizontalFlip(),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     transforms.ToTensor(),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                     transforms.Normalize((<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>), (<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>)) ]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>transforms_test <span class="op">=</span> [ transforms.ToTensor(),transforms.Normalize((<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>), (<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>)) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/vs/j71s84gs4f7d059xxqrf71wc0000gn/T/ipykernel_75344/983886316.py:1: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  transforms_train = [ transforms.Resize(int(256*1.12), Image.BICUBIC),</code></pre>
+</div>
+</div>
+</section>
+<section id="dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Dataset</h1>
+<p>The dataset isn’t anything special other than a batch being images from both classes (A and B). This is a standard pytorch dataloader so I won’t cover what’s going on in this post, but there is a <a href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html">great tutorial</a> if you would like to understand this more.</p>
+<p>There are 2 key things to notice here:</p>
+<ul>
+<li>A batch is a dictionary of images from class A and images from class B.</li>
+<li>This example would be style transfer between summer and winter pictures (at Yosemite)</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I have added a <code>show_batch</code> method to the dataloader. This is an idea I took from fastai and it I highly recommend making sure you have a very easy way to visualize anything you are working with. It will save you lots of time if you get that set up.</p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ImageDataset(Dataset):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, root, transforms_<span class="op">=</span><span class="va">None</span>, unaligned<span class="op">=</span><span class="va">False</span>, mode<span class="op">=</span><span class="st">'train'</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.transform <span class="op">=</span> transforms.Compose(transforms_)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unaligned <span class="op">=</span> unaligned</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.files_A <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(os.path.join(root, <span class="ss">f'</span><span class="sc">{</span>mode<span class="sc">}</span><span class="ss">A'</span>) <span class="op">+</span> <span class="st">'/*.*'</span>))[:<span class="dv">50</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.files_B <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(os.path.join(root, <span class="ss">f'</span><span class="sc">{</span>mode<span class="sc">}</span><span class="ss">B'</span>) <span class="op">+</span> <span class="st">'/*.*'</span>))[:<span class="dv">50</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, index):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        item_A <span class="op">=</span> <span class="va">self</span>.transform(Image.<span class="bu">open</span>(<span class="va">self</span>.files_A[index <span class="op">%</span> <span class="bu">len</span>(<span class="va">self</span>.files_A)]))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.unaligned: item_B <span class="op">=</span> <span class="va">self</span>.transform(Image.<span class="bu">open</span>(<span class="va">self</span>.files_B[random.randint(<span class="dv">0</span>, <span class="bu">len</span>(<span class="va">self</span>.files_B) <span class="op">-</span> <span class="dv">1</span>)]))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:              item_B <span class="op">=</span> <span class="va">self</span>.transform(Image.<span class="bu">open</span>(<span class="va">self</span>.files_B[index <span class="op">%</span> <span class="bu">len</span>(<span class="va">self</span>.files_B)]))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {<span class="st">'A'</span>: item_A, <span class="st">'B'</span>: item_B}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>): <span class="cf">return</span> <span class="bu">max</span>(<span class="bu">len</span>(<span class="va">self</span>.files_A), <span class="bu">len</span>(<span class="va">self</span>.files_B))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> show_batch(<span class="va">self</span>,sets<span class="op">=</span><span class="dv">2</span>, cols<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        idxs <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="va">self</span>.<span class="fu">__len__</span>()), cols<span class="op">*</span><span class="dv">2</span><span class="op">*</span>sets)        </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span><span class="op">*</span>sets, cols,figsize<span class="op">=</span>(<span class="dv">4</span><span class="op">*</span>cols,<span class="dv">4</span><span class="op">*</span><span class="dv">2</span><span class="op">*</span>sets))</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(sets):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,cols):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                row<span class="op">=</span>r<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                num <span class="op">=</span> (row <span class="op">*</span> cols <span class="op">+</span> col)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                x <span class="op">=</span> <span class="va">self</span>[idxs[num]][<span class="st">'A'</span>].permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                ax[row,col].imshow(<span class="fl">0.5</span> <span class="op">*</span> (x<span class="op">+</span><span class="fl">1.</span>))<span class="op">;</span> ax[row,col].axis(<span class="st">'off'</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                row<span class="op">=</span>row<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                num <span class="op">=</span> (row <span class="op">*</span> cols <span class="op">+</span> col)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                x <span class="op">=</span> <span class="va">self</span>[idxs[num]][<span class="st">'B'</span>].permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                ax[row,col].imshow(<span class="fl">0.5</span><span class="op">*</span>(x<span class="op">+</span><span class="fl">1.</span>))<span class="op">;</span> ax[row,col].axis(<span class="st">'off'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Rows 1 and 3 are summer pictures (class A) where rows 2 and 4 are winter pictures (class B)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>train_dataloader <span class="op">=</span> DataLoader(ImageDataset(<span class="st">'datasets/summer2winter_yosemite'</span>, transforms_<span class="op">=</span>transforms_train, unaligned<span class="op">=</span><span class="va">True</span>),batch_size<span class="op">=</span><span class="dv">1</span>, shuffle<span class="op">=</span><span class="va">True</span>, num_workers<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>train_dataloader.dataset.show_batch()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="CycleGanWalkThrough_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="models" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Models</h1>
+<p>We have discriminators and generators - let’s look briefly at what they output, then dive into some details.</p>
+<ul>
+<li>The discriminator outputs a bunch of predictions as to whether different portions of an image is a real image of that class or a fake image of that class</li>
+<li>The generator is taking a real image and converting it to the other class. For example a picture of a lake in the Summer goes in and a picture of that same lake in the winter should come out (maybe adding snow for example).</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am assuming you have a general understanding of what the role of a discriminator vs generator is and how they train together. If you need a refresher <a href="GanIntroduction.ipynb">read this</a> section of my GAN Introduction blog post</p>
+</div>
+</div>
+<section id="discriminator---key-1" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="discriminator---key-1"><span class="header-section-number">3.1</span> Discriminator - Key 1</h2>
+<p>The most important thing to understand about any model is what it’s predicting. Let’s take a look at the last thing that is done before it’s output and understand that first.</p>
+<ul>
+<li><strong>avg_pool2d:</strong> At the end there’s average pooling, which is just calculated averages in different patches of the feature map. So really what we are predicting is not whether the image is real or fake, but splitting the image into lots of pieces and determining if each piece individually is real or fake.</li>
+</ul>
+<p>This gives the generator much more information to be able to optimize to. Predicting whether an image is real or fake is much easier than generating a whole image - so we want to help the generator as much as possible.</p>
+<p>If you think about this intuitively - it makes perfect sense. If you were trying to draw a realistic still life and you showed it to an expert artist for feedback what kind of feedback would you like? Would you like them to tell you it looks real or looks fake and leave it at that? Or would you get more out of them breaking the painting into pieces, telling you what portions are realistic and what portions need more work? Of course, the latter is more helpful so that’s what we predict for the generator.</p>
+<p>The rest of the discriminator is nothing special but let’s dive in a bit to prove that. Here’s the components:</p>
+<ul>
+<li><strong>Conv2d:</strong> When working with images convolutions are very common</li>
+<li><strong>LeakyReLU:</strong> While ReLU is more common, Leaky ReLU is used. We don’t want the model to get stuck in a ‘no-training’ zone that exists with ReLU. GANs are harder to train well because of the additional complexity of the adversarial model so LeakyReLU works better on GANs general.</li>
+<li><strong>InstanceNorm2d:</strong> <code>BatchNorm</code> is more common, but this is just a small tweak from that. If you think about the different meanings of the word “Instance” vs “Batch” you make be able to guess what the difference is. In short <code>BatchNorm</code> is normalizing across the entire batch (computing 1 mean/std). <code>InstanceNorm</code> is normalizing over the individual image (instance), so you have a mean and std for each image.</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you think through the impact of batch vs Instance normalization you may realize that with <code>BatchNorm</code> the training for a particular image is effected by which images happen to be in the same batch. This is because the mean and standard deviation are calculated across the entire batch, rather than for that image alone.</p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Discriminator(nn.Module):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_nc):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Discriminator, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># A bunch of convolutions one after another</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> [   nn.Conv2d(input_nc, <span class="dv">64</span>, <span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                    nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        model <span class="op">+=</span> [  nn.Conv2d(<span class="dv">64</span>, <span class="dv">128</span>, <span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                    nn.InstanceNorm2d(<span class="dv">128</span>), </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                    nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        model <span class="op">+=</span> [  nn.Conv2d(<span class="dv">128</span>, <span class="dv">256</span>, <span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                    nn.InstanceNorm2d(<span class="dv">256</span>), </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                    nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        model <span class="op">+=</span> [  nn.Conv2d(<span class="dv">256</span>, <span class="dv">512</span>, <span class="dv">4</span>, padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    nn.InstanceNorm2d(<span class="dv">512</span>), </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                    nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># FCN classification layer</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        model <span class="op">+=</span> [nn.Conv2d(<span class="dv">512</span>, <span class="dv">1</span>, <span class="dv">4</span>, padding<span class="op">=</span><span class="dv">1</span>)]</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> nn.Sequential(<span class="op">*</span>model)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span>  <span class="va">self</span>.model(x)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Average pooling and flatten</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> F.avg_pool2d(x, x.size()[<span class="dv">2</span>:]).view(x.size()[<span class="dv">0</span>], <span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="generator" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="generator"><span class="header-section-number">3.2</span> Generator</h2>
+<p>The Generator is what generates the image. It’s got a lot of the same components as other Neural Networks. Let’s talk about the components.</p>
+<p>Let’s break this apart and talk about each piece briefly.</p>
+<section id="initial-layer" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="initial-layer"><span class="header-section-number">3.2.1</span> Initial Layer</h3>
+<p>So this is the code from the implementation for the first bit of the generator (I cut off the rest to be shown later). Let’s understand this first.</p>
+<p>We see all the same components we say above. <code>Conv2d</code> is doing convolutions (big 7x7 ones), we also have <code>InstanceNorm</code> like we saw in the Discriminator (discussed above), and a common activation function <code>ReLU</code>.</p>
+<p>The new thing is this <code>ReflectionPad2d</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Generator(nn.Module):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_nc, output_nc, n_residual_blocks<span class="op">=</span><span class="dv">9</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Generator, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Initial convolution block       </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> [   nn.ReflectionPad2d(<span class="dv">3</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                    nn.Conv2d(input_nc, <span class="dv">64</span>, <span class="dv">7</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                    nn.InstanceNorm2d(<span class="dv">64</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                    nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So what is <code>ReflectionPad2d</code>? First, let’s look at what a convolution does. The blue in the gif below is the image, the white squares are padding. Normally they’re padded with nothing like in the illustration. What <code>ReflectionPad</code> does is pads that with a reflection of the image instead. In other words, we are using the pixels values of pixels on the edge to pad instead of just a pure white or pure black pixel.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fore more on convolutions <a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">go here</a>. The gif below comes from that guide by <a href="https://medium.com/@_sumitsaha_">Sumit Saha</a> and the guide contains a lot of other create information.</p>
+</div>
+</div>
+<p><img src="https://miro.medium.com/max/395/1*1VJDP6qDY9-ExTuQVEOlVg.gif" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Credit for Visualization: Vincent Dumoulin, Francesco Visin - <a href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a></p>
+</div>
+</div>
+</section>
+<section id="downsampling" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="downsampling"><span class="header-section-number">3.2.2</span> Downsampling</h3>
+<p>We then go through several downsampling layers. A 3x3 convolution with stride 2 will result in a smaller feature map, which is exactly what we are doing to cause the downsampling. It’s all the usual suspects through: <code>convolutions</code>, <code>InstanceNorms</code>, and <code>ReLUs</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Downsampling</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        in_features <span class="op">=</span> <span class="dv">64</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        out_features <span class="op">=</span> in_features<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            model <span class="op">+=</span> [  nn.Conv2d(in_features, out_features, <span class="dv">3</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                        nn.InstanceNorm2d(out_features),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                        nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            in_features <span class="op">=</span> out_features</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            out_features <span class="op">=</span> in_features<span class="op">*</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="residual-blocks" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="residual-blocks"><span class="header-section-number">3.2.3</span> Residual Blocks</h3>
+<p>Next we go through some residual blocks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Residual blocks</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_residual_blocks):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            model <span class="op">+=</span> [ResidualBlock(in_features)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When we look at residual blocks again, it’s all the same components in slightly different configurations as above. We have <code>ReflectionPad</code>, <code>Convolutions</code>, <code>InstanceNorm</code>, and <code>ReLUs</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ResidualBlock(nn.Module):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_features):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(ResidualBlock, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        conv_block <span class="op">=</span> [  nn.ReflectionPad2d(<span class="dv">1</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                        nn.Conv2d(in_features, in_features, <span class="dv">3</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                        nn.InstanceNorm2d(in_features),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                        nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                        nn.ReflectionPad2d(<span class="dv">1</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                        nn.Conv2d(in_features, in_features, <span class="dv">3</span>),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                        nn.InstanceNorm2d(in_features)  ]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.conv_block <span class="op">=</span> nn.Sequential(<span class="op">*</span>conv_block)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">+</span> <span class="va">self</span>.conv_block(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="upsampling" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="upsampling"><span class="header-section-number">3.2.4</span> Upsampling</h3>
+<p>Next is upsampling. There is a new component here which <code>ConvTranspose</code>. Let’s take a look at what that is exactly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>        out_features <span class="op">=</span> in_features<span class="op">//</span><span class="dv">2</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            model <span class="op">+=</span> [  nn.ConvTranspose2d(in_features, out_features, <span class="dv">3</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>, output_padding<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                        nn.InstanceNorm2d(out_features),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                        nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>) ]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>            in_features <span class="op">=</span> out_features</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            out_features <span class="op">=</span> in_features<span class="op">//</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So what is this? Well essentially it’s a normal convolution that upsamples by creating padding between cells. Here’s a visual that shows what that looks like.</p>
+<p><img src="https://i.stack.imgur.com/f2RiP.gif" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Credit for Visualization: Vincent Dumoulin, Francesco Visin - <a href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a></p>
+</div>
+</div>
+</section>
+<section id="output-layer" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="output-layer"><span class="header-section-number">3.2.5</span> Output Layer</h3>
+<p>Finally we have out output layer with a <code>Tanh</code> activation function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>        model <span class="op">+=</span> [  nn.ReflectionPad2d(<span class="dv">3</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    nn.Conv2d(<span class="dv">64</span>, output_nc, <span class="dv">7</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    nn.Tanh() ]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> nn.Sequential(<span class="op">*</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="loss-functions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Loss Functions</h1>
+<p>The model using the Adam Optimizer with a scheduler. I am going to skip over that and look at the most interesting and important part of CycleGAN. The loss functions!</p>
+<p>If you recall, we have both generators and Discriminators. So we need a loss function for each. Let’s look at each.</p>
+<section id="discriminator-loss" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="discriminator-loss"><span class="header-section-number">4.1</span> Discriminator Loss</h2>
+<p>The discriminator loss is a standard adversarial loss. Let’s think through what we would need:</p>
+<ul>
+<li>Real images of a class (ie Summer Yosimite pictures)</li>
+<li>Fake images of a class (ie generated Summer Yosimite pictures)</li>
+<li>Discriminator predictions for whether each section of the image is real or fake</li>
+</ul>
+<p>So let’s say we generated the images with our generator and then we took the real images from our batch, the fake generated images, and ran that through our discriminator. Once we have that we use Mean Squared Error as the loss function.</p>
+<p>Let’s see how this works. Everything is duplicated because we have 2 discriminators.</p>
+<p><strong>Discriminator 1:</strong> Is each section of this Class A image real or fake?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>        pred_real <span class="op">=</span> netD_A(real_A) <span class="co"># Predict whether real image is real or fake</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        loss_D_real <span class="op">=</span> criterion_GAN(pred_real, target_real) </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        pred_fake <span class="op">=</span> netD_A(fake_A.detach()) <span class="co"># Predict whether fake image is real or fake</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        loss_D_fake <span class="op">=</span> criterion_GAN(pred_fake, target_fake)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        loss_D_A <span class="op">=</span> (loss_D_real <span class="op">+</span> loss_D_fake)<span class="op">*</span><span class="fl">0.5</span> <span class="co"># Total loss</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        loss_D_A.backward() <span class="co"># backward pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Discriminator 2:</strong> Is each section of this Class B image real or fake?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>        pred_real <span class="op">=</span> netD_B(real_B) <span class="co"># Predict whether real image is real or fake</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        loss_D_real <span class="op">=</span> criterion_GAN(pred_real, target_real) </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        pred_fake <span class="op">=</span> netD_B(fake_B.detach()) <span class="co"># Predict whether fake image is real or fake</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        loss_D_fake <span class="op">=</span> criterion_GAN(pred_fake, target_fake) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        loss_D_B <span class="op">=</span> (loss_D_real <span class="op">+</span> loss_D_fake)<span class="op">*</span><span class="fl">0.5</span> <span class="co"># Total loss</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        loss_D_B.backward() <span class="co"># backward pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generator-loss---key-2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="generator-loss---key-2"><span class="header-section-number">4.2</span> Generator Loss - Key 2</h2>
+<p>The generator loss is the key to CycleGAN and it has three main parts to it.</p>
+<ol type="1">
+<li><p>Adversarial Loss: This is standard MSE Loss. This is the most straightforward loss.<br>
+</p></li>
+<li><p>Identity Loss: This is L1 Loss (pixel by pixel comparison to minimize the difference in pixel values). If my generator is trained to take a Summer picture and turn it into a Winter picture and I give it winter picture is should do nothing (identity function). The generator should look at the Winter Picture and determine that nothing needs to be done to make it a Winter picture as that’s what it already is. Identity loss is just trying this out and then comparing the input image with the output image.</p></li>
+<li><p>Cycle Loss: This is where CycleGAN gets it’s name. L1 loss is just trying to minimize the difference in pixel values. But how does it have images to compare when it’s an unpaired dataset?</p>
+<ul>
+<li>Start with class A and run your Generator to create class B out of the Class A image</li>
+<li>Take that class B image that was just generated, and run it through the other generator to create a class A image</li>
+<li>If all you are doing is transferring styles you should get the exact same image back after the full cycle. Those are the 2 images being compared.</li>
+</ul></li>
+</ol>
+<p>These three components get added up for the loss function. You can add weights to different portions to prioritize different aspects of the loss function.</p>
+<p>So how does this look all together? You may notice everything is duplicated in the code. That’s because We have 2 generators:</p>
+<ul>
+<li>Class A -&gt; Class B or Summer -&gt; Winter</li>
+<li>Class B -&gt; Class A or Winter -&gt; Summer</li>
+</ul>
+<p><strong>Adverserial Loss:</strong> Is it good enough to fool the discriminator?</p>
+<p>This is the most straightforward and is standard MSE loss. The generator is optimizing to fool the Discriminator. Specifically the loss is being calculated on the discriminators prediction on fake images and a ‘truth label’ saying it is a real image. We know it’s not actually a real image, but the discriminator wants us to think so.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>        fake_B <span class="op">=</span> netG_A2B(real_A) <span class="co"># Generate class B from class A</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        pred_fake <span class="op">=</span> netD_B(fake_B) <span class="co"># Discriminator predict is is real or fake</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        loss_GAN_A2B <span class="op">=</span> criterion_GAN(pred_fake, target_real) <span class="co"># Is discriminator fooled?</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        fake_A <span class="op">=</span> netG_B2A(real_B) <span class="co"># Generate class A from class B</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        pred_fake <span class="op">=</span> netD_A(fake_A) <span class="co"># Discriminator predict is is real or fake</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        loss_GAN_B2A <span class="op">=</span> criterion_GAN(pred_fake, target_real) <span class="co"># Is discriminator fooled?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Identity Loss:</strong> Is it making the minimum changes needed?</p>
+<p>Identity loss is L1 loss (pixel by pixel comparison to minimize the difference in pixel values). If my generator is trained to take a Summer picture and turn it into a Winter picture and I give it winter picture, it should do nothing (identity function). The generator should look at the Winter Picture and determine that nothing needs to be done to make it a Winter picture as that’s what it already is. Identity loss is doing this exactly and comparing the input image with the output image. Since it should change nothing we can calculate the loss as the difference between the pixels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>        same_B <span class="op">=</span> netG_A2B(real_B) <span class="co"># Generate class B from class B</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        loss_identity_B <span class="op">=</span> criterion_identity(same_B, real_B)<span class="op">*</span><span class="fl">5.0</span> <span class="co"># Pixel Diff</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        same_A <span class="op">=</span> netG_B2A(real_A) <span class="co"># Generate class A from class A</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        loss_identity_A <span class="op">=</span> criterion_identity(same_A, real_A)<span class="op">*</span><span class="fl">5.0</span> <span class="co"># Pixel Diff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Cycle loss:</strong> Is it only changing style?</p>
+<p>This is where CycleGAN gets it’s name. Cycle Loss is also an L1 Loss function - let’s take a look at what images it’s comparing. Here’s the process:</p>
+<pre><code>+ Start with a class A image and run your Generator to generate a class B image
++ Take that generated class B image and run it through the other generator to create a class A image (full cycle)
++ Compare pixels between that generated Class A image should be identical to the original Class A input image
++ Repeat in the other direction</code></pre>
+<p>If the only thing being changed is style then the generated Class A image that went through the full cycle should be identical to the original input Class A image. If however other things are getting changed, then you will have information loss and you the images will be different. By minimizing this pixel difference you are telling the model not to change the general content of the image, it can only change stylistic things.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>        recovered_A <span class="op">=</span> netG_B2A(fake_B) <span class="co"># Generate Class A from fake Class B</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        loss_cycle_ABA <span class="op">=</span> criterion_cycle(recovered_A, real_A)<span class="op">*</span><span class="fl">10.0</span> <span class="co"># Pixel Diff</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        recovered_B <span class="op">=</span> netG_A2B(fake_A) <span class="co"># Generate Class B from fake Class A</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        loss_cycle_BAB <span class="op">=</span> criterion_cycle(recovered_B, real_B)<span class="op">*</span><span class="fl">10.0</span> <span class="co"># Pixel Diff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Total Generator Loss:</strong> Sum them all up into 1 loss function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Total loss</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        loss_G <span class="op">=</span> loss_identity_A <span class="op">+</span> loss_identity_B <span class="op">+</span> loss_GAN_A2B <span class="op">+</span> loss_GAN_B2A <span class="op">+</span> loss_cycle_ABA <span class="op">+</span> loss_cycle_BAB <span class="co"># Add all these losses up</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        loss_G.backward() <span class="co"># backward pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
+<p>That’s really the guts of it. You throw that with an optimizer and scheduler in a training loop and you are pretty close to done! Check out the repository linked at the start of the repository for the full implementation with all the details.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../blog.xml">Blog RSS</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../til.xml">TIL RSS</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
