@@ -2,190 +2,186 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://isaac-flath.tech/blog.html</loc>
-    <lastmod>2023-02-22T03:01:20.519Z</lastmod>
-  </url>
-  <url>
-    <loc>https://isaac-flath.tech/consulting.html</loc>
-    <lastmod>2023-02-22T03:01:21.359Z</lastmod>
+    <lastmod>2023-02-27T00:51:30.221Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/ChatBots.html</loc>
-    <lastmod>2023-02-22T03:01:23.187Z</lastmod>
+    <lastmod>2023-02-27T00:51:31.889Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/RNNFoundations.html</loc>
-    <lastmod>2023-02-22T03:01:23.799Z</lastmod>
+    <lastmod>2023-02-27T00:51:32.425Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/PseudoLabelingDataCleaning.html</loc>
-    <lastmod>2023-02-22T03:01:24.367Z</lastmod>
+    <lastmod>2023-02-27T00:51:32.929Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/PlantPathologyKaggle.html</loc>
-    <lastmod>2023-02-22T03:01:25.063Z</lastmod>
+    <lastmod>2023-02-27T00:51:33.553Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/NeuralNetworkFoundationsP2.html</loc>
-    <lastmod>2023-02-22T03:01:25.683Z</lastmod>
+    <lastmod>2023-02-27T00:51:34.069Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/NLPTokenizationFoundations.html</loc>
-    <lastmod>2023-02-22T03:01:26.179Z</lastmod>
+    <lastmod>2023-02-27T00:51:34.453Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/MixupDeepDive.html</loc>
-    <lastmod>2023-02-22T03:01:26.739Z</lastmod>
+    <lastmod>2023-02-27T00:51:34.909Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/NeuralNetworkFoundationsP1.html</loc>
-    <lastmod>2023-02-22T03:01:27.475Z</lastmod>
+    <lastmod>2023-02-27T00:51:35.525Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/NeuralNetworks/NeuralNetworksXOR.html</loc>
-    <lastmod>2023-02-22T03:01:27.931Z</lastmod>
+    <lastmod>2023-02-27T00:51:35.937Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/TimeSeries/SimpleTimeSeries.html</loc>
-    <lastmod>2023-02-22T03:01:28.759Z</lastmod>
+    <lastmod>2023-02-27T00:51:36.633Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Statistics/BasicTesting.html</loc>
-    <lastmod>2023-02-22T03:01:29.819Z</lastmod>
+    <lastmod>2023-02-27T00:51:37.521Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Tabular/TabularModeling.html</loc>
-    <lastmod>2023-02-22T03:01:30.379Z</lastmod>
+    <lastmod>2023-02-27T00:51:37.997Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Tabular/PartialDependencePlotting.html</loc>
-    <lastmod>2023-02-22T03:01:30.944Z</lastmod>
+    <lastmod>2023-02-27T00:51:38.469Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/APL/BasicStats.html</loc>
-    <lastmod>2023-02-22T03:01:31.780Z</lastmod>
+    <lastmod>2023-02-27T00:51:39.149Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/APL/MatrixMultiplication.html</loc>
-    <lastmod>2023-02-22T03:01:32.580Z</lastmod>
+    <lastmod>2023-02-27T00:51:39.785Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/APL/APLAdventOfCode2022.html</loc>
-    <lastmod>2023-02-22T03:01:33.408Z</lastmod>
+    <lastmod>2023-02-27T00:51:40.461Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/APL/Fastai_Numerical_Linear_Algebra_1.html</loc>
-    <lastmod>2023-02-22T03:01:34.460Z</lastmod>
+    <lastmod>2023-02-27T00:51:41.349Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/APL/TabularData.html</loc>
-    <lastmod>2023-02-22T03:01:35.200Z</lastmod>
+    <lastmod>2023-02-27T00:51:41.953Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Python/PythonConcurrency.html</loc>
-    <lastmod>2023-02-22T03:01:35.844Z</lastmod>
+    <lastmod>2023-02-27T00:51:42.465Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Python/CodingStyle.html</loc>
-    <lastmod>2023-02-22T03:01:36.268Z</lastmod>
+    <lastmod>2023-02-27T00:51:42.817Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Python/Python.html</loc>
-    <lastmod>2023-02-22T03:01:37.100Z</lastmod>
+    <lastmod>2023-02-27T00:51:43.525Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Clustering/KMeansFromScratch.html</loc>
-    <lastmod>2023-02-22T03:01:37.556Z</lastmod>
+    <lastmod>2023-02-27T00:51:43.925Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch.html</loc>
-    <lastmod>2023-02-22T03:01:38.164Z</lastmod>
+    <lastmod>2023-02-27T00:51:44.429Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Other/QuartoDocumentsBestPractices.html</loc>
-    <lastmod>2023-02-22T03:01:38.604Z</lastmod>
+    <lastmod>2023-02-27T00:51:44.809Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Other/MarketingAttribution.html</loc>
-    <lastmod>2023-02-22T03:01:39.232Z</lastmod>
+    <lastmod>2023-02-27T00:51:45.321Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Other/QuartoBlogSubscriptions.html</loc>
-    <lastmod>2023-02-22T03:01:39.784Z</lastmod>
+    <lastmod>2023-02-27T00:51:45.821Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/Other/MultiArmedBandits.html</loc>
-    <lastmod>2023-02-22T03:01:40.356Z</lastmod>
+    <lastmod>2023-02-27T00:51:46.305Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GenerativeModels/StyleGanComponents.html</loc>
-    <lastmod>2023-02-22T03:01:40.916Z</lastmod>
+    <lastmod>2023-02-27T00:51:46.789Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GenerativeModels/CycleGanWalkThrough.html</loc>
-    <lastmod>2023-02-22T03:01:41.672Z</lastmod>
+    <lastmod>2023-02-27T00:51:47.553Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GenerativeModels/GANIntroduction.html</loc>
-    <lastmod>2023-02-22T03:01:42.144Z</lastmod>
+    <lastmod>2023-02-27T00:51:47.949Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html</loc>
-    <lastmod>2023-02-22T03:01:42.616Z</lastmod>
+    <lastmod>2023-02-27T00:51:48.341Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html</loc>
-    <lastmod>2023-02-22T03:01:43.008Z</lastmod>
+    <lastmod>2023-02-27T00:51:48.693Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html</loc>
-    <lastmod>2023-02-22T03:01:43.668Z</lastmod>
+    <lastmod>2023-02-27T00:51:49.201Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/testimonials.html</loc>
-    <lastmod>2023-02-22T03:01:45.268Z</lastmod>
+    <lastmod>2023-02-27T00:51:50.573Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/index.html</loc>
-    <lastmod>2023-02-22T03:01:45.656Z</lastmod>
+    <lastmod>2023-02-27T00:51:50.913Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</loc>
-    <lastmod>2023-02-22T03:01:46.812Z</lastmod>
+    <lastmod>2023-02-27T00:51:51.905Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</loc>
-    <lastmod>2023-02-22T03:01:47.232Z</lastmod>
+    <lastmod>2023-02-27T00:51:52.269Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</loc>
-    <lastmod>2023-02-22T03:01:47.596Z</lastmod>
+    <lastmod>2023-02-27T00:51:52.573Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/QuartoDrafts.html</loc>
-    <lastmod>2023-02-22T03:01:47.968Z</lastmod>
+    <lastmod>2023-02-27T00:51:52.893Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</loc>
-    <lastmod>2023-02-22T03:01:48.368Z</lastmod>
+    <lastmod>2023-02-27T00:51:53.205Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</loc>
-    <lastmod>2023-02-22T03:01:48.736Z</lastmod>
+    <lastmod>2023-02-27T00:51:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/JupyterIsJson.html</loc>
-    <lastmod>2023-02-22T03:01:49.132Z</lastmod>
+    <lastmod>2023-02-27T00:51:53.825Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</loc>
-    <lastmod>2023-02-22T03:01:49.528Z</lastmod>
+    <lastmod>2023-02-27T00:51:54.177Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/ShelveDB.html</loc>
-    <lastmod>2023-02-22T03:01:49.900Z</lastmod>
+    <lastmod>2023-02-27T00:51:54.509Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/til.html</loc>
-    <lastmod>2023-02-22T03:01:51.185Z</lastmod>
+    <lastmod>2023-02-27T00:51:55.581Z</lastmod>
   </url>
 </urlset>
