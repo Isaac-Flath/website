@@ -10,9 +10,7 @@ title-block-banner: true
 # Table of content settings
 toc: false
 
-css: styles.css
 number-sections: false
-theme: cosmo
 highlight-style: tango
 
 comments: 

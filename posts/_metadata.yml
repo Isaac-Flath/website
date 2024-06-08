@@ -11,9 +11,7 @@ title-block-banner: true
 toc: true
 toc-depth: 3
 
-css: styles.css
 number-sections: true
-theme: cosmo
 highlight-style: tango
 
 comments: 

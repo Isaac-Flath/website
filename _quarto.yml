@@ -7,7 +7,6 @@ website:
   google-analytics: "G-XNZGT59XWP"
   title: "Isaac Flath"
   favicon: favicon/favicon-32x32.png
-  margin-header: subscribe.html
   open-graph:
     locale: en_US
   twitter-card:
@@ -46,7 +45,8 @@ website:
         href: til.xml
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: 
+      light: cosmo
+      dark: cyborg
 
 

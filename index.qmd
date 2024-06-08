@@ -21,13 +21,11 @@ about:
       href: til.xml        
 ---
 
-Isaac Flath's personal website/blog.  For professional or career related topics [go here](isaacflath.website).
+# About Me
 
-# About Me 👋
+I am a data scientists focused on LLM based applications in education as well as creating structured data from unstructured sources.  I also help clients with wide variety of projects related to data engineering and data science.
 
-I'm a data scientist with a varied background who likes solving a variety of problems for clients.  My varied background has given me a wide range of skills that prove useful in all sorts of surprising ways.  I'm a big fan of learning new things.  Check out [my consulting page](isaacflath.website) for more information about what I can do for you.
-
-My primary hobby is dance.  I used to teach ballroom dance, which is where I met my partner, but now I mostly dance West Coast Swing.  My partner now runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.
+My primary hobby is dance.  I used to teach ballroom dance full time, which is where I met my partner.  After a career change into data science, I still teach dance part time as it is a source of joy for me.  My partner now runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.
 
 # My journey in stages 🚀
 
@@ -43,12 +41,12 @@ My primary hobby is dance.  I used to teach ballroom dance, which is where I met
 
 # 👨‍💻 How to get into data science 👩🏻‍💻
 
-I recommend working through the [fastai courses](https://course.fast.ai/).  These are fantastic courses that teach great content, but also in an approachable way that enable you to use what your learn on real problems right away!
+I recommend working through the [fastai courses](https://course.fast.ai/).  These are fantastic courses that teach great content, but also in an approachable way that enable you to use what your learn on real problems right away.
 
 **Tinker with everything.**  Try to never ask "Would it work if I did X?" or "Can I accomplish X by doing Y?".  Instead, try it and see if it works.  It's worth the time investment.
 
 **Do projects**  Do projects in parallel with courses, and after courses.  Don't wait.  Build stuff.  Doing projects should be where you put most of your time. 
 
-**Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [my FAQ](other/bloggingFAQ.qmd) for some help getting started!
+**Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [my FAQ](other/bloggingFAQ.qmd) for some help getting started.
 
 **Keep at it** and be tenacious.  There is discomfort with learning any skill. You'll be frustrated at times.  That's a sign that there's a concept worth learning and once you do figure it out you'll have made a big step forward.
