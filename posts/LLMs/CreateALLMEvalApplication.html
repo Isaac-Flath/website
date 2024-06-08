@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2022-07-10">
-<meta name="description" content="Matrix multiplication deep dive in APL">
+<meta name="dcterms.date" content="2020-06-10">
+<meta name="description" content="A walkthrough of creating an evaluation framework with Shiny for Python">
 
-<title>Isaac Flath - Matrix Multiplication</title>
+<title>Isaac Flath - Create a LLM Eval Application</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,7 +26,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -81,48 +81,16 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="Isaac Flath - Matrix Multiplication">
-<meta property="og:description" content="Matrix multiplication deep dive in APL">
-<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/APL.jpg">
+<meta property="og:title" content="Isaac Flath - Create a LLM Eval Application">
+<meta property="og:description" content="A walkthrough of creating an evaluation framework with Shiny for Python">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/LLMs.jpg">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Isaac Flath - Matrix Multiplication">
-<meta name="twitter:description" content="Matrix multiplication deep dive in APL">
-<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/APL.jpg">
+<meta name="twitter:title" content="Isaac Flath - Create a LLM Eval Application">
+<meta name="twitter:description" content="A walkthrough of creating an evaluation framework with Shiny for Python">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/LLMs.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
 </head>
@@ -172,15 +140,15 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Matrix Multiplication</h1>
+      <h1 class="title">Create a LLM Eval Application</h1>
                   <div>
         <div class="description">
-          Matrix multiplication deep dive in APL
+          A walkthrough of creating an evaluation framework with Shiny for Python
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">APL</div>
-                <div class="quarto-category">Linear Algebra</div>
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">Shiny</div>
               </div>
                   </div>
   </div>
@@ -198,7 +166,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 10, 2022</p>
+        <p class="date">June 10, 2020</p>
       </div>
     </div>
     
@@ -214,25 +182,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#vector-name-conventions" id="toc-vector-name-conventions" class="nav-link" data-scroll-target="#vector-name-conventions"><span class="header-section-number">2</span> Vector Name Conventions</a></li>
-  <li><a href="#matrix-multiplication-matrix-vector" id="toc-matrix-multiplication-matrix-vector" class="nav-link" data-scroll-target="#matrix-multiplication-matrix-vector"><span class="header-section-number">3</span> Matrix Multiplication (<code>matrix × vector</code>)</a>
-  <ul class="collapse">
-  <li><a href="#manual-calculation" id="toc-manual-calculation" class="nav-link" data-scroll-target="#manual-calculation"><span class="header-section-number">3.1</span> Manual Calculation</a></li>
-  <li><a href="#apl-calculation" id="toc-apl-calculation" class="nav-link" data-scroll-target="#apl-calculation"><span class="header-section-number">3.2</span> APL Calculation</a>
-  <ul class="collapse">
-  <li><a href="#dot" id="toc-dot" class="nav-link" data-scroll-target="#dot"><span class="header-section-number">3.2.1</span> Dot</a></li>
-  <li><a href="#apply-the-argument" id="toc-apply-the-argument" class="nav-link" data-scroll-target="#apply-the-argument"><span class="header-section-number">3.2.2</span> Apply the <code>⍵⍵</code> argument</a></li>
-  <li><a href="#apply-the-argument-1" id="toc-apply-the-argument-1" class="nav-link" data-scroll-target="#apply-the-argument-1"><span class="header-section-number">3.2.3</span> Apply the ⍺⍺ argument</a></li>
-  <li><a href="#dot-is-flexible" id="toc-dot-is-flexible" class="nav-link" data-scroll-target="#dot-is-flexible"><span class="header-section-number">3.2.4</span> Dot is flexible</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#matrix-multiplication-matrix-matrix" id="toc-matrix-multiplication-matrix-matrix" class="nav-link" data-scroll-target="#matrix-multiplication-matrix-matrix"><span class="header-section-number">4</span> Matrix Multiplication (<code>matrix × matrix</code>)</a>
-  <ul class="collapse">
-  <li><a href="#manual-calculation-1" id="toc-manual-calculation-1" class="nav-link" data-scroll-target="#manual-calculation-1"><span class="header-section-number">4.0.1</span> Manual Calculation</a></li>
-  <li><a href="#apply-the-argument-2" id="toc-apply-the-argument-2" class="nav-link" data-scroll-target="#apply-the-argument-2"><span class="header-section-number">4.0.2</span> Apply the <code>⍵⍵</code> argument</a></li>
-  <li><a href="#apply-the-argument-3" id="toc-apply-the-argument-3" class="nav-link" data-scroll-target="#apply-the-argument-3"><span class="header-section-number">4.0.3</span> Apply the ⍺⍺ argument</a></li>
-  </ul></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#the-evals" id="toc-the-evals" class="nav-link" data-scroll-target="#the-evals"><span class="header-section-number">2</span> The Evals</a></li>
   </ul>
 </nav>
     </div>
@@ -243,286 +194,38 @@ window.Quarto = {
 
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>I am working through a couple of linear algebra books/courses as I write this. All content in here will be heavily inspired by those resources:</p>
-<ul>
-<li>Gilbert Strang. 18.06 Linear Algebra. Spring 2010. Massachusetts Institute of Technology: MIT OpenCourseWare, https://ocw.mit.edu. License: Creative Commons BY-NC-SA.</li>
-<li>Applied Linear Algebra with A. P. L. by Garry Helzer (Author)</li>
-</ul>
-<p><strong>I have 2 main goals:</strong> + Learn Dyalog APL: APL works very differently than other languages I have done. By learning it I will learn another way of thinking and approaching problems. By having more ways to think and approach problems I become smarter. I want to be smarter. + Improve my mathematical foundation</p>
-<p>To do this I plan to go through math material and courses in Dyalog APL. In the beginning I will be reviewing basic math while learning APL, but eventually I will get to content where I am both learning APL and math at the same time. This is where I will document what I do.</p>
-<p><strong>Where to learn APL</strong></p>
-<p>Check out the <a href="https://forums.fast.ai/t/apl-array-programming/97188">fastai apl study group</a>, accompanying <a href="https://www.youtube.com/playlist?list=PLfYUBJiXbdtSgU6S_3l6pX-4hQYKNJZFU">videos</a>, and <a href="https://github.com/Isaac-Flath/anki/">anki decks</a> if you want to learn APL .</p>
-</section>
-<section id="vector-name-conventions" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Vector Name Conventions</h1>
-<p>For this (and other) posts I will follow the naming conventions in <a href="https://aplcart.info/">APL cart</a> to keep things consistent with the APL community. For convenience here they are:</p>
-<ul>
-<li>X, Y, Z: any type array </li>
-<li>M, N: numeric array </li>
-<li>I, J: integer array </li>
-<li>A, B: Boolean array </li>
-<li>C, D: character array </li>
-<li>f, g, h: function </li>
-<li>ax: bracket axis </li>
-<li>s: scalar </li>
-<li>v: vector </li>
-<li>m: matrix</li>
-</ul>
-<p>If you find it hard to keep track of - I would recommend making a short <a href="https://apps.ankiweb.net/">anki</a> deck to remember them.</p>
-</section>
-<section id="matrix-multiplication-matrix-vector" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Matrix Multiplication (<code>matrix × vector</code>)</h1>
-<p>Let’s start with a matrix and a vector and multiply them together. First, we define the our variables.</p>
-<div id="cell-5" class="cell">
-<pre class="apl cell-code"><code>⎕ ← M ← 2 2 ⍴ 2 5 1 3
-⎕ ← N ← 2 1 ⍴ 1 2</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→──┐
-↓2 5│
-│1 3│
-└~──┘
-</span>
+<section id="motivation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivation</h1>
+<p>When using LLMs in practice:</p>
+<ol type="1">
+<li>Evals are the most important thing to get right when working with LLMs</li>
+<li>The right evals are very use-case and domain dependent</li>
+</ol>
+<p>Because of this it is important to:</p>
+<ol type="1">
+<li>Have as much flexibility possible when working with evals.</li>
+<li>Be able to optimize your eval workflow</li>
+</ol>
+<p>The best way to do get that is to build your own eval application. Thanks to <a href="https://shiny.posit.co/py/">Shiny for Python</a> this isn’t as monumental of a task as it may sound and can be done completely in Python. This post will walk through building a sample eval application to help familiarize you with the process.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→┐
-↓1│
-│2│
-└~┘
-</span>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<section id="manual-calculation" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="manual-calculation"><span class="header-section-number">3.1</span> Manual Calculation</h2>
-<p>We take the rows of <code>N</code> times the columns of <code>M</code> to do a linear combination to do matrix multiplication.</p>
-<p><span class="math inline">\(1\begin{bmatrix}2\\1\end{bmatrix} + 2\begin{bmatrix}5\\3\end{bmatrix}\)</span></p>
-<p>We can do this exactly in APL and see our answer.</p>
-<div id="cell-8" class="cell">
-<pre class="apl cell-code"><code>⎕ ← (col1 ← M[;1] × N[1;]) + (col2 ← M[;2] × N[2;])</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→───┐
-│12 7│
-└~───┘
-</span>
+<div class="callout-body-container callout-body">
+<p>If you want to use a framework, I recommend <a href="https://github.com/UKGovernmentBEIS/inspect_ai">inspect_ai</a></p>
 </div>
 </div>
 </section>
-<section id="apl-calculation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="apl-calculation"><span class="header-section-number">3.2</span> APL Calculation</h2>
-<section id="dot" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="dot"><span class="header-section-number">3.2.1</span> Dot</h3>
-<p>in APL we would normally not write is all out but would write it using the dot (<code>.</code>) function. Let’s figure out what that is and how it works.</p>
-<p>The <code>.</code> applies the operators the surround it (<code>⍺⍺</code> and <code>⍵⍵</code>) in a specific way and order called an inner product.</p>
-<p>In our matrix multiplication problem it looks like this. <span class="math inline">\(\begin{bmatrix}(1⍵⍵2)⍺⍺(2⍵⍵5)\\(1⍵⍵1)⍺⍺(2⍵⍵3)\end{bmatrix}\)</span></p>
-<p>Let’s walk through this in our matrix multiplication example above one operator at a time to understand it a bit better</p>
-</section>
-<section id="apply-the-argument" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="apply-the-argument"><span class="header-section-number">3.2.2</span> Apply the <code>⍵⍵</code> argument</h3>
-<p>I like to visualize the first step like this:</p>
-<p><span class="math inline">\(\begin{bmatrix}⍵⍵&amp;&amp;1\\&amp;⍵⍵&amp;2\\2&amp;5&amp;\end{bmatrix}\)</span></p>
-<p><span class="math inline">\(\begin{bmatrix}⍵⍵&amp;&amp;1\\&amp;⍵⍵&amp;2\\1&amp;3&amp;\end{bmatrix}\)</span></p>
-<p>We first apply whatever the <code>⍵⍵</code> parameter is and combine elements. Just as we did above manually we need to do multiplication here so we know the <code>⍵⍵</code> parameter must be <code>×</code>. These calculation are:</p>
-<p>Matrix 1:</p>
-<ul>
-<li><code>1 × 2 = 2</code></li>
-<li><code>2 × 5 = 10</code></li>
-</ul>
-<p>Matrix 2:</p>
-<ul>
-<li><code>1 × 1 = 1</code></li>
-<li><code>2 × 3 = 6</code></li>
-</ul>
-<p>So far we have <code>⍺⍺.×</code>. We can show the result of our calculations above in matrices.</p>
-<p><span class="math inline">\(\begin{bmatrix}2&amp;⍺⍺\\&amp;10\end{bmatrix}\)</span></p>
-<p><span class="math inline">\(\begin{bmatrix}1&amp;⍺⍺\\&amp;6\end{bmatrix}\)</span></p>
-</section>
-<section id="apply-the-argument-1" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="apply-the-argument-1"><span class="header-section-number">3.2.3</span> Apply the ⍺⍺ argument</h3>
-<p>The next thing the <code>.</code> operator does is combine all the numbers in each of step 1 resulting matrices using <code>⍺⍺</code>. To get the linear combination we did above we need to add the numbers in each matrix, so the <code>⍺⍺</code> operator must be <code>+</code>.</p>
-<p>If we do that addition:</p>
-<ul>
-<li><p>Matrix 1: <code>2 + 10 = 12</code></p></li>
-<li><p>Matrix 2: <code>1 + 6 = 7</code></p></li>
-</ul>
-<p>Leaving us with our answer of <span class="math inline">\(\begin{bmatrix}12\\7\end{bmatrix}\)</span></p>
-<p>So to do matrix multiplication we simply need to use:</p>
-<div id="cell-16" class="cell">
-<pre class="apl cell-code"><code>M +.× N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→────┐
-↓17 24│
-│10 14│
-└~────┘
-</span>
-</div>
-</div>
-</section>
-<section id="dot-is-flexible" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="dot-is-flexible"><span class="header-section-number">3.2.4</span> Dot is flexible</h3>
-<p>This was just 1 example of using the <code>.</code> operator. We used <code>+</code> as <code>⍺⍺</code> and <code>×</code> as <code>⍵⍵</code> to fit what we needed for this problem.</p>
-<p>Now that we understand that, we can flip our operators and look at <code>×.+</code> instead of <code>+.×</code>. We can also do any number of other operators to do lots of different matrix operations. Take a look at the examples below and try calculating them by hand to see what you get!</p>
-<div id="cell-20" class="cell">
-<pre class="apl cell-code"><code>⍝ using addition.multiplication (normal matrix multiplication) 
-M+.×N </code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→─┐
-↓12│
-│ 7│
-└~─┘
-</span>
-</div>
-</div>
-<div id="cell-21" class="cell">
-<pre class="apl cell-code"><code>⍝ using multiplication.addition
-M×.+N </code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→─┐
-↓21│
-│10│
-└~─┘
-</span>
-</div>
-</div>
-<div id="cell-22" class="cell">
-<pre class="apl cell-code"><code>⍝ using max.min
-M⌈.⌊N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→┐
-↓2│
-│2│
-└~┘
-</span>
-</div>
-</div>
-<div id="cell-23" class="cell">
-<pre class="apl cell-code"><code>⍝ using addition.subtraction
-M-.+N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→─┐
-↓¯4│
-│¯3│
-└~─┘
-</span>
-</div>
-</div>
-<div id="cell-24" class="cell">
-<pre class="apl cell-code"><code>⍝ using exponent.division
-M*.÷N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→──────────┐
-↓5.656854249│
-│1          │
-└~──────────┘
-</span>
-</div>
-</div>
-<div id="cell-25" class="cell">
-<pre class="apl cell-code"><code>⍝ using factorial.natural_log
-M!.⍟N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→───────────┐
-↓1           │
-│0.6309297536│
-└~───────────┘
-</span>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="matrix-multiplication-matrix-matrix" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Matrix Multiplication (<code>matrix × matrix</code>)</h1>
-<p>As you might imagine we can do a variety of shapes. Because we are simply applying our addition and multiplication operators, any shapes where those operators work works. Let’s go through another example, this time with two 2x2 matrices.</p>
-<p>First we need to define our variables we want to multiply together.</p>
-<div id="cell-28" class="cell">
-<pre class="apl cell-code"><code>⎕ ← M ← 2 2 ⍴ 2 5 1 3
-⎕ ← N ← 2 2 ⍴ 1 2 3 4</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→──┐
-↓2 5│
-│1 3│
-└~──┘
-</span>
-</div>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→──┐
-↓1 2│
-│3 4│
-└~──┘
-</span>
-</div>
-</div>
-<section id="manual-calculation-1" class="level3" data-number="4.0.1">
-<h3 data-number="4.0.1" class="anchored" data-anchor-id="manual-calculation-1"><span class="header-section-number">4.0.1</span> Manual Calculation</h3>
-<p>We learned how to do matrix multiplication earlier which was just taking linear combinations of rows and columns. Let’s try to do that same thing here as well. In our previous example we were using all scalars because 1 row of <code>N</code> was a scalar, but let’s just follow our rule and put a vector in and see what happens.</p>
-<p><span class="math inline">\(\begin{bmatrix}([1,2]⍵⍵2)⍺⍺([3,4]⍵⍵5)\\([1,2]⍵⍵1)⍺⍺([3,4]⍵⍵3)\end{bmatrix}\)</span></p>
-<p>As you can see this matrix multiplication is still just a linear combination taking the rows of N × the column of M. I believe it is most intuitive to think of matrix multiplication as a linear combination of the columns of M.</p>
-<blockquote class="blockquote">
-<p>Note: There are many other ways to define functions to get the same number (such as using looping or recursion). The most intuitive way to think about something is not necessarily the most efficient way to program a function to tell a computer to calculate the number (which will depend on what programming language you are using).</p>
-</blockquote>
-<div id="cell-33" class="cell">
-<pre class="apl cell-code"><code>⎕←ans ← ((1 2 × 2) + (3 4 × 5)) ((1 2 × 1) + (3 4 × 3))</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→────────────────┐
-│ ┌→────┐ ┌→────┐ │
-│ │17 24│ │10 14│ │
-│ └~────┘ └~────┘ │
-└∊────────────────┘
-</span>
-</div>
-</div>
-<p>To make it equivilant to the apl operator we need to reshape this array of arrays into a 2 × 2</p>
-<div id="cell-35" class="cell">
-<pre class="apl cell-code"><code>⎕ ← ans ← 2 2 ⍴ ∊ ans</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→────┐
-↓17 24│
-│10 14│
-└~────┘
-</span>
-</div>
-</div>
-<p>Let’s use the matrix multiplication in APL to prove that it’s really getting the same answer. We can use <code>≡</code>to test for equality</p>
-<div id="cell-37" class="cell">
-<pre class="apl cell-code"><code>ans ≡ M +.× N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace"> 
-1
- 
-</span>
-</div>
-</div>
-<p>We can also see this in the same matrix format we did in our first example of a matrix and a vector, which is doing the same thing but I think illustrates it clearer. Let’s start with our problem again:</p>
-<p><span class="math inline">\(\begin{bmatrix}2&amp;5\\1&amp;3\end{bmatrix}\)</span> <span class="math inline">\(\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix}\)</span></p>
-</section>
-<section id="apply-the-argument-2" class="level3" data-number="4.0.2">
-<h3 data-number="4.0.2" class="anchored" data-anchor-id="apply-the-argument-2"><span class="header-section-number">4.0.2</span> Apply the <code>⍵⍵</code> argument</h3>
-<p><span class="math inline">\(\begin{bmatrix}⍵⍵&amp;&amp;[1,2]\\&amp;⍵⍵&amp;[3,4]\\2&amp;5&amp;\end{bmatrix}\)</span></p>
-<p><span class="math inline">\(\begin{bmatrix}⍵⍵&amp;&amp;[1,2]\\&amp;⍵⍵&amp;[3,4]\\1&amp;3&amp;\end{bmatrix}\)</span></p>
-<p>Since <code>⍵⍵</code> is <code>×</code> we do that first and get to our next step</p>
-</section>
-<section id="apply-the-argument-3" class="level3" data-number="4.0.3">
-<h3 data-number="4.0.3" class="anchored" data-anchor-id="apply-the-argument-3"><span class="header-section-number">4.0.3</span> Apply the ⍺⍺ argument</h3>
-<p><span class="math inline">\(\begin{bmatrix}[2,4]&amp;⍺⍺\\&amp;[15,20]\end{bmatrix}\)</span></p>
-<p><span class="math inline">\(\begin{bmatrix}[1,2]&amp;⍺⍺\\&amp;[9,12]\end{bmatrix}\)</span></p>
-<p><code>⍺⍺</code> is <code>+</code> so we can do the addition to end with</p>
-<p><span class="math inline">\(\begin{bmatrix}17&amp;24\end{bmatrix}\)</span></p>
-<p><span class="math inline">\(\begin{bmatrix}10&amp;14\end{bmatrix}\)</span></p>
-<p>Which again matches the inner product that APL does.</p>
-<div id="cell-45" class="cell">
-<pre class="apl cell-code"><code>M +.× N</code></pre>
-<div class="cell-output cell-output-display">
-<span style="white-space:pre; font-family: monospace">┌→────┐
-↓17 24│
-│10 14│
-└~────┘
-</span>
-</div>
-</div>
+<section id="the-evals" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Evals</h1>
+<p>For this example I doing a simple task. Given an address I want the LLM to clean and standardize it and return a JSON. While this isn’t the best LLM use-case, this is a really great use case for having lots of simple and easy evals to test. This will let us focus on building the framework and not get bogged down with the challenges of LLM evals.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

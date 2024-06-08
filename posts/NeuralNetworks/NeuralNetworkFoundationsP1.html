@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,11 +20,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -49,47 +50,17 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,17 +73,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -121,8 +100,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XNZGT59XWP"></script>
@@ -135,21 +116,47 @@ gtag('js', new Date());
 gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <meta property="og:title" content="Isaac Flath - Neural Network Foundations (Part 1)">
 <meta property="og:description" content="MNIST 3/7 classification from scratch with deep Learning">
 <meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
-<meta property="og:site-name" content="Isaac Flath">
+<meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:title" content="Isaac Flath - Neural Network Foundations (Part 1)">
 <meta name="twitter:description" content="MNIST 3/7 classification from scratch with deep Learning">
-<meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
 </head>
@@ -157,38 +164,41 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Isaac Flath</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">
- <span class="menu-text">About Me</span></a>
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog.html">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../til.html">
- <span class="menu-text">TIL</span></a>
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../testimonials.html">
- <span class="menu-text">Testimonials</span></a>
+    <a class="nav-link" href="../../testimonials.html"> 
+<span class="menu-text">Testimonials</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -232,998 +242,33 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-
-<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1667811");</style>
-    <style type="text/css">
-    /* LOADER */
-    .ml-form-embedSubmitLoad {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-    }
-
-    .g-recaptcha {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
-    height: ;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      border: 0;
-    }
-
-    .ml-form-embedSubmitLoad:after {
-      content: " ";
-      display: block;
-      width: 11px;
-      height: 11px;
-      margin: 1px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-    border-color: #ffffff #ffffff #ffffff transparent;
-    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
-    }
-    @keyframes ml-form-embedSubmitLoad {
-      0% {
-      transform: rotate(0deg);
-      }
-      100% {
-      transform: rotate(360deg);
-      }
-    }
-      #mlb2-2128741.ml-form-embedContainer {
-        box-sizing: border-box;
-        display: table;
-        margin: 0 auto;
-        position: static;
-        width: 100% !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer h4,
-      #mlb2-2128741.ml-form-embedContainer p,
-      #mlb2-2128741.ml-form-embedContainer span,
-      #mlb2-2128741.ml-form-embedContainer button {
-        text-transform: none !important;
-        letter-spacing: normal !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper {
-        background-color: #ffffff;
-        
-        border-width: 0px;
-        border-color: transparent;
-        border-radius: 4px;
-        border-style: solid;
-        box-sizing: border-box;
-        display: inline-block !important;
-        margin: 0;
-        padding: 0;
-        position: relative;
-              }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-align-left { text-align: left; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-align-center { text-align: center; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-align-right { text-align: right; }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        height: auto;
-        margin: 0 auto !important;
-        max-width: 100%;
-        width: undefinedpx;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
-        padding: 20px 20px 0 20px;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
-        padding-bottom: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
-        text-align: left;
-        margin: 0 0 20px 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
-        color: #000000;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 30px;
-        font-weight: 400;
-        margin: 0 0 10px 0;
-        text-align: left;
-        word-break: break-word;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
-        color: #000000;
-        font-family: 'Lato', Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        margin: 0 0 10px 0;
-        text-align: left;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
-        color: #000000;
-        font-family: 'Lato', Arial, Helvetica, sans-serif;
-        font-size: 14px;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
-        list-style-type: lower-alpha;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
-        list-style-type: lower-roman;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
-        color: #000000;
-        text-decoration: underline;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
-        text-align: left!important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
-        margin-bottom: 5px;
-        color: #333333;
-        font-size: 14px;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-weight: bold; font-style: normal; text-decoration: none;;
-        display: inline-block;
-        line-height: 20px;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
-        margin: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
-        margin: 0;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
-        margin: 0 0 20px 0;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
-        float: left;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
-        margin: 0;
-        padding: 0 0 20px 0;
-        width: 100%;
-        height: auto;
-        float: left;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
-        margin: 0 0 10px 0;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
-        margin: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
-        margin: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-        border-color: #cccccc;
-        border-radius: 4px !important;
-        border-style: solid !important;
-        border-width: 1px !important;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 14px !important;
-        height: auto;
-        line-height: 21px !important;
-        margin-bottom: 0;
-        margin-top: 0;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 10px 10px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        max-width: 100% !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-        border-color: #cccccc;
-        border-radius: 4px !important;
-        border-style: solid !important;
-        border-width: 1px !important;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 14px !important;
-        height: auto;
-        line-height: 21px !important;
-        margin-bottom: 0;
-        margin-top: 0;
-        padding: 10px 10px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        max-width: 100% !important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
-          border-color: #cccccc!important;
-          background-color: #ffffff!important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
-        box-sizing: border-box;
-        padding: 0;
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin-top: 5px;
-        margin-left: -1.5rem;
-        overflow: visible;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
-        border-radius: 4px!important;
-      }
-
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
-          border-color: #2780e3!important;
-          background-color: #2780e3!important;
-          color: #ffffff!important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
-           top: 2px;
-           box-sizing: border-box;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
-           top: 0px!important;
-           box-sizing: border-box!important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
-        top: 0px!important;
-           box-sizing: border-box!important;
-      }
-
-       #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
-            top: 0px!important;
-            box-sizing: border-box!important;
-            position: absolute;
-            left: -1.5rem;
-            display: block;
-            width: 1rem;
-            height: 1rem;
-            content: "";
-       }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
-        top: 0px!important;
-        box-sizing: border-box!important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
-          position: absolute;
-          top: 4px;
-          left: -1.5rem;
-          display: block;
-          width: 16px;
-          height: 16px;
-          pointer-events: none;
-          content: "";
-          background-color: #ffffff;
-          border: #adb5bd solid 1px;
-          border-radius: 50%;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
-          position: absolute;
-          top: 2px!important;
-          left: -1.5rem;
-          display: block;
-          width: 1rem;
-          height: 1rem;
-          content: "";
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
-          position: absolute;
-          top: 4px;
-          left: -1.5rem;
-          display: block;
-          width: 16px;
-          height: 16px;
-          pointer-events: none;
-          content: "";
-          background-color: #ffffff;
-          border: #adb5bd solid 1px;
-          border-radius: 50%;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
-          position: absolute;
-          top: 0px!important;
-          left: -1.5rem;
-          display: block;
-          width: 1rem;
-          height: 1rem;
-          content: "";
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
-          position: absolute;
-          top: 0px!important;
-          left: -1.5rem;
-          display: block;
-          width: 1rem;
-          height: 1rem;
-          content: "";
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
-          background: no-repeat 50%/50% 50%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
-          background: no-repeat 50%/50% 50%;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
-        position: relative;
-        display: block;
-        min-height: 1.5rem;
-        padding-left: 1.5rem;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
-          position: absolute;
-          z-index: -1;
-          opacity: 0;
-          box-sizing: border-box;
-          padding: 0;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
-          color: #000000;
-          font-size: 12px!important;
-          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-          line-height: 22px;
-          margin-bottom: 0;
-          position: relative;
-          vertical-align: top;
-          font-style: normal;
-          font-weight: 700;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
-        background-color: #ffffff !important;
-        color: #333333 !important;
-        border-color: #cccccc;
-        border-radius: 4px !important;
-        border-style: solid !important;
-        border-width: 1px !important;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 14px !important;
-        line-height: 20px !important;
-        margin-bottom: 0;
-        margin-top: 0;
-        padding: 10px 28px 10px 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        max-width: 100% !important;
-        height: auto;
-        display: inline-block;
-        vertical-align: middle;
-        background: url('https://cdn.mailerlite.com/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-      }
-
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
-        height: auto;
-        width: 100%;
-        float: left;
-      }
-      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
-      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
-      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
-      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
-        background-color: #ffffff;
-        color: #333333;
-        border-color: #cccccc;
-        border-radius: 4px;
-        border-style: solid;
-        border-width: 1px;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 0;
-        margin-top: 0;
-        padding: 10px 10px;
-        width: 100%;
-        box-sizing: border-box;
-        overflow-y: initial;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
-        background-color: #2780e3 !important;
-        border-color: #2780e3;
-        border-style: solid;
-        border-width: 1px;
-        border-radius: 4px;
-        box-shadow: none;
-        color: #ffffff !important;
-        cursor: pointer;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 14px !important;
-        font-weight: 700;
-        line-height: 20px;
-        margin: 0 !important;
-        padding: 10px !important;
-        width: 100%;
-        height: auto;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
-        background-color: #f059d6 !important;
-        border-color: #f059d6 !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
-        box-sizing: border-box;
-        padding: 0;
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin-top: 5px;
-        margin-left: -1.5rem;
-        overflow: visible;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
-        color: #000000;
-        display: block;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 12px;
-        text-align: left;
-        margin-bottom: 0;
-        position: relative;
-        vertical-align: top;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        display: block;
-        min-height: 24px;
-        padding-left: 24px;
-
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
-        color: #000000;
-        text-decoration: underline;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
-        color: #000000 !important;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
-        font-size: 12px !important;
-        font-weight: normal !important;
-        line-height: 18px !important;
-        padding: 0 !important;
-        margin: 0 5px 0 0 !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
-        margin: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
-        margin: 0 0 20px 0;
-        float: left;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
-        background-color: #2780e3 !important;
-        border: none !important;
-        border-radius: 4px !important;
-        box-shadow: none !important;
-        color: #ffffff !important;
-        cursor: pointer;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
-        font-size: 14px !important;
-        font-weight: 700 !important;
-        line-height: 21px !important;
-        height: auto;
-        padding: 10px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
-        display: none;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
-        background-color: #f059d6 !important;
-      }
-      .ml-subscribe-close {
-        width: 30px;
-        height: 30px;
-        background: url('https://cdn.mailerlite.com/images/default/modal_close.png') no-repeat;
-        background-size: 30px;
-        cursor: pointer;
-        margin-top: -10px;
-        margin-right: -10px;
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-      .ml-error input, .ml-error textarea, .ml-error select {
-        border-color: red!important;
-      }
-
-      .ml-error .custom-checkbox-radio-list {
-        border: 1px solid red !important;
-        border-radius: 4px;
-        padding: 10px;
-      }
-
-      .ml-error .label-description,
-      .ml-error .label-description p,
-      .ml-error .label-description p a,
-      .ml-error label:first-child {
-        color: #ff0000 !important;
-      }
-
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
-        color: #ff0000 !important;
-      }
-            @media only screen and (max-width: 400px){
-
-        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
-        .ml-form-formContent.horozintalForm { float: left!important; }
-        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
-        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
-        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
-        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
-        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
-
-      }
-    </style>
-
-    
-  
-    <style type="text/css">
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow {
-        margin-bottom: 20px;
-        text-align: left;
-        float: left;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox {
-        margin: 0 0 10px 0;
-        width: 100%;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox.last-group {
-        margin: 0;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow h4 {
-        color: ;
-        font-family: ;
-        font-size: px;
-        font-weight: ;
-        line-height: px;
-        margin: 0 0 10px 0;
-        text-align: left;
-        word-break: break-word;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox label {
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        display: block;
-        min-height: 24px;
-        padding-left: 24px;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description {
-        color: #000000;
-        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-        font-size: 12px;
-        line-height: 18px;
-        text-align: left;
-        margin-bottom: 0;
-        position: relative;
-        vertical-align: top;
-        font-style: normal;
-        font-weight: 700;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .description {
-        color: #000000;
-        font-family: 'Lato', Arial, Helvetica, sans-serif;
-        font-size: 12px;
-        font-style: italic;
-        font-weight: 400;
-        line-height: 18px;
-        margin: 5px 0 0 0;
-        text-align: left;
-      }
-      #mlb2-2128741.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type="checkbox"] {
-        box-sizing: border-box;
-        padding: 0;
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin-top: 5px;
-        margin-left: -1.5rem;
-        overflow: visible;
-      }
-    </style>
-    
-
-    
-    
-
-    
-    
-
-    
-
-      
-        
-        
-      
-
-      
-        
-        
-      
-
-      
-
-            
-            
-            
-            
-            
-            
-      
-
-      
-
-      
-        
-        
-         
-        
-        
-      
-
-        
-        
-        
-        
-        
-        
-      
-
-       
-
-        
-        
-        
-        
-        
-        
-        
-       
-
-
-      
-        
-        
-        
-        
-  
-
-
-
-  
-        
-        
-        
-      
-
-
-      
-    
-    
-    
-    
-    
-  
-
-  
-        
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-      
-
-       
-
-        
-        
-        
-        
-       
-
-       
-        
-        
-        
-        
-      
-
-      
-        
-        
-        
-        
-        
-        
-        
-       
-
-    
-
-    
-
-
-      
-
-
-      
-
-      
-      
-
-      
-
-      
-
-
-
-
-
-    
-
-      
-    <div id="mlb2-2128741" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2128741">
-      <div class="ml-form-align-center ">
-        <div class="ml-form-embedWrapper embedForm">
-
-          
-          
-
-          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-
-            <div class="ml-form-embedContent" style=" ">
-              
-                <h4>Subscribe</h4>
-                <p><br></p>
-              
-            </div>
-
-            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/220832/forms/71614977134299121/subscribe" data-code="" method="post" target="_blank">
-              <div class="ml-form-formContent">
-                
-
-                  
-                  <div class="ml-form-fieldRow ml-last-item">
-                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-
-                      
-
-
-                      <!-- input -->
-                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
-                      <!-- /input -->
-
-                      <!-- textarea -->
-                      
-                      <!-- /textarea -->
-
-                      <!-- select -->
-                      
-                      <!-- /select -->
-
-                      <!-- checkboxes -->
-            
-            <!-- /checkboxes -->
-
-                      <!-- radio -->
-                      
-                      <!-- /radio -->
-
-                      <!-- countries -->
-                      
-                      <!-- /countries -->
-
-
-
-
-
-                    </div>
-                  </div>
-                
-              </div>
-
-              
-
-              <!-- Privacy policy -->
-              
-              <!-- /Privacy policy -->
-
-              
-
-              <div class="ml-form-interestGroupsRow ml-block-groups ml-validate-required">
-                
-                    <div class="ml-form-interestGroupsRowCheckbox group" style="">
-                      <label>
-                        
-                        <input type="checkbox" name="groups[]" value="71614988342527788">
-                        <div class="label-description">Blog</div>
-                      </label>
-                      
-                      
-                    </div>
-                  
-                    <div class="ml-form-interestGroupsRowCheckbox last-group" style="">
-                      <label>
-                        
-                        <input type="checkbox" name="groups[]" value="71615004795733097">
-                        <div class="label-description">TIL</div>
-                      </label>
-                      
-                      
-                    </div>
-                  
-              </div>
-
-              
-
-
-
-
-
-
-              
-              <input type="hidden" name="ml-submit" value="1">
-
-              <div class="ml-form-embedSubmit">
-                
-                  <button type="submit" class="primary">Subscribe</button>
-                
-                <button disabled="disabled" style="display: none;" type="button" class="loading">
-                  <div class="ml-form-embedSubmitLoad"></div>
-                  <span class="sr-only">Loading...</span>
-                </button>
-              </div>
-
-              
-              <input type="hidden" name="anticsrf" value="true">
-            </form>
-          </div>
-
-          <div class="ml-form-successBody row-success" style="display: none">
-
-            <div class="ml-form-successContent">
-              
-                <h4>Thank you!</h4>
-                
-                  <p>You have successfully joined our subscriber list.</p>
-                
-              
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-  
-
-  
-  
-  <script>
-    function ml_webform_success_2128741() {
-      var $ = ml_jQuery || jQuery;
-      $('.ml-subscribe-form-2128741 .row-success').show();
-      $('.ml-subscribe-form-2128741 .row-form').hide();
-    }
-      </script>
-  
-  
-      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v491724307ca3b85c1c754857e93994e5" type="text/javascript"></script>
-</div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="toc-section-number">1</span>  Intro</a></li>
-  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="toc-section-number">2</span>  Load the Data</a></li>
-  <li><a href="#defining-our-linear-equation" id="toc-defining-our-linear-equation" class="nav-link" data-scroll-target="#defining-our-linear-equation"><span class="toc-section-number">3</span>  Defining our Linear Equation</a>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro"><span class="header-section-number">1</span> Intro</a></li>
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="header-section-number">2</span> Load the Data</a></li>
+  <li><a href="#defining-our-linear-equation" id="toc-defining-our-linear-equation" class="nav-link" data-scroll-target="#defining-our-linear-equation"><span class="header-section-number">3</span> Defining our Linear Equation</a>
   <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">3.0.1</span>  Setup</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">3.0.1</span> Setup</a></li>
   </ul></li>
-  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="toc-section-number">4</span>  Loss Function</a></li>
-  <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent"><span class="toc-section-number">5</span>  Gradient Descent</a>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">4</span> Loss Function</a></li>
+  <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent"><span class="header-section-number">5</span> Gradient Descent</a>
   <ul class="collapse">
-  <li><a href="#background-and-setup" id="toc-background-and-setup" class="nav-link" data-scroll-target="#background-and-setup"><span class="toc-section-number">5.0.1</span>  Background and Setup</a></li>
-  <li><a href="#calculate-the-gradient" id="toc-calculate-the-gradient" class="nav-link" data-scroll-target="#calculate-the-gradient"><span class="toc-section-number">5.0.2</span>  Calculate the Gradient</a></li>
-  <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model"><span class="toc-section-number">5.0.3</span>  Training the Model</a></li>
-  <li><a href="#linear-recap" id="toc-linear-recap" class="nav-link" data-scroll-target="#linear-recap"><span class="toc-section-number">5.0.4</span>  Linear Recap</a></li>
+  <li><a href="#background-and-setup" id="toc-background-and-setup" class="nav-link" data-scroll-target="#background-and-setup"><span class="header-section-number">5.0.1</span> Background and Setup</a></li>
+  <li><a href="#calculate-the-gradient" id="toc-calculate-the-gradient" class="nav-link" data-scroll-target="#calculate-the-gradient"><span class="header-section-number">5.0.2</span> Calculate the Gradient</a></li>
+  <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model"><span class="header-section-number">5.0.3</span> Training the Model</a></li>
+  <li><a href="#linear-recap" id="toc-linear-recap" class="nav-link" data-scroll-target="#linear-recap"><span class="header-section-number">5.0.4</span> Linear Recap</a></li>
   </ul></li>
-  <li><a href="#relu" id="toc-relu" class="nav-link" data-scroll-target="#relu"><span class="toc-section-number">6</span>  ReLu</a>
+  <li><a href="#relu" id="toc-relu" class="nav-link" data-scroll-target="#relu"><span class="header-section-number">6</span> ReLu</a>
   <ul class="collapse">
-  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it"><span class="toc-section-number">6.0.1</span>  What is it?</a></li>
-  <li><a href="#in-a-neural-network" id="toc-in-a-neural-network" class="nav-link" data-scroll-target="#in-a-neural-network"><span class="toc-section-number">6.0.2</span>  In a Neural Network</a></li>
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it"><span class="header-section-number">6.0.1</span> What is it?</a></li>
+  <li><a href="#in-a-neural-network" id="toc-in-a-neural-network" class="nav-link" data-scroll-target="#in-a-neural-network"><span class="header-section-number">6.0.2</span> In a Neural Network</a></li>
   </ul></li>
-  <li><a href="#train-the-full-neural-network" id="toc-train-the-full-neural-network" class="nav-link" data-scroll-target="#train-the-full-neural-network"><span class="toc-section-number">7</span>  Train the Full Neural Network</a></li>
-  <li><a href="#recap-of-tensor-shapes" id="toc-recap-of-tensor-shapes" class="nav-link" data-scroll-target="#recap-of-tensor-shapes"><span class="toc-section-number">8</span>  Recap of Tensor Shapes</a></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="toc-section-number">9</span>  What’s Next?</a></li>
+  <li><a href="#train-the-full-neural-network" id="toc-train-the-full-neural-network" class="nav-link" data-scroll-target="#train-the-full-neural-network"><span class="header-section-number">7</span> Train the Full Neural Network</a></li>
+  <li><a href="#recap-of-tensor-shapes" id="toc-recap-of-tensor-shapes" class="nav-link" data-scroll-target="#recap-of-tensor-shapes"><span class="header-section-number">8</span> Recap of Tensor Shapes</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next"><span class="header-section-number">9</span> What’s Next?</a></li>
   </ul>
 </nav>
     </div>
@@ -1233,7 +278,8 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 
-<div class="cell">
+
+<div id="cell-1" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.data.external <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
@@ -1246,12 +292,12 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <section id="intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
 <p>Today we will be working with a subset of the MNIST dataset. The goal is going to be to take an image of handwritten digits and automatically predict whether it is a 3 or a 7. We will be building a Neural Network to do this.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -1263,7 +309,7 @@ Note
 <section id="load-the-data" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Load the Data</h1>
 <p>The first step is to get and load the data. We’ll look at it a bit along the way to make sure it was loaded properly and we understand it. We will be using fastai’s built in dataset feature rather than sourcing it ourself.</p>
-<div class="cell">
+<div id="cell-4" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This command downloads the MNIST_TINY dataset and returns the path where it was downloaded</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(URLs.MNIST_TINY)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1273,15 +319,19 @@ Note
 </div>
 <p>Let’s take a look at an image. The first thing I reccomend doing for any dataset is to view something to verify you loaded it right. The second thing is to look at the size of it. This is not just for memory concerns, but you want to generally know some basics about whatever you are working with.</p>
 <p>Now that we’ve loaded our images let’s look at what one looks like.</p>
-<div class="cell">
+<div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>im3 <span class="op">=</span> Image.<span class="bu">open</span>(threes[<span class="dv">1</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>im3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Under the hood it’s just a 28x28 matrix!</p>
-<div class="cell">
+<div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tensor(im3).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([28, 28])</code></pre>
@@ -1289,10 +339,9 @@ Note
 </div>
 <p>Let’s put the matrix into a pandas dataframe. We will then color each cell based on the value in that cell.</p>
 <p>When we do that, we can clearly see that this is a 3 just from the values in the tensor. This should give a good idea for the data we are working with and how an image can be worked with (it’s just a bunch of numbers).</p>
-<div class="cell">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(tensor(im3)).loc[<span class="dv">3</span>:<span class="dv">24</span>,<span class="dv">6</span>:<span class="dv">20</span>].style.set_properties(<span class="op">**</span>{<span class="st">'font-size'</span>:<span class="st">'6pt'</span>}).background_gradient(<span class="st">'Greys'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <style type="text/css">
 #T_62b58_row0_col0, #T_62b58_row0_col1, #T_62b58_row0_col2, #T_62b58_row0_col3, #T_62b58_row0_col4, #T_62b58_row0_col5, #T_62b58_row0_col6, #T_62b58_row0_col7, #T_62b58_row0_col8, #T_62b58_row0_col9, #T_62b58_row0_col10, #T_62b58_row0_col11, #T_62b58_row0_col12, #T_62b58_row0_col13, #T_62b58_row0_col14, #T_62b58_row1_col0, #T_62b58_row1_col1, #T_62b58_row1_col2, #T_62b58_row1_col9, #T_62b58_row1_col10, #T_62b58_row1_col11, #T_62b58_row1_col12, #T_62b58_row1_col13, #T_62b58_row1_col14, #T_62b58_row2_col0, #T_62b58_row2_col11, #T_62b58_row2_col12, #T_62b58_row2_col13, #T_62b58_row2_col14, #T_62b58_row3_col0, #T_62b58_row3_col12, #T_62b58_row3_col13, #T_62b58_row3_col14, #T_62b58_row4_col0, #T_62b58_row4_col1, #T_62b58_row4_col12, #T_62b58_row4_col13, #T_62b58_row4_col14, #T_62b58_row5_col0, #T_62b58_row5_col1, #T_62b58_row5_col2, #T_62b58_row5_col6, #T_62b58_row5_col13, #T_62b58_row5_col14, #T_62b58_row6_col0, #T_62b58_row6_col1, #T_62b58_row6_col2, #T_62b58_row6_col3, #T_62b58_row6_col4, #T_62b58_row6_col6, #T_62b58_row6_col13, #T_62b58_row6_col14, #T_62b58_row7_col0, #T_62b58_row7_col1, #T_62b58_row7_col2, #T_62b58_row7_col3, #T_62b58_row7_col4, #T_62b58_row7_col5, #T_62b58_row7_col6, #T_62b58_row7_col13, #T_62b58_row7_col14, #T_62b58_row8_col0, #T_62b58_row8_col1, #T_62b58_row8_col2, #T_62b58_row8_col3, #T_62b58_row8_col4, #T_62b58_row8_col5, #T_62b58_row8_col6, #T_62b58_row8_col12, #T_62b58_row8_col13, #T_62b58_row8_col14, #T_62b58_row9_col0, #T_62b58_row9_col1, #T_62b58_row9_col2, #T_62b58_row9_col3, #T_62b58_row9_col4, #T_62b58_row9_col5, #T_62b58_row9_col6, #T_62b58_row9_col12, #T_62b58_row9_col13, #T_62b58_row9_col14, #T_62b58_row10_col0, #T_62b58_row10_col1, #T_62b58_row10_col2, #T_62b58_row10_col3, #T_62b58_row10_col4, #T_62b58_row10_col12, #T_62b58_row10_col13, #T_62b58_row10_col14, #T_62b58_row11_col0, #T_62b58_row11_col1, #T_62b58_row11_col2, #T_62b58_row11_col3, #T_62b58_row11_col4, #T_62b58_row11_col11, #T_62b58_row11_col12, #T_62b58_row11_col13, #T_62b58_row11_col14, #T_62b58_row12_col0, #T_62b58_row12_col1, #T_62b58_row12_col2, #T_62b58_row12_col3, #T_62b58_row12_col4, #T_62b58_row12_col12, #T_62b58_row12_col13, #T_62b58_row12_col14, #T_62b58_row13_col0, #T_62b58_row13_col1, #T_62b58_row13_col2, #T_62b58_row13_col3, #T_62b58_row13_col4, #T_62b58_row13_col13, #T_62b58_row13_col14, #T_62b58_row14_col0, #T_62b58_row14_col1, #T_62b58_row14_col2, #T_62b58_row14_col3, #T_62b58_row14_col4, #T_62b58_row14_col5, #T_62b58_row14_col6, #T_62b58_row14_col13, #T_62b58_row14_col14, #T_62b58_row15_col0, #T_62b58_row15_col1, #T_62b58_row15_col2, #T_62b58_row15_col14, #T_62b58_row16_col0, #T_62b58_row16_col1, #T_62b58_row16_col2, #T_62b58_row16_col14, #T_62b58_row17_col0, #T_62b58_row17_col1, #T_62b58_row17_col2, #T_62b58_row17_col13, #T_62b58_row17_col14, #T_62b58_row18_col0, #T_62b58_row18_col1, #T_62b58_row18_col2, #T_62b58_row18_col13, #T_62b58_row18_col14, #T_62b58_row19_col0, #T_62b58_row19_col1, #T_62b58_row19_col2, #T_62b58_row19_col3, #T_62b58_row19_col13, #T_62b58_row19_col14, #T_62b58_row20_col0, #T_62b58_row20_col1, #T_62b58_row20_col2, #T_62b58_row20_col3, #T_62b58_row20_col4, #T_62b58_row20_col5, #T_62b58_row20_col6, #T_62b58_row20_col12, #T_62b58_row20_col13, #T_62b58_row20_col14, #T_62b58_row21_col0, #T_62b58_row21_col1, #T_62b58_row21_col2, #T_62b58_row21_col3, #T_62b58_row21_col4, #T_62b58_row21_col5, #T_62b58_row21_col6, #T_62b58_row21_col7, #T_62b58_row21_col8, #T_62b58_row21_col9, #T_62b58_row21_col10, #T_62b58_row21_col11, #T_62b58_row21_col12, #T_62b58_row21_col13, #T_62b58_row21_col14 {
   font-size: 6pt;
@@ -1610,425 +659,426 @@ Note
   color: #000000;
 }
 </style>
-<table id="T_62b58_">
-  <thead>
-    <tr>
-      <th class="blank level0">&nbsp;</th>
-      <th class="col_heading level0 col0">6</th>
-      <th class="col_heading level0 col1">7</th>
-      <th class="col_heading level0 col2">8</th>
-      <th class="col_heading level0 col3">9</th>
-      <th class="col_heading level0 col4">10</th>
-      <th class="col_heading level0 col5">11</th>
-      <th class="col_heading level0 col6">12</th>
-      <th class="col_heading level0 col7">13</th>
-      <th class="col_heading level0 col8">14</th>
-      <th class="col_heading level0 col9">15</th>
-      <th class="col_heading level0 col10">16</th>
-      <th class="col_heading level0 col11">17</th>
-      <th class="col_heading level0 col12">18</th>
-      <th class="col_heading level0 col13">19</th>
-      <th class="col_heading level0 col14">20</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_62b58_level0_row0" class="row_heading level0 row0">3</th>
-      <td id="T_62b58_row0_col0" class="data row0 col0">0</td>
-      <td id="T_62b58_row0_col1" class="data row0 col1">0</td>
-      <td id="T_62b58_row0_col2" class="data row0 col2">0</td>
-      <td id="T_62b58_row0_col3" class="data row0 col3">0</td>
-      <td id="T_62b58_row0_col4" class="data row0 col4">0</td>
-      <td id="T_62b58_row0_col5" class="data row0 col5">0</td>
-      <td id="T_62b58_row0_col6" class="data row0 col6">0</td>
-      <td id="T_62b58_row0_col7" class="data row0 col7">0</td>
-      <td id="T_62b58_row0_col8" class="data row0 col8">0</td>
-      <td id="T_62b58_row0_col9" class="data row0 col9">0</td>
-      <td id="T_62b58_row0_col10" class="data row0 col10">0</td>
-      <td id="T_62b58_row0_col11" class="data row0 col11">0</td>
-      <td id="T_62b58_row0_col12" class="data row0 col12">0</td>
-      <td id="T_62b58_row0_col13" class="data row0 col13">0</td>
-      <td id="T_62b58_row0_col14" class="data row0 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row1" class="row_heading level0 row1">4</th>
-      <td id="T_62b58_row1_col0" class="data row1 col0">0</td>
-      <td id="T_62b58_row1_col1" class="data row1 col1">0</td>
-      <td id="T_62b58_row1_col2" class="data row1 col2">0</td>
-      <td id="T_62b58_row1_col3" class="data row1 col3">77</td>
-      <td id="T_62b58_row1_col4" class="data row1 col4">181</td>
-      <td id="T_62b58_row1_col5" class="data row1 col5">254</td>
-      <td id="T_62b58_row1_col6" class="data row1 col6">255</td>
-      <td id="T_62b58_row1_col7" class="data row1 col7">95</td>
-      <td id="T_62b58_row1_col8" class="data row1 col8">88</td>
-      <td id="T_62b58_row1_col9" class="data row1 col9">0</td>
-      <td id="T_62b58_row1_col10" class="data row1 col10">0</td>
-      <td id="T_62b58_row1_col11" class="data row1 col11">0</td>
-      <td id="T_62b58_row1_col12" class="data row1 col12">0</td>
-      <td id="T_62b58_row1_col13" class="data row1 col13">0</td>
-      <td id="T_62b58_row1_col14" class="data row1 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row2" class="row_heading level0 row2">5</th>
-      <td id="T_62b58_row2_col0" class="data row2 col0">0</td>
-      <td id="T_62b58_row2_col1" class="data row2 col1">3</td>
-      <td id="T_62b58_row2_col2" class="data row2 col2">97</td>
-      <td id="T_62b58_row2_col3" class="data row2 col3">242</td>
-      <td id="T_62b58_row2_col4" class="data row2 col4">253</td>
-      <td id="T_62b58_row2_col5" class="data row2 col5">253</td>
-      <td id="T_62b58_row2_col6" class="data row2 col6">253</td>
-      <td id="T_62b58_row2_col7" class="data row2 col7">253</td>
-      <td id="T_62b58_row2_col8" class="data row2 col8">251</td>
-      <td id="T_62b58_row2_col9" class="data row2 col9">117</td>
-      <td id="T_62b58_row2_col10" class="data row2 col10">15</td>
-      <td id="T_62b58_row2_col11" class="data row2 col11">0</td>
-      <td id="T_62b58_row2_col12" class="data row2 col12">0</td>
-      <td id="T_62b58_row2_col13" class="data row2 col13">0</td>
-      <td id="T_62b58_row2_col14" class="data row2 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row3" class="row_heading level0 row3">6</th>
-      <td id="T_62b58_row3_col0" class="data row3 col0">0</td>
-      <td id="T_62b58_row3_col1" class="data row3 col1">20</td>
-      <td id="T_62b58_row3_col2" class="data row3 col2">198</td>
-      <td id="T_62b58_row3_col3" class="data row3 col3">253</td>
-      <td id="T_62b58_row3_col4" class="data row3 col4">253</td>
-      <td id="T_62b58_row3_col5" class="data row3 col5">253</td>
-      <td id="T_62b58_row3_col6" class="data row3 col6">253</td>
-      <td id="T_62b58_row3_col7" class="data row3 col7">253</td>
-      <td id="T_62b58_row3_col8" class="data row3 col8">253</td>
-      <td id="T_62b58_row3_col9" class="data row3 col9">253</td>
-      <td id="T_62b58_row3_col10" class="data row3 col10">239</td>
-      <td id="T_62b58_row3_col11" class="data row3 col11">59</td>
-      <td id="T_62b58_row3_col12" class="data row3 col12">0</td>
-      <td id="T_62b58_row3_col13" class="data row3 col13">0</td>
-      <td id="T_62b58_row3_col14" class="data row3 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row4" class="row_heading level0 row4">7</th>
-      <td id="T_62b58_row4_col0" class="data row4 col0">0</td>
-      <td id="T_62b58_row4_col1" class="data row4 col1">0</td>
-      <td id="T_62b58_row4_col2" class="data row4 col2">108</td>
-      <td id="T_62b58_row4_col3" class="data row4 col3">248</td>
-      <td id="T_62b58_row4_col4" class="data row4 col4">253</td>
-      <td id="T_62b58_row4_col5" class="data row4 col5">244</td>
-      <td id="T_62b58_row4_col6" class="data row4 col6">220</td>
-      <td id="T_62b58_row4_col7" class="data row4 col7">231</td>
-      <td id="T_62b58_row4_col8" class="data row4 col8">253</td>
-      <td id="T_62b58_row4_col9" class="data row4 col9">253</td>
-      <td id="T_62b58_row4_col10" class="data row4 col10">253</td>
-      <td id="T_62b58_row4_col11" class="data row4 col11">138</td>
-      <td id="T_62b58_row4_col12" class="data row4 col12">0</td>
-      <td id="T_62b58_row4_col13" class="data row4 col13">0</td>
-      <td id="T_62b58_row4_col14" class="data row4 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row5" class="row_heading level0 row5">8</th>
-      <td id="T_62b58_row5_col0" class="data row5 col0">0</td>
-      <td id="T_62b58_row5_col1" class="data row5 col1">0</td>
-      <td id="T_62b58_row5_col2" class="data row5 col2">0</td>
-      <td id="T_62b58_row5_col3" class="data row5 col3">110</td>
-      <td id="T_62b58_row5_col4" class="data row5 col4">129</td>
-      <td id="T_62b58_row5_col5" class="data row5 col5">176</td>
-      <td id="T_62b58_row5_col6" class="data row5 col6">0</td>
-      <td id="T_62b58_row5_col7" class="data row5 col7">83</td>
-      <td id="T_62b58_row5_col8" class="data row5 col8">253</td>
-      <td id="T_62b58_row5_col9" class="data row5 col9">253</td>
-      <td id="T_62b58_row5_col10" class="data row5 col10">253</td>
-      <td id="T_62b58_row5_col11" class="data row5 col11">194</td>
-      <td id="T_62b58_row5_col12" class="data row5 col12">24</td>
-      <td id="T_62b58_row5_col13" class="data row5 col13">0</td>
-      <td id="T_62b58_row5_col14" class="data row5 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row6" class="row_heading level0 row6">9</th>
-      <td id="T_62b58_row6_col0" class="data row6 col0">0</td>
-      <td id="T_62b58_row6_col1" class="data row6 col1">0</td>
-      <td id="T_62b58_row6_col2" class="data row6 col2">0</td>
-      <td id="T_62b58_row6_col3" class="data row6 col3">0</td>
-      <td id="T_62b58_row6_col4" class="data row6 col4">0</td>
-      <td id="T_62b58_row6_col5" class="data row6 col5">26</td>
-      <td id="T_62b58_row6_col6" class="data row6 col6">0</td>
-      <td id="T_62b58_row6_col7" class="data row6 col7">83</td>
-      <td id="T_62b58_row6_col8" class="data row6 col8">253</td>
-      <td id="T_62b58_row6_col9" class="data row6 col9">253</td>
-      <td id="T_62b58_row6_col10" class="data row6 col10">253</td>
-      <td id="T_62b58_row6_col11" class="data row6 col11">253</td>
-      <td id="T_62b58_row6_col12" class="data row6 col12">48</td>
-      <td id="T_62b58_row6_col13" class="data row6 col13">0</td>
-      <td id="T_62b58_row6_col14" class="data row6 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row7" class="row_heading level0 row7">10</th>
-      <td id="T_62b58_row7_col0" class="data row7 col0">0</td>
-      <td id="T_62b58_row7_col1" class="data row7 col1">0</td>
-      <td id="T_62b58_row7_col2" class="data row7 col2">0</td>
-      <td id="T_62b58_row7_col3" class="data row7 col3">0</td>
-      <td id="T_62b58_row7_col4" class="data row7 col4">0</td>
-      <td id="T_62b58_row7_col5" class="data row7 col5">0</td>
-      <td id="T_62b58_row7_col6" class="data row7 col6">0</td>
-      <td id="T_62b58_row7_col7" class="data row7 col7">83</td>
-      <td id="T_62b58_row7_col8" class="data row7 col8">253</td>
-      <td id="T_62b58_row7_col9" class="data row7 col9">253</td>
-      <td id="T_62b58_row7_col10" class="data row7 col10">253</td>
-      <td id="T_62b58_row7_col11" class="data row7 col11">189</td>
-      <td id="T_62b58_row7_col12" class="data row7 col12">22</td>
-      <td id="T_62b58_row7_col13" class="data row7 col13">0</td>
-      <td id="T_62b58_row7_col14" class="data row7 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row8" class="row_heading level0 row8">11</th>
-      <td id="T_62b58_row8_col0" class="data row8 col0">0</td>
-      <td id="T_62b58_row8_col1" class="data row8 col1">0</td>
-      <td id="T_62b58_row8_col2" class="data row8 col2">0</td>
-      <td id="T_62b58_row8_col3" class="data row8 col3">0</td>
-      <td id="T_62b58_row8_col4" class="data row8 col4">0</td>
-      <td id="T_62b58_row8_col5" class="data row8 col5">0</td>
-      <td id="T_62b58_row8_col6" class="data row8 col6">0</td>
-      <td id="T_62b58_row8_col7" class="data row8 col7">83</td>
-      <td id="T_62b58_row8_col8" class="data row8 col8">253</td>
-      <td id="T_62b58_row8_col9" class="data row8 col9">253</td>
-      <td id="T_62b58_row8_col10" class="data row8 col10">253</td>
-      <td id="T_62b58_row8_col11" class="data row8 col11">138</td>
-      <td id="T_62b58_row8_col12" class="data row8 col12">0</td>
-      <td id="T_62b58_row8_col13" class="data row8 col13">0</td>
-      <td id="T_62b58_row8_col14" class="data row8 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row9" class="row_heading level0 row9">12</th>
-      <td id="T_62b58_row9_col0" class="data row9 col0">0</td>
-      <td id="T_62b58_row9_col1" class="data row9 col1">0</td>
-      <td id="T_62b58_row9_col2" class="data row9 col2">0</td>
-      <td id="T_62b58_row9_col3" class="data row9 col3">0</td>
-      <td id="T_62b58_row9_col4" class="data row9 col4">0</td>
-      <td id="T_62b58_row9_col5" class="data row9 col5">0</td>
-      <td id="T_62b58_row9_col6" class="data row9 col6">0</td>
-      <td id="T_62b58_row9_col7" class="data row9 col7">183</td>
-      <td id="T_62b58_row9_col8" class="data row9 col8">253</td>
-      <td id="T_62b58_row9_col9" class="data row9 col9">253</td>
-      <td id="T_62b58_row9_col10" class="data row9 col10">253</td>
-      <td id="T_62b58_row9_col11" class="data row9 col11">138</td>
-      <td id="T_62b58_row9_col12" class="data row9 col12">0</td>
-      <td id="T_62b58_row9_col13" class="data row9 col13">0</td>
-      <td id="T_62b58_row9_col14" class="data row9 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row10" class="row_heading level0 row10">13</th>
-      <td id="T_62b58_row10_col0" class="data row10 col0">0</td>
-      <td id="T_62b58_row10_col1" class="data row10 col1">0</td>
-      <td id="T_62b58_row10_col2" class="data row10 col2">0</td>
-      <td id="T_62b58_row10_col3" class="data row10 col3">0</td>
-      <td id="T_62b58_row10_col4" class="data row10 col4">0</td>
-      <td id="T_62b58_row10_col5" class="data row10 col5">65</td>
-      <td id="T_62b58_row10_col6" class="data row10 col6">246</td>
-      <td id="T_62b58_row10_col7" class="data row10 col7">253</td>
-      <td id="T_62b58_row10_col8" class="data row10 col8">253</td>
-      <td id="T_62b58_row10_col9" class="data row10 col9">253</td>
-      <td id="T_62b58_row10_col10" class="data row10 col10">175</td>
-      <td id="T_62b58_row10_col11" class="data row10 col11">4</td>
-      <td id="T_62b58_row10_col12" class="data row10 col12">0</td>
-      <td id="T_62b58_row10_col13" class="data row10 col13">0</td>
-      <td id="T_62b58_row10_col14" class="data row10 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row11" class="row_heading level0 row11">14</th>
-      <td id="T_62b58_row11_col0" class="data row11 col0">0</td>
-      <td id="T_62b58_row11_col1" class="data row11 col1">0</td>
-      <td id="T_62b58_row11_col2" class="data row11 col2">0</td>
-      <td id="T_62b58_row11_col3" class="data row11 col3">0</td>
-      <td id="T_62b58_row11_col4" class="data row11 col4">0</td>
-      <td id="T_62b58_row11_col5" class="data row11 col5">172</td>
-      <td id="T_62b58_row11_col6" class="data row11 col6">253</td>
-      <td id="T_62b58_row11_col7" class="data row11 col7">253</td>
-      <td id="T_62b58_row11_col8" class="data row11 col8">253</td>
-      <td id="T_62b58_row11_col9" class="data row11 col9">253</td>
-      <td id="T_62b58_row11_col10" class="data row11 col10">70</td>
-      <td id="T_62b58_row11_col11" class="data row11 col11">0</td>
-      <td id="T_62b58_row11_col12" class="data row11 col12">0</td>
-      <td id="T_62b58_row11_col13" class="data row11 col13">0</td>
-      <td id="T_62b58_row11_col14" class="data row11 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row12" class="row_heading level0 row12">15</th>
-      <td id="T_62b58_row12_col0" class="data row12 col0">0</td>
-      <td id="T_62b58_row12_col1" class="data row12 col1">0</td>
-      <td id="T_62b58_row12_col2" class="data row12 col2">0</td>
-      <td id="T_62b58_row12_col3" class="data row12 col3">0</td>
-      <td id="T_62b58_row12_col4" class="data row12 col4">0</td>
-      <td id="T_62b58_row12_col5" class="data row12 col5">66</td>
-      <td id="T_62b58_row12_col6" class="data row12 col6">253</td>
-      <td id="T_62b58_row12_col7" class="data row12 col7">253</td>
-      <td id="T_62b58_row12_col8" class="data row12 col8">253</td>
-      <td id="T_62b58_row12_col9" class="data row12 col9">253</td>
-      <td id="T_62b58_row12_col10" class="data row12 col10">238</td>
-      <td id="T_62b58_row12_col11" class="data row12 col11">54</td>
-      <td id="T_62b58_row12_col12" class="data row12 col12">0</td>
-      <td id="T_62b58_row12_col13" class="data row12 col13">0</td>
-      <td id="T_62b58_row12_col14" class="data row12 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row13" class="row_heading level0 row13">16</th>
-      <td id="T_62b58_row13_col0" class="data row13 col0">0</td>
-      <td id="T_62b58_row13_col1" class="data row13 col1">0</td>
-      <td id="T_62b58_row13_col2" class="data row13 col2">0</td>
-      <td id="T_62b58_row13_col3" class="data row13 col3">0</td>
-      <td id="T_62b58_row13_col4" class="data row13 col4">0</td>
-      <td id="T_62b58_row13_col5" class="data row13 col5">17</td>
-      <td id="T_62b58_row13_col6" class="data row13 col6">65</td>
-      <td id="T_62b58_row13_col7" class="data row13 col7">232</td>
-      <td id="T_62b58_row13_col8" class="data row13 col8">253</td>
-      <td id="T_62b58_row13_col9" class="data row13 col9">253</td>
-      <td id="T_62b58_row13_col10" class="data row13 col10">253</td>
-      <td id="T_62b58_row13_col11" class="data row13 col11">149</td>
-      <td id="T_62b58_row13_col12" class="data row13 col12">5</td>
-      <td id="T_62b58_row13_col13" class="data row13 col13">0</td>
-      <td id="T_62b58_row13_col14" class="data row13 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row14" class="row_heading level0 row14">17</th>
-      <td id="T_62b58_row14_col0" class="data row14 col0">0</td>
-      <td id="T_62b58_row14_col1" class="data row14 col1">0</td>
-      <td id="T_62b58_row14_col2" class="data row14 col2">0</td>
-      <td id="T_62b58_row14_col3" class="data row14 col3">0</td>
-      <td id="T_62b58_row14_col4" class="data row14 col4">0</td>
-      <td id="T_62b58_row14_col5" class="data row14 col5">0</td>
-      <td id="T_62b58_row14_col6" class="data row14 col6">0</td>
-      <td id="T_62b58_row14_col7" class="data row14 col7">45</td>
-      <td id="T_62b58_row14_col8" class="data row14 col8">141</td>
-      <td id="T_62b58_row14_col9" class="data row14 col9">253</td>
-      <td id="T_62b58_row14_col10" class="data row14 col10">253</td>
-      <td id="T_62b58_row14_col11" class="data row14 col11">253</td>
-      <td id="T_62b58_row14_col12" class="data row14 col12">123</td>
-      <td id="T_62b58_row14_col13" class="data row14 col13">0</td>
-      <td id="T_62b58_row14_col14" class="data row14 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row15" class="row_heading level0 row15">18</th>
-      <td id="T_62b58_row15_col0" class="data row15 col0">0</td>
-      <td id="T_62b58_row15_col1" class="data row15 col1">0</td>
-      <td id="T_62b58_row15_col2" class="data row15 col2">0</td>
-      <td id="T_62b58_row15_col3" class="data row15 col3">41</td>
-      <td id="T_62b58_row15_col4" class="data row15 col4">205</td>
-      <td id="T_62b58_row15_col5" class="data row15 col5">205</td>
-      <td id="T_62b58_row15_col6" class="data row15 col6">205</td>
-      <td id="T_62b58_row15_col7" class="data row15 col7">33</td>
-      <td id="T_62b58_row15_col8" class="data row15 col8">2</td>
-      <td id="T_62b58_row15_col9" class="data row15 col9">128</td>
-      <td id="T_62b58_row15_col10" class="data row15 col10">253</td>
-      <td id="T_62b58_row15_col11" class="data row15 col11">253</td>
-      <td id="T_62b58_row15_col12" class="data row15 col12">245</td>
-      <td id="T_62b58_row15_col13" class="data row15 col13">99</td>
-      <td id="T_62b58_row15_col14" class="data row15 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row16" class="row_heading level0 row16">19</th>
-      <td id="T_62b58_row16_col0" class="data row16 col0">0</td>
-      <td id="T_62b58_row16_col1" class="data row16 col1">0</td>
-      <td id="T_62b58_row16_col2" class="data row16 col2">0</td>
-      <td id="T_62b58_row16_col3" class="data row16 col3">50</td>
-      <td id="T_62b58_row16_col4" class="data row16 col4">253</td>
-      <td id="T_62b58_row16_col5" class="data row16 col5">253</td>
-      <td id="T_62b58_row16_col6" class="data row16 col6">253</td>
-      <td id="T_62b58_row16_col7" class="data row16 col7">213</td>
-      <td id="T_62b58_row16_col8" class="data row16 col8">131</td>
-      <td id="T_62b58_row16_col9" class="data row16 col9">179</td>
-      <td id="T_62b58_row16_col10" class="data row16 col10">253</td>
-      <td id="T_62b58_row16_col11" class="data row16 col11">253</td>
-      <td id="T_62b58_row16_col12" class="data row16 col12">231</td>
-      <td id="T_62b58_row16_col13" class="data row16 col13">59</td>
-      <td id="T_62b58_row16_col14" class="data row16 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row17" class="row_heading level0 row17">20</th>
-      <td id="T_62b58_row17_col0" class="data row17 col0">0</td>
-      <td id="T_62b58_row17_col1" class="data row17 col1">0</td>
-      <td id="T_62b58_row17_col2" class="data row17 col2">0</td>
-      <td id="T_62b58_row17_col3" class="data row17 col3">50</td>
-      <td id="T_62b58_row17_col4" class="data row17 col4">253</td>
-      <td id="T_62b58_row17_col5" class="data row17 col5">253</td>
-      <td id="T_62b58_row17_col6" class="data row17 col6">253</td>
-      <td id="T_62b58_row17_col7" class="data row17 col7">253</td>
-      <td id="T_62b58_row17_col8" class="data row17 col8">253</td>
-      <td id="T_62b58_row17_col9" class="data row17 col9">253</td>
-      <td id="T_62b58_row17_col10" class="data row17 col10">253</td>
-      <td id="T_62b58_row17_col11" class="data row17 col11">253</td>
-      <td id="T_62b58_row17_col12" class="data row17 col12">212</td>
-      <td id="T_62b58_row17_col13" class="data row17 col13">0</td>
-      <td id="T_62b58_row17_col14" class="data row17 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row18" class="row_heading level0 row18">21</th>
-      <td id="T_62b58_row18_col0" class="data row18 col0">0</td>
-      <td id="T_62b58_row18_col1" class="data row18 col1">0</td>
-      <td id="T_62b58_row18_col2" class="data row18 col2">0</td>
-      <td id="T_62b58_row18_col3" class="data row18 col3">21</td>
-      <td id="T_62b58_row18_col4" class="data row18 col4">187</td>
-      <td id="T_62b58_row18_col5" class="data row18 col5">253</td>
-      <td id="T_62b58_row18_col6" class="data row18 col6">253</td>
-      <td id="T_62b58_row18_col7" class="data row18 col7">253</td>
-      <td id="T_62b58_row18_col8" class="data row18 col8">253</td>
-      <td id="T_62b58_row18_col9" class="data row18 col9">253</td>
-      <td id="T_62b58_row18_col10" class="data row18 col10">253</td>
-      <td id="T_62b58_row18_col11" class="data row18 col11">253</td>
-      <td id="T_62b58_row18_col12" class="data row18 col12">212</td>
-      <td id="T_62b58_row18_col13" class="data row18 col13">0</td>
-      <td id="T_62b58_row18_col14" class="data row18 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row19" class="row_heading level0 row19">22</th>
-      <td id="T_62b58_row19_col0" class="data row19 col0">0</td>
-      <td id="T_62b58_row19_col1" class="data row19 col1">0</td>
-      <td id="T_62b58_row19_col2" class="data row19 col2">0</td>
-      <td id="T_62b58_row19_col3" class="data row19 col3">0</td>
-      <td id="T_62b58_row19_col4" class="data row19 col4">9</td>
-      <td id="T_62b58_row19_col5" class="data row19 col5">58</td>
-      <td id="T_62b58_row19_col6" class="data row19 col6">179</td>
-      <td id="T_62b58_row19_col7" class="data row19 col7">251</td>
-      <td id="T_62b58_row19_col8" class="data row19 col8">253</td>
-      <td id="T_62b58_row19_col9" class="data row19 col9">253</td>
-      <td id="T_62b58_row19_col10" class="data row19 col10">253</td>
-      <td id="T_62b58_row19_col11" class="data row19 col11">219</td>
-      <td id="T_62b58_row19_col12" class="data row19 col12">44</td>
-      <td id="T_62b58_row19_col13" class="data row19 col13">0</td>
-      <td id="T_62b58_row19_col14" class="data row19 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row20" class="row_heading level0 row20">23</th>
-      <td id="T_62b58_row20_col0" class="data row20 col0">0</td>
-      <td id="T_62b58_row20_col1" class="data row20 col1">0</td>
-      <td id="T_62b58_row20_col2" class="data row20 col2">0</td>
-      <td id="T_62b58_row20_col3" class="data row20 col3">0</td>
-      <td id="T_62b58_row20_col4" class="data row20 col4">0</td>
-      <td id="T_62b58_row20_col5" class="data row20 col5">0</td>
-      <td id="T_62b58_row20_col6" class="data row20 col6">0</td>
-      <td id="T_62b58_row20_col7" class="data row20 col7">139</td>
-      <td id="T_62b58_row20_col8" class="data row20 col8">253</td>
-      <td id="T_62b58_row20_col9" class="data row20 col9">253</td>
-      <td id="T_62b58_row20_col10" class="data row20 col10">130</td>
-      <td id="T_62b58_row20_col11" class="data row20 col11">49</td>
-      <td id="T_62b58_row20_col12" class="data row20 col12">0</td>
-      <td id="T_62b58_row20_col13" class="data row20 col13">0</td>
-      <td id="T_62b58_row20_col14" class="data row20 col14">0</td>
-    </tr>
-    <tr>
-      <th id="T_62b58_level0_row21" class="row_heading level0 row21">24</th>
-      <td id="T_62b58_row21_col0" class="data row21 col0">0</td>
-      <td id="T_62b58_row21_col1" class="data row21 col1">0</td>
-      <td id="T_62b58_row21_col2" class="data row21 col2">0</td>
-      <td id="T_62b58_row21_col3" class="data row21 col3">0</td>
-      <td id="T_62b58_row21_col4" class="data row21 col4">0</td>
-      <td id="T_62b58_row21_col5" class="data row21 col5">0</td>
-      <td id="T_62b58_row21_col6" class="data row21 col6">0</td>
-      <td id="T_62b58_row21_col7" class="data row21 col7">0</td>
-      <td id="T_62b58_row21_col8" class="data row21 col8">0</td>
-      <td id="T_62b58_row21_col9" class="data row21 col9">0</td>
-      <td id="T_62b58_row21_col10" class="data row21 col10">0</td>
-      <td id="T_62b58_row21_col11" class="data row21 col11">0</td>
-      <td id="T_62b58_row21_col12" class="data row21 col12">0</td>
-      <td id="T_62b58_row21_col13" class="data row21 col13">0</td>
-      <td id="T_62b58_row21_col14" class="data row21 col14">0</td>
-    </tr>
-  </tbody>
+
+<table id="T_62b58_" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="col_heading level0 col0" data-quarto-table-cell-role="th">6</th>
+<th class="col_heading level0 col1" data-quarto-table-cell-role="th">7</th>
+<th class="col_heading level0 col2" data-quarto-table-cell-role="th">8</th>
+<th class="col_heading level0 col3" data-quarto-table-cell-role="th">9</th>
+<th class="col_heading level0 col4" data-quarto-table-cell-role="th">10</th>
+<th class="col_heading level0 col5" data-quarto-table-cell-role="th">11</th>
+<th class="col_heading level0 col6" data-quarto-table-cell-role="th">12</th>
+<th class="col_heading level0 col7" data-quarto-table-cell-role="th">13</th>
+<th class="col_heading level0 col8" data-quarto-table-cell-role="th">14</th>
+<th class="col_heading level0 col9" data-quarto-table-cell-role="th">15</th>
+<th class="col_heading level0 col10" data-quarto-table-cell-role="th">16</th>
+<th class="col_heading level0 col11" data-quarto-table-cell-role="th">17</th>
+<th class="col_heading level0 col12" data-quarto-table-cell-role="th">18</th>
+<th class="col_heading level0 col13" data-quarto-table-cell-role="th">19</th>
+<th class="col_heading level0 col14" data-quarto-table-cell-role="th">20</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_62b58_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">3</td>
+<td id="T_62b58_row0_col0" class="data row0 col0">0</td>
+<td id="T_62b58_row0_col1" class="data row0 col1">0</td>
+<td id="T_62b58_row0_col2" class="data row0 col2">0</td>
+<td id="T_62b58_row0_col3" class="data row0 col3">0</td>
+<td id="T_62b58_row0_col4" class="data row0 col4">0</td>
+<td id="T_62b58_row0_col5" class="data row0 col5">0</td>
+<td id="T_62b58_row0_col6" class="data row0 col6">0</td>
+<td id="T_62b58_row0_col7" class="data row0 col7">0</td>
+<td id="T_62b58_row0_col8" class="data row0 col8">0</td>
+<td id="T_62b58_row0_col9" class="data row0 col9">0</td>
+<td id="T_62b58_row0_col10" class="data row0 col10">0</td>
+<td id="T_62b58_row0_col11" class="data row0 col11">0</td>
+<td id="T_62b58_row0_col12" class="data row0 col12">0</td>
+<td id="T_62b58_row0_col13" class="data row0 col13">0</td>
+<td id="T_62b58_row0_col14" class="data row0 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">4</td>
+<td id="T_62b58_row1_col0" class="data row1 col0">0</td>
+<td id="T_62b58_row1_col1" class="data row1 col1">0</td>
+<td id="T_62b58_row1_col2" class="data row1 col2">0</td>
+<td id="T_62b58_row1_col3" class="data row1 col3">77</td>
+<td id="T_62b58_row1_col4" class="data row1 col4">181</td>
+<td id="T_62b58_row1_col5" class="data row1 col5">254</td>
+<td id="T_62b58_row1_col6" class="data row1 col6">255</td>
+<td id="T_62b58_row1_col7" class="data row1 col7">95</td>
+<td id="T_62b58_row1_col8" class="data row1 col8">88</td>
+<td id="T_62b58_row1_col9" class="data row1 col9">0</td>
+<td id="T_62b58_row1_col10" class="data row1 col10">0</td>
+<td id="T_62b58_row1_col11" class="data row1 col11">0</td>
+<td id="T_62b58_row1_col12" class="data row1 col12">0</td>
+<td id="T_62b58_row1_col13" class="data row1 col13">0</td>
+<td id="T_62b58_row1_col14" class="data row1 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">5</td>
+<td id="T_62b58_row2_col0" class="data row2 col0">0</td>
+<td id="T_62b58_row2_col1" class="data row2 col1">3</td>
+<td id="T_62b58_row2_col2" class="data row2 col2">97</td>
+<td id="T_62b58_row2_col3" class="data row2 col3">242</td>
+<td id="T_62b58_row2_col4" class="data row2 col4">253</td>
+<td id="T_62b58_row2_col5" class="data row2 col5">253</td>
+<td id="T_62b58_row2_col6" class="data row2 col6">253</td>
+<td id="T_62b58_row2_col7" class="data row2 col7">253</td>
+<td id="T_62b58_row2_col8" class="data row2 col8">251</td>
+<td id="T_62b58_row2_col9" class="data row2 col9">117</td>
+<td id="T_62b58_row2_col10" class="data row2 col10">15</td>
+<td id="T_62b58_row2_col11" class="data row2 col11">0</td>
+<td id="T_62b58_row2_col12" class="data row2 col12">0</td>
+<td id="T_62b58_row2_col13" class="data row2 col13">0</td>
+<td id="T_62b58_row2_col14" class="data row2 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">6</td>
+<td id="T_62b58_row3_col0" class="data row3 col0">0</td>
+<td id="T_62b58_row3_col1" class="data row3 col1">20</td>
+<td id="T_62b58_row3_col2" class="data row3 col2">198</td>
+<td id="T_62b58_row3_col3" class="data row3 col3">253</td>
+<td id="T_62b58_row3_col4" class="data row3 col4">253</td>
+<td id="T_62b58_row3_col5" class="data row3 col5">253</td>
+<td id="T_62b58_row3_col6" class="data row3 col6">253</td>
+<td id="T_62b58_row3_col7" class="data row3 col7">253</td>
+<td id="T_62b58_row3_col8" class="data row3 col8">253</td>
+<td id="T_62b58_row3_col9" class="data row3 col9">253</td>
+<td id="T_62b58_row3_col10" class="data row3 col10">239</td>
+<td id="T_62b58_row3_col11" class="data row3 col11">59</td>
+<td id="T_62b58_row3_col12" class="data row3 col12">0</td>
+<td id="T_62b58_row3_col13" class="data row3 col13">0</td>
+<td id="T_62b58_row3_col14" class="data row3 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">7</td>
+<td id="T_62b58_row4_col0" class="data row4 col0">0</td>
+<td id="T_62b58_row4_col1" class="data row4 col1">0</td>
+<td id="T_62b58_row4_col2" class="data row4 col2">108</td>
+<td id="T_62b58_row4_col3" class="data row4 col3">248</td>
+<td id="T_62b58_row4_col4" class="data row4 col4">253</td>
+<td id="T_62b58_row4_col5" class="data row4 col5">244</td>
+<td id="T_62b58_row4_col6" class="data row4 col6">220</td>
+<td id="T_62b58_row4_col7" class="data row4 col7">231</td>
+<td id="T_62b58_row4_col8" class="data row4 col8">253</td>
+<td id="T_62b58_row4_col9" class="data row4 col9">253</td>
+<td id="T_62b58_row4_col10" class="data row4 col10">253</td>
+<td id="T_62b58_row4_col11" class="data row4 col11">138</td>
+<td id="T_62b58_row4_col12" class="data row4 col12">0</td>
+<td id="T_62b58_row4_col13" class="data row4 col13">0</td>
+<td id="T_62b58_row4_col14" class="data row4 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">8</td>
+<td id="T_62b58_row5_col0" class="data row5 col0">0</td>
+<td id="T_62b58_row5_col1" class="data row5 col1">0</td>
+<td id="T_62b58_row5_col2" class="data row5 col2">0</td>
+<td id="T_62b58_row5_col3" class="data row5 col3">110</td>
+<td id="T_62b58_row5_col4" class="data row5 col4">129</td>
+<td id="T_62b58_row5_col5" class="data row5 col5">176</td>
+<td id="T_62b58_row5_col6" class="data row5 col6">0</td>
+<td id="T_62b58_row5_col7" class="data row5 col7">83</td>
+<td id="T_62b58_row5_col8" class="data row5 col8">253</td>
+<td id="T_62b58_row5_col9" class="data row5 col9">253</td>
+<td id="T_62b58_row5_col10" class="data row5 col10">253</td>
+<td id="T_62b58_row5_col11" class="data row5 col11">194</td>
+<td id="T_62b58_row5_col12" class="data row5 col12">24</td>
+<td id="T_62b58_row5_col13" class="data row5 col13">0</td>
+<td id="T_62b58_row5_col14" class="data row5 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">9</td>
+<td id="T_62b58_row6_col0" class="data row6 col0">0</td>
+<td id="T_62b58_row6_col1" class="data row6 col1">0</td>
+<td id="T_62b58_row6_col2" class="data row6 col2">0</td>
+<td id="T_62b58_row6_col3" class="data row6 col3">0</td>
+<td id="T_62b58_row6_col4" class="data row6 col4">0</td>
+<td id="T_62b58_row6_col5" class="data row6 col5">26</td>
+<td id="T_62b58_row6_col6" class="data row6 col6">0</td>
+<td id="T_62b58_row6_col7" class="data row6 col7">83</td>
+<td id="T_62b58_row6_col8" class="data row6 col8">253</td>
+<td id="T_62b58_row6_col9" class="data row6 col9">253</td>
+<td id="T_62b58_row6_col10" class="data row6 col10">253</td>
+<td id="T_62b58_row6_col11" class="data row6 col11">253</td>
+<td id="T_62b58_row6_col12" class="data row6 col12">48</td>
+<td id="T_62b58_row6_col13" class="data row6 col13">0</td>
+<td id="T_62b58_row6_col14" class="data row6 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">10</td>
+<td id="T_62b58_row7_col0" class="data row7 col0">0</td>
+<td id="T_62b58_row7_col1" class="data row7 col1">0</td>
+<td id="T_62b58_row7_col2" class="data row7 col2">0</td>
+<td id="T_62b58_row7_col3" class="data row7 col3">0</td>
+<td id="T_62b58_row7_col4" class="data row7 col4">0</td>
+<td id="T_62b58_row7_col5" class="data row7 col5">0</td>
+<td id="T_62b58_row7_col6" class="data row7 col6">0</td>
+<td id="T_62b58_row7_col7" class="data row7 col7">83</td>
+<td id="T_62b58_row7_col8" class="data row7 col8">253</td>
+<td id="T_62b58_row7_col9" class="data row7 col9">253</td>
+<td id="T_62b58_row7_col10" class="data row7 col10">253</td>
+<td id="T_62b58_row7_col11" class="data row7 col11">189</td>
+<td id="T_62b58_row7_col12" class="data row7 col12">22</td>
+<td id="T_62b58_row7_col13" class="data row7 col13">0</td>
+<td id="T_62b58_row7_col14" class="data row7 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">11</td>
+<td id="T_62b58_row8_col0" class="data row8 col0">0</td>
+<td id="T_62b58_row8_col1" class="data row8 col1">0</td>
+<td id="T_62b58_row8_col2" class="data row8 col2">0</td>
+<td id="T_62b58_row8_col3" class="data row8 col3">0</td>
+<td id="T_62b58_row8_col4" class="data row8 col4">0</td>
+<td id="T_62b58_row8_col5" class="data row8 col5">0</td>
+<td id="T_62b58_row8_col6" class="data row8 col6">0</td>
+<td id="T_62b58_row8_col7" class="data row8 col7">83</td>
+<td id="T_62b58_row8_col8" class="data row8 col8">253</td>
+<td id="T_62b58_row8_col9" class="data row8 col9">253</td>
+<td id="T_62b58_row8_col10" class="data row8 col10">253</td>
+<td id="T_62b58_row8_col11" class="data row8 col11">138</td>
+<td id="T_62b58_row8_col12" class="data row8 col12">0</td>
+<td id="T_62b58_row8_col13" class="data row8 col13">0</td>
+<td id="T_62b58_row8_col14" class="data row8 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">12</td>
+<td id="T_62b58_row9_col0" class="data row9 col0">0</td>
+<td id="T_62b58_row9_col1" class="data row9 col1">0</td>
+<td id="T_62b58_row9_col2" class="data row9 col2">0</td>
+<td id="T_62b58_row9_col3" class="data row9 col3">0</td>
+<td id="T_62b58_row9_col4" class="data row9 col4">0</td>
+<td id="T_62b58_row9_col5" class="data row9 col5">0</td>
+<td id="T_62b58_row9_col6" class="data row9 col6">0</td>
+<td id="T_62b58_row9_col7" class="data row9 col7">183</td>
+<td id="T_62b58_row9_col8" class="data row9 col8">253</td>
+<td id="T_62b58_row9_col9" class="data row9 col9">253</td>
+<td id="T_62b58_row9_col10" class="data row9 col10">253</td>
+<td id="T_62b58_row9_col11" class="data row9 col11">138</td>
+<td id="T_62b58_row9_col12" class="data row9 col12">0</td>
+<td id="T_62b58_row9_col13" class="data row9 col13">0</td>
+<td id="T_62b58_row9_col14" class="data row9 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">13</td>
+<td id="T_62b58_row10_col0" class="data row10 col0">0</td>
+<td id="T_62b58_row10_col1" class="data row10 col1">0</td>
+<td id="T_62b58_row10_col2" class="data row10 col2">0</td>
+<td id="T_62b58_row10_col3" class="data row10 col3">0</td>
+<td id="T_62b58_row10_col4" class="data row10 col4">0</td>
+<td id="T_62b58_row10_col5" class="data row10 col5">65</td>
+<td id="T_62b58_row10_col6" class="data row10 col6">246</td>
+<td id="T_62b58_row10_col7" class="data row10 col7">253</td>
+<td id="T_62b58_row10_col8" class="data row10 col8">253</td>
+<td id="T_62b58_row10_col9" class="data row10 col9">253</td>
+<td id="T_62b58_row10_col10" class="data row10 col10">175</td>
+<td id="T_62b58_row10_col11" class="data row10 col11">4</td>
+<td id="T_62b58_row10_col12" class="data row10 col12">0</td>
+<td id="T_62b58_row10_col13" class="data row10 col13">0</td>
+<td id="T_62b58_row10_col14" class="data row10 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row11" class="row_heading level0 row11" data-quarto-table-cell-role="th">14</td>
+<td id="T_62b58_row11_col0" class="data row11 col0">0</td>
+<td id="T_62b58_row11_col1" class="data row11 col1">0</td>
+<td id="T_62b58_row11_col2" class="data row11 col2">0</td>
+<td id="T_62b58_row11_col3" class="data row11 col3">0</td>
+<td id="T_62b58_row11_col4" class="data row11 col4">0</td>
+<td id="T_62b58_row11_col5" class="data row11 col5">172</td>
+<td id="T_62b58_row11_col6" class="data row11 col6">253</td>
+<td id="T_62b58_row11_col7" class="data row11 col7">253</td>
+<td id="T_62b58_row11_col8" class="data row11 col8">253</td>
+<td id="T_62b58_row11_col9" class="data row11 col9">253</td>
+<td id="T_62b58_row11_col10" class="data row11 col10">70</td>
+<td id="T_62b58_row11_col11" class="data row11 col11">0</td>
+<td id="T_62b58_row11_col12" class="data row11 col12">0</td>
+<td id="T_62b58_row11_col13" class="data row11 col13">0</td>
+<td id="T_62b58_row11_col14" class="data row11 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row12" class="row_heading level0 row12" data-quarto-table-cell-role="th">15</td>
+<td id="T_62b58_row12_col0" class="data row12 col0">0</td>
+<td id="T_62b58_row12_col1" class="data row12 col1">0</td>
+<td id="T_62b58_row12_col2" class="data row12 col2">0</td>
+<td id="T_62b58_row12_col3" class="data row12 col3">0</td>
+<td id="T_62b58_row12_col4" class="data row12 col4">0</td>
+<td id="T_62b58_row12_col5" class="data row12 col5">66</td>
+<td id="T_62b58_row12_col6" class="data row12 col6">253</td>
+<td id="T_62b58_row12_col7" class="data row12 col7">253</td>
+<td id="T_62b58_row12_col8" class="data row12 col8">253</td>
+<td id="T_62b58_row12_col9" class="data row12 col9">253</td>
+<td id="T_62b58_row12_col10" class="data row12 col10">238</td>
+<td id="T_62b58_row12_col11" class="data row12 col11">54</td>
+<td id="T_62b58_row12_col12" class="data row12 col12">0</td>
+<td id="T_62b58_row12_col13" class="data row12 col13">0</td>
+<td id="T_62b58_row12_col14" class="data row12 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row13" class="row_heading level0 row13" data-quarto-table-cell-role="th">16</td>
+<td id="T_62b58_row13_col0" class="data row13 col0">0</td>
+<td id="T_62b58_row13_col1" class="data row13 col1">0</td>
+<td id="T_62b58_row13_col2" class="data row13 col2">0</td>
+<td id="T_62b58_row13_col3" class="data row13 col3">0</td>
+<td id="T_62b58_row13_col4" class="data row13 col4">0</td>
+<td id="T_62b58_row13_col5" class="data row13 col5">17</td>
+<td id="T_62b58_row13_col6" class="data row13 col6">65</td>
+<td id="T_62b58_row13_col7" class="data row13 col7">232</td>
+<td id="T_62b58_row13_col8" class="data row13 col8">253</td>
+<td id="T_62b58_row13_col9" class="data row13 col9">253</td>
+<td id="T_62b58_row13_col10" class="data row13 col10">253</td>
+<td id="T_62b58_row13_col11" class="data row13 col11">149</td>
+<td id="T_62b58_row13_col12" class="data row13 col12">5</td>
+<td id="T_62b58_row13_col13" class="data row13 col13">0</td>
+<td id="T_62b58_row13_col14" class="data row13 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row14" class="row_heading level0 row14" data-quarto-table-cell-role="th">17</td>
+<td id="T_62b58_row14_col0" class="data row14 col0">0</td>
+<td id="T_62b58_row14_col1" class="data row14 col1">0</td>
+<td id="T_62b58_row14_col2" class="data row14 col2">0</td>
+<td id="T_62b58_row14_col3" class="data row14 col3">0</td>
+<td id="T_62b58_row14_col4" class="data row14 col4">0</td>
+<td id="T_62b58_row14_col5" class="data row14 col5">0</td>
+<td id="T_62b58_row14_col6" class="data row14 col6">0</td>
+<td id="T_62b58_row14_col7" class="data row14 col7">45</td>
+<td id="T_62b58_row14_col8" class="data row14 col8">141</td>
+<td id="T_62b58_row14_col9" class="data row14 col9">253</td>
+<td id="T_62b58_row14_col10" class="data row14 col10">253</td>
+<td id="T_62b58_row14_col11" class="data row14 col11">253</td>
+<td id="T_62b58_row14_col12" class="data row14 col12">123</td>
+<td id="T_62b58_row14_col13" class="data row14 col13">0</td>
+<td id="T_62b58_row14_col14" class="data row14 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row15" class="row_heading level0 row15" data-quarto-table-cell-role="th">18</td>
+<td id="T_62b58_row15_col0" class="data row15 col0">0</td>
+<td id="T_62b58_row15_col1" class="data row15 col1">0</td>
+<td id="T_62b58_row15_col2" class="data row15 col2">0</td>
+<td id="T_62b58_row15_col3" class="data row15 col3">41</td>
+<td id="T_62b58_row15_col4" class="data row15 col4">205</td>
+<td id="T_62b58_row15_col5" class="data row15 col5">205</td>
+<td id="T_62b58_row15_col6" class="data row15 col6">205</td>
+<td id="T_62b58_row15_col7" class="data row15 col7">33</td>
+<td id="T_62b58_row15_col8" class="data row15 col8">2</td>
+<td id="T_62b58_row15_col9" class="data row15 col9">128</td>
+<td id="T_62b58_row15_col10" class="data row15 col10">253</td>
+<td id="T_62b58_row15_col11" class="data row15 col11">253</td>
+<td id="T_62b58_row15_col12" class="data row15 col12">245</td>
+<td id="T_62b58_row15_col13" class="data row15 col13">99</td>
+<td id="T_62b58_row15_col14" class="data row15 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row16" class="row_heading level0 row16" data-quarto-table-cell-role="th">19</td>
+<td id="T_62b58_row16_col0" class="data row16 col0">0</td>
+<td id="T_62b58_row16_col1" class="data row16 col1">0</td>
+<td id="T_62b58_row16_col2" class="data row16 col2">0</td>
+<td id="T_62b58_row16_col3" class="data row16 col3">50</td>
+<td id="T_62b58_row16_col4" class="data row16 col4">253</td>
+<td id="T_62b58_row16_col5" class="data row16 col5">253</td>
+<td id="T_62b58_row16_col6" class="data row16 col6">253</td>
+<td id="T_62b58_row16_col7" class="data row16 col7">213</td>
+<td id="T_62b58_row16_col8" class="data row16 col8">131</td>
+<td id="T_62b58_row16_col9" class="data row16 col9">179</td>
+<td id="T_62b58_row16_col10" class="data row16 col10">253</td>
+<td id="T_62b58_row16_col11" class="data row16 col11">253</td>
+<td id="T_62b58_row16_col12" class="data row16 col12">231</td>
+<td id="T_62b58_row16_col13" class="data row16 col13">59</td>
+<td id="T_62b58_row16_col14" class="data row16 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row17" class="row_heading level0 row17" data-quarto-table-cell-role="th">20</td>
+<td id="T_62b58_row17_col0" class="data row17 col0">0</td>
+<td id="T_62b58_row17_col1" class="data row17 col1">0</td>
+<td id="T_62b58_row17_col2" class="data row17 col2">0</td>
+<td id="T_62b58_row17_col3" class="data row17 col3">50</td>
+<td id="T_62b58_row17_col4" class="data row17 col4">253</td>
+<td id="T_62b58_row17_col5" class="data row17 col5">253</td>
+<td id="T_62b58_row17_col6" class="data row17 col6">253</td>
+<td id="T_62b58_row17_col7" class="data row17 col7">253</td>
+<td id="T_62b58_row17_col8" class="data row17 col8">253</td>
+<td id="T_62b58_row17_col9" class="data row17 col9">253</td>
+<td id="T_62b58_row17_col10" class="data row17 col10">253</td>
+<td id="T_62b58_row17_col11" class="data row17 col11">253</td>
+<td id="T_62b58_row17_col12" class="data row17 col12">212</td>
+<td id="T_62b58_row17_col13" class="data row17 col13">0</td>
+<td id="T_62b58_row17_col14" class="data row17 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row18" class="row_heading level0 row18" data-quarto-table-cell-role="th">21</td>
+<td id="T_62b58_row18_col0" class="data row18 col0">0</td>
+<td id="T_62b58_row18_col1" class="data row18 col1">0</td>
+<td id="T_62b58_row18_col2" class="data row18 col2">0</td>
+<td id="T_62b58_row18_col3" class="data row18 col3">21</td>
+<td id="T_62b58_row18_col4" class="data row18 col4">187</td>
+<td id="T_62b58_row18_col5" class="data row18 col5">253</td>
+<td id="T_62b58_row18_col6" class="data row18 col6">253</td>
+<td id="T_62b58_row18_col7" class="data row18 col7">253</td>
+<td id="T_62b58_row18_col8" class="data row18 col8">253</td>
+<td id="T_62b58_row18_col9" class="data row18 col9">253</td>
+<td id="T_62b58_row18_col10" class="data row18 col10">253</td>
+<td id="T_62b58_row18_col11" class="data row18 col11">253</td>
+<td id="T_62b58_row18_col12" class="data row18 col12">212</td>
+<td id="T_62b58_row18_col13" class="data row18 col13">0</td>
+<td id="T_62b58_row18_col14" class="data row18 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row19" class="row_heading level0 row19" data-quarto-table-cell-role="th">22</td>
+<td id="T_62b58_row19_col0" class="data row19 col0">0</td>
+<td id="T_62b58_row19_col1" class="data row19 col1">0</td>
+<td id="T_62b58_row19_col2" class="data row19 col2">0</td>
+<td id="T_62b58_row19_col3" class="data row19 col3">0</td>
+<td id="T_62b58_row19_col4" class="data row19 col4">9</td>
+<td id="T_62b58_row19_col5" class="data row19 col5">58</td>
+<td id="T_62b58_row19_col6" class="data row19 col6">179</td>
+<td id="T_62b58_row19_col7" class="data row19 col7">251</td>
+<td id="T_62b58_row19_col8" class="data row19 col8">253</td>
+<td id="T_62b58_row19_col9" class="data row19 col9">253</td>
+<td id="T_62b58_row19_col10" class="data row19 col10">253</td>
+<td id="T_62b58_row19_col11" class="data row19 col11">219</td>
+<td id="T_62b58_row19_col12" class="data row19 col12">44</td>
+<td id="T_62b58_row19_col13" class="data row19 col13">0</td>
+<td id="T_62b58_row19_col14" class="data row19 col14">0</td>
+</tr>
+<tr class="odd">
+<td id="T_62b58_level0_row20" class="row_heading level0 row20" data-quarto-table-cell-role="th">23</td>
+<td id="T_62b58_row20_col0" class="data row20 col0">0</td>
+<td id="T_62b58_row20_col1" class="data row20 col1">0</td>
+<td id="T_62b58_row20_col2" class="data row20 col2">0</td>
+<td id="T_62b58_row20_col3" class="data row20 col3">0</td>
+<td id="T_62b58_row20_col4" class="data row20 col4">0</td>
+<td id="T_62b58_row20_col5" class="data row20 col5">0</td>
+<td id="T_62b58_row20_col6" class="data row20 col6">0</td>
+<td id="T_62b58_row20_col7" class="data row20 col7">139</td>
+<td id="T_62b58_row20_col8" class="data row20 col8">253</td>
+<td id="T_62b58_row20_col9" class="data row20 col9">253</td>
+<td id="T_62b58_row20_col10" class="data row20 col10">130</td>
+<td id="T_62b58_row20_col11" class="data row20 col11">49</td>
+<td id="T_62b58_row20_col12" class="data row20 col12">0</td>
+<td id="T_62b58_row20_col13" class="data row20 col13">0</td>
+<td id="T_62b58_row20_col14" class="data row20 col14">0</td>
+</tr>
+<tr class="even">
+<td id="T_62b58_level0_row21" class="row_heading level0 row21" data-quarto-table-cell-role="th">24</td>
+<td id="T_62b58_row21_col0" class="data row21 col0">0</td>
+<td id="T_62b58_row21_col1" class="data row21 col1">0</td>
+<td id="T_62b58_row21_col2" class="data row21 col2">0</td>
+<td id="T_62b58_row21_col3" class="data row21 col3">0</td>
+<td id="T_62b58_row21_col4" class="data row21 col4">0</td>
+<td id="T_62b58_row21_col5" class="data row21 col5">0</td>
+<td id="T_62b58_row21_col6" class="data row21 col6">0</td>
+<td id="T_62b58_row21_col7" class="data row21 col7">0</td>
+<td id="T_62b58_row21_col8" class="data row21 col8">0</td>
+<td id="T_62b58_row21_col9" class="data row21 col9">0</td>
+<td id="T_62b58_row21_col10" class="data row21 col10">0</td>
+<td id="T_62b58_row21_col11" class="data row21 col11">0</td>
+<td id="T_62b58_row21_col12" class="data row21 col12">0</td>
+<td id="T_62b58_row21_col13" class="data row21 col13">0</td>
+<td id="T_62b58_row21_col14" class="data row21 col14">0</td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
@@ -2040,12 +1090,12 @@ Note
 <h3 data-number="3.0.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">3.0.1</span> Setup</h3>
 <p>We will need a weight matrix <code>w</code> with 1 weight per pixel, meaning this will be a 784 row by 1 column matrix.</p>
 <p>We are also going to add <code>b</code>, so let’s initialize that as well. Since we haven’t solved the problem yet, we don’t know what good values for w and b are so we will make them random to start with.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -2053,20 +1103,20 @@ Note
 <p>When we checked the shape above, we saw our images were 28 x 28 pixels, which is 784 total pixels.</p>
 </div>
 </div>
-<div class="cell">
+<div id="cell-13" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_params(size, std<span class="op">=</span><span class="fl">1.0</span>): <span class="cf">return</span> (torch.randn(size)<span class="op">*</span>std).requires_grad_()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">1</span>))</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="cell-14" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">max</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([2.8108], grad_fn=&lt;UnbindBackward0&gt;)</code></pre>
 </div>
 </div>
 <p>Now we just need <code>x</code> and <code>y</code>. A <code>784x1</code> matrix times a <code>1x784</code> matrix. We want all values to be between 0 and 1 so we divide by the max pixel value (255).</p>
-<div class="cell">
+<div id="cell-16" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open each image and convert them to a tensor</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>threes_t <span class="op">=</span> [tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> threes]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sevens_t <span class="op">=</span> [tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> sevens]</span>
@@ -2082,41 +1132,42 @@ Note
 </div>
 </div>
 <p>Next we do a simple average of all our threes together and see what we get. It’s a nice sanity check to see that we did things ok. We can see that after averaging, we pretty much get a three!</p>
-<div class="cell">
+<div id="cell-18" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>show_image(threes_s.mean(<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+<div>
+<figure class="figure">
+<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div class="cell-output cell-output-display">
-<p><img src="NeuralNetworkFoundationsP1_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Lets finish defining our x. We want <code>x</code> to have both threes and sevens, but right now they are separated into different variables. We will use <code>torch.cat</code> to con<strong>cat</strong>enate them, and <code>.view</code> to change the format of the matrix to the right shape. <code>Y</code> is being defined as a long matrix with 1 row per image (prediction) and 1 column.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine our threes and sevens into 1 matrix.  Convert Rank 3 matrix to rank 2.</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.cat([threes_s, sevens_s]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set my y, or dependent variable matrix.  A three will be 1, and seven will be 0.  So we will be prediction 0 or 1.</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(threes) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(sevens)).unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine by xs and ys into 1 dataset for convenience.</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(x,y))</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>x_0,y_0 <span class="op">=</span> dset[<span class="dv">0</span>]</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>x_0.shape,y_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine our threes and sevens into 1 matrix.  Convert Rank 3 matrix to rank 2.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.cat([threes_s, sevens_s]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set my y, or dependent variable matrix.  A three will be 1, and seven will be 0.  So we will be prediction 0 or 1.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(threes) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(sevens)).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine by xs and ys into 1 dataset for convenience.</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(x,y))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>x_0,y_0 <span class="op">=</span> dset[<span class="dv">0</span>]</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>x_0.shape,y_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([784]), tensor([1]))</code></pre>
 </div>
 </div>
 <p>Perfect. We have exactly what we need and defined above. A 784 x 1 matrix times a 1 x 784 matrix + a constanct = our prediction. Let’s take a look to verify things are the right shape, and if we actually multiply these things together we get 1 prediction per image.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>w.shape,x_0.shape,b.shape,y_0.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-22" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>w.shape,x_0.shape,b.shape,y_0.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([784, 1]), torch.Size([784]), torch.Size([1]), torch.Size([1]))</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((x<span class="op">@</span>w<span class="op">+</span>b).shape)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>(x<span class="op">@</span>w<span class="op">+</span>b)[<span class="dv">1</span>:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((x<span class="op">@</span>w<span class="op">+</span>b).shape)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>(x<span class="op">@</span>w<span class="op">+</span>b)[<span class="dv">1</span>:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>torch.Size([709, 1])</code></pre>
 </div>
@@ -2134,17 +1185,17 @@ Note
 </div>
 <p>Great! We have the right number of predictions. The predictions are not good, because weights and biases are all random. Let’s do something about that.</p>
 <p>We will need to do everything that we did above on out validation set, so let’s do that now.</p>
-<div class="cell">
-<details>
+<div id="cell-26" class="cell">
+<details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'3'</span>).ls()])</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> valid_3_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'7'</span>).ls()])</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> valid_7_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>valid_3_tens.shape,valid_7_tens.shape</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>valid_x <span class="op">=</span> torch.cat([valid_3_tens, valid_7_tens]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>valid_y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(valid_3_tens) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(valid_7_tens)).unsqueeze(<span class="dv">1</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>valid_dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(valid_x,valid_y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'3'</span>).ls()])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>valid_3_tens <span class="op">=</span> valid_3_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> torch.stack([tensor(Image.<span class="bu">open</span>(o)) <span class="cf">for</span> o <span class="kw">in</span> (path<span class="op">/</span><span class="st">'valid'</span><span class="op">/</span><span class="st">'7'</span>).ls()])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>valid_7_tens <span class="op">=</span> valid_7_tens.<span class="bu">float</span>()<span class="op">/</span><span class="dv">255</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>valid_3_tens.shape,valid_7_tens.shape</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>valid_x <span class="op">=</span> torch.cat([valid_3_tens, valid_7_tens]).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>valid_y <span class="op">=</span> tensor([<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(valid_3_tens) <span class="op">+</span> [<span class="dv">0</span>]<span class="op">*</span><span class="bu">len</span>(valid_7_tens)).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>valid_dset <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(valid_x,valid_y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -2154,14 +1205,14 @@ Note
 <p>We need to improve our weights and biases (w and b) and we do that using gradient descent. I have a few posts on gradient descent, feel free to check those out if you want details on how it works. Here we will use the built-in pytorch functionality.</p>
 <p>The first thing we need to use gradient descent is we need a loss function. Let’s use something simple; how far off we were. If the correct answer was 1, and we predicted a 0.5 that would be a loss of 0.5.</p>
 <p>The one addition is that we will add something called a sigmoid. All a sigmoid is doing is ensuring that all of our predictions land between 0 and 1. We never want to predict anything outside of these ranges as those are our 2 categories.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mnist_loss(predictions, targets):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make all prediction between 0 and 1</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.sigmoid()</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Difference between predictions and target</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.where(targets<span class="op">==</span><span class="dv">1</span>, <span class="dv">1</span><span class="op">-</span>predictions, predictions).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-28" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mnist_loss(predictions, targets):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make all prediction between 0 and 1</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> predictions.sigmoid()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Difference between predictions and target</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.where(targets<span class="op">==</span><span class="dv">1</span>, <span class="dv">1</span><span class="op">-</span>predictions, predictions).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="gradient-descent" class="level1" data-number="5">
@@ -2175,12 +1226,12 @@ Note
 <li>subtract from weights and bias</li>
 </ul>
 <p>Now we have a function we need to optimize and a loss function to tell us our error. We are ready for gradient descent. Let’s create a function to change our weights.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -2188,38 +1239,38 @@ Note
 <p>If you want more of a background on what is going on here, please take a look at my series on Gradient Descent where I dive deeper on this. We will be calculating a gradient - which are equivalent to the “Path Value”</p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the function to minimize xw + b</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear1(xb): <span class="cf">return</span> xb<span class="op">@</span>weights <span class="op">+</span> bias</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is how we will initialize paramaters.  This is just giving me random numbers.</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_params(size, std<span class="op">=</span><span class="fl">1.0</span>): <span class="cf">return</span> (torch.randn(size)<span class="op">*</span>std).requires_grad_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-30" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the function to minimize xw + b</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear1(xb): <span class="cf">return</span> xb<span class="op">@</span>weights <span class="op">+</span> bias</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is how we will initialize paramaters.  This is just giving me random numbers.</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init_params(size, std<span class="op">=</span><span class="fl">1.0</span>): <span class="cf">return</span> (torch.randn(size)<span class="op">*</span>std).requires_grad_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>First we will make sure our datasets are in a DataLoader. This is convenience class that helps manage our data and get batches.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dl <span class="op">=</span> DataLoader(dset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>valid_dl <span class="op">=</span> DataLoader(valid_dset, batch_size<span class="op">=</span><span class="dv">256</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dl <span class="op">=</span> DataLoader(dset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>valid_dl <span class="op">=</span> DataLoader(valid_dset, batch_size<span class="op">=</span><span class="dv">256</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We are now going to get the first batch out. We’ll use a batch size of 256, but feel free to change that based on your memory. You can see that we can just simply call first dl, and it creates our shuffled batch for us.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>xb,yb <span class="op">=</span> first(dl)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>xb.shape,yb.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-34" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>xb,yb <span class="op">=</span> first(dl)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>xb.shape,yb.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([256, 784]), torch.Size([256, 1]))</code></pre>
 </div>
 </div>
 <p>Let’s Initialize our paramaters we will need.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">1</span>))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-36" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">1</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="calculate-the-gradient" class="level3" data-number="5.0.2">
 <h3 data-number="5.0.2" class="anchored" data-anchor-id="calculate-the-gradient"><span class="header-section-number">5.0.2</span> Calculate the Gradient</h3>
 <p>We now have our batch of x and y, and we have our weights and biases. The next step is to make a prediction. Since our batch size is 256, we see 256x1 tensor.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> linear1(xb)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>preds.shape, preds[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-38" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> linear1(xb)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>preds.shape, preds[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([256, 1]),
  tensor([[-14.7916],
@@ -2230,28 +1281,28 @@ Note
 </div>
 </div>
 <p>Now we calculate our loss to see how we did. Probably not well considering all our weights at this point are random.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> mnist_loss(preds, yb)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>loss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-40" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> mnist_loss(preds, yb)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>loss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor(0.5753, grad_fn=&lt;MeanBackward0&gt;)</code></pre>
 </div>
 </div>
 <p>Let’s calculate our Gradients</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>loss.backward()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>weights.grad.shape,weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-42" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>loss.backward()</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>weights.grad.shape,weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([784, 1]), tensor(-0.0014), tensor([-0.0099]))</code></pre>
 </div>
 </div>
 <p>Since we are going to want to calculate gradients every since step, let’s create a function that we can call that does these three steps above. Let’s put all that in a function. From here on out, we will use this function.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -2259,33 +1310,33 @@ Tip
 <p>It’s always a good idea to periodically reviewing and trying to simplify re-usable code. I recommend doing following the above approach, make something that works - then simplify. It often wastes a lot of time trying to write things in the most perfect way from the start.</p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_grad(xb, yb, model):</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model(xb)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> mnist_loss(preds, yb)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-44" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_grad(xb, yb, model):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model(xb)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> mnist_loss(preds, yb)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>calc_grad(xb, yb, linear1)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-45" class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>calc_grad(xb, yb, linear1)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>weights.grad.mean(),bias.grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(tensor(-0.0028), tensor([-0.0198]))</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>weights.grad.zero_()</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bias.grad.zero_()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-46" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>weights.grad.zero_()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>bias.grad.zero_()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="training-the-model" class="level3" data-number="5.0.3">
 <h3 data-number="5.0.3" class="anchored" data-anchor-id="training-the-model"><span class="header-section-number">5.0.3</span> Training the Model</h3>
 <p>We are ready to create a function that trains for 1 epoch.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -2293,21 +1344,21 @@ Note
 <p>Epoch is just a fancy way of saying 1 pass through all our data.</p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_epoch(model, lr, params):</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xb,yb <span class="kw">in</span> dl:</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        calc_grad(xb, yb, model)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> p <span class="kw">in</span> params:</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>            p.data <span class="op">-=</span> p.grad<span class="op">*</span>lr</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            p.grad.zero_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-48" class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_epoch(model, lr, params):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xb,yb <span class="kw">in</span> dl:</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        calc_grad(xb, yb, model)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> p <span class="kw">in</span> params:</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>            p.data <span class="op">-=</span> p.grad<span class="op">*</span>lr</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>            p.grad.zero_()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We want to be able to measure accuracy so we know how well we are doing. It’s hard for us to gauge how well the model is doing from our loss function. We create an accuracy metric to look at accuracy for that batch.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -2315,38 +1366,38 @@ Note
 <p>A loss function is designed to be good for gradient descent. A Metric is designed to be good for human understanding. This is why they are different sometimes.</p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> batch_accuracy(xb, yb):</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> xb.sigmoid()</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    correct <span class="op">=</span> (preds<span class="op">&gt;</span><span class="fl">0.5</span>) <span class="op">==</span> yb</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> correct.<span class="bu">float</span>().mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-50" class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> batch_accuracy(xb, yb):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> xb.sigmoid()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    correct <span class="op">=</span> (preds<span class="op">&gt;</span><span class="fl">0.5</span>) <span class="op">==</span> yb</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> correct.<span class="bu">float</span>().mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>batch_accuracy(linear1(xb), yb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-51" class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>batch_accuracy(linear1(xb), yb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor(0.4141)</code></pre>
 </div>
 </div>
 <p>Looking at accuracy of our batch is great, but we also want to look at our accuracy for the validation set. This is our way to do that using the accuracy funcion we just defined.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> validate_epoch(model):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    accs <span class="op">=</span> [batch_accuracy(model(xb), yb) <span class="cf">for</span> xb,yb <span class="kw">in</span> valid_dl]</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(torch.stack(accs).mean().item(), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-53" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> validate_epoch(model):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    accs <span class="op">=</span> [batch_accuracy(model(xb), yb) <span class="cf">for</span> xb,yb <span class="kw">in</span> valid_dl]</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(torch.stack(accs).mean().item(), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>validate_epoch(linear1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-54" class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>validate_epoch(linear1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>0.4372</code></pre>
 </div>
 </div>
 <p>Awesome! Let’s throw this all in a loop and see what we get.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> weights,bias</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="fl">1.</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(linear1, lr, params)</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(linear1)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-56" class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> weights,bias</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(linear1, lr, params)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(linear1)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 0 accuracy: 0.4916
 Epoch 1 accuracy: 0.5477
@@ -2395,21 +1446,21 @@ Epoch 19 accuracy: 0.9348</code></pre>
 <section id="in-a-neural-network" class="level3" data-number="6.0.2">
 <h3 data-number="6.0.2" class="anchored" data-anchor-id="in-a-neural-network"><span class="header-section-number">6.0.2</span> In a Neural Network</h3>
 <p>These ReLus go between our linear layers. Here’s what a simple Neural Net looks like.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize random weights.  </span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-61" class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize random weights.  </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's a simple Neural Network.  </span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This can have more layers by duplicating the patten seen below, this is just the simplest model.</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_net(xb): </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> xb<span class="op">@</span>w1 <span class="op">+</span> b1 <span class="co">#Linear</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res.<span class="bu">max</span>(tensor(<span class="fl">0.0</span>)) <span class="co">#ReLu</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res<span class="op">@</span>w2 <span class="op">+</span> b2 <span class="co">#Linear</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-62" class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here's a simple Neural Network.  </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This can have more layers by duplicating the patten seen below, this is just the simplest model.</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simple_net(xb): </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> xb<span class="op">@</span>w1 <span class="op">+</span> b1 <span class="co">#Linear</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res.<span class="bu">max</span>(tensor(<span class="fl">0.0</span>)) <span class="co">#ReLu</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res<span class="op">@</span>w2 <span class="op">+</span> b2 <span class="co">#Linear</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -2417,19 +1468,19 @@ Epoch 19 accuracy: 0.9348</code></pre>
 <h1 data-number="7"><span class="header-section-number">7</span> Train the Full Neural Network</h1>
 <p>We have our new model with new weights. It’s more than just the linear model, so how do we use gradient descent? We now have 4 weights (<code>w1</code>,<code>w2</code>,<code>b1</code>,<code>b2</code>).</p>
 <p>Turns our it’s exactly what we already did. Let’s add the new parameters and change out the linear model with the simple_net we just defined. We end up with a pretty decent accuracy!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-65" class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> init_params((<span class="dv">28</span><span class="op">*</span><span class="dv">28</span>,<span class="dv">30</span>))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> init_params(<span class="dv">30</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> init_params((<span class="dv">30</span>,<span class="dv">1</span>))</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>b2 <span class="op">=</span> init_params(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> w1,b1,w2,b2</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(simple_net, lr, params)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(simple_net)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-66" class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> w1,b1,w2,b2</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    train_epoch(simple_net, lr, params)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> accuracy: </span><span class="sc">{</span>validate_epoch(simple_net)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 0 accuracy: 0.5979
 Epoch 1 accuracy: 0.7431
@@ -2457,8 +1508,8 @@ Epoch 19 accuracy: 0.9602</code></pre>
 <section id="recap-of-tensor-shapes" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Recap of Tensor Shapes</h1>
 <p>Understanding the shapes of these tensors and how the network works is crucial. Here’s the network we built. You can see how each layer can fit into the next layer.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x.shape,w1.shape,b1.shape,w2.shape,b2.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-68" class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>x.shape,w1.shape,b1.shape,w2.shape,b2.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([709, 784]),
  torch.Size([784, 30]),
@@ -2503,6 +1554,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -2510,9 +1705,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -2548,10 +1757,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/isaac-flath\.tech\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2561,8 +1787,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2574,9 +1809,245 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -2621,28 +2092,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Isaac Flath</div>   
+    <div class="nav-footer-left">
+<p>Isaac Flath</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">LinkedIn</a>
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">
+<p>LinkedIn</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://github.com/isaac-flath">Github</a>
+    <a class="nav-link" href="https://github.com/isaac-flath">
+<p>Github</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://twitter.com/isaac_flath">Twitter</a>
+    <a class="nav-link" href="https://twitter.com/isaac_flath">
+<p>Twitter</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="../../blog.xml">Blog RSS</a>
+    <a class="nav-link" href="../../blog.xml">
+<p>Blog RSS</p>
+</a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="../../til.xml">TIL RSS</a>
+    <a class="nav-link" href="../../til.xml">
+<p>TIL RSS</p>
+</a>
   </li>  
 </ul>
     </div>
   </div>
 </footer>
+
 
 
 

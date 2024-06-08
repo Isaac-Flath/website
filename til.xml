@@ -9,13 +9,14 @@
 <link>https://isaac-flath.tech/til.html</link>
 <atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
-<generator>quarto-1.2.335</generator>
+<generator>quarto-1.4.555</generator>
 <lastBuildDate>Sat, 21 Jan 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Finding All Quarto Drafts</title>
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/TIL/QuartoDrafts.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -37,12 +38,12 @@
 <li><code>l</code> : Return file name assiciated with the match</li>
 </ul></li>
 </ul>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Excluding Files
 </div>
 </div>
@@ -65,6 +66,7 @@ Excluding Files
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -102,6 +104,7 @@ Column on the right
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -149,13 +152,14 @@ Column on the right
 
 
 
+
 <section id="today-i-learned" class="level1">
 <h1>Today I Learned</h1>
 <p>You should be really careful about random state when parallel processing. If you aren’t careful, the random seed will be copied over to other processes and each process will generate the same random numbers! I learned this from a <a href="fast.ai">fastai</a> lecture in the 2022 part 2 course.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Image showing duplicate random numbers being creating on separate processes due to random seeds being accidentally duplicated to multiple processes</figcaption><p></p>
+<figcaption>Image showing duplicate random numbers being creating on separate processes due to random seeds being accidentally duplicated to multiple processes</figcaption>
 </figure>
 </div>
 
@@ -166,7 +170,6 @@ Column on the right
   <category>Python</category>
   <guid>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</guid>
   <pubDate>Sat, 05 Nov 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.tech/TIL/imgs/RandomNumberForkDuplicate.png" medium="image" type="image/png" height="90" width="144"/>
 </item>
 <item>
   <title>Run Python on Github Actions</title>
@@ -177,37 +180,208 @@ Column on the right
 
 
 
+
 <section id="today-i-learned" class="level1">
 <h1>Today I Learned</h1>
 <p>How to run a python script on a cron using github actions, or on push of a branch.</p>
 <p>Key parts of <code>workflow.yaml</code></p>
 <p>Define the how the job runs and what the triggers are</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> myWorkflow</span></span>
-<span id="cb1-2"><span class="fu" style="color: #4758AB;">on</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb1-3"><span class="at" style="color: #657422;">   </span><span class="fu" style="color: #4758AB;">push</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb1-4"><span class="at" style="color: #657422;">      </span><span class="fu" style="color: #4758AB;">branches</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="kw" style="color: #003B4F;">[</span><span class="at" style="color: #657422;">main</span><span class="kw" style="color: #003B4F;">]</span></span>
-<span id="cb1-5"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">schedule</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb1-6"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">cron</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"0 0 * * *"</span><span class="at" style="color: #657422;"> </span></span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> myWorkflow</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">on</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb1-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">   </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">push</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb1-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">branches</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">schedule</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">cron</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0 0 * * *"</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span></span></code></pre></div>
 <p>Define system to run on.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;">jobs</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb2-2"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">build</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb2-3"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">runs-on</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> ubuntu-latest</span></span>
-<span id="cb2-4"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">steps</span><span class="kw" style="color: #003B4F;">:</span></span></code></pre></div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">jobs</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb2-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">build</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb2-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">runs-on</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ubuntu-latest</span></span>
+<span id="cb2-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">steps</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span></code></pre></div>
 <p>Checkout the github repo you are in (so you can access the files)</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> checkout repo content</span></span>
-<span id="cb3-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">uses</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> actions/checkout@v2</span></span></code></pre></div>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> checkout repo content</span></span>
+<span id="cb3-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/checkout@v2</span></span></code></pre></div>
 <p>Setup Python 3</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">uses</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> actions/setup-python@v3</span></span>
-<span id="cb4-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">with</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb4-3"><span class="at" style="color: #657422;">          </span><span class="fu" style="color: #4758AB;">python-version</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"3.9"</span></span>
-<span id="cb4-4"><span class="at" style="color: #657422;">          </span><span class="fu" style="color: #4758AB;">architecture</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="st" style="color: #20794D;">"x64"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/setup-python@v3</span></span>
+<span id="cb4-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">with</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb4-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">python-version</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"3.9"</span></span>
+<span id="cb4-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">architecture</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x64"</span></span></code></pre></div>
 <p>Install dependencies as needed and run a python script in the repository</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> Install Dependencies</span></span>
-<span id="cb5-2"><span class="fu" style="color: #4758AB;">        run</span><span class="kw" style="color: #003B4F;">: </span><span class="ch" style="color: #20794D;">|</span></span>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Install Dependencies</span></span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">        run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">: </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
 <span id="cb5-3">          python -m pip install --upgrade pip</span>
 <span id="cb5-4">          pip install -Uq git+https://github.com/fastai/fastcore.git</span>
-<span id="cb5-5"><span class="at" style="color: #657422;">      </span><span class="kw" style="color: #003B4F;">-</span><span class="at" style="color: #657422;"> </span><span class="fu" style="color: #4758AB;">name</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> execute py script</span></span>
-<span id="cb5-6"><span class="fu" style="color: #4758AB;">        run</span><span class="kw" style="color: #003B4F;">: </span><span class="ch" style="color: #20794D;">|</span></span>
+<span id="cb5-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> execute py script</span></span>
+<span id="cb5-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">        run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">: </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
 <span id="cb5-7">          python run.py</span></code></pre></div>
 
 
@@ -224,6 +398,7 @@ Column on the right
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/TIL/ShelveDB.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -256,6 +431,7 @@ Column on the right
 
 
 
+
 <section id="today-i-learned" class="level1">
 <h1>Today I Learned</h1>
 <p>I always assumed it was possible to pass secrets github actions, but I never really dove into it until now. So today I learned how to add secrets to github for use in the CI/CD for testing. I’m using it with <a href="nbdev.fast.ai">nbdev</a></p>
@@ -266,13 +442,33 @@ Column on the right
 <li>In your repository go to Settings -&gt; Secrets -&gt; Add New Secret and add your secret</li>
 <li>Add to your <code>workflow.yml</code> file</li>
 </ol>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="at" style="color: #657422;">    </span><span class="fu" style="color: #4758AB;">env</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb1-2"><span class="at" style="color: #657422;">        </span><span class="fu" style="color: #4758AB;">key</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> ${{ secrets.your_secret_key }}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">env</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ${{ secrets.your_secret_key }}</span></span></code></pre></div>
 <ol start="3" type="1">
 <li>Access in code as a normal environment variable</li>
 </ol>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">    <span class="im" style="color: #00769E;">import</span> os</span>
-<span id="cb2-2">    your_secret_key <span class="op" style="color: #5E5E5E;">=</span> os.environ[<span class="st" style="color: #20794D;">'your_secret_key'</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> os</span>
+<span id="cb2-2">    your_secret_key <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> os.environ[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'your_secret_key'</span>]</span></code></pre></div>
 
 
 </section>
@@ -287,6 +483,7 @@ Column on the right
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -322,15 +519,38 @@ Column on the right
 
 
 
+
 <section id="today-i-learned" class="level1">
 <h1>Today I Learned</h1>
 <p>Jupyter notebooks are JSON files that can be manipulated easily.</p>
 <p>To read them:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> json</span>
-<span id="cb1-2">nb <span class="op" style="color: #5E5E5E;">=</span> json.load(<span class="bu" style="color: null;">open</span>(fpath))</span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> json</span>
+<span id="cb1-2">nb <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> json.load(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(fpath))</span></code></pre></div>
 <p>To clear outputs</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="cf" style="color: #003B4F;">for</span> cell <span class="kw" style="color: #003B4F;">in</span> nb[<span class="st" style="color: #20794D;">'cell'</span>]:</span>
-<span id="cb2-2">    <span class="cf" style="color: #003B4F;">if</span> cell.cell_type<span class="op" style="color: #5E5E5E;">==</span><span class="st" style="color: #20794D;">'code'</span>: cell[<span class="st" style="color: #20794D;">'outputs'</span>]<span class="op" style="color: #5E5E5E;">=</span>[]</span></code></pre></div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> cell <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> nb[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cell'</span>]:</span>
+<span id="cb2-2">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> cell.cell_type<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'code'</span>: cell[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'outputs'</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[]</span></code></pre></div>
 <p>All normal json and easy to work with when needed. <a href="nbdev.fast.ai">nbdev</a> has lots of functions and tools to make most of this easier too.</p>
 
 

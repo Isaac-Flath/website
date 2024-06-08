@@ -1,5 +1,19 @@
 [
   {
+    "listing": "/til.html",
+    "items": [
+      "/TIL/QuartoDrafts.html",
+      "/TIL/QuartoColumnFormatting.html",
+      "/TIL/QuartoConditionalContent.html",
+      "/TIL/RandomSeedDuplication.html",
+      "/TIL/PythonScriptGithubActions.html",
+      "/TIL/ShelveDB.html",
+      "/TIL/SecretsForGithubActions.html",
+      "/TIL/ConnectingJupyterEC2.html",
+      "/TIL/JupyterIsJson.html"
+    ]
+  },
+  {
     "listing": "/blog.html",
     "items": [
       "/posts/Other/QuartoBlogSubscriptions.html",
@@ -11,8 +25,8 @@
       "/posts/Statistics/BasicTesting.html",
       "/posts/APL/BasicStats.html",
       "/posts/TimeSeries/SimpleTimeSeries.html",
-      "/posts/APL/MatrixMultiplication.html",
       "/posts/APL/Fastai_Numerical_Linear_Algebra_1.html",
+      "/posts/APL/MatrixMultiplication.html",
       "/posts/APL/TabularData.html",
       "/posts/Python/CodingStyle.html",
       "/posts/Other/MarketingAttribution.html",
@@ -35,20 +49,6 @@
       "/posts/GradientDescent/2020-06-11-GradientDescentforLinearRegression-P2.html",
       "/posts/GradientDescent/2020-06-01-GradientDescentforLinearRegression-P1B.html",
       "/posts/GradientDescent/2020-05-09-GradientDescentforLinearRegression-P1.html"
-    ]
-  },
-  {
-    "listing": "/til.html",
-    "items": [
-      "/TIL/QuartoDrafts.html",
-      "/TIL/QuartoColumnFormatting.html",
-      "/TIL/QuartoConditionalContent.html",
-      "/TIL/RandomSeedDuplication.html",
-      "/TIL/PythonScriptGithubActions.html",
-      "/TIL/ShelveDB.html",
-      "/TIL/SecretsForGithubActions.html",
-      "/TIL/ConnectingJupyterEC2.html",
-      "/TIL/JupyterIsJson.html"
     ]
   }
 ]
