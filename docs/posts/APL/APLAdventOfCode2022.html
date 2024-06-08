@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2022-12-02">
+<meta name="description" content="Working on Advent of Code 2022 in APL">
+
+<title>Isaac Flath - Advent of Code APL 2022</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XNZGT59XWP"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<meta property="og:title" content="Isaac Flath - Advent of Code APL 2022">
+<meta property="og:description" content="Working on Advent of Code 2022 in APL">
+<meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/APL.jpg">
+<meta property="og:site_name" content="Isaac Flath">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Isaac Flath - Advent of Code APL 2022">
+<meta name="twitter:description" content="Working on Advent of Code 2022 in APL">
+<meta name="twitter:image" content="https://isaac-flath.tech/posts/_TopicImages/APL.jpg">
+<meta name="twitter:creator" content="@isaac_flath">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Isaac Flath</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../testimonials.html"> 
+<span class="menu-text">Testimonials</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Advent of Code APL 2022</h1>
+                  <div>
+        <div class="description">
+          Working on Advent of Code 2022 in APL
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">APL</div>
+                <div class="quarto-category">Advent of Code</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 2, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#day-1" id="toc-day-1" class="nav-link active" data-scroll-target="#day-1"><span class="header-section-number">1</span> Day 1</a>
+  <ul class="collapse">
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">1.1</span> Solution</a></li>
+  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation"><span class="header-section-number">1.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#day-2" id="toc-day-2" class="nav-link" data-scroll-target="#day-2"><span class="header-section-number">2</span> Day 2</a>
+  <ul class="collapse">
+  <li><a href="#solution-1" id="toc-solution-1" class="nav-link" data-scroll-target="#solution-1"><span class="header-section-number">2.1</span> Solution</a></li>
+  <li><a href="#explanation-1" id="toc-explanation-1" class="nav-link" data-scroll-target="#explanation-1"><span class="header-section-number">2.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#day-3" id="toc-day-3" class="nav-link" data-scroll-target="#day-3"><span class="header-section-number">3</span> Day 3</a>
+  <ul class="collapse">
+  <li><a href="#solution-2" id="toc-solution-2" class="nav-link" data-scroll-target="#solution-2"><span class="header-section-number">3.1</span> Solution</a></li>
+  <li><a href="#explanation-2" id="toc-explanation-2" class="nav-link" data-scroll-target="#explanation-2"><span class="header-section-number">3.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#day-4" id="toc-day-4" class="nav-link" data-scroll-target="#day-4"><span class="header-section-number">4</span> Day 4</a>
+  <ul class="collapse">
+  <li><a href="#solution-3" id="toc-solution-3" class="nav-link" data-scroll-target="#solution-3"><span class="header-section-number">4.1</span> Solution</a></li>
+  <li><a href="#explanation-3" id="toc-explanation-3" class="nav-link" data-scroll-target="#explanation-3"><span class="header-section-number">4.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#day-5" id="toc-day-5" class="nav-link" data-scroll-target="#day-5"><span class="header-section-number">5</span> Day 5</a>
+  <ul class="collapse">
+  <li><a href="#solution-4" id="toc-solution-4" class="nav-link" data-scroll-target="#solution-4"><span class="header-section-number">5.1</span> Solution</a></li>
+  <li><a href="#explanation-4" id="toc-explanation-4" class="nav-link" data-scroll-target="#explanation-4"><span class="header-section-number">5.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#day-6" id="toc-day-6" class="nav-link" data-scroll-target="#day-6"><span class="header-section-number">6</span> Day 6</a>
+  <ul class="collapse">
+  <li><a href="#solution-5" id="toc-solution-5" class="nav-link" data-scroll-target="#solution-5"><span class="header-section-number">6.1</span> Solution</a></li>
+  <li><a href="#explanation-5" id="toc-explanation-5" class="nav-link" data-scroll-target="#explanation-5"><span class="header-section-number">6.2</span> Explanation</a></li>
+  </ul></li>
+  <li><a href="#the-end" id="toc-the-end" class="nav-link" data-scroll-target="#the-end"><span class="header-section-number">7</span> The End</a>
+  <ul class="collapse">
+  <li><a href="#personal" id="toc-personal" class="nav-link" data-scroll-target="#personal"><span class="header-section-number">7.1</span> Personal</a></li>
+  <li><a href="#apl" id="toc-apl" class="nav-link" data-scroll-target="#apl"><span class="header-section-number">7.2</span> APL</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div id="60960780-54e0-4ce3-adb9-1e34f5cc34bf" class="cell">
+<pre class="apl cell-code"><code>]box on
+]rows on</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">Was ON
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">Was OFF
+</pre>
+</div>
+</div>
+<p>In this blog post I will supply my solutions to <a href="https://adventofcode.com/2022">Advent of Code 2022</a> as I work through them in APL. I don’t expect to keep up with doing them every day, but will work on them as I have time and keep adding to this post.</p>
+<section id="day-1" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Day 1</h1>
+<section id="solution" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="solution"><span class="header-section-number">1.1</span> Solution</h2>
+<div id="4725af9f-630d-489e-8e07-3a26834534ab" class="cell">
+<pre class="apl cell-code"><code>f ← ,⎕CSV 'day1_input.txt' ⍬4
+sums ← {+/¨ (≢¨⍵) ⊆⊢ ⍵} f
+part1 ← ⌈/ sums
+part2 ← +/ 3↑sums[⍒sums]</code></pre>
+</div>
+<div id="6e877c5f-5ded-4870-8a78-f7ed07cb500e" class="cell">
+<pre class="apl cell-code"><code>'Part 1 Solution : ' part1
+'Part 2 Solution : ' part2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬─────┐
+│Part 1 Solution : │71780│
+└──────────────────┴─────┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬──────┐
+│Part 2 Solution : │212489│
+└──────────────────┴──────┘
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="explanation"><span class="header-section-number">1.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><code>(≢¨f)</code> : Create a mask of items we can use to separate inventories of each elf</li>
+<li><code>(≢¨⍵) ⊆⊢ ⍵</code> : Use mask to break data into sub-arrays for each elf</li>
+<li><code>+/¨ (≢¨⍵) ⊆⊢ ⍵</code> : Sum inventory of each elf</li>
+</ul>
+<p><strong>Part 1:</strong></p>
+<ul>
+<li><code>⌈/</code> : Get maximum value from array created above</li>
+</ul>
+<p><strong>Part 2:</strong></p>
+<ul>
+<li><code>sums[⍒sums]</code> : Sort array in descending order</li>
+<li><code>3↑sums[⍒sums]</code> : Get first (largest) 3 items in array</li>
+<li><code>+/ 3↑sums[⍒sums]</code> : Sum the first (largest) 3 items in array</li>
+</ul>
+</section>
+</section>
+<section id="day-2" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Day 2</h1>
+<section id="solution-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="solution-1"><span class="header-section-number">2.1</span> Solution</h2>
+<div id="5e771a82-0630-49bd-b2e9-e087fb9eee7e" class="cell">
+<pre class="apl cell-code"><code>f ← ⎕CSV 'day2_input.txt' ⍬4
+lookup ← {+/ S[C ⍳ ,⍵]}
+
+C S←↓⍉9 2⍴'A X' 4 'B X' 1 'C X' 7 'A Y' 8 'B Y' 5 'C Y' 2 'A Z' 3 'B Z' 9 'C Z' 6
+C
+S
+part1 ← lookup f
+
+C S←↓⍉9 2⍴'A X' 3 'A Y' 4 'A Z' 8 'B X' 1 'B Y' 5 'B Z' 9 'C X' 2 'C Y' 6 'C Z' 7
+C
+S
+part2 ← lookup f</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│A X│B X│C X│A Y│B Y│C Y│A Z│B Z│C Z│
+└───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">4 1 7 8 5 2 3 9 6
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│A X│A Y│A Z│B X│B Y│B Z│C X│C Y│C Z│
+└───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">3 4 8 1 5 9 2 6 7
+</pre>
+</div>
+</div>
+<div id="9e281222-8328-4442-b5f0-f8bb5ebc3eed" class="cell">
+<pre class="apl cell-code"><code>'Part 1 Solution : ' part1
+'Part 2 Solution : ' part2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬─────┐
+│Part 1 Solution : │13446│
+└──────────────────┴─────┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬─────┐
+│Part 2 Solution : │13509│
+└──────────────────┴─────┘
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="explanation-1"><span class="header-section-number">2.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><code>C ⍳ ,f</code> : Look up each item in f and find its index location in C</li>
+<li><code>S[C ⍳ ,⍵]</code> : Use indexes to get array of scores</li>
+<li><code>{+/ S[C ⍳ ,⍵]}</code> : Sum array</li>
+</ul>
+<p><strong>Part 1:</strong></p>
+<ul>
+<li>Define mapping of each possibility to score</li>
+<li>Use function defined above</li>
+</ul>
+<p><strong>Part 2:</strong></p>
+<ul>
+<li>Define mapping of each possibility to score</li>
+<li>Use function defined above</li>
+</ul>
+</section>
+</section>
+<section id="day-3" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Day 3</h1>
+<section id="solution-2" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="solution-2"><span class="header-section-number">3.1</span> Solution</h2>
+<div id="eb6ee9e2-a971-4d6b-8998-8ac7d229bf0c" class="cell">
+<pre class="apl cell-code"><code>f ← (⎕A,⍨⎕C ⎕A)∘⍳¨⊃⎕NGET'day3_input.txt'1
+
+part1 ← +/1↑¨{(2÷⍨⍴¨⍵)(↑∩↓)¨⍵}f
+
+part2 ← +/1↑¨∩/{(3÷⍨≢⍵)3⍴⍵}f</code></pre>
+</div>
+<div id="0257e0b5-7f27-4f55-a3c6-c7bf469af773" class="cell">
+<pre class="apl cell-code"><code>'Part 1 Solution : ' part1
+'Part 2 Solution : ' part2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬──────┐
+│Part 1 Solution : │┌────┐│
+│                  ││7785││
+│                  │└────┘│
+└──────────────────┴──────┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬──────┐
+│Part 2 Solution : │┌────┐│
+│                  ││2633││
+│                  │└────┘│
+└──────────────────┴──────┘
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation-2" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="explanation-2"><span class="header-section-number">3.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><code>⊃⎕NGET'day3_input.txt'1</code> : Load the data</li>
+<li><code>(⎕A,⍨⎕C ⎕A)</code> : Get alphabet (lower and upper case)</li>
+<li><code>∘⍳¨</code> : Index into each piece of data to find position in alphabet</li>
+</ul>
+<p><strong>Part1:</strong></p>
+<ul>
+<li><code>⍴¨w</code> : Get length of each elf’s inventory</li>
+<li><code>(2÷⍨⍴¨w)</code> : Divide by 2 to get half-way point</li>
+<li><code>{(2÷⍨⍴¨w) (↑∩↓)¨ ⍵}</code> : Function to the intersection of the first and last halves of each elf’s inventory</li>
+<li><code>1↑¨ {(2÷⍨⍴¨w) (↑∩↓)¨ ⍵} f</code> : de-dupe by keeping only 1st result for each elf</li>
+<li><code>+/1↑¨∩/{(3÷⍨≢⍵)3⍴⍵}f</code> : Sum</li>
+</ul>
+<p><strong>Part2:</strong></p>
+<ul>
+<li><code>(3÷⍨≢⍵)</code> : Get number of groups of elves</li>
+<li><code>{(3÷⍨≢⍵)3⍴⍵</code> : Reshape data to be a n_groups x 3 elves matrix</li>
+<li><code>∩/{(3÷⍨≢⍵)3⍴⍵}f</code> : Get the intersection (items that all 3 elves have)</li>
+<li><code>1↑¨∩/{(3÷⍨≢⍵)3⍴⍵}f</code> : de-dupe by keeping only 1st result for each elf</li>
+<li><code>+/1↑¨∩/{(3÷⍨≢⍵)3⍴⍵}f</code> : Sum</li>
+</ul>
+</section>
+</section>
+<section id="day-4" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Day 4</h1>
+<section id="solution-3" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="solution-3"><span class="header-section-number">4.1</span> Solution</h2>
+<div id="0e184b2a-636f-4601-a3ce-8140c50ec7ef" class="cell">
+<pre class="apl cell-code"><code>f ← {⎕csv⍠'Separator' '-'⊢⍵⍬4}¨↓⍉⎕csv'day4_input.txt'
+c1 c2 c3 c4 ← ↓⍉⊃,/f
+fn ← {a1 a2←⍺ ⋄ w1 w2←⍵ ⋄ a1≤w1 ∧ a2≥w2}
+
+part1 ← +/ (c1 c2 fn c3 c4) ∨ c3 c4 fn c1 c2
+part2 ← +/ (c1 c2 fn c3 c3) ∨ c3 c4 fn c1 c1</code></pre>
+</div>
+<div id="4f3ebe43-9aaa-4dd0-a5b6-c9d1d949ec9f" class="cell">
+<pre class="apl cell-code"><code>+/c1 c2 fn c3 c4
++/c3 c4 fn c1 c2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">293
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">333
+</pre>
+</div>
+</div>
+<div id="b600ecfe-45b4-4e36-be17-367c9c9354ff" class="cell">
+<pre class="apl cell-code"><code>'Part 1 Solution : ' part1
+'Part 2 Solution : ' part2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬───┐
+│Part 1 Solution : │599│
+└──────────────────┴───┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬───┐
+│Part 2 Solution : │928│
+└──────────────────┴───┘
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation-3" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="explanation-3"><span class="header-section-number">4.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><p>Read File</p>
+<ul>
+<li><p><code>⎕csv'day4_input.txt' ⍬4</code> : Read CSV file</p></li>
+<li><p><code>↓⍉⎕csv'day4_input.txt'</code> Transpose and put into format for processing</p></li>
+<li><p><code>{⎕csv⍠'Separator' '-'⊢⍵⍬4}¨↓⍉⎕csv'day4_input.txt'</code> : Process each column as a nested csv with <code>-</code> as the separator to split out start/end numbers</p></li>
+<li><p><code>⊃,/{⎕csv⍠'Separator' '-'⊢⍵⍬4}¨↓⍉5↑⎕csv'day4_input.txt'</code> : Convert nested arrays into flat 2d matrix</p></li>
+<li><p><code>↓⍉⊃,/{⎕csv⍠'Separator' '-'⊢⍵⍬4}¨↓⍉5↑⎕csv'day4_input.txt'</code> : Reformat into column vectors for destructured assignment</p></li>
+</ul></li>
+<li><p>Format Matrix</p>
+<ul>
+<li><code>⊃,/f</code> : Convert nested arrays into flat 2d matrix</li>
+<li><code>↓⍉⊃,/f</code> : Create separate column vectors for destructured assignment</li>
+</ul></li>
+<li><p>Boolean logic</p>
+<ul>
+<li><code>a1 a2 ← ⍺ ⋄ w1 w2 ← ⍵</code> : Destructured assignment to split out function arguments</li>
+<li><code>(a1 ≤ w1 ∧ a2 ≥ w2)</code> : Boolean logic for problem</li>
+</ul></li>
+</ul>
+<p><strong>Part 1:</strong></p>
+<ul>
+<li><code>c1 c2 fn c3 c4</code> : Does the 1st elf’s assignment fully enclose the 2nd elf’s assignment?</li>
+<li><code>c3 c4 fn c1 c2</code> : Does the 2nd elf’s assignment fully enclose the 1st elf’s assignment?</li>
+<li><code>(c1 c2 fn c3 c4) ∨ c3 c4 fn c1 c2</code> : Combine with <code>or</code> logic</li>
+<li><code>+/ (c1 c2 fn c3 c4) ∨ c3 c4 fn c1 c2</code> : Sum booleans to get part 1 solution</li>
+</ul>
+<p><strong>Part 2:</strong></p>
+<ul>
+<li><code>c1 c2 fn c3 c3</code> : Does the 1st elf’s assignment enclose the 2nd elf’s lowest assignment?</li>
+<li><code>c3 c4 fn c1 c1</code> : Does the 2nd elf’s assignment enclose the 1st elf’s lowest assignment?</li>
+<li><code>(c1 c2 fn c3 c3) ∨ c3 c4 fn c1 c1</code> : Combine with <code>or</code> logic</li>
+<li><code>+/ (c1 c2 fn c3 c3) ∨ c3 c4 fn c1 c1</code> : Sum booleans to get part 2 solution</li>
+</ul>
+</section>
+</section>
+<section id="day-5" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Day 5</h1>
+<section id="solution-4" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="solution-4"><span class="header-section-number">5.1</span> Solution</h2>
+<div id="556a379a-d60c-4000-aaf9-870e8789fb21" class="cell">
+<pre class="apl cell-code"><code>board moves ← (∊~0=⍴¨f)⊆(f←⊃⎕NGET'day5_input.txt'1)
+
+moves ← ⌽↓(6⍴0 1)/⎕csv⍠'Separator' ' '⊢moves⍬4
+
+board ← ¯1↓⎕csv⍠'Widths' ((8⍴4),3)⊢board⍬4
+board ← ' '∘(1↓,⊢⍤/⍨1(⊢∨⌽)0,≠)¨↓⍉⊃¨1↓¨board
+
+step ← {(move from to)←⍺ ⋄ ((⍺⍺ move↑⊃⍵[from])∘,¨@to)(move∘↓¨@from)⍵}
+⎕ ← 'part 1: ',⊃¨⊃ ⌽step/moves,⊂board
+
+⎕ ← 'part 2: ',⊃¨⊃ ⊣step/moves,⊂board</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">part 1: JRVNHHCSJ
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">part 2: GNFBSBJLH
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation-4" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="explanation-4"><span class="header-section-number">5.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><p>File Processing</p>
+<ul>
+<li><code>(f←⊃⎕NGET'day5_input.txt'1)</code> : Read file</li>
+<li><code>(∊~0=⍴¨f)</code> Create boolean mask indicating where the board and moves section split is</li>
+<li><code>(∊~0=⍴¨f)⊆(f←⊃⎕NGET'day5_input.txt'1)</code> : Use boolean mask to partition board and moves to separate variables</li>
+</ul></li>
+<li><p>Clean Moves Input</p>
+<ul>
+<li><code>⎕csv⍠'Separator' ' '⊢moves⍬4</code> : Process moves data as a CSV with space as separator</li>
+<li><code>(6⍴0 1)/⎕csv⍠'Separator' ' '⊢moves⍬4</code> : Remove the non-numeric columns with words in them</li>
+<li><code>↓(6⍴0 1)/⎕csv⍠'Separator' ' '⊢moves⍬4</code> : Change to vector of columns for processing</li>
+<li><code>⌽↓(6⍴0 1)/⎕csv⍠'Separator' ' '⊢moves⍬4</code> : Reverse so we can process as a reduction</li>
+</ul></li>
+<li><p>Clean Board Input</p>
+<ul>
+<li><code>⊃¨1↓¨board</code> : Strip brackets and unnest matrix</li>
+<li><code>↓⍉⊃¨1↓¨board</code>: Format into vector of columns for processing</li>
+<li><code>' '∘(1↓,⊢⍤/⍨1(⊢∨⌽)0,≠)↓⍉⊃¨1↓¨board</code> : Remove leading, trailing and duplicate blanks</li>
+</ul></li>
+<li><p>Step Function:</p>
+<ul>
+<li><code>(move from to)←⍺</code> : Break numeric arguments for move instructions into separate variables</li>
+<li><code>⍵[from]</code> : Get the items in the “from” location</li>
+<li><code>move↑⊃⍵[from]</code> : Take only the move quantity from the items in the from location</li>
+<li><code>(⍺⍺ move↑⊃⍵[from])</code> : Apply a function to the items in the from location before doing anything else</li>
+<li><code>(⍺⍺ move↑⊃⍵[from])∘,¨@to)</code> : Add the items in the <code>from</code> location to the <code>to</code> location</li>
+<li><code>(move∘↓¨@from)</code> : Drop the items being moved from the from location</li>
+<li><code>{(move from to)←⍺ ⋄ ((⍺⍺ move↑⊃⍵[from])∘,¨@to)(move∘↓¨@from)⍵}</code> : Combine for function definition</li>
+</ul></li>
+</ul>
+<p><strong>Part 1:</strong></p>
+<ul>
+<li><code>⌽ step/moves,⊂board</code> : Call the step function using a reduction across the moves. When moving the boxes reverse the lists so it simulates moving one box at a time.</li>
+<li><code>⊃¨⊃ ⌽ step/moves,⊂board</code> : Take only the first element in each cell</li>
+</ul>
+<p><strong>Part 2:</strong></p>
+<ul>
+<li><code>⌽ step/moves,⊂board</code> : Call the step function using a reduction across the moves. When moving the boxes do not reverse (identity function) so it simulates moving a full stack at a time.</li>
+<li><code>⊃¨⊃ ⌽ step/moves,⊂board</code> : Take only the first element in each cell</li>
+</ul>
+</section>
+</section>
+<section id="day-6" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Day 6</h1>
+<section id="solution-5" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="solution-5"><span class="header-section-number">6.1</span> Solution</h2>
+<div id="b8eeaed5-4dd7-44d0-b4a8-b8bc9e89dbe9" class="cell">
+<pre class="apl cell-code"><code>f← ∊⎕CSV'day6_input.txt'
+part1 part2 ← {¯1+⍵+⍵⍳⍨≢¨⍵∪/f}¨ 4 14</code></pre>
+</div>
+<div id="f98b1c07-f871-4997-97a7-54c06a8e3633" class="cell">
+<pre class="apl cell-code"><code>'Part 1 Solution : ' part1
+'Part 2 Solution : ' part2</code></pre>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬────┐
+│Part 1 Solution : │1760│
+└──────────────────┴────┘
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-APL">┌──────────────────┬────┐
+│Part 2 Solution : │2974│
+└──────────────────┴────┘
+</pre>
+</div>
+</div>
+</section>
+<section id="explanation-5" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="explanation-5"><span class="header-section-number">6.2</span> Explanation</h2>
+<p><strong>Shared Code:</strong></p>
+<ul>
+<li><code>f← ∊⎕CSV'day6_input.txt'</code> : Read data file</li>
+<li><code>∪/f</code> : Get unique characters from input data</li>
+<li><code>⍵∪/f</code> : Instead of unique characters from input data, unique characters in each group of <code>⍵</code> characters from input data.</li>
+<li><code>≢¨⍵∪/f</code> : Get number of unique characters are in each group</li>
+<li><code>⍵⍳⍨≢¨⍵∪/f</code> : Look for the first group where the number of unique characters is equal to <code>⍵</code></li>
+<li><code>¯1+⍵+⍵⍳⍨≢¨⍵∪/f</code> : Get ending index of group instead of starting location of group</li>
+</ul>
+<p><strong>Part 1:</strong></p>
+<ul>
+<li>Apply function to window size of 4</li>
+</ul>
+<p><strong>Part 2:</strong></p>
+<ul>
+<li>Apply function to window size of 14</li>
+</ul>
+</section>
+</section>
+<section id="the-end" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> The End</h1>
+<p>I have decided not to finish advent of code in APL for now. There are several reasons for this:</p>
+<section id="personal" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="personal"><span class="header-section-number">7.1</span> Personal</h2>
+<ul>
+<li>I went to a dance competition for 4 days an won! I had very ambitious plans to keep up while at the competition. In reality I didn’t even open my laptop while there.</li>
+<li>My family is visiting and I am spending time with them</li>
+</ul>
+</section>
+<section id="apl" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="apl"><span class="header-section-number">7.2</span> APL</h2>
+<p>The time it takes to solve each in APL is getting much longer. There are two main things that are super common in advent of code that APL does not handle well. This was a good learning experience.</p>
+<ul>
+<li><p>APL seems to be clunky at handling data cleaning, which many of these challenges from here on out include.</p></li>
+<li><p>APL seems to handle flat (ie numeric) arrays extremely well. Nested arrays such as text are not as clean. Many of the problems require text data as well.</p></li>
+</ul>
+<p>This is useful to know. Part of the reason I was interested in working on this is APL was to understand what I would and would not use the language for. Many proponents of APL use it for almost everything - that’s not I think is best in my opinion.</p>
+<p>I still plan to use APL as a tool for thought when reading and implement research papers. But once I understand the contents of the paper I will move to another language to apply the concept to real world data.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Isaac Flath</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/isaacflath/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/isaac-flath">
+<p>Github</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/isaac_flath">
+<p>Twitter</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../blog.xml">
+<p>Blog RSS</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../til.xml">
+<p>TIL RSS</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

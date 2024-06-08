@@ -4,5 +4,4 @@
 **/.DS_Store
 /_freeze/
 /.quarto/
-/docs/
 !docs/empty.txt
