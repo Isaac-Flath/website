@@ -237,24 +237,25 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
-<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell">
+<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, random, matplotlib.pyplot <span class="im">as</span> plt, operator, torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.distributions.multivariate_normal <span class="im">import</span> MultivariateNormal</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> tensor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> tensor</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'dark_background'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell">
+<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>torch.set_printoptions(precision<span class="op">=</span><span class="dv">3</span>, linewidth<span class="op">=</span><span class="dv">140</span>, sci_mode<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell">
+<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_data(centroids:torch.Tensor,<span class="co"># Centroid coordinates</span></span>
@@ -276,18 +277,18 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <h1 data-number="2"><span class="header-section-number">2</span> Generate Dataset</h1>
 <p>We need to create a dataset. This data generation step follows what Jeremy Howard did in a notebook he did on meanshift clustering, which is a different clustering algorithm. That notebook was part of the <a href="fast.ai">fast.ai</a> <a href="https://www.fast.ai/posts/part2-2022.html">2022 part 2 course</a>.</p>
 <p>Since the same dataset can be used, I used his and removed some unneeded print statements. See the plot for what the data looks like.</p>
-<div id="232c6210-c99b-4dc8-8702-23cb95bb4093" class="cell">
+<div id="232c6210-c99b-4dc8-8702-23cb95bb4093" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">250</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> torch.rand(n_clusters, <span class="dv">2</span>)<span class="op">*</span><span class="dv">70</span><span class="op">-</span><span class="dv">35</span> <span class="co"># Points between -35 and 35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0ddcab96-bdce-4d41-bee3-551a6271a689" class="cell">
+<div id="0ddcab96-bdce-4d41-bee3-551a6271a689" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample(m): <span class="cf">return</span> MultivariateNormal(m, torch.diag(tensor([<span class="fl">5.</span>,<span class="fl">5.</span>]))).sample((n_samples,))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4563ef3f-ad0a-4869-87ff-98c698f04d2b" class="cell">
+<div id="4563ef3f-ad0a-4869-87ff-98c698f04d2b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> torch.cat([sample(c) <span class="cf">for</span> c <span class="kw">in</span> centroids])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell">
+<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot_data(centroids, data, n_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -311,7 +312,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <p>In order to initialize our centroids we need to be able to calculate distances, so let’s do that first.</p>
 <p>Given a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract centroids coordinates from data points coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root</p>
 <p>That gives us the euclidean distance between each data point and each centroid.</p>
-<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell">
+<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_distances(centroids:torch.Tensor, <span class="co"># Centroid coordinates</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                        data:torch.Tensor <span class="co"># Data points you want to cluster</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                       )<span class="op">-&gt;</span> torch.Tensor: <span class="co"># Tensor containing euclidean distance between each centroid and data point    </span></span>
@@ -335,7 +336,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </ul></li>
 </ul>
 <p>This ensures we get initialization that are nice and far away from each other and spread out amonth the data, minimizing the risk of hitting local optimums.</p>
-<div id="0d304156-4507-4ea9-a1e9-eb57036bf947" class="cell">
+<div id="0d304156-4507-4ea9-a1e9-eb57036bf947" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> initialize_centroids(data:torch.Tensor,<span class="co"># Data points you want to cluster</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                         k:torch.Tensor <span class="co"># Number of centroids you want to initialize</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        )<span class="op">-&gt;</span>torch.Tensor: <span class="co"># Returns starting centroid coordinates</span></span>
@@ -350,7 +351,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <section id="classify-data-points" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="classify-data-points"><span class="header-section-number">3.3</span> Classify Data Points</h2>
 <p>Once we have centroids (or updated centroids), we need to assign a centroid to each data point. We do this by calculating the distance between each data point and each centroid, and assigning each datapoint to it’s closes centroid.</p>
-<div id="7432b17a-59e3-4f3a-908b-8ffc597101f3" class="cell">
+<div id="7432b17a-59e3-4f3a-908b-8ffc597101f3" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_centroids(centroids:torch.Tensor, <span class="co"># Centroid coordinates</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                     data:torch.Tensor <span class="co"># Data points you want to cluster</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    )<span class="op">-&gt;</span>torch.Tensor: <span class="co"># Tensor containing new centroid assignments for each data point</span></span>
@@ -363,7 +364,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <section id="update-centroids" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="update-centroids"><span class="header-section-number">3.4</span> Update Centroids</h2>
 <p>To update the centroid locations, we take the mean of all the data point assigned to that centroid. We make the new centroid that point.</p>
-<div id="9ba26f47-9401-4437-975e-0b27c3fc755d" class="cell">
+<div id="9ba26f47-9401-4437-975e-0b27c3fc755d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_centroids(centroid_assignments:torch.Tensor, <span class="co"># Centroid coordinates</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                     data:torch.Tensor <span class="co"># Data points you want to cluster</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                    )<span class="op">-&gt;</span>torch.Tensor: <span class="co"># Tensor containing updated centroid coodinates</span></span>
@@ -377,7 +378,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <section id="training" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Training</h1>
 <p>Here we put it all together and train our K-means model. As you can see it fits this dataset very quickly (it’s a simple dataset).</p>
-<div id="cdc560bd-c248-4f9d-a05e-f085f67ab434" class="cell">
+<div id="cdc560bd-c248-4f9d-a05e-f085f67ab434" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pred_centroids <span class="op">=</span> initialize_centroids(data,n_clusters)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    plot_data(pred_centroids, data, n_samples)</span>

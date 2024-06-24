@@ -184,6 +184,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
   <ul>
   <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
   <li><a href="#the-evals" id="toc-the-evals" class="nav-link" data-scroll-target="#the-evals"><span class="header-section-number">2</span> The Evals</a></li>
+  <li><a href="#storage" id="toc-storage" class="nav-link" data-scroll-target="#storage"><span class="header-section-number">3</span> Storage</a></li>
   </ul>
 </nav>
     </div>
@@ -224,6 +225,24 @@ Note
 <section id="the-evals" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> The Evals</h1>
 <p>For this example I doing a simple task. Given an address I want the LLM to clean and standardize it and return a JSON. While this isn’t the best LLM use-case, this is a really great use case for having lots of simple and easy evals to test. This will let us focus on building the framework and not get bogged down with the challenges of LLM evals.</p>
+</section>
+<section id="storage" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Storage</h1>
+<p>You need to have a good and organized way to store inputs, outputs, and the test results to be queried. There are many tools to do this and many formats, but I like to use sqlite. <a href="https://sqlite-utils.datasette.io/en/stable/python-api.html">The sqlite-utils</a> is extremely helpful and helps manage things like automatically creating tables on first insert, and automatically adding missing columns on insert. It also provides a flexible API for querying in python.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Database normalization is a skill very few people actually can apply effectively in practice (you’ll hear things like semi-normalized or it’s mostly normalized, even when its not at all normalized). If you master it and actually apply it you will be able to easily delegate tasks, transition off projects, and rely on others for maintenence and debugging in production.</p>
+<p>If you don’t, you will end up being the only reliable repository of information and so will be stuck answering questions and writing queries for other people indefinitely. There is simply no reliable way to transfer expert knowledge of a relational databased that was not built on best-practice normalization. You will be forever stuck hoping that others will step up and take over, but they simply won’t be able to.</p>
+</div>
+</div>
 
 
 </section>

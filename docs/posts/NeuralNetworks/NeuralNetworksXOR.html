@@ -261,14 +261,15 @@ Book Information
 <h1 data-number="2"><span class="header-section-number">2</span> The Problem</h1>
 <p>In the graph below we see the XOR operator outputs. XOR is similar to OR. If either one of the bits is positive, then the result is positive. The difference is that if both are positive, then the result is negative.</p>
 <p>We can see the 2 classes as red and blue dots on the visualization. Try to draw a single line that divides the red dots from the blue dots and you will find that it cannot be done. A linear model simply cannot classify these points accurately</p>
-<div id="cell-4" class="cell">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> Tensor</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'dark_background'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> Tensor([[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">1</span>,<span class="dv">1</span>]])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]</span>
@@ -313,7 +314,7 @@ Note
 <p>The text and some libraries do transposes to have wx + b, but it’s the same thing.</p>
 </div>
 </div>
-<div id="cell-7" class="cell">
+<div id="cell-7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> Tensor([[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">1</span>,<span class="dv">1</span>]])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> torch.ones(<span class="dv">2</span>,<span class="dv">2</span>)<span class="op">;</span> </span>
@@ -324,12 +325,12 @@ Note
 <li>x@w + b : This is the linear function</li>
 <li>torch.clip : This is replacing any negative values with 0. The fancy term for this is a ReLU or Rectified Linear Unit</li>
 </ul>
-<div id="cell-9" class="cell">
+<div id="cell-9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> torch.clip(x<span class="op">@</span>w <span class="op">+</span> b,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Instead of plotting our inputs like we did above (when we saw this problem couldn’t be solved linearly), let’s plot the outputs of layer we just calculated.</p>
 <p>As you can see when we plot the output of the first layer it’s trivial to separate the blue and red points with a line. We have created a representation of the data that makes it very easy to classify the points to solve the XOR problem!</p>
-<div id="cell-11" class="cell">
+<div id="cell-11" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> pd.DataFrame(h,columns <span class="op">=</span> [<span class="st">'x1'</span>,<span class="st">'x2'</span>])<span class="op">;</span> out[<span class="st">'XOR'</span>] <span class="op">=</span> y</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>class1 <span class="op">=</span> out[out.XOR<span class="op">==</span><span class="dv">0</span>].iloc[:,:<span class="dv">2</span>]<span class="op">;</span> class2 <span class="op">=</span> out[out.XOR<span class="op">==</span><span class="dv">1</span>].iloc[:,:<span class="dv">2</span>]</span>
@@ -351,11 +352,11 @@ Note
 <h1 data-number="4"><span class="header-section-number">4</span> Model Predictions</h1>
 <p>Now that it’s linearly separable, we can easily add an output layer to form out predictions. All we do for this is multiply my another Tensor so that we get the correct number of outputs. In this case we have 4 points we want to classify, so we have 4 outputs (1 per point).</p>
 <p>We see that the model was able to solve the XOR problem</p>
-<div id="cell-13" class="cell">
+<div id="cell-13" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> torch.clip(x<span class="op">@</span>w <span class="op">+</span> b,<span class="dv">0</span>) <span class="op">@</span> Tensor([<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>])</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> pd.DataFrame(x.<span class="bu">int</span>().numpy(),columns<span class="op">=</span>[<span class="st">'x1'</span>,<span class="st">'x2'</span>])<span class="op">;</span> res[<span class="st">'preds'</span>]<span class="op">=</span>h.<span class="bu">int</span>()<span class="op">;</span> res[<span class="st">'targets'</span>]<span class="op">=</span>y</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 

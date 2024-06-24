@@ -251,7 +251,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <li>Graphs are most diversity in output images to least diversity from left to right</li>
 <li>Graphs are lowest quality images to highest quality images from left to right</li>
 </ul>
-<div id="cell-4" class="cell">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -267,7 +267,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <p>This is especially problematic because we want to be able to independently control features in the output image. I don’t want to modify the direction the eyes are looking and have that also change facial features. I want to be able to tweak components without having a tangled mess of mappings.</p>
 <p>To fix this we learn the distributions that are ideal for the noise vector. So random noise comes in, it gets passed through a Mapping Network and we end with a weight matrix <code>w</code>. Since a neural network can approximate any function, that means it can approximate any distribution so this should work. This lets your model learn represent things in a cleaner way and makes your mapping much less tangled so you can control features much easier.</p>
 <p>The mapping network in StyleGAN is composed of 8 layers - but here’s a simplified version just to get the idea that it’s just a normal neural network that is mapping the noise vector (z) to the weights vector (w).</p>
-<div id="cell-7" class="cell">
+<div id="cell-7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MappingNetwork(nn.Module):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, z_dim, hidden_dim, w_dim):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
@@ -280,7 +280,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, noise): <span class="cf">return</span> <span class="va">self</span>.mapping(noise)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>MappingNetwork(<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>MappingNetwork(
   (mapping): Sequential(
     (0): Linear(in_features=100, out_features=200, bias=True)
@@ -303,7 +303,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </ol>
 <p>That outputs the new image that includes the noise can continue down the network. Nothing special needs to happen other than this because we didn’t change any dimensions. Really it’s just a linear layer with random noise in it. You can see below that then image shape and the final shape are identical.</p>
 <p>This happens in many places in the network before every AdaIN layer. So let’s see what the AdaIN layer is.</p>
-<div id="cell-10" class="cell">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InjectNoise(nn.Module):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, channels):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
@@ -343,7 +343,7 @@ weight * noise + image (ouput):   torch.Size([32, 512, 4, 4])</code></pre>
 <li>output <code>style_tensor * normalized_image  + shift_tensor</code></li>
 </ol>
 <p>Take a look below at some the code for what it does and the shapes to understand the inputs and outputs. Input and output size is the same, but with normalization and injected weight tensor!</p>
-<div id="cell-12" class="cell">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AdaIN(nn.Module):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, channels, w_dim):</span>
@@ -389,7 +389,7 @@ scale * norm_image + shift (ouput): torch.Size([32, 512, 4, 4])</code></pre>
 <li>An AdaIN layer (we created that above)</li>
 <li>An activation (just like all neural networks need)</li>
 </ol>
-<div id="cell-15" class="cell">
+<div id="cell-15" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MinifiedStyleGANGeneratorBlock(nn.Module):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_chan, out_chan, w_dim, kernel_size, starting_size, use_upsample<span class="op">=</span><span class="va">True</span>):</span>
@@ -411,7 +411,7 @@ scale * norm_image + shift (ouput): torch.Size([32, 512, 4, 4])</code></pre>
 </div>
 <p>Now, you can implement progressive growing and put it all together. Let’s see how that works in StyleGAN. As you can see we move from an 8x8 image to a 16x16 image. StyleGAn will do this many times.</p>
 <p>Keep in mind all of this is simplified and scaled down from what is in StyleGAN. The purpose of this blog was to communicate the core concepts and techniques used in StyleGAN, not necessarily show the practical applications. Stay tuned for a blog that shows practical application of these concepts!</p>
-<div id="cell-17" class="cell">
+<div id="cell-17" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AdaIN(nn.Module):</span>
@@ -440,7 +440,7 @@ scale * norm_image + shift (ouput): torch.Size([32, 512, 4, 4])</code></pre>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-18" class="cell">
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MinifiedStyleGANGenerator(nn.Module):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, z_dim, map_hidden_dim, w_dim, in_chan, out_chan, kernel_size, hidden_chan):</span>

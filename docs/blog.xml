@@ -942,7 +942,7 @@ Credit
 </section>
 <section id="imports-and-setup" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Imports and setup</h1>
-<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell">
+<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
@@ -981,13 +981,18 @@ background-color: null;
 font-style: inherit;">as</span> np</span></code></pre></div>
 </details>
 </div>
-<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell">
+<div id="0d6c60d9" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">plt.style.use(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'dark_background'</span>)</span></code></pre></div>
+</div>
+<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">torch.manual_seed(<span class="dv" style="color: #AD0000;
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">torch.manual_seed(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">42</span>)</span>
-<span id="cb2-2">torch.set_printoptions(precision<span class="op" style="color: #5E5E5E;
+<span id="cb3-2">torch.set_printoptions(precision<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1002,38 +1007,38 @@ background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
 </details>
 </div>
-<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell">
+<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> plot_data(centroids:torch.Tensor,<span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Centroid coordinates</span></span>
-<span id="cb3-2">              data:torch.Tensor, <span class="co" style="color: #5E5E5E;
+<span id="cb4-2">              data:torch.Tensor, <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Data Coordinates</span></span>
-<span id="cb3-3">              n_samples:<span class="bu" style="color: null;
+<span id="cb4-3">              n_samples:<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">int</span>, <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Number of samples</span></span>
-<span id="cb3-4">              ax:plt.Axes<span class="op" style="color: #5E5E5E;
+<span id="cb4-4">              ax:plt.Axes<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Matplotlib Axes object</span></span>
-<span id="cb3-5">             )<span class="op" style="color: #5E5E5E;
+<span id="cb4-5">             )<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-&gt;</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>:</span>
-<span id="cb3-6">    <span class="co" style="color: #5E5E5E;
+<span id="cb4-6">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">'''Creates a visualization of centroids and data points for clustering problems'''</span></span>
-<span id="cb3-7">    <span class="cf" style="color: #003B4F;
+<span id="cb4-7">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">if</span> ax <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -1042,14 +1047,14 @@ background-color: null;
 font-style: inherit;">None</span>: _,ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots()</span>
-<span id="cb3-8">    <span class="cf" style="color: #003B4F;
+<span id="cb4-8">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">for</span> i, centroid <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(centroids):</span>
-<span id="cb3-9">        samples <span class="op" style="color: #5E5E5E;
+<span id="cb4-9">        samples <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> data[i<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1060,7 +1065,7 @@ background-color: null;
 font-style: inherit;">1</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>n_samples]</span>
-<span id="cb3-10">        ax.scatter(samples[:,<span class="dv" style="color: #AD0000;
+<span id="cb4-10">        ax.scatter(samples[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>], samples[:,<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1069,7 +1074,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)</span>
-<span id="cb3-11">        ax.plot(<span class="op" style="color: #5E5E5E;
+<span id="cb4-11">        ax.plot(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>centroid, markersize<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1088,7 +1093,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span>)</span>
-<span id="cb3-12">        ax.plot(<span class="op" style="color: #5E5E5E;
+<span id="cb4-12">        ax.plot(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>centroid, markersize<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1113,11 +1118,11 @@ font-style: inherit;">2</span>)</span></code></pre></div>
 <section id="generate-dataset" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Generate Dataset</h1>
 <p>I’m using the same generated data that Jeremy did. I refactored a bit, but it’s the same thing.</p>
-<div id="cee9ffac-fcaf-4bca-aa35-045b005b0fcb" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+<div id="cee9ffac-fcaf-4bca-aa35-045b005b0fcb" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> create_dataset(n_clusters,n_samples):</span>
-<span id="cb4-2">    centroids <span class="op" style="color: #5E5E5E;
+<span id="cb5-2">    centroids <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.rand(n_clusters, <span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1132,7 +1137,7 @@ background-color: null;
 font-style: inherit;">35</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Points between -35 and 35</span></span>
-<span id="cb4-3">    <span class="kw" style="color: #003B4F;
+<span id="cb5-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> sample(m): <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1141,38 +1146,38 @@ background-color: null;
 font-style: inherit;">5.</span>,<span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5.</span>]))).sample((n_samples,))</span>
-<span id="cb4-4">    data <span class="op" style="color: #5E5E5E;
+<span id="cb5-4">    data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.cat([sample(c) <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">for</span> c <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">in</span> centroids])</span>
-<span id="cb4-5">    <span class="cf" style="color: #003B4F;
+<span id="cb5-5">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> data,centroids</span></code></pre></div>
 </div>
-<div id="189ac354-be7a-48e1-87dd-312947bbe5a6" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">n_clusters <span class="op" style="color: #5E5E5E;
+<div id="189ac354-be7a-48e1-87dd-312947bbe5a6" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">n_clusters <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span></span>
-<span id="cb5-2">n_samples <span class="op" style="color: #5E5E5E;
+<span id="cb6-2">n_samples <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">250</span></span>
-<span id="cb5-3">data,centroids <span class="op" style="color: #5E5E5E;
+<span id="cb6-3">data,centroids <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> create_dataset(n_clusters,n_samples)</span></code></pre></div>
 </div>
-<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">plot_data(centroids, data, n_samples)</span></code></pre></div>
+<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">plot_data(centroids, data, n_samples)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1225,21 +1230,21 @@ Distance Calculation Steps
 </div>
 </div>
 <p>Let’s put that in a function.</p>
-<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> calculate_distances(data:torch.Tensor <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Data points you want to cluster</span></span>
-<span id="cb7-2">                       )<span class="op" style="color: #5E5E5E;
+<span id="cb8-2">                       )<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-&gt;</span> torch.Tensor: <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Tensor containing euclidean distance between each centroid and data point    </span></span>
-<span id="cb7-3">    <span class="co" style="color: #5E5E5E;
+<span id="cb8-3">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">'''Calculate distance between centroids and each datapoint'''</span></span>
-<span id="cb7-4">    axis_distances <span class="op" style="color: #5E5E5E;
+<span id="cb8-4">    axis_distances <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> data.reshape(<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1260,7 +1265,7 @@ background-color: null;
 font-style: inherit;">2</span>))<span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#.abs()</span></span>
-<span id="cb7-5">    euclid_distances <span class="op" style="color: #5E5E5E;
+<span id="cb8-5">    euclid_distances <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> axis_distances.square().<span class="bu" style="color: null;
 background-color: null;
@@ -1269,7 +1274,7 @@ background-color: null;
 font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>).sqrt()</span>
-<span id="cb7-6">    <span class="cf" style="color: #003B4F;
+<span id="cb8-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> euclid_distances</span></code></pre></div>
 </div>
@@ -1282,8 +1287,8 @@ font-style: inherit;">return</span> euclid_distances</span></code></pre></div>
 <li>What’s the bandwidth?</li>
 </ul>
 <p>The way we use this is we create a gaussian function to determine the weight based on distance. That looks like this.</p>
-<div id="0f56e972-3e04-4f62-ba90-2606d328fc09" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+<div id="0f56e972-3e04-4f62-ba90-2606d328fc09" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> gaussian(x): <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1305,8 +1310,8 @@ font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>math.pi))</span></code></pre></div>
 </div>
-<div id="dc6c2d0f-91d6-4e88-b2fa-f3590fd7e3aa" class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">_x<span class="op" style="color: #5E5E5E;
+<div id="dc6c2d0f-91d6-4e88-b2fa-f3590fd7e3aa" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">_x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>torch.linspace(<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1317,13 +1322,13 @@ background-color: null;
 font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span>)</span>
-<span id="cb9-2">plt.plot(_x,gaussian(_x))<span class="op" style="color: #5E5E5E;
+<span id="cb10-2">plt.plot(_x,gaussian(_x))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1343,8 +1348,8 @@ Tip
 <p>The bandwidth is the standard deviation of the gaussian</p>
 </div>
 </div>
-<div id="d41a1b8d-17ae-410d-a2a1-904ce03b56cc" class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+<div id="d41a1b8d-17ae-410d-a2a1-904ce03b56cc" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> gaussian(x, bw): <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1370,8 +1375,8 @@ font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>torch.pi))</span></code></pre></div>
 </div>
-<div id="ca2e6a47-18a2-44d6-a546-5fd2b8cfb293" class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">_x<span class="op" style="color: #5E5E5E;
+<div id="ca2e6a47-18a2-44d6-a546-5fd2b8cfb293" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">_x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>torch.linspace(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1380,7 +1385,7 @@ background-color: null;
 font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span>)</span>
-<span id="cb11-2">fig,ax <span class="op" style="color: #5E5E5E;
+<span id="cb12-2">fig,ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1393,7 +1398,7 @@ background-color: null;
 font-style: inherit;">15</span>,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>))</span>
-<span id="cb11-3"><span class="cf" style="color: #003B4F;
+<span id="cb12-3"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">for</span> a,bw <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -1406,8 +1411,8 @@ background-color: null;
 font-style: inherit;">1</span>,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>]):</span>
-<span id="cb11-4">    a.plot(_x, gaussian(_x, bw))</span>
-<span id="cb11-5">    a.set_title(<span class="ss" style="color: #20794D;
+<span id="cb12-4">    a.plot(_x, gaussian(_x, bw))</span>
+<span id="cb12-5">    a.set_title(<span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">f"Gaussian with bandwidth=</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1416,18 +1421,18 @@ background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span>)</span>
-<span id="cb11-6">    a.set_xlabel(<span class="st" style="color: #20794D;
+<span id="cb12-6">    a.set_xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Distance'</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> a.set_ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Weight'</span>)</span>
-<span id="cb11-7">plt.show()</span></code></pre></div>
+<span id="cb12-7">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1436,19 +1441,19 @@ font-style: inherit;">'Weight'</span>)</span>
 <section id="update-centroids" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="update-centroids"><span class="header-section-number">4.3</span> Update Centroids</h2>
 <p>Now that we have our distance and weights we can update our centroid predictions and loop through until the points converge to give us cluster locations. We do this by taking a weighted average of all the other points based (using the weights calculated previously).</p>
-<div id="db6a5401-6814-48a4-a4be-c09a02470f02" class="cell">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="kw" style="color: #003B4F;
+<div id="db6a5401-6814-48a4-a4be-c09a02470f02" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> meanshift(X):</span>
-<span id="cb12-2">    dist <span class="op" style="color: #5E5E5E;
+<span id="cb13-2">    dist <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> calculate_distances(X)</span>
-<span id="cb12-3">    weight <span class="op" style="color: #5E5E5E;
+<span id="cb13-3">    weight <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gaussian(dist, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2.5</span>)</span>
-<span id="cb12-4">    X <span class="op" style="color: #5E5E5E;
+<span id="cb13-4">    X <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> weight<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1463,7 +1468,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
-<span id="cb12-5">    <span class="cf" style="color: #003B4F;
+<span id="cb13-5">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> X</span></code></pre></div>
 </div>
@@ -1475,28 +1480,28 @@ font-style: inherit;">return</span> X</span></code></pre></div>
 <li>I am making <code>run_exp</code> a higher order function so it’s easy to try tweaks to the algorithm</li>
 <li>I am testing if the coordinates change. If coordinates do not change I consider it converged and stop the training. I will run the model until it converges or after 100 epochs.</li>
 </ul>
-<div id="5b8fad82-1c9b-433b-923c-dc4b35eab9e1" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
+<div id="5b8fad82-1c9b-433b-923c-dc4b35eab9e1" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> run_exp(data,fn,max_epochs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span>):</span>
-<span id="cb13-2">    coord <span class="op" style="color: #5E5E5E;
+<span id="cb14-2">    coord <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> data.clone() </span>
-<span id="cb13-3">    <span class="cf" style="color: #003B4F;
+<span id="cb14-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(max_epochs):</span>
-<span id="cb13-4">        _coord <span class="op" style="color: #5E5E5E;
+<span id="cb14-4">        _coord <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> fn(coord)</span>
-<span id="cb13-5">        <span class="cf" style="color: #003B4F;
+<span id="cb14-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">if</span> (i<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1515,32 +1520,32 @@ background-color: null;
 font-style: inherit;">True</span>: <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">break</span></span>
-<span id="cb13-6">        <span class="cf" style="color: #003B4F;
+<span id="cb14-6">        <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">else</span>:</span>
-<span id="cb13-7">            coord <span class="op" style="color: #5E5E5E;
+<span id="cb14-7">            coord <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> _coord</span>
-<span id="cb13-8">            p_centroids <span class="op" style="color: #5E5E5E;
+<span id="cb14-8">            p_centroids <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.unique(coord,dim<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>)</span>
-<span id="cb13-9">    <span class="cf" style="color: #003B4F;
+<span id="cb14-9">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> p_centroids,coord,i</span></code></pre></div>
 </div>
 <p>Next I create a couple functions to help me try things quickly and not have to scroll through duplicate print/plot code lines.</p>
-<div id="a0a66f1d-563d-490d-ac23-d9a548389425" class="cell">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
+<div id="a0a66f1d-563d-490d-ac23-d9a548389425" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> plot_results(centroids,p_centroids):</span>
-<span id="cb14-2">    _,ax <span class="op" style="color: #5E5E5E;
+<span id="cb15-2">    _,ax <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> plt.subplots()</span>
-<span id="cb14-3">    ax.scatter(p_centroids[:,<span class="dv" style="color: #AD0000;
+<span id="cb15-3">    ax.scatter(p_centroids[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>],p_centroids[:,<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1557,7 +1562,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>)</span>
-<span id="cb14-4">    ax.scatter(centroids[:,<span class="dv" style="color: #AD0000;
+<span id="cb15-4">    ax.scatter(centroids[:,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>],centroids[:,<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1578,22 +1583,22 @@ background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.5</span>)</span>
-<span id="cb14-5">    ax.legend()</span>
-<span id="cb14-6">    plt.show()</span></code></pre></div>
+<span id="cb15-5">    ax.legend()</span>
+<span id="cb15-6">    plt.show()</span></code></pre></div>
 </div>
-<div id="c4a37b6f-0a0d-4792-a3e9-377f7d0093e8" class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="kw" style="color: #003B4F;
+<div id="c4a37b6f-0a0d-4792-a3e9-377f7d0093e8" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> print_results(fn,data):</span>
-<span id="cb15-2">    <span class="op" style="color: #5E5E5E;
+<span id="cb16-2">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span>timeit p_centroids,p_coord,p_epochs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_exp(data,fn)</span>
-<span id="cb15-3">    p_centroids,p_coord,p_epochs <span class="op" style="color: #5E5E5E;
+<span id="cb16-3">    p_centroids,p_coord,p_epochs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_exp(data,fn)</span>
-<span id="cb15-4">    <span class="bu" style="color: null;
+<span id="cb16-4">    <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
 background-color: null;
@@ -1614,7 +1619,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> epochs"</span>)</span>
-<span id="cb15-5">    plot_results(centroids,p_centroids)</span></code></pre></div>
+<span id="cb16-5">    plot_results(centroids,p_centroids)</span></code></pre></div>
 </div>
 </section>
 </section>
@@ -1639,19 +1644,19 @@ Algorithm Results
 </ul>
 </div>
 </div>
-<div id="637016a1-749d-4b81-85b4-a0210262880a" class="cell">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
+<div id="637016a1-749d-4b81-85b4-a0210262880a" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> meanshift1(X):</span>
-<span id="cb16-2">    dist <span class="op" style="color: #5E5E5E;
+<span id="cb17-2">    dist <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> calculate_distances(X)</span>
-<span id="cb16-3">    weight <span class="op" style="color: #5E5E5E;
+<span id="cb17-3">    weight <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gaussian(dist, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2.5</span>)</span>
-<span id="cb16-4">    <span class="cf" style="color: #003B4F;
+<span id="cb17-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> weight<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1667,16 +1672,16 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
 </div>
-<div id="6f038e3d-b91e-47bd-927e-83b7c0d88679" class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">print_results(meanshift1,data)</span></code></pre></div>
+<div id="6f038e3d-b91e-47bd-927e-83b7c0d88679" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">print_results(meanshift1,data)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>151 ms ± 457 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<pre><code>171 ms ± 6.79 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 Algorithm found 6 Centroids in 9 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-18-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-19-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1703,8 +1708,8 @@ Algorithm Results
 </ul>
 </div>
 </div>
-<div id="ec13d65d-3913-480c-ae28-61275b343c58" class="cell">
-<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="kw" style="color: #003B4F;
+<div id="ec13d65d-3913-480c-ae28-61275b343c58" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> tri(d, i): <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1718,19 +1723,19 @@ font-style: inherit;">0</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span>i</span></code></pre></div>
 </div>
-<div id="c97f37dc-5faa-4430-80d9-dab9e43f8344" class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="kw" style="color: #003B4F;
+<div id="c97f37dc-5faa-4430-80d9-dab9e43f8344" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> meanshift2(X):</span>
-<span id="cb20-2">    dist <span class="op" style="color: #5E5E5E;
+<span id="cb21-2">    dist <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> calculate_distances(X)</span>
-<span id="cb20-3">    weight <span class="op" style="color: #5E5E5E;
+<span id="cb21-3">    weight <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> tri(dist, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">8</span>)</span>
-<span id="cb20-4">    <span class="cf" style="color: #003B4F;
+<span id="cb21-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> weight<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1746,16 +1751,16 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
 </div>
-<div id="80919b71-f2d0-49de-8ddc-43c5206f43eb" class="cell">
-<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">print_results(meanshift1,data)</span></code></pre></div>
+<div id="80919b71-f2d0-49de-8ddc-43c5206f43eb" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">print_results(meanshift1,data)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>151 ms ± 1.13 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<pre><code>161 ms ± 10.7 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 Algorithm found 6 Centroids in 9 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-21-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1783,20 +1788,20 @@ Algorithm Results
 </ul>
 </div>
 </div>
-<div id="9d5e6ec5-7cdb-4284-9046-aa80d0d38da1" class="cell">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">print_results(meanshift1,data[np.random.choice(<span class="bu" style="color: null;
+<div id="9d5e6ec5-7cdb-4284-9046-aa80d0d38da1" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">print_results(meanshift1,data[np.random.choice(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(data),<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">300</span>)])</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>13.8 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
-Algorithm found 6 Centroids in 8 epochs</code></pre>
+<pre><code>31.4 ms ± 1.64 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+Algorithm found 6 Centroids in 9 epochs</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://isaac-flath.tech/posts/Clustering/MeanShiftFromScratch_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -4101,7 +4106,7 @@ b'ed ninety nine\n'
 
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
-<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell">
+<div id="35e9e944-64a9-4afc-a267-448aa9350b02" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
@@ -4132,10 +4137,13 @@ font-style: inherit;">import</span> MultivariateNormal</span>
 background-color: null;
 font-style: inherit;">from</span> torch <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> tensor</span></code></pre></div>
+font-style: inherit;">import</span> tensor</span>
+<span id="cb1-6">plt.style.use(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'dark_background'</span>)</span></code></pre></div>
 </details>
 </div>
-<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell">
+<div id="3746980b-e0f9-41f3-92c5-d0f6edf49550" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">torch.manual_seed(<span class="dv" style="color: #AD0000;
@@ -4156,7 +4164,7 @@ background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
 </details>
 </div>
-<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell">
+<div id="52ebf418-5f4e-45eb-8edf-5cc9eba80988" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
@@ -4268,7 +4276,7 @@ font-style: inherit;">2</span>)</span></code></pre></div>
 <h1 data-number="2"><span class="header-section-number">2</span> Generate Dataset</h1>
 <p>We need to create a dataset. This data generation step follows what Jeremy Howard did in a notebook he did on meanshift clustering, which is a different clustering algorithm. That notebook was part of the <a href="fast.ai">fast.ai</a> <a href="https://www.fast.ai/posts/part2-2022.html">2022 part 2 course</a>.</p>
 <p>Since the same dataset can be used, I used his and removed some unneeded print statements. See the plot for what the data looks like.</p>
-<div id="232c6210-c99b-4dc8-8702-23cb95bb4093" class="cell">
+<div id="232c6210-c99b-4dc8-8702-23cb95bb4093" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">n_clusters <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
@@ -4295,7 +4303,7 @@ font-style: inherit;">35</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Points between -35 and 35</span></span></code></pre></div>
 </div>
-<div id="0ddcab96-bdce-4d41-bee3-551a6271a689" class="cell">
+<div id="0ddcab96-bdce-4d41-bee3-551a6271a689" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> sample(m): <span class="cf" style="color: #003B4F;
@@ -4306,7 +4314,7 @@ font-style: inherit;">5.</span>,<span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5.</span>]))).sample((n_samples,))</span></code></pre></div>
 </div>
-<div id="4563ef3f-ad0a-4869-87ff-98c698f04d2b" class="cell">
+<div id="4563ef3f-ad0a-4869-87ff-98c698f04d2b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.cat([sample(c) <span class="cf" style="color: #003B4F;
@@ -4315,7 +4323,7 @@ font-style: inherit;">for</span> c <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">in</span> centroids])</span></code></pre></div>
 </div>
-<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell">
+<div id="9b943133-498d-4947-9d51-026f2ae1809a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">plot_data(centroids, data, n_samples)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -4339,7 +4347,7 @@ font-style: inherit;">in</span> centroids])</span></code></pre></div>
 <p>In order to initialize our centroids we need to be able to calculate distances, so let’s do that first.</p>
 <p>Given a tensor of centroid coordinates and a tensor of data coordinates we calculate distance by: + Subtract centroids coordinates from data points coordinates + Take absolute value of distances + Pythagorean Calculation + Square coordinates + Add them together + Take the Square Root</p>
 <p>That gives us the euclidean distance between each data point and each centroid.</p>
-<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell">
+<div id="5fb6c6c8-26b3-49f1-907e-e392ecb10887" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> calculate_distances(centroids:torch.Tensor, <span class="co" style="color: #5E5E5E;
@@ -4405,7 +4413,7 @@ font-style: inherit;">return</span> euclid_distances</span></code></pre></div>
 </ul></li>
 </ul>
 <p>This ensures we get initialization that are nice and far away from each other and spread out amonth the data, minimizing the risk of hitting local optimums.</p>
-<div id="0d304156-4507-4ea9-a1e9-eb57036bf947" class="cell">
+<div id="0d304156-4507-4ea9-a1e9-eb57036bf947" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> initialize_centroids(data:torch.Tensor,<span class="co" style="color: #5E5E5E;
@@ -4466,7 +4474,7 @@ font-style: inherit;">return</span> pred_centroids</span></code></pre></div>
 <section id="classify-data-points" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="classify-data-points"><span class="header-section-number">3.3</span> Classify Data Points</h2>
 <p>Once we have centroids (or updated centroids), we need to assign a centroid to each data point. We do this by calculating the distance between each data point and each centroid, and assigning each datapoint to it’s closes centroid.</p>
-<div id="7432b17a-59e3-4f3a-908b-8ffc597101f3" class="cell">
+<div id="7432b17a-59e3-4f3a-908b-8ffc597101f3" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> assign_centroids(centroids:torch.Tensor, <span class="co" style="color: #5E5E5E;
@@ -4501,7 +4509,7 @@ font-style: inherit;">return</span> assigned_cluster</span></code></pre></div>
 <section id="update-centroids" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="update-centroids"><span class="header-section-number">3.4</span> Update Centroids</h2>
 <p>To update the centroid locations, we take the mean of all the data point assigned to that centroid. We make the new centroid that point.</p>
-<div id="9ba26f47-9401-4437-975e-0b27c3fc755d" class="cell">
+<div id="9ba26f47-9401-4437-975e-0b27c3fc755d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> update_centroids(centroid_assignments:torch.Tensor, <span class="co" style="color: #5E5E5E;
@@ -4547,7 +4555,7 @@ font-style: inherit;">return</span> torch.stack(pred_centroids)</span></code></p
 <section id="training" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Training</h1>
 <p>Here we put it all together and train our K-means model. As you can see it fits this dataset very quickly (it’s a simple dataset).</p>
-<div id="cdc560bd-c248-4f9d-a05e-f085f67ab434" class="cell">
+<div id="cdc560bd-c248-4f9d-a05e-f085f67ab434" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">pred_centroids <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> initialize_centroids(data,n_clusters)</span>
@@ -11021,108 +11029,6 @@ movavg ← (ws ↑ AAPL[;3]) , ws ÷⍨ (ws←90) +⌿ AAPL[;3]
   <media:content url="https://isaac-flath.tech/posts/_TopicImages/TabularData1.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
-  <title>My Coding Style</title>
-  <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.tech/posts/Python/CodingStyle.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This document outlines the general principles I try to follow while coding.</p>
-<p>Bear in mind these are my preferences and I code in different styles depending on what project I am working on. If you’re on a big project and everyone is using pep8, you should follow pep8. Many in the python community feel strong emotions when they see non-pep8 code, so be aware of that too.</p>
-<p>But if left to my own vices, this is what I do.</p>
-<section id="code-standards" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="code-standards"><span class="header-section-number">0.1</span> Code Standards</h2>
-<p>Pep8 says “A Foolish Consistency is the Hobgoblin of Little Minds”. I believe this strongly. While I don’t believe I should break from a standard for no reason, I also don’t believe I should follow a standard if I have reason not to.</p>
-</section>
-<section id="automation" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="automation"><span class="header-section-number">0.2</span> Automation</h2>
-<p>Many parts of code formatting can be easily automated. For items that can be automated, I do not worry about writing my code in that format as the computer can do that for me.</p>
-<p>For example, if a few extra spaces makes things more legible to me but doesn’t conform to whatever the standards of the project are I will write it with the extra spaces and use a script to remove extra spaces later.</p>
-</section>
-<section id="duplicate-code" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="duplicate-code"><span class="header-section-number">0.3</span> Duplicate Code</h2>
-<p>Duplicate code as little as possible. Duplicate code means:</p>
-<ul>
-<li>Changes must be implemented in multiple places</li>
-<li>Multiple of the same thing means multiple opportunities for a bug</li>
-<li>More to analyze when doing pull reviews - easier to miss things</li>
-<li>Slower development because small changes must be applied more</li>
-<li>I have to break my chain of thought when making a change to look for other places the same code exists</li>
-</ul>
-</section>
-<section id="programming-paradigm" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Programming Paradigm</h1>
-<p>I don’t follow a strictly functional programming paradigm, but I tend lean more toward functional than I do object oriented.</p>
-</section>
-<section id="audience" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Audience</h1>
-<p>I write code with the assumption that the people who will be reading my code are experienced coders. If I think a paradigm or approach is the best fit, I use it. I do not avoid paradigms or techniques because they are not common or because they are advanced and may confuse someone.</p>
-<p>People are always welcome to ask how something works if they do not know.</p>
-<p>Besides, the people I want to work with would be delighted to see a programming approach that makes sense that they don’t know. It’s a great learning experience when that happens :)</p>
-<section id="assume-a-modern-monitor" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="assume-a-modern-monitor"><span class="header-section-number">2.1</span> Assume a modern monitor</h2>
-<p>I assume readers have a modern monitor and text can span most of the screen horizontally, within reason.</p>
-</section>
-<section id="make-differences-apparent" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="make-differences-apparent"><span class="header-section-number">2.2</span> Make differences apparent</h2>
-<ul>
-<li>Group similar things together and make differences apparent, for example this makes it very easy to see the differences in these functions.</li>
-</ul>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> add     (a, b): <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span>  b</span>
-<span id="cb1-2">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> multiply(a, b): <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span>  b</span>
-<span id="cb1-3">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> power   (a, b): <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">**</span> b</span></code></pre></div>
-</section>
-<section id="minimize-scrolling" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="minimize-scrolling"><span class="header-section-number">2.3</span> Minimize Scrolling</h2>
-<p>The more scrolling I have to do, the harder it is to have “flow”. I want to spend my time thinking about code, not searching for code.</p>
-<p>This means I try to consolidate lines that I think can be consolidate. For example I think it’s perfectly fine to consolidate import statements like this:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">    <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> logging, string, pandas <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> pd, sqlparse</span></code></pre></div>
-<p>Or to consolidate variable initialization like this:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">    vara, varb, varc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> [], <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, {}</span></code></pre></div>
-<p>There are of course limits to this - use common sense. Generally if you use plain english to describe the intent of the line it should be a simple sentence.</p>
-<p>For example “Import required libraries” is fine. “initialize variables with starting values” is fine. “Predict value, append that to list, then calculate mean squared error by comparing to truth list” is probably too much for 1 line.</p>
-
-
-</section>
-</section>
-
- ]]></description>
-  <category>Python</category>
-  <category>Programming</category>
-  <guid>https://isaac-flath.tech/posts/Python/CodingStyle.html</guid>
-  <pubDate>Sat, 01 Jan 2022 05:00:00 GMT</pubDate>
-  <media:content url="https://isaac-flath.tech/posts/_TopicImages/ModelWhiteboarding.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
   <title>Introduction to Attribution</title>
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/posts/Other/MarketingAttribution.html</link>
@@ -14194,7 +14100,7 @@ font-style: inherit;"># backward pass</span></span></code></pre></div>
 <li>Graphs are most diversity in output images to least diversity from left to right</li>
 <li>Graphs are lowest quality images to highest quality images from left to right</li>
 </ul>
-<div id="cell-4" class="cell">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -14210,7 +14116,7 @@ font-style: inherit;"># backward pass</span></span></code></pre></div>
 <p>This is especially problematic because we want to be able to independently control features in the output image. I don’t want to modify the direction the eyes are looking and have that also change facial features. I want to be able to tweak components without having a tangled mess of mappings.</p>
 <p>To fix this we learn the distributions that are ideal for the noise vector. So random noise comes in, it gets passed through a Mapping Network and we end with a weight matrix <code>w</code>. Since a neural network can approximate any function, that means it can approximate any distribution so this should work. This lets your model learn represent things in a cleaner way and makes your mapping much less tangled so you can control features much easier.</p>
 <p>The mapping network in StyleGAN is composed of 8 layers - but here’s a simplified version just to get the idea that it’s just a normal neural network that is mapping the noise vector (z) to the weights vector (w).</p>
-<div id="cell-7" class="cell">
+<div id="cell-7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">class</span> MappingNetwork(nn.Module):</span>
@@ -14253,7 +14159,7 @@ background-color: null;
 font-style: inherit;">200</span>,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">75</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>MappingNetwork(
   (mapping): Sequential(
     (0): Linear(in_features=100, out_features=200, bias=True)
@@ -14276,7 +14182,7 @@ font-style: inherit;">75</span>)</span></code></pre></div>
 </ol>
 <p>That outputs the new image that includes the noise can continue down the network. Nothing special needs to happen other than this because we didn’t change any dimensions. Really it’s just a linear layer with random noise in it. You can see below that then image shape and the final shape are identical.</p>
 <p>This happens in many places in the network before every AdaIN layer. So let’s see what the AdaIN layer is.</p>
-<div id="cell-10" class="cell">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">class</span> InjectNoise(nn.Module):</span>
@@ -14430,7 +14336,7 @@ weight * noise + image (ouput):   torch.Size([32, 512, 4, 4])</code></pre>
 <li>output <code>style_tensor * normalized_image  + shift_tensor</code></li>
 </ol>
 <p>Take a look below at some the code for what it does and the shapes to understand the inputs and outputs. Input and output size is the same, but with normalization and injected weight tensor!</p>
-<div id="cell-12" class="cell">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">class</span> AdaIN(nn.Module):</span>
@@ -14622,7 +14528,7 @@ scale * norm_image + shift (ouput): torch.Size([32, 512, 4, 4])</code></pre>
 <li>An AdaIN layer (we created that above)</li>
 <li>An activation (just like all neural networks need)</li>
 </ol>
-<div id="cell-15" class="cell">
+<div id="cell-15" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">class</span> MinifiedStyleGANGeneratorBlock(nn.Module):</span>
@@ -14738,7 +14644,7 @@ font-style: inherit;">return</span> x</span></code></pre></div>
 </div>
 <p>Now, you can implement progressive growing and put it all together. Let’s see how that works in StyleGAN. As you can see we move from an 8x8 image to a 16x16 image. StyleGAn will do this many times.</p>
 <p>Keep in mind all of this is simplified and scaled down from what is in StyleGAN. The purpose of this blog was to communicate the core concepts and techniques used in StyleGAN, not necessarily show the practical applications. Stay tuned for a blog that shows practical application of these concepts!</p>
-<div id="cell-17" class="cell">
+<div id="cell-17" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
@@ -14873,7 +14779,7 @@ background-color: null;
 font-style: inherit;">return</span> out</span></code></pre></div>
 </details>
 </div>
-<div id="cell-18" class="cell">
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">class</span> MinifiedStyleGANGenerator(nn.Module):</span>
@@ -15242,6 +15148,1506 @@ ImageSize2      torch.Size([10, 3, 16, 16])</code></pre>
   <category>Image Generation</category>
   <guid>https://isaac-flath.tech/posts/GenerativeModels/GANIntroduction.html</guid>
   <pubDate>Sat, 20 Feb 2021 05:00:00 GMT</pubDate>
+  <media:content url="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Plant Pathology Kaggle</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/posts/NeuralNetworks/PlantPathologyKaggle.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This post is looking at the <a href="https://www.kaggle.com/c/plant-pathology-2020-fgvc7/">plant pathology kaggle competition</a> and showing how you could create a top 10 kaggle submission with <a href="fast.ai">fastai</a>. This is the first of a blog series where I will do this with historical kaggle competitions. Many techniques will come from the <a href="https://github.com/alipay/cvpr2020-plant-pathology">winning solution code base</a> by the “Alipay Tian Suan Security Lab Kaggle” team, but I will make a modifications as I see fit. I will explain those as they come up.</p>
+<p>The original code was in pytorch lightning. I will be using Fastai, which will allow me to simplify the solution considerably without sacrificing results.</p>
+<div id="98953fa7" class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.vision.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span></span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> sklearn.model_selection <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> StratifiedKFold</span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> os, cv2</span>
+<span id="cb1-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> albumentations <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> (</span>
+<span id="cb1-6">    Compose,GaussianBlur,HorizontalFlip,MedianBlur,MotionBlur,OneOf,</span>
+<span id="cb1-7">    RandomBrightness,RandomContrast,Resize,ShiftScaleRotate,VerticalFlip</span>
+<span id="cb1-8">    )</span>
+<span id="cb1-9">path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'./data/images'</span>)</span></code></pre></div>
+</div>
+<section id="transforms" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Transforms</h1>
+<p>First, let’s set up our transforms. The solution I am using as a starting point used <code>Albumentations</code> so I will use that as well and will use their transforms. I grabbed the <code>AlbumentationsTransform</code> class from <a href="https://docs.fast.ai/tutorial.albumentations.html">the fastai docs tutorial on albumentations</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As you can see, super easy to mix and match Albumentations with Fastai transforms and use other libraries with fastai even when there is not “built-in” integration with that library.</p>
+</div>
+</div>
+<div id="79b6eeab" class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> AlbumentationsTransform(RandTransform):</span>
+<span id="cb2-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"A transform handler for multiple `Albumentation` transforms"</span></span>
+<span id="cb2-3">    split_idx,order<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span>
+<span id="cb2-4">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, train_aug, valid_aug): store_attr()</span>
+<span id="cb2-5">    </span>
+<span id="cb2-6">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> before_call(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, b, split_idx):</span>
+<span id="cb2-7">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> split_idx</span>
+<span id="cb2-8">    </span>
+<span id="cb2-9">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> encodes(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, img: PILImage):</span>
+<span id="cb2-10">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>:</span>
+<span id="cb2-11">            aug_img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.train_aug(image<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.array(img))[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image'</span>]</span>
+<span id="cb2-12">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span>:</span>
+<span id="cb2-13">            aug_img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.valid_aug(image<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.array(img))[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image'</span>]</span>
+<span id="cb2-14"></span>
+<span id="cb2-15">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> PILImage.create(aug_img)</span></code></pre></div>
+</div>
+<p>We can now define our transforms as normal. These are from the code base I am working from. I move Normalize to batch transforms and use the fastai normalize instead, which does it in batches on the GPU in fastai. It’s a small performance boost. With a dataset this small it probably just wasn’t worth the time to set that up on the GPU using pytorch lightning, but it’s free in fastai so may as well.</p>
+<div id="c5f4cc02" class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">image_size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">480</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">768</span>]</span>
+<span id="cb3-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> get_train_aug(image_size): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> Compose(</span>
+<span id="cb3-3">    [</span>
+<span id="cb3-4">        Resize(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>image_size[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>], width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>image_size[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]),</span>
+<span id="cb3-5">        OneOf([RandomBrightness(limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>, p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), RandomContrast(limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>, p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)]), <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#fastai has</span></span>
+<span id="cb3-6">        OneOf([MotionBlur(blur_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>), MedianBlur(blur_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>), GaussianBlur(blur_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)], p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>),</span>
+<span id="cb3-7">        VerticalFlip(p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>),<span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Dihedral</span></span>
+<span id="cb3-8">        HorizontalFlip(p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>),</span>
+<span id="cb3-9">        ShiftScaleRotate(</span>
+<span id="cb3-10">            shift_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>,</span>
+<span id="cb3-11">            scale_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>,</span>
+<span id="cb3-12">            rotate_limit<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>,</span>
+<span id="cb3-13">            interpolation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>cv2.INTER_LINEAR,</span>
+<span id="cb3-14">            border_mode<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>cv2.BORDER_REFLECT_101,</span>
+<span id="cb3-15">            p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb3-16">        ),</span>
+<span id="cb3-17">    ])</span>
+<span id="cb3-18"></span>
+<span id="cb3-19"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> get_valid_aug(image_size): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span>  Compose(</span>
+<span id="cb3-20">    [</span>
+<span id="cb3-21">        Resize(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>image_size[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>], width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>image_size[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]),</span>
+<span id="cb3-22">    ])</span></code></pre></div>
+</div>
+<div id="234a3b7f" class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">item_tfms <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [AlbumentationsTransform(get_train_aug(image_size), get_valid_aug(image_size))]</span>
+<span id="cb4-2">batch_tfms <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [Normalize.from_stats(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>imagenet_stats)]</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/conda/lib/python3.6/site-packages/albumentations/augmentations/transforms.py:2611: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  "blur_limit and sigma_limit minimum value can not be both equal to 0. "</code></pre>
+</div>
+</div>
+</section>
+<section id="data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data</h1>
+<p>Next, let’s load the dataframe with the training labels that was provided. The data was given to us in one hot encoded format, but we’ll add an decoded column for simplicity. Since we will need to do the same processing for the test set, I put it in a function so we can use it later.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am adding the path to the image folder in the train dataframe. You can also just pass the path to your fasatai dataloaders and do the same thing that way.</p>
+</div>
+</div>
+<div id="cd00de02" class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> process_df(path):</span>
+<span id="cb6-2">    df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_csv(path)</span>
+<span id="cb6-3">    df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data/images/'</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> df.image_id <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.jpg'</span></span>
+<span id="cb6-4">    df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'label'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">apply</span>(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">lambda</span> x: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">" "</span>.join([cat <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> cat <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> df.columns <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> x[cat] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]), axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb6-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> df</span></code></pre></div>
+</div>
+<div id="966af5de" class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">train <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> process_df(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data/train.csv'</span>)</span>
+<span id="cb7-2">train.sample(n<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">image_id</th>
+<th data-quarto-table-cell-role="th">healthy</th>
+<th data-quarto-table-cell-role="th">multiple_diseases</th>
+<th data-quarto-table-cell-role="th">rust</th>
+<th data-quarto-table-cell-role="th">scab</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1390</td>
+<td>data/images/Train_1390.jpg</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>multiple_diseases</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">783</td>
+<td>data/images/Train_783.jpg</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>scab</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1195</td>
+<td>data/images/Train_1195.jpg</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>healthy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1804</td>
+<td>data/images/Train_1804.jpg</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>scab</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1622</td>
+<td>data/images/Train_1622.jpg</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>scab</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Now we are ready to get out data loaded up. I will start with data cleaning. In the training set there are 2 images that are not the same as the others. This can be fixed by a transpose.</p>
+<p>The winning solution added the transpose into their dataloader by checking image shapes as they are loaded and transpose as needed. I am going to fix it in the data upfront. This way, I don’t need an if statement in the dataloader to check the image size on every image and if it’s the wrong one transpose. And then repeat that every epoch. If I fix it here I only have to fix it once vs having it fixed every epoch.</p>
+<div id="34994bd2" class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> img <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> train.image_id:</span>
+<span id="cb8-2">    img_loaded<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Image.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(img)</span>
+<span id="cb8-3">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> img_loaded.shape <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1365</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2048</span>): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">continue</span></span>
+<span id="cb8-4">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(img,img_loaded.shape)</span>
+<span id="cb8-5">    img_loaded.transpose(Image.TRANSPOSE).save(img)</span></code></pre></div>
+</div>
+<p>Now, there is nothing special about the data so we can use the high level API to create a dataloaders object. We can take a look at a few images with fastai’s built in visualizations. They look good - so we can feel good that we are looking at the data in the right way and that our transforms aren’t doing something super weird.</p>
+<div id="05f01d24" class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">dls <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ImageDataLoaders.from_df(train,bs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span>,seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>,item_tfms<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>item_tfms, batch_tfms<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>batch_tfms,label_col<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span>
+<span id="cb9-2">dls.show_batch(max_n<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://isaac-flath.tech/posts/NeuralNetworks/PlantPathologyKaggle_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="loss-function" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Loss Function</h1>
+<p>The codebase I am working off of uses Cross Entropy Loss on one-hot encoded values and I will as well. The one hot encoding will be important later for soft labeling. Using pure pytorch is completely compatible with fastai and we can pass this directly to our learner no problem.</p>
+<div id="0e41b5e5" class="cell">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> CrossEntropyLossOneHot(nn.Module):</span>
+<span id="cb10-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb10-3">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">super</span>(CrossEntropyLossOneHot, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>).<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>()</span>
+<span id="cb10-4">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.log_softmax <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.LogSoftmax(dim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb10-5"></span>
+<span id="cb10-6">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, preds, labels):</span>
+<span id="cb10-7">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> torch.mean(torch.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sum</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.log_softmax(preds), <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>))</span></code></pre></div>
+</div>
+</section>
+<section id="optimizer-scheduler" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Optimizer &amp; Scheduler</h1>
+<p>In the original code base they had to write an Optimizer and Scheduler themselves in pytorch for use in pytorch lightning, but we can skip this. The approach they used is the approach fastai uses by default. It’s a good example of fastai having SoTA defaults that saves time without sacrificing results.</p>
+<p><img src="https://isaac-flath.tech/posts/_my_icons/fitonecycledoc.png" class="img-fluid"></p>
+</section>
+<section id="model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model</h1>
+<p>I will use the winning solution’s <code>se_resnext50_32x4d</code> architecture. Again, pure pytorch is just fine with fastai if you want to do custom stuff - so we don’t need to modify anything from the winner’s model code to make it work with fastai. I am going to go ahead and use the same architecture they used and port is straight into the fastai learner. A fastai model IS a pytorch model - so there’s no problem with this.</p>
+<div id="fa7d96ee" class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pretrainedmodels</span>
+<span id="cb11-2"></span>
+<span id="cb11-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> l2_norm(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">input</span>, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>):</span>
+<span id="cb11-4">    norm <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.norm(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">input</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, axis, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb11-5">    output <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.div(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">input</span>, norm)</span>
+<span id="cb11-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> output</span>
+<span id="cb11-7"></span>
+<span id="cb11-8"></span>
+<span id="cb11-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> BinaryHead(nn.Module):</span>
+<span id="cb11-10">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, num_class<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, emb_size<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2048</span>, s<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16.0</span>):</span>
+<span id="cb11-11">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">super</span>(BinaryHead, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>).<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>()</span>
+<span id="cb11-12">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.s <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> s</span>
+<span id="cb11-13">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fc <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.Sequential(nn.Linear(emb_size, num_class))</span>
+<span id="cb11-14"></span>
+<span id="cb11-15">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, fea):</span>
+<span id="cb11-16">        fea <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> l2_norm(fea)</span>
+<span id="cb11-17">        logit <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fc(fea) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.s</span>
+<span id="cb11-18">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> logit</span>
+<span id="cb11-19"></span>
+<span id="cb11-20"></span>
+<span id="cb11-21"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> se_resnext50_32x4d(nn.Module):</span>
+<span id="cb11-22">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb11-23">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">super</span>(se_resnext50_32x4d, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>).<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>()</span>
+<span id="cb11-24"></span>
+<span id="cb11-25">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model_ft <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.Sequential(</span>
+<span id="cb11-26">            <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>(pretrainedmodels.__dict__[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"se_resnext50_32x4d"</span>](num_classes<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>, pretrained<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"imagenet"</span>).children())[</span>
+<span id="cb11-27">                :<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span>
+<span id="cb11-28">            ]</span>
+<span id="cb11-29">        )</span>
+<span id="cb11-30">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.avg_pool <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.AdaptiveAvgPool2d((<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>))</span>
+<span id="cb11-31">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model_ft.last_linear <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span></span>
+<span id="cb11-32">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fea_bn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.BatchNorm1d(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2048</span>)</span>
+<span id="cb11-33">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fea_bn.bias.requires_grad_(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span>
+<span id="cb11-34">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.binary_head <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> BinaryHead(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, emb_size<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2048</span>, s<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb11-35">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dropout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.Dropout(p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>)</span>
+<span id="cb11-36"></span>
+<span id="cb11-37">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, x):</span>
+<span id="cb11-38"></span>
+<span id="cb11-39">        img_feature <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model_ft(x)</span>
+<span id="cb11-40">        img_feature <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.avg_pool(img_feature)</span>
+<span id="cb11-41">        img_feature <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> img_feature.view(img_feature.size(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb11-42">        fea <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fea_bn(img_feature)</span>
+<span id="cb11-43">        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># fea = self.dropout(fea)</span></span>
+<span id="cb11-44">        output <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.binary_head(fea)</span>
+<span id="cb11-45"></span>
+<span id="cb11-46">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> output</span></code></pre></div>
+</div>
+</section>
+<section id="soft-label-callback" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Soft Label Callback</h1>
+<p>Now, I write a callback to grab the one-hot encoded labels instead of the encoded column in our training loop. This won’t do anything until we have our distilled labels, but I will set the model up this way now so I don’t have to modify anything later</p>
+<div id="da6afea4" class="cell">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> SoftLabelCB(Callback):</span>
+<span id="cb12-2">    </span>
+<span id="cb12-3">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> before_train(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb12-4">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.imgs_list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> L(o <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.items.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].values) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># get list of images in the order they are drawn this epoch</span></span>
+<span id="cb12-5">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.items.set_index(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>)</span>
+<span id="cb12-6">    </span>
+<span id="cb12-7">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> before_validate(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb12-8">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.imgs_list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> L(o <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.items.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].values) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># get list of images in the order they are drawn this epoch</span></span>
+<span id="cb12-9">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.items.set_index(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>)</span>
+<span id="cb12-10"></span>
+<span id="cb12-11">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> before_batch(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb12-12">        df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.df</span>
+<span id="cb12-13">        imgs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.imgs_list[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl._DataLoader__idxs[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">iter</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.bs:<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">iter</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.bs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.dl.bs]]</span>
+<span id="cb12-14">        one_hot_yb <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df.loc[imgs,df.columns[:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]].values</span>
+<span id="cb12-15">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.learn.yb <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (Tensor(one_hot_yb).cuda(),)</span></code></pre></div>
+</div>
+<p>When I train I will be doing folds to generate new labels for the training set for knowledge distillation. I might as well set up inference and make predictions for each of the folds. I’m also adding 4 fold TTA - it’s no effort for me to do it in fastai (<code>learn.get_preds</code> vs <code>learn.tta</code>.)</p>
+</section>
+<section id="inference" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Inference</h1>
+<div id="abc56433" class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> test_predict(cnt,msg):</span>
+<span id="cb13-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create Test Dataloaders</span></span>
+<span id="cb13-3">    test <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> process_df(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data/sample_submission.csv'</span>)</span>
+<span id="cb13-4">    test_dl <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dls.test_dl(test) </span>
+<span id="cb13-5"></span>
+<span id="cb13-6">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># predict with test time augmentation</span></span>
+<span id="cb13-7">    preds, _ <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.tta(dl<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>test_dl) </span>
+<span id="cb13-8">    p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> preds.softmax(axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) </span>
+<span id="cb13-9"></span>
+<span id="cb13-10">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># format submission file</span></span>
+<span id="cb13-11">    test <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_csv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data/sample_submission.csv'</span>)[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>]</span>
+<span id="cb13-12">    out_a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.concat([test,pd.DataFrame(p,columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.dls.vocab)],axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)[[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'healthy'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'multiple_diseases'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'rust'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'scab'</span>]]</span>
+<span id="cb13-13"></span>
+<span id="cb13-14">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># write to csv and submit to kaggle</span></span>
+<span id="cb13-15">    out_a.to_csv(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'submission</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>cnt<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">.csv'</span>,index<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span>
+<span id="cb13-16">    os.system(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'''kaggle competitions submit -c plant-pathology-2020-fgvc7 -f submission</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>cnt<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">.csv -m "</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>msg<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"'''</span>)</span></code></pre></div>
+</div>
+</section>
+<section id="training" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Training</h1>
+<p>That’s all I need for the model. Here’s what’s going on:</p>
+<ul>
+<li>I am doing a stratified k fold instead of a normal k fold</li>
+<li>In the learner I pass in all the stuff defined above, some of which was fastai stuff and others from pytorch. Super easy to mix and match as needed.
+<ul>
+<li>dataloaders (<code>dls</code>) that was defined using the <code>fastai</code> api</li>
+<li>Model that was defined using <code>pretrainedmodels</code> and <code>pytorch</code></li>
+<li>Loss function that is <code>pytorch</code></li>
+<li>Callbacks for gradient clipping as well as what will be soft labeling (for now it just uses the one hot encoded labels)</li>
+<li>to_fp16 does the half precision for me</li>
+</ul></li>
+<li>fine_tune takes care of the training for me. Ill go with the default freeze_epochs, learning rate, optimizer, and scheduler.</li>
+<li>Instead of generating a normal predictions, I am doing a 4 count tta. As you can see, it’s very easy to do.</li>
+</ul>
+<p>Lets pass the data (<code>dls</code>) the model (<code>se_resnext50_32x4d</code>), the loss function (<code>CrossEntropyLossOneHot</code>), the cbs (<code>GradientClip</code> and <code>SoftLabelCB</code>), and convert that to fp16. This will generate our distilled labels, which is just predictions on the training set.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am skipping picking a learning rate. Fastai’s default is pretty good most of the time and is plenty good to demonstrate top tier results in this instance for the blog post, but the lr_find in fastai is recommended to find an appropriate learning rate when you are looking for the best results possible.</p>
+</div>
+</div>
+<p>I am also not going to do early stopping like in the winning solution. If the model overfits I would rather retrain from scratch with fewer epochs due to the nature of cyclic learning rates. That said you can add the <code>EarlyStoppingCallback</code> in about 2 seconds if you want to. <a href="https://docs.fast.ai/callback.tracker.html#EarlyStoppingCallback">Here’s the docs for it</a></p>
+<section id="getting-distilled-soft-labels" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="getting-distilled-soft-labels"><span class="header-section-number">8.1</span> Getting Distilled (soft) labels</h2>
+<p>Here’s the 5 fold to get predictions on our entire training set.</p>
+<div id="76d133e3" class="cell">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># #hide_output</span></span>
+<span id="cb14-2">skf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> StratifiedKFold(n_splits<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, shuffle<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, random_state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb14-3">splits, preds, targs, preds_c,  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [],[],[],[]</span>
+<span id="cb14-4"></span>
+<span id="cb14-5">true <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame(columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> L(o <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> train.columns))</span>
+<span id="cb14-6">pred <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame(columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> L(o <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> train.columns))</span>
+<span id="cb14-7">i<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span></span>
+<span id="cb14-8"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> _, val_idx <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> skf.split(train.image_id,train.label):</span>
+<span id="cb14-9">    splitter <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> IndexSplitter(val_idx)</span>
+<span id="cb14-10"></span>
+<span id="cb14-11">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create dataloaders splittin on indexes defined by StratifiedKFold</span></span>
+<span id="cb14-12">    db <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> DataBlock(blocks<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(ImageBlock,CategoryBlock),</span>
+<span id="cb14-13">                    get_x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ColReader(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>),get_y<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ColReader(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>),</span>
+<span id="cb14-14">                    item_tfms<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>item_tfms,batch_tfms<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>batch_tfms,</span>
+<span id="cb14-15">                    splitter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>splitter)</span>
+<span id="cb14-16">    dls <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> db.dataloaders(train,bs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">24</span>)</span>
+<span id="cb14-17"></span>
+<span id="cb14-18">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#train model with fastai dataloaders, pytorch model, pytorch loss function, fastai gradient clipping, custom callback, on fp16 precision </span></span>
+<span id="cb14-19">    learn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Learner(dls,se_resnext50_32x4d(),loss_func<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>CrossEntropyLossOneHot(),cbs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[GradientClip,SoftLabelCB()]).to_fp16()</span>
+<span id="cb14-20">    learn.fine_tune(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">80</span>,reset_opt<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Train freeze epoch then unfreeze for 80 epochs   </span></span>
+<span id="cb14-21"></span>
+<span id="cb14-22">    p, _ <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.tta() <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># test time augmentation</span></span>
+<span id="cb14-23">    p<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>p.softmax(axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Convert to probabilities</span></span>
+<span id="cb14-24"></span>
+<span id="cb14-25">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Format dataframe to save</span></span>
+<span id="cb14-26">    items_pred<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>pd.DataFrame(p,columns<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dls.vocab)</span>
+<span id="cb14-27">    items_pred[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'label'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [dls.vocab[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(o)] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> p.argmax(dim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)]</span>
+<span id="cb14-28">    items_pred[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dls.valid.items.image_id.values</span>
+<span id="cb14-29">    items_pred <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> items_pred[train.columns]</span>
+<span id="cb14-30">    true <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.concat([true,dls.valid.items])</span>
+<span id="cb14-31">    pred <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.concat([pred,items_pred])</span>
+<span id="cb14-32"></span>
+<span id="cb14-33">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># predict and submit to kaggle</span></span>
+<span id="cb14-34">    test_predict(i,<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'distilling labels fold count </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>i<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span>) </span>
+<span id="cb14-35">    i<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span></code></pre></div>
+</div>
+<div id="b315731b" class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">pred.to_csv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'distilled_labels.csv'</span>,index<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span></code></pre></div>
+</div>
+<p>Great! So that got us to third place with the best model already! Here’s the fold scores. Our second place model as well as an average of all 5 fold predictions were both also in the top 10. We successfully got into the top 10 already with 3 submissions. It is also helpful to note that the most reasonable 2 models to pick would be the average of all 5 fold predictions as well as the 3rd place submission based on the public leaderboard (as when choosing which to use in an active competition you wouldn’t be able to see the private leaderboard score). Mission accomplished!</p>
+<p>First place in the competition had a Private Leaderboard score of 0.98445 with 10th place had 0.97883 for reference.</p>
+<p>As you can see, fastai is plenty capable to compete on the cutting edge at the top of kaggle competitions.</p>
+<p><img src="https://isaac-flath.tech/posts/_my_icons/First5Fold.png" class="img-fluid"></p>
+</section>
+<section id="training-with-soft-labeling" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="training-with-soft-labeling"><span class="header-section-number">8.2</span> Training with Soft Labeling</h2>
+<p>I am not going to go through the rest of the implementation, but the key technique in the rest is soft labeling. Since this is not a super commonly known technique I am going to explain how to do it in fastai.</p>
+<p>Soft labeling is taking a weighted average of a predicted label and a truth label and training your model on that. This tends to be a good thing to try when some of your labels are wrong. Generally labels that the model get wrong are more likely to be the mislabeled ones, and so when you take a weighted average those get label smoothing applies which makes your model react less to those outliers.</p>
+<p>So how to do it within fastai? Well we already had the callback set up that allows our model to take one hot encoded labels, so all we need to do is set the weights in our dataframe and re-run what we did before. At this point the fastai implementation is done (the callback), and all I need to do is pass it the soft labeled values as the targets instead of the one hot encoded I was using before.</p>
+<p>To demonstrate:</p>
+<ul>
+<li>Load training labels and datat</li>
+</ul>
+<div id="2a91d108" class="cell">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">train <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> process_df(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data/train.csv'</span>)</span>
+<span id="cb16-2">train <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> train.sort_values(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>)</span></code></pre></div>
+</div>
+<ul>
+<li>Load predictions from previous k-fold</li>
+</ul>
+<div id="d3ef612d" class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">distilled_labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_csv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'distilled_labels.csv'</span>)</span>
+<span id="cb17-2">distilled_labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> distilled_labels.sort_values(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image_id'</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb17-3"></span>
+<span id="cb17-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get one hot encoded labels (zeros and ones)</span></span>
+<span id="cb17-5">distilled_labels.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.get_dummies(distilled_labels.label)</span></code></pre></div>
+</div>
+<ul>
+<li>Weight as you see fit (winner did 7:3 ratio)</li>
+</ul>
+<div id="071fa826" class="cell">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># check to make sure the data matches</span></span>
+<span id="cb18-2"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">assert</span> (train.image_id.values<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span>distilled_labels.image_id.values).<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>()</span>
+<span id="cb18-3">distilled_labels.reset_index(drop<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,inplace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> train.reset_index(drop<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,inplace<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> </span>
+<span id="cb18-4"></span>
+<span id="cb18-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># get soft labels</span></span>
+<span id="cb18-6">train.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> distilled_labels.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.3</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> train.iloc[:,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.7</span></span>
+<span id="cb18-7">train.loc[train.healthy <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>][:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>]</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">image_id</th>
+<th data-quarto-table-cell-role="th">healthy</th>
+<th data-quarto-table-cell-role="th">multiple_diseases</th>
+<th data-quarto-table-cell-role="th">rust</th>
+<th data-quarto-table-cell-role="th">scab</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">33</td>
+<td>data/images/Train_1027.jpg</td>
+<td>0.3</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.7</td>
+<td>scab</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>data/images/Train_104.jpg</td>
+<td>0.3</td>
+<td>0.7</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>multiple_diseases</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">146</td>
+<td>data/images/Train_1129.jpg</td>
+<td>0.3</td>
+<td>0.7</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>multiple_diseases</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">392</td>
+<td>data/images/Train_1350.jpg</td>
+<td>0.3</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.7</td>
+<td>scab</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">574</td>
+<td>data/images/Train_1514.jpg</td>
+<td>0.3</td>
+<td>0.7</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>multiple_diseases</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="49282568" class="cell">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">train.head()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">image_id</th>
+<th data-quarto-table-cell-role="th">healthy</th>
+<th data-quarto-table-cell-role="th">multiple_diseases</th>
+<th data-quarto-table-cell-role="th">rust</th>
+<th data-quarto-table-cell-role="th">scab</th>
+<th data-quarto-table-cell-role="th">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>data/images/Train_0.jpg</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>scab</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>data/images/Train_1.jpg</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>multiple_diseases</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>data/images/Train_10.jpg</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>rust</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>data/images/Train_100.jpg</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>healthy</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>data/images/Train_1000.jpg</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>rust</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Great - that’s exactly what we want. We were already using the SoftLabelCB above - so that’s it. You can rerun the same kfold code above or train a single model. Feel free to check out the repository linked above to see the exact implementation and details if you want to do a recreation of their results and the rest of their solution!</p>
+<p>Just remember If you got the results you are looking for in a significantly easier way than you have thought - This is a good thing and a testament to the power of the library (fastai). This not an indication that you are using a beginner tool. Fastai takes care of all the normal SoTA best practices for you so you can focus on bleeding edge implementations or problem specific challenges. Sometimes that means when you go to implement something or work a problem it “just works” with lot less effort than you were expecting and you are left thinking “That’s it?”. How could that possibly be a reasonable reason not to use the library or to think it’s not an effective library?</p>
+<blockquote class="blockquote">
+<p>twitter: https://twitter.com/BBrainkite/status/1359192051837984778</p>
+</blockquote>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Neural Networks</category>
+  <guid>https://isaac-flath.tech/posts/NeuralNetworks/PlantPathologyKaggle.html</guid>
+  <pubDate>Mon, 15 Feb 2021 05:00:00 GMT</pubDate>
   <media:content url="https://isaac-flath.tech/posts/_TopicImages/NeuralNetwork.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

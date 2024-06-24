@@ -306,7 +306,7 @@ window.Quarto = {
 <section id="setup" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Setup</h1>
 <p>Here is where I load libraries, define my dataset, and create a graphing function.</p>
-<div id="cell-6" class="cell">
+<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -314,7 +314,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> clear_output</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'dark_background'</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">44</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.random.randint(<span class="op">-</span><span class="dv">100</span>,<span class="dv">100</span>,<span class="dv">100</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ys <span class="op">=</span> xs <span class="op">*</span> np.random.randint(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>) <span class="op">+</span> <span class="dv">100</span> <span class="co"># + np.random.randint(-200,200,50)</span></span>
@@ -353,7 +353,7 @@ window.Quarto = {
 </section>
 <section id="python-function" class="level3" data-number="5.0.3">
 <h3 data-number="5.0.3" class="anchored" data-anchor-id="python-function"><span class="header-section-number">5.0.3</span> Python Function</h3>
-<div id="cell-12" class="cell">
+<div id="cell-12" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.0005</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(xs,ys,alpha,cycles):</span>
@@ -423,7 +423,7 @@ window.Quarto = {
 </section>
 <section id="python-function-1" class="level3" data-number="6.0.5">
 <h3 data-number="6.0.5" class="anchored" data-anchor-id="python-function-1"><span class="header-section-number">6.0.5</span> Python Function</h3>
-<div id="cell-17" class="cell">
+<div id="cell-17" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.0001</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> <span class="fl">0.9</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -501,7 +501,7 @@ window.Quarto = {
 </section>
 <section id="python-function-2" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Python Function</h1>
-<div id="cell-21" class="cell">
+<div id="cell-21" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> <span class="fl">0.9</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -561,7 +561,7 @@ window.Quarto = {
 <h3 data-number="9.0.1" class="anchored" data-anchor-id="concept-2"><span class="header-section-number">9.0.1</span> Concept</h3>
 <p>The idea of Adam is that there are really nice properties to RMS Prop as well as momentum, so why not do both at the same time. We will modify our path value using the momentum formula <em>and</em> we will modify our learning rate using RMSProp formula. To control what kind of weighted average is used, we define beta_rmsprop and beta_momentum. We can have a pretty big learning rate without overshooting.</p>
 <p>This is useful and effective because we want the ability to pick up speed like momentum does, but also want to minimize overshooting. Basically we pick up momementum when we are far from the minimum, but we slow down as we get close before we overshoot.</p>
-<div id="cell-24" class="cell">
+<div id="cell-24" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beta_rmsprop <span class="op">=</span> <span class="fl">0.9</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beta_momentum <span class="op">=</span> <span class="fl">0.7</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">200</span></span>
