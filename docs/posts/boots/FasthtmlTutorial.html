@@ -120,6 +120,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Isaac Flath - Creating Custom HTML Tags for Markdown Rendering">
 <meta property="og:description" content="Step by step tutorial to rendering markdown in fasthtml using zero-md">
 <meta property="og:image" content="https://isaac-flath.tech/posts/_TopicImages/WebAppBuilding.jpg">
@@ -250,10 +251,11 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import style 1 </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.common <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import style 2</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.core <span class="im">import</span> P, Script, Html, Link, Div, Template, Style, to_xml</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.components <span class="im">import</span> show, xt_hx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import style 2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.core <span class="im">import</span> P, Script, Html, Link, Div, Template, Style, to_xml</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.components <span class="im">import</span> show, xt_hx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In fasthtml we can use the <code>P</code> function put text in a paragraph <code>&lt;p&gt;&lt;/p&gt;</code> tag (common way of displaying text). However, for markdown this is not properly rendered and it’s hard to read.</p>
 <div id="cell-5" class="cell" data-execution_count="2">
@@ -275,37 +277,71 @@ prnt("local server is listening on port 8080")
 ```</p>
 </div>
 </div>
-<p>We need to convert markdown formatting into a format that html understands. We can use the <a href="https://zerodevx.github.io/zero-md/">zero-md</a> library to do this, but there is no function in fasthtml for this tag. There are still two options to use this tag in fasthtml.</p>
+<p>We need to convert markdown formatting into a format that html understands. We can use a javascript library called <a href="https://zerodevx.github.io/zero-md/">zero-md</a> to do this, but there is no function in fasthtml for this tag. There are still two options to use this tag in fasthtml.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is zero-md?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In web development the general structure of a web page is defined using html. However, html alone is usually not sufficient. Javascript allows us to extend what we can do beyond out of the box html. <code>zero-md</code> is a javascript library to add functionality to html for displaying markdown content.</p>
+</div>
+</div>
 <p>The first option is to write the html in a text string and use that.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>NotStr(<span class="ss">f'''&lt;zero-md&gt;&lt;script type="text/markdown"&gt;</span><span class="sc">{</span>lesson_content<span class="sc">}</span><span class="ss">&lt;/script&gt;&lt;/zero-md&gt;'''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is fine for very simple things, but more you build the messier this gets and the harder it gets to work with. It is better to create a fasthtml style tag that works just like everything else. It’s incredibly simple to create a custom tag.</p>
-<div id="cell-9" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Zero_md(<span class="op">*</span>c, src<span class="op">=</span><span class="va">None</span>): <span class="cf">return</span> xt_hx(<span class="st">'zero-md'</span>, src<span class="op">=</span>src, <span class="op">*</span>c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Now that we have our custom tag defined, we can use that with the <code>&lt;script&gt;</code> tag (included in fasthtml) to apply the formatting per the <a href="https://zerodevx.github.io/zero-md/">zero-md documentation</a>.</p>
-<div id="cell-11" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lesson_content_html <span class="op">=</span> Zero_md(Script(lesson_content, <span class="bu">type</span><span class="op">=</span><span class="st">"text/markdown"</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lesson_content_html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>NotStr</code> is a FastHTML function designed to be used when you are passing a string that should be executed as HTML code as opposed to a string.</p>
+<p>In the example above, because <code>NotStr</code> is used fastHTML will respect that as html code. If we removed the <code>NotStr</code>, the all the html tags would be displayed on the page just as they are written rather than being rendered nicely for your web application.</p>
+</div>
+</div>
+<p>This is fine for very simple things, but more you build the messier this gets and the harder it gets to work with. It is better to create a fasthtml style tag that works just like everything else. It’s incredibly simple to create a custom tag. By importing from fasthtml.components the html tag will be created automatically (defined in the module’s getattr).</p>
+<div id="cell-11" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasthtml.components <span class="im">import</span> Zero_md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have our custom tag defined, we can use that with the <code>&lt;script&gt;</code> tag (included in fasthtml) to apply the formatting per the <a href="https://zerodevx.github.io/zero-md/">zero-md documentation</a>. For now we will use the defaults and do nothing with css (more details on this later).</p>
+<div id="cell-13" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_local_md(md, css <span class="op">=</span> <span class="st">''</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    css_template <span class="op">=</span> Template(Style(css), data_append<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Zero_md(css_template, Script(md, <span class="bu">type</span><span class="op">=</span><span class="st">"text/markdown"</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>lesson_content_html <span class="op">=</span> render_local_md(lesson_content)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>lesson_content_html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <div class="sourceCode" id="cb6"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">zero-md</span>&gt;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">script</span><span class="ot"> type=</span><span class="st">"text/markdown"</span>&gt;# Startup bug</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>A new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>## Challenge</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Fix the 2 errors in the code and get it to run!</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>```python</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>print("Starting up server...')</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>prnt("local server is listening on port 8080")</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>```&lt;/<span class="kw">script</span>&gt;</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">zero-md</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">template</span><span class="ot"> data-append</span><span class="er">&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="er">&lt;style&gt;&lt;/style&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;/template&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;script</span> <span class="er">type</span><span class="ot">=</span><span class="st">"text/markdown"</span>&gt;# Startup bug</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>A new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>## Challenge</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Fix the 2 errors in the code and get it to run!</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>print("Starting up server...')</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>prnt("local server is listening on port 8080")</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>```&lt;/<span class="kw">script</span>&gt;</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">zero-md</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>The last thing we need to do is load zero-md from a cdn. We can do this by adding a <code>&lt;script&gt;</code> tag to the <code>&lt;head&gt;</code> of the html, and it all works!</p>
-<div id="cell-13" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'readme.md'</span>) <span class="im">as</span> f:</span>
+<div id="cell-15" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'_readme.md'</span>) <span class="im">as</span> f:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    lesson_content <span class="op">=</span> f.read()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>zeromd_headers <span class="op">=</span> [Script(<span class="bu">type</span><span class="op">=</span><span class="st">"module"</span>, src<span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/zero-md@3?register"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -322,7 +358,7 @@ prnt("local server is listening on port 8080")
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="cell-16" class="cell" data-execution_count="6">
+<div id="cell-18" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Html(<span class="op">*</span>zeromd_headers, lesson_content_html)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>(['!doctype', (), {'html': True}],
@@ -332,16 +368,17 @@ prnt("local server is listening on port 8080")
     {'type': 'module',
      'src': 'https://cdn.jsdelivr.net/npm/zero-md@3?register'}],
    ['zero-md',
-    (['script',
+    (['template', (['style', ('',), {}],), {'data-append': True}],
+     ['script',
       ('# Startup bug\n\nA new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.\n\n## Challenge\n\nFix the 2 errors in the code and get it to run!\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```',),
-      {'type': 'text/markdown'}],),
+      {'type': 'text/markdown'}]),
     {}]),
   {}])</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="cell-18" class="cell" data-execution_count="7">
+<div id="cell-20" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_xml(Html(<span class="op">*</span>zeromd_headers, lesson_content_html)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;!doctype html&gt;&lt;/!doctype&gt;
@@ -349,6 +386,9 @@ prnt("local server is listening on port 8080")
 &lt;html&gt;
   &lt;script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"&gt;&lt;/script&gt;
   &lt;zero-md&gt;
+    &lt;template data-append&gt;
+      &lt;style&gt;&lt;/style&gt;
+    &lt;/template&gt;
     &lt;script type="text/markdown"&gt;# Startup bug
 
 A new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.
@@ -386,34 +426,31 @@ Note
 <p>This part of the tutorial is picking up where the step-by-step <a href="https://fhdocs.answer.ai/by_example.html#full-example-3---chatbot-example-with-daisyui-components">the DaisyUI example</a> in the fasthtml documentation leaves off. For more information, start there!</p>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="9">
+<div id="cell-24" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#loading messages</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'conversation.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    messages <span class="op">=</span> json.load(f)[<span class="st">'messages'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="10">
+<div id="cell-25" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading tailwind and daisyui</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>chat_headers <span class="op">=</span> [Script(src<span class="op">=</span><span class="st">"https://cdn.tailwindcss.com"</span>),</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>           Link(rel<span class="op">=</span><span class="st">"stylesheet"</span>, href<span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will be improving this, for now do nothing</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_md(md): <span class="cf">return</span> md</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Functionality identical to Daisy UI example linked above</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ChatMessage(msg):</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    md <span class="op">=</span> render_md(msg[<span class="st">'content'</span>])</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Div(</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        Div(msg[<span class="st">'role'</span>], cls<span class="op">=</span><span class="st">"chat-header"</span>),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        Div(md, cls<span class="op">=</span><span class="ss">f"chat-bubble chat-bubble-</span><span class="sc">{</span><span class="st">'primary'</span> <span class="cf">if</span> msg[<span class="st">'role'</span>] <span class="op">==</span> <span class="st">'user'</span> <span class="cf">else</span> <span class="st">'secondary'</span><span class="sc">}</span><span class="ss">"</span>),</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span><span class="ss">f"chat chat-</span><span class="sc">{</span><span class="st">'end'</span> <span class="cf">if</span> msg[<span class="st">'role'</span>] <span class="op">==</span> <span class="st">'user'</span> <span class="cf">else</span> <span class="st">'start'</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We re-use the code from the daisyUI example with one change. We are using our <code>render_local_md</code> function we defined.</p>
+<div id="cell-27" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Functionality identical to Daisy UI example linked above</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ChatMessage(msg, render_md_fn<span class="op">=</span><span class="kw">lambda</span> x: x):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    md <span class="op">=</span> render_md_fn(msg[<span class="st">'content'</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Div(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        Div(msg[<span class="st">'role'</span>], cls<span class="op">=</span><span class="st">"chat-header"</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        Div(md, cls<span class="op">=</span><span class="ss">f"chat-bubble chat-bubble-</span><span class="sc">{</span><span class="st">'primary'</span> <span class="cf">if</span> msg[<span class="st">'role'</span>] <span class="op">==</span> <span class="st">'user'</span> <span class="cf">else</span> <span class="st">'secondary'</span><span class="sc">}</span><span class="ss">"</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span><span class="ss">f"chat chat-</span><span class="sc">{</span><span class="st">'end'</span> <span class="cf">if</span> msg[<span class="st">'role'</span>] <span class="op">==</span> <span class="st">'user'</span> <span class="cf">else</span> <span class="st">'start'</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When we render a message, we see markdown doesn’t render properly causing readability issues.</p>
-<p>We can start by doing exactly what we did before with Zero-md, however there are some issues with css styles clashing.</p>
-<div id="cell-27" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_md(md): <span class="cf">return</span> Zero_md(Script(md, <span class="bu">type</span><span class="op">=</span><span class="st">"text/markdown"</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>chat_bubble <span class="op">=</span>Html(<span class="op">*</span>chat_headers, ChatMessage(messages[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using this, markdown doesn’t render properly causing readability issues.</p>
+<p>Instead let’s do exactly what we did before with Zero-md. Our markdown renders, however there are some issues with css styles clashing.</p>
+<div id="cell-30" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>chat_bubble <span class="op">=</span>Html(<span class="op">*</span>(chat_headers<span class="op">+</span>zeromd_headers), ChatMessage(messages[<span class="dv">1</span>], render_md_fn<span class="op">=</span>render_local_md))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Rendered</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">html</a></li></ul>
@@ -427,9 +464,9 @@ Note
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div id="cell-30" class="cell" data-execution_count="13">
+<div id="cell-33" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>chat_bubble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>(['!doctype', (), {'html': True}],
  ['html',
   (['script', ('',), {'src': 'https://cdn.tailwindcss.com'}],
@@ -437,13 +474,18 @@ Note
     (),
     {'rel': 'stylesheet',
      'href': 'https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css'}],
+   ['script',
+    ('',),
+    {'type': 'module',
+     'src': 'https://cdn.jsdelivr.net/npm/zero-md@3?register'}],
    ['div',
     (['div', ('assistant',), {'class': 'chat-header'}],
      ['div',
       (['zero-md',
-        (['script',
+        (['template', (['style', ('',), {}],), {'data-append': True}],
+         ['script',
           ('I\'m glad to hear you\'ve made progress and resolved one of the issues! Let\'s review your existing code to proceed further:\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```\nCould you specify which error you\'ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.',),
-          {'type': 'text/markdown'}],),
+          {'type': 'text/markdown'}]),
         {}],),
       {'class': 'chat-bubble chat-bubble-secondary'}]),
     {'class': 'chat chat-start'}]),
@@ -452,7 +494,7 @@ Note
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div id="cell-32" class="cell" data-execution_count="14">
+<div id="cell-35" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_xml(chat_bubble))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;!doctype html&gt;&lt;/!doctype&gt;
@@ -460,10 +502,14 @@ Note
 &lt;html&gt;
   &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
   &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"&gt;&lt;/link&gt;
+  &lt;script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"&gt;&lt;/script&gt;
   &lt;div class="chat chat-start"&gt;
     &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
     &lt;div class="chat-bubble chat-bubble-secondary"&gt;
       &lt;zero-md&gt;
+        &lt;template data-append&gt;
+          &lt;style&gt;&lt;/style&gt;
+        &lt;/template&gt;
         &lt;script type="text/markdown"&gt;I'm glad to hear you've made progress and resolved one of the issues! Let's review your existing code to proceed further:
 
 ```python
@@ -482,15 +528,24 @@ Could you specify which error you've addressed and share the updated code snippe
 </div>
 </div>
 <p>We can inject CSS styling to handle this issue by telling zero-md to use a template and ignore the default styles to make beatiful properly rendered conversations.</p>
-<div id="cell-35" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_md(md_text):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    zero_css_template <span class="op">=</span> Template(Style(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'.markdown-body {background-color: unset !important; color: unset !important;}'</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ), data_append<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Zero_md(zero_css_template, Script(md_text, <span class="bu">type</span><span class="op">=</span><span class="st">"text/markdown"</span>))</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>chat_bubble <span class="op">=</span> Html(<span class="op">*</span>chat_headers, ChatMessage(messages[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>CSS allows us to extend what we can do with just html by providing a syntax for adding styling to html elements in a programmatic way. Maybe you want every header to have a certain text color, or every paragraph to have a certain background color. CSS allows us to do that.</p>
+</div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>css <span class="op">=</span> <span class="st">'.markdown-body {background-color: unset !important; color: unset !important;}'</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>_render_local_md <span class="op">=</span> partial(render_local_md, css<span class="op">=</span>css)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>chat_bubble <span class="op">=</span> Html(<span class="op">*</span>(chat_headers<span class="op">+</span>zeromd_headers), ChatMessage(messages[<span class="dv">1</span>], render_md_fn<span class="op">=</span>_render_local_md))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now that it looks good we can apply this style to all messages</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -500,9 +555,9 @@ Could you specify which error you've addressed and share the updated code snippe
 <p><img src="Rendered_Bubble.png" class="img-fluid"></p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div id="cell-39" class="cell" data-execution_count="16">
+<div id="cell-42" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>chat_bubble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>(['!doctype', (), {'html': True}],
  ['html',
   (['script', ('',), {'src': 'https://cdn.tailwindcss.com'}],
@@ -510,6 +565,10 @@ Could you specify which error you've addressed and share the updated code snippe
     (),
     {'rel': 'stylesheet',
      'href': 'https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css'}],
+   ['script',
+    ('',),
+    {'type': 'module',
+     'src': 'https://cdn.jsdelivr.net/npm/zero-md@3?register'}],
    ['div',
     (['div', ('assistant',), {'class': 'chat-header'}],
      ['div',
@@ -530,7 +589,7 @@ Could you specify which error you've addressed and share the updated code snippe
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="cell-41" class="cell" data-execution_count="17">
+<div id="cell-44" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_xml(chat_bubble))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;!doctype html&gt;&lt;/!doctype&gt;
@@ -538,6 +597,7 @@ Could you specify which error you've addressed and share the updated code snippe
 &lt;html&gt;
   &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
   &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"&gt;&lt;/link&gt;
+  &lt;script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"&gt;&lt;/script&gt;
   &lt;div class="chat chat-start"&gt;
     &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
     &lt;div class="chat-bubble chat-bubble-secondary"&gt;
@@ -566,13 +626,26 @@ Could you specify which error you've addressed and share the updated code snippe
 <section id="putting-it-together" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Putting it Together</h1>
 <p>We can add flexbox to organize content on a page to design our UI and see it in action.</p>
-<div id="cell-45" class="cell" data-execution_count="18">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Just like we saw the <code>zero-md</code> javascript library, we can import css libraries into our html. Flexbox is a css library that allows you to define classes on elements and it styles them based on the class names (such as <code>"col-xs-5"</code> to define a column width).</p>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>flexbox <span class="op">=</span> [Link(rel<span class="op">=</span><span class="st">'stylesheet'</span>, href<span class="op">=</span><span class="st">'https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css'</span>, <span class="bu">type</span><span class="op">=</span><span class="st">'text/css'</span>)]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>all_headers <span class="op">=</span> zeromd_headers <span class="op">+</span> chat_headers <span class="op">+</span> flexbox</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>chatbox <span class="op">=</span> [ChatMessage(msg) <span class="cf">for</span> msg <span class="kw">in</span> messages]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>chatbox <span class="op">=</span> [ChatMessage(msg, render_md_fn<span class="op">=</span>_render_local_md) <span class="cf">for</span> msg <span class="kw">in</span> messages]</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>conversation_ui <span class="op">=</span> Html(<span class="op">*</span>(all_headers), </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>conversation_ui <span class="op">=</span> Html(<span class="op">*</span>all_headers, </span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>          Div(</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>              Div(lesson_content_html, cls<span class="op">=</span><span class="st">"col-xs-5"</span>),</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>              Div(<span class="op">*</span>chatbox, cls<span class="op">=</span><span class="st">"col-xs-7"</span>),</span>
@@ -590,7 +663,7 @@ Could you specify which error you've addressed and share the updated code snippe
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div id="cell-48" class="cell" data-execution_count="19">
+<div id="cell-51" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>conversation_ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>(['!doctype', (), {'html': True}],
@@ -612,70 +685,35 @@ Could you specify which error you've addressed and share the updated code snippe
    ['div',
     (['div',
       (['zero-md',
-        (['script',
+        (['template', (['style', ('',), {}],), {'data-append': True}],
+         ['script',
           ('# Startup bug\n\nA new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.\n\n## Challenge\n\nFix the 2 errors in the code and get it to run!\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```',),
-          {'type': 'text/markdown'}],),
+          {'type': 'text/markdown'}]),
         {}],),
       {'class': 'col-xs-5'}],
      ['div',
       (['div',
         (['div', ('user',), {'class': 'chat-header'}],
          ['div',
-          (['zero-md',
-            (['template',
-              (['style',
-                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
-                {}],),
-              {'data-append': True}],
-             ['script',
-              ("Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.",),
-              {'type': 'text/markdown'}]),
-            {}],),
+          ("Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.",),
           {'class': 'chat-bubble chat-bubble-primary'}]),
         {'class': 'chat chat-end'}],
        ['div',
         (['div', ('assistant',), {'class': 'chat-header'}],
          ['div',
-          (['zero-md',
-            (['template',
-              (['style',
-                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
-                {}],),
-              {'data-append': True}],
-             ['script',
-              ('I\'m glad to hear you\'ve made progress and resolved one of the issues! Let\'s review your existing code to proceed further:\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```\nCould you specify which error you\'ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.',),
-              {'type': 'text/markdown'}]),
-            {}],),
+          ('I\'m glad to hear you\'ve made progress and resolved one of the issues! Let\'s review your existing code to proceed further:\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```\nCould you specify which error you\'ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.',),
           {'class': 'chat-bubble chat-bubble-secondary'}]),
         {'class': 'chat chat-start'}],
        ['div',
         (['div', ('user',), {'class': 'chat-header'}],
          ['div',
-          (['zero-md',
-            (['template',
-              (['style',
-                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
-                {}],),
-              {'data-append': True}],
-             ['script',
-              ('Here is the corrected line: print("Starting up server...")',),
-              {'type': 'text/markdown'}]),
-            {}],),
+          ('Here is the corrected line: print("Starting up server...")',),
           {'class': 'chat-bubble chat-bubble-primary'}]),
         {'class': 'chat chat-end'}],
        ['div',
         (['div', ('assistant',), {'class': 'chat-header'}],
          ['div',
-          (['zero-md',
-            (['template',
-              (['style',
-                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
-                {}],),
-              {'data-append': True}],
-             ['script',
-              ('Excellent work on correcting that error! Now let\'s analyze the other line in your code. Here’s what it looks like now:\n\n```python\nprint("Starting up server...")\nprnt("local server is listening on port 8080")\n```\nCan you examine the second line and identify any discrepancies?\n\nReflect on the print functions we usually use in Python. Does anything in that line seem incorrect?',),
-              {'type': 'text/markdown'}]),
-            {}],),
+          ('Excellent work on correcting that error! Now let\'s analyze the other line in your code. Here’s what it looks like now:\n\n```python\nprint("Starting up server...")\nprnt("local server is listening on port 8080")\n```\nCan you examine the second line and identify any discrepancies?\n\nReflect on the print functions we usually use in Python. Does anything in that line seem incorrect?',),
           {'class': 'chat-bubble chat-bubble-secondary'}]),
         {'class': 'chat chat-start'}]),
       {'class': 'col-xs-7'}]),
@@ -685,7 +723,7 @@ Could you specify which error you've addressed and share the updated code snippe
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div id="cell-50" class="cell" data-execution_count="20">
+<div id="cell-53" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_xml(conversation_ui))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;!doctype html&gt;&lt;/!doctype&gt;
@@ -698,6 +736,9 @@ Could you specify which error you've addressed and share the updated code snippe
   &lt;div class="row"&gt;
     &lt;div class="col-xs-5"&gt;
       &lt;zero-md&gt;
+        &lt;template data-append&gt;
+          &lt;style&gt;&lt;/style&gt;
+        &lt;/template&gt;
         &lt;script type="text/markdown"&gt;# Startup bug
 
 A new startup has a bug in its server code. The code is supposed to print messages indicating the server has started successfully.
@@ -715,61 +756,33 @@ prnt("local server is listening on port 8080")
     &lt;div class="col-xs-7"&gt;
       &lt;div class="chat chat-end"&gt;
         &lt;div class="chat-header"&gt;user&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-primary"&gt;
-          &lt;zero-md&gt;
-            &lt;template data-append&gt;
-              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
-            &lt;/template&gt;
-            &lt;script type="text/markdown"&gt;Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.&lt;/script&gt;
-          &lt;/zero-md&gt;
-        &lt;/div&gt;
+        &lt;div class="chat-bubble chat-bubble-primary"&gt;Could you assist me in resolving the remaining two errors in my code? I&amp;#x27;ve managed to correct one already.&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-start"&gt;
         &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-secondary"&gt;
-          &lt;zero-md&gt;
-            &lt;template data-append&gt;
-              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
-            &lt;/template&gt;
-            &lt;script type="text/markdown"&gt;I'm glad to hear you've made progress and resolved one of the issues! Let's review your existing code to proceed further:
+        &lt;div class="chat-bubble chat-bubble-secondary"&gt;I&amp;#x27;m glad to hear you&amp;#x27;ve made progress and resolved one of the issues! Let&amp;#x27;s review your existing code to proceed further:
 
 ```python
-print("Starting up server...')
-prnt("local server is listening on port 8080")
+print(&amp;quot;Starting up server...&amp;#x27;)
+prnt(&amp;quot;local server is listening on port 8080&amp;quot;)
 ```
-Could you specify which error you've addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.&lt;/script&gt;
-          &lt;/zero-md&gt;
-        &lt;/div&gt;
+Could you specify which error you&amp;#x27;ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-end"&gt;
         &lt;div class="chat-header"&gt;user&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-primary"&gt;
-          &lt;zero-md&gt;
-            &lt;template data-append&gt;
-              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
-            &lt;/template&gt;
-            &lt;script type="text/markdown"&gt;Here is the corrected line: print("Starting up server...")&lt;/script&gt;
-          &lt;/zero-md&gt;
-        &lt;/div&gt;
+        &lt;div class="chat-bubble chat-bubble-primary"&gt;Here is the corrected line: print(&amp;quot;Starting up server...&amp;quot;)&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-start"&gt;
         &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-secondary"&gt;
-          &lt;zero-md&gt;
-            &lt;template data-append&gt;
-              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
-            &lt;/template&gt;
-            &lt;script type="text/markdown"&gt;Excellent work on correcting that error! Now let's analyze the other line in your code. Here’s what it looks like now:
+        &lt;div class="chat-bubble chat-bubble-secondary"&gt;Excellent work on correcting that error! Now let&amp;#x27;s analyze the other line in your code. Here’s what it looks like now:
 
 ```python
-print("Starting up server...")
-prnt("local server is listening on port 8080")
+print(&amp;quot;Starting up server...&amp;quot;)
+prnt(&amp;quot;local server is listening on port 8080&amp;quot;)
 ```
 Can you examine the second line and identify any discrepancies?
 
-Reflect on the print functions we usually use in Python. Does anything in that line seem incorrect?&lt;/script&gt;
-          &lt;/zero-md&gt;
-        &lt;/div&gt;
+Reflect on the print functions we usually use in Python. Does anything in that line seem incorrect?&lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
