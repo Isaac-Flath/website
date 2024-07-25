@@ -639,7 +639,7 @@ Tip
 <p>Just like we saw the <code>zero-md</code> javascript library, we can import css libraries into our html. Flexbox is a css library that allows you to define classes on elements and it styles them based on the class names (such as <code>"col-xs-5"</code> to define a column width).</p>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="24">
+<div id="cell-48" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>flexbox <span class="op">=</span> [Link(rel<span class="op">=</span><span class="st">'stylesheet'</span>, href<span class="op">=</span><span class="st">'https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css'</span>, <span class="bu">type</span><span class="op">=</span><span class="st">'text/css'</span>)]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>all_headers <span class="op">=</span> zeromd_headers <span class="op">+</span> chat_headers <span class="op">+</span> flexbox</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -663,9 +663,9 @@ Tip
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div id="cell-51" class="cell" data-execution_count="19">
+<div id="cell-51" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>conversation_ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>(['!doctype', (), {'html': True}],
  ['html',
   (['script',
@@ -695,25 +695,61 @@ Tip
       (['div',
         (['div', ('user',), {'class': 'chat-header'}],
          ['div',
-          ("Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.",),
+          (['zero-md',
+            (['template',
+              (['style',
+                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
+                {}],),
+              {'data-append': True}],
+             ['script',
+              ("Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.",),
+              {'type': 'text/markdown'}]),
+            {}],),
           {'class': 'chat-bubble chat-bubble-primary'}]),
         {'class': 'chat chat-end'}],
        ['div',
         (['div', ('assistant',), {'class': 'chat-header'}],
          ['div',
-          ('I\'m glad to hear you\'ve made progress and resolved one of the issues! Let\'s review your existing code to proceed further:\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```\nCould you specify which error you\'ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.',),
+          (['zero-md',
+            (['template',
+              (['style',
+                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
+                {}],),
+              {'data-append': True}],
+             ['script',
+              ('I\'m glad to hear you\'ve made progress and resolved one of the issues! Let\'s review your existing code to proceed further:\n\n```python\nprint("Starting up server...\')\nprnt("local server is listening on port 8080")\n```\nCould you specify which error you\'ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.',),
+              {'type': 'text/markdown'}]),
+            {}],),
           {'class': 'chat-bubble chat-bubble-secondary'}]),
         {'class': 'chat chat-start'}],
        ['div',
         (['div', ('user',), {'class': 'chat-header'}],
          ['div',
-          ('Here is the corrected line: print("Starting up server...")',),
+          (['zero-md',
+            (['template',
+              (['style',
+                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
+                {}],),
+              {'data-append': True}],
+             ['script',
+              ('Here is the corrected line: print("Starting up server...")',),
+              {'type': 'text/markdown'}]),
+            {}],),
           {'class': 'chat-bubble chat-bubble-primary'}]),
         {'class': 'chat chat-end'}],
        ['div',
         (['div', ('assistant',), {'class': 'chat-header'}],
          ['div',
-          ('Excellent work on correcting that error! Now let\'s analyze the other line in your code. Here’s what it looks like now:\n\n```python\nprint("Starting up server...")\nprnt("local server is listening on port 8080")\n```\nCan you examine the second line and identify any discrepancies?\n\nReflect on the print functions we usually use in Python. Does anything in that line seem incorrect?',),
+          (['zero-md',
+            (['template',
+              (['style',
+                ('.markdown-body {background-color: unset !important; color: unset !important;}',),
+                {}],),
+              {'data-append': True}],
+             ['script',
+              ('Excellent work on correcting that error! Now let\'s analyze the other line in your code. Here’s what it looks like now:\n\n```python\nprint("Starting up server...")\nprnt("local server is listening on port 8080")\n```\nCan you examine the second line and identify any discrepancies?\n\nReflect on the print functions we usually use in Python. Does anything in that line seem incorrect?',),
+              {'type': 'text/markdown'}]),
+            {}],),
           {'class': 'chat-bubble chat-bubble-secondary'}]),
         {'class': 'chat chat-start'}]),
       {'class': 'col-xs-7'}]),
@@ -723,7 +759,7 @@ Tip
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div id="cell-53" class="cell" data-execution_count="20">
+<div id="cell-53" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_xml(conversation_ui))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;!doctype html&gt;&lt;/!doctype&gt;
@@ -756,33 +792,61 @@ prnt("local server is listening on port 8080")
     &lt;div class="col-xs-7"&gt;
       &lt;div class="chat chat-end"&gt;
         &lt;div class="chat-header"&gt;user&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-primary"&gt;Could you assist me in resolving the remaining two errors in my code? I&amp;#x27;ve managed to correct one already.&lt;/div&gt;
+        &lt;div class="chat-bubble chat-bubble-primary"&gt;
+          &lt;zero-md&gt;
+            &lt;template data-append&gt;
+              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
+            &lt;/template&gt;
+            &lt;script type="text/markdown"&gt;Could you assist me in resolving the remaining two errors in my code? I've managed to correct one already.&lt;/script&gt;
+          &lt;/zero-md&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-start"&gt;
         &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-secondary"&gt;I&amp;#x27;m glad to hear you&amp;#x27;ve made progress and resolved one of the issues! Let&amp;#x27;s review your existing code to proceed further:
+        &lt;div class="chat-bubble chat-bubble-secondary"&gt;
+          &lt;zero-md&gt;
+            &lt;template data-append&gt;
+              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
+            &lt;/template&gt;
+            &lt;script type="text/markdown"&gt;I'm glad to hear you've made progress and resolved one of the issues! Let's review your existing code to proceed further:
 
 ```python
-print(&amp;quot;Starting up server...&amp;#x27;)
-prnt(&amp;quot;local server is listening on port 8080&amp;quot;)
+print("Starting up server...')
+prnt("local server is listening on port 8080")
 ```
-Could you specify which error you&amp;#x27;ve addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.&lt;/div&gt;
+Could you specify which error you've addressed and share the updated code snippet? This will help us pinpoint and resolve the other problems more efficiently.&lt;/script&gt;
+          &lt;/zero-md&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-end"&gt;
         &lt;div class="chat-header"&gt;user&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-primary"&gt;Here is the corrected line: print(&amp;quot;Starting up server...&amp;quot;)&lt;/div&gt;
+        &lt;div class="chat-bubble chat-bubble-primary"&gt;
+          &lt;zero-md&gt;
+            &lt;template data-append&gt;
+              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
+            &lt;/template&gt;
+            &lt;script type="text/markdown"&gt;Here is the corrected line: print("Starting up server...")&lt;/script&gt;
+          &lt;/zero-md&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class="chat chat-start"&gt;
         &lt;div class="chat-header"&gt;assistant&lt;/div&gt;
-        &lt;div class="chat-bubble chat-bubble-secondary"&gt;Excellent work on correcting that error! Now let&amp;#x27;s analyze the other line in your code. Here’s what it looks like now:
+        &lt;div class="chat-bubble chat-bubble-secondary"&gt;
+          &lt;zero-md&gt;
+            &lt;template data-append&gt;
+              &lt;style&gt;.markdown-body {background-color: unset !important; color: unset !important;}&lt;/style&gt;
+            &lt;/template&gt;
+            &lt;script type="text/markdown"&gt;Excellent work on correcting that error! Now let's analyze the other line in your code. Here’s what it looks like now:
 
 ```python
-print(&amp;quot;Starting up server...&amp;quot;)
-prnt(&amp;quot;local server is listening on port 8080&amp;quot;)
+print("Starting up server...")
+prnt("local server is listening on port 8080")
 ```
 Can you examine the second line and identify any discrepancies?
 
-Reflect on the print functions we usually use in Python. Does anything in that line seem incorrect?&lt;/div&gt;
+Reflect on the print functions we usually use in Python. Does anything in that line seem incorrect?&lt;/script&gt;
+          &lt;/zero-md&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
