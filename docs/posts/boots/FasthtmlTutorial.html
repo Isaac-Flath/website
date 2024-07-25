@@ -304,7 +304,7 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p><code>NotStr</code> is a FastHTML function designed to be used when you are passing a string that should be executed as HTML code as opposed to a string.</p>
-<p>In the example above, because <code>NotStr</code> is used fastHTML will respect that as html code. If we removed the <code>NotStr</code>, the all the html tags would be displayed on the page just as they are written rather than being rendered nicely for your web application.</p>
+<p>In the example above, because <code>NotStr</code> is used fastHTML will treat it as html code as opposed to a python string. If we removed the <code>NotStr</code>, the all the html tags would be displayed on the page just as they are written rather than being rendered nicely for your web application.</p>
 </div>
 </div>
 <p>This is fine for very simple things, but more you build the messier this gets and the harder it gets to work with. It is better to create a fasthtml style tag that works just like everything else. It’s incredibly simple to create a custom tag. By importing from fasthtml.components the html tag will be created automatically (defined in the module’s getattr).</p>
