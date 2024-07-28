@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/boots/FasthtmlTutorial.html",
       "/posts/Other/QuartoBlogSubscriptions.html",
       "/posts/APL/APLAdventOfCode2022.html",
       "/posts/Other/QuartoDocumentsBestPractices.html",
