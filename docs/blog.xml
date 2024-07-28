@@ -12,7 +12,7 @@
 <generator>quarto-1.4.549</generator>
 <lastBuildDate>Fri, 19 Jul 2024 04:00:00 GMT</lastBuildDate>
 <item>
-  <title>Creating Custom HTML Tags for Markdown Rendering</title>
+  <title>Creating Custom FastHTML Tags for Markdown Rendering</title>
   <dc:creator>Isaac Flath</dc:creator>
   <link>https://isaac-flath.tech/posts/boots/FasthtmlTutorial.html</link>
   <description><![CDATA[ 
@@ -23,14 +23,14 @@
 
 <section id="intro" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Intro</h1>
-<p>This post will cover how to render markdown using zero-md in fasthtml in practical example. This includes:</p>
+<p>This post will cover how to render markdown using zero-md in <a href="https://fastht.ml/">FastHTML</a> in a practical example. This includes:</p>
 <ul>
-<li>Defining a custom html tag in fasthtml</li>
-<li>Using external css and javascript libraries with fasthtml</li>
-<li>Adding CSS</li>
+<li>Defining a custom HTML tag in FastHTML</li>
+<li>Using external CSS and javascript libraries with FastHTML</li>
+<li>Adding CSS styling</li>
 <li>Organize UI into columns</li>
 </ul>
-<p>For this tutorial we will be converting a markdown of an <a href="https://www.boot.dev/lessons/d3d50474-d60a-4751-b71e-e145ae95b966?survey_no_sub=true">early lesson</a> in the <a href="https://boot.dev">boot.dev</a> curriculum to html as well as a fake conversation between a student and a chatbot about the lesson. Boot.dev is an online learning platform that offers self-paced, gamified courses for back-end web development.</p>
+<p>In this tutorial we will be convert a markdown of an <a href="https://www.boot.dev/lessons/d3d50474-d60a-4751-b71e-e145ae95b966?survey_no_sub=true">early lesson</a> in the <a href="https://boot.dev">boot.dev</a> curriculum to html as well as a fake conversation between a student and a chatbot about the lesson. Boot.dev is an online learning platform that offers self-paced, gamified courses for back-end web development.</p>
 </section>
 <section id="markdown-with-zero-md" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Markdown With Zero-md</h1>
@@ -63,9 +63,9 @@ font-style: inherit;">import</span> P, Script, Html, Link, Div, Template, Style,
 background-color: null;
 font-style: inherit;">from</span> fasthtml.components <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> show, xt_hx</span></code></pre></div>
+font-style: inherit;">import</span> show</span></code></pre></div>
 </div>
-<p>In fasthtml we can use the <code>P</code> function put text in a paragraph <code>&lt;p&gt;&lt;/p&gt;</code> tag (common way of displaying text). However, for markdown this is not properly rendered and it’s hard to read.</p>
+<p>In FastHTML we can use the <code>P</code> function to put text in a paragraph <code>&lt;p&gt;&lt;/p&gt;</code> tag (a common way of displaying text). However, markdown is not rendered properly and is hard to read.</p>
 <div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="cf" style="color: #003B4F;
 background-color: null;
@@ -95,7 +95,7 @@ prnt("local server is listening on port 8080")
 ```</p>
 </div>
 </div>
-<p>We need to convert markdown formatting into a format that html understands. We can use a javascript library called <a href="https://zerodevx.github.io/zero-md/">zero-md</a> to do this, but there is no function in fasthtml for this tag. There are still two options to use this tag in fasthtml.</p>
+<p>We need to convert markdown formatting into a format that HTML understands. We can use a javascript library called <a href="https://zerodevx.github.io/zero-md/">zero-md</a> to do this, but this tag does not have a function in FastHTML. There are still two options for using this tag in FastHTML.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -106,10 +106,10 @@ What is zero-md?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In web development the general structure of a web page is defined using html. However, html alone is usually not sufficient. Javascript allows us to extend what we can do beyond out of the box html. <code>zero-md</code> is a javascript library to add functionality for displaying markdown conten that we can use with an html tag.</p>
+<p>In web development, HTML defines the general structure of a web page. However, HTML alone is usually not sufficient. Javascript allows us to extend what we can do beyond out-of-the-box HTML. <code>zero-md</code> is a Javascript library that adds functionality for displaying markdown content that we can use with an HTML tag.</p>
 </div>
 </div>
-<p>The first option is to write the html in a text string and use that.</p>
+<p>The first option is to write the HTML in a text string and use that.</p>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">NotStr(<span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">f'''&lt;zero-md&gt;&lt;script type="text/markdown"&gt;</span><span class="sc" style="color: #5E5E5E;
@@ -129,11 +129,11 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>NotStr</code> is a FastHTML function designed to be used when you are passing a string that should be executed as HTML code as opposed to a string.</p>
-<p>In the example above, because <code>NotStr</code> is used fastHTML will treat it as html code as opposed to a python string. If we removed the <code>NotStr</code>, the all the html tags would be displayed on the page just as they are written rather than being rendered nicely for your web application.</p>
+<p><code>NotStr</code> is a FastHTML function designed for passing a string that should be executed as HTML code rather than a string.</p>
+<p>In the example above, because <code>NotStr</code> is used, FastHTML will treat it as HTML code rather than a Python string. If we removed the <code>NotStr</code>, all the HTML tags would be displayed on the page just as they are written rather than being rendered nicely for your web application.</p>
 </div>
 </div>
-<p>This is fine for very simple things, but more you build the messier this gets and the harder it gets to work with. It is better to create a fasthtml style tag that works just like everything else. It’s incredibly simple to create a custom tag. By importing from fasthtml.components the html tag will be created automatically (defined in the module’s getattr).</p>
+<p>This is fine for very simple things, but the more you build, the messier and harder it gets to work with. It is better to create a FastHTML style tag that works just like everything else. It’s incredibly simple to create a custom tag. By importing from <code>fasthtml.components</code> the HTML tag will be created automatically (defined in the module’s <code>__getattr__</code>).</p>
 <div id="cell-11" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -141,7 +141,7 @@ font-style: inherit;">from</span> fasthtml.components <span class="im" style="co
 background-color: null;
 font-style: inherit;">import</span> Zero_md</span></code></pre></div>
 </div>
-<p>Now that we have our custom tag defined, we can use that with the <code>&lt;script&gt;</code> tag (included in fasthtml) to apply the formatting per the <a href="https://zerodevx.github.io/zero-md/">zero-md documentation</a>. For now we will use the defaults and do nothing with css (more details on this later).</p>
+<p>Now that we have our custom tag defined, we can use that with the <code>&lt;script&gt;</code> tag (included in FastHTML) to apply the formatting per the <a href="https://zerodevx.github.io/zero-md/">zero-md documentation</a>. For now, we will use the defaults and do nothing with CSS (more details on this later).</p>
 <div id="cell-13" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -215,7 +215,7 @@ background-color: null;
 font-style: inherit;">zero-md</span>&gt;</span></code></pre></div>
 </div>
 </div>
-<p>The last thing we need to do is load zero-md from a cdn. We can do this by adding a <code>&lt;script&gt;</code> tag to the <code>&lt;head&gt;</code> of the html, and it all works!</p>
+<p>The last thing we need to do is load zero-md from a CDN. We can do this by adding a <code>&lt;script&gt;</code> tag to the <code>&lt;head&gt;</code> of the HTML, and it all works!</p>
 <div id="cell-15" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="cf" style="color: #003B4F;
 background-color: null;
@@ -316,7 +316,7 @@ prnt("local server is listening on port 8080")
 </section>
 <section id="markdown-conversation-bubbles" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Markdown Conversation Bubbles</h1>
-<p>We will start with default daisyUI chat bubbles. For many types of conversations this is fine, but for this use case we need markdown to render properly for code snippets and structural elements.</p>
+<p>We will start with default DaisyUI chat bubbles. For many types of conversations this is fine, but for this use case we need markdown to render properly for code snippets and structural elements.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -327,7 +327,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This part of the tutorial is picking up where the step-by-step <a href="https://fhdocs.answer.ai/by_example.html#full-example-3---chatbot-example-with-daisyui-components">the DaisyUI example</a> in the fasthtml documentation leaves off. For more information, start there!</p>
+<p>This part of the tutorial picks up where the step-by-step <a href="https://fhdocs.answer.ai/by_example.html#full-example-3---chatbot-example-with-daisyui-components">the DaisyUI example</a> in the FastHTML documentation leaves off. For more information, start there!</p>
 </div>
 </div>
 <div id="cell-24" class="cell" data-execution_count="8">
@@ -373,7 +373,7 @@ font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"</span>)]</span></code></pre></div>
 </div>
-<p>We re-use the code from the daisyUI example with one change. We are using our <code>render_local_md</code> function we defined.</p>
+<p>We re-use the code from the daisyUI example with one change. We are using the <code>render_local_md</code> function we defined.</p>
 <div id="cell-27" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -451,7 +451,7 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span>)</span></code></pre></div>
 </div>
-<p>Using this, markdown doesn’t render properly causing readability issues.</p>
+<p>Using this, markdown doesn’t render properly, causing readability issues.</p>
 <p>Instead let’s do exactly what we did before with Zero-md. Our markdown renders, however there are some issues with css styles clashing.</p>
 <div id="cell-30" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">chat_bubble <span class="op" style="color: #5E5E5E;
@@ -543,7 +543,7 @@ Could you specify which error you've addressed and share the updated code snippe
 </div>
 </div>
 </div>
-<p>We can inject CSS styling to handle this issue by telling zero-md to use a template and ignore the default styles to make beatiful properly rendered conversations.</p>
+<p>We can inject CSS styling to handle this issue by telling zero-md to use a template and ignore the default styles to make beautiful properly rendered conversations.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -554,7 +554,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>CSS allows us to extend what we can do with just html by providing a syntax for adding styling to html elements in a programmatic way. Maybe you want every header to have a certain text color, or every paragraph to have a certain background color. CSS allows us to do that.</p>
+<p>CSS allows us to extend what we can do with just HTML by providing a syntax for adding styling to HTML elements in a programmatic way. You may want every header to have a specific text color or every paragraph to have a specific background color. CSS allows us to do that.</p>
 </div>
 </div>
 <div id="cell-38" class="cell" data-execution_count="14">
@@ -661,7 +661,7 @@ Could you specify which error you've addressed and share the updated code snippe
 </section>
 <section id="putting-it-together" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Putting it Together</h1>
-<p>We can add flexbox to organize content on a page to design our UI and see it in action.</p>
+<p>We can add FlexBox to organize content on a page to design our UI and see it in action.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -672,7 +672,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Just like we saw the <code>zero-md</code> javascript library, we can import css libraries into our html. Flexbox is a css library that allows you to define classes on elements and it styles them based on the class names (such as <code>"col-xs-5"</code> to define a column width).</p>
+<p>Like we saw the <code>zero-md</code> javascript library, we can import CSS libraries into our HTML. FlexBox is a CSS library that allows you to define classes on elements and it styles them based on the class names (such as <code>"col-xs-5"</code> to define a column width).</p>
 </div>
 </div>
 <div id="cell-48" class="cell" data-execution_count="17">
@@ -948,7 +948,7 @@ Reflect on the print functions we usually use in Python. Does anything in that l
 </section>
 
  ]]></description>
-  <category>fasthtml</category>
+  <category>FastHTML</category>
   <category>htmx</category>
   <category>boots</category>
   <guid>https://isaac-flath.tech/posts/boots/FasthtmlTutorial.html</guid>
