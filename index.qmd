@@ -18,14 +18,16 @@ about:
       href: blog.xml
     - icon: rss
       text: TIL RSS
-      href: til.xml        
+      href: til.xml
 ---
 
 # About Me
 
-I am a data scientists focused on LLM based applications in education as well as creating structured data from unstructured sources.  I also help clients with wide variety of projects related to data engineering and data science.
+I am a data scientist focused on AI applications.  While this often means machine learning and deep learning it often means web app development and other things.  AI is only a component of a successful AI application.
 
-My primary hobby is dance.  I used to teach ballroom dance full time, which is where I met my partner.  After a career change into data science, I still teach dance part time as it is a source of joy for me.  My partner now runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.
+I am currently builing out Gallery.FastHT.ML](https://gallery.fastht.ml/) and generally developing the FastHTML ecosystem.
+
+My primary hobby is dance.  I used to teach ballroom dance full time, which is where I met my partner.  My partner runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.  Here's a couple casual demos we did together: [social](https://youtu.be/nUdMfll0YJo) and [routine](https://youtu.be/GR--19jgjV8)
 
 # My journey in stages 🚀
 
@@ -37,7 +39,7 @@ My primary hobby is dance.  I used to teach ballroom dance full time, which is w
 
 **Trying New Things**: accounting ➢ call center ➢ full-time ballroom dance teacher
 
-**Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data science
+**Finding my home ❤️**: product owner ➢ machine learning researcher ➢ data science ➢ AI and tech generalist
 
 # 👨‍💻 How to get into data science 👩🏻‍💻
 
@@ -45,7 +47,7 @@ I recommend working through the [fastai courses](https://course.fast.ai/).  Thes
 
 **Tinker with everything.**  Try to never ask "Would it work if I did X?" or "Can I accomplish X by doing Y?".  Instead, try it and see if it works.  It's worth the time investment.
 
-**Do projects**  Do projects in parallel with courses, and after courses.  Don't wait.  Build stuff.  Doing projects should be where you put most of your time. 
+**Do projects**  Do projects in parallel with courses, and after courses.  Don't wait.  Build stuff.  Doing projects should be where you put most of your time.
 
 **Teach to learn**  Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time!  I am a fan of doing this via blogging [for many reasons](https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045).  See [my FAQ](other/bloggingFAQ.qmd) for some help getting started.
 
