@@ -9,7 +9,7 @@
   {
     "objectID": "TIL/DelayedRedirect.html",
     "href": "TIL/DelayedRedirect.html",
-    "title": "Connecting Jupyter to EC2",
+    "title": "URL Redirect with a delay",
     "section": "",
     "text": "Today I Learned\nYou can set up a delated redirect with the Meta HTML tag. Conveniently you can use this in a 404 exception handler if your site moved to catch any possible route/link users go to.\nI did to redirect people to the new location of the FastHTML gallery site.\nfrom fasthtml.common import *\n\ndef _not_found(req, exc):\n    msg = Div(H1(\"We moved to \",A(href=\"https://gallery.fastht.ml/\")(\"https://gallery.fastht.ml/\")),\n            P(\"Please update your bookmark!  Redirecting in 3 seconds...\"))\n    return msg,Meta(http_equiv=\"refresh\", content=\"3;url=https://gallery.fastht.ml/\")\n\napp = FastHTML(exception_handlers={404:_not_found})\n\nserve()"
   },
@@ -53,7 +53,7 @@
     "href": "til.html",
     "title": "Today I Learned (TIL)",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n         \n          Categories\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\nCategories\n\n\n\n\n\n\nJan 21, 2023\n\n\nFinding All Quarto Drafts\n\n\nQuarto, Bash\n\n\n\n\nNov 14, 2022\n\n\nQuarto Column Formatting\n\n\nQuarto\n\n\n\n\nNov 10, 2022\n\n\nQuarto Conditional Content\n\n\nQuarto\n\n\n\n\nNov 5, 2022\n\n\nRandom State Duplication\n\n\nPython\n\n\n\n\nAug 10, 2022\n\n\nRun Python on Github Actions\n\n\nPython, Github\n\n\n\n\nMay 15, 2021\n\n\nShelve Python Database\n\n\nPython\n\n\n\n\nDec 6, 2020\n\n\nSecrets for Github Actions\n\n\nGithub\n\n\n\n\nJun 25, 2020\n\n\nConnecting Jupyter to EC2\n\n\nCloud\n\n\n\n\nJun 25, 2020\n\n\nConnecting Jupyter to EC2\n\n\nCloud\n\n\n\n\nJan 15, 2020\n\n\nJupyter is JSON\n\n\nPython\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n         \n          Categories\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\nCategories\n\n\n\n\n\n\nAug 19, 2024\n\n\nURL Redirect with a delay\n\n\nFastHTML, Python, Web Development\n\n\n\n\nJan 21, 2023\n\n\nFinding All Quarto Drafts\n\n\nQuarto, Bash\n\n\n\n\nNov 14, 2022\n\n\nQuarto Column Formatting\n\n\nQuarto\n\n\n\n\nNov 10, 2022\n\n\nQuarto Conditional Content\n\n\nQuarto\n\n\n\n\nNov 5, 2022\n\n\nRandom State Duplication\n\n\nPython\n\n\n\n\nAug 10, 2022\n\n\nRun Python on Github Actions\n\n\nPython, Github\n\n\n\n\nMay 15, 2021\n\n\nShelve Python Database\n\n\nPython\n\n\n\n\nDec 6, 2020\n\n\nSecrets for Github Actions\n\n\nGithub\n\n\n\n\nJun 25, 2020\n\n\nConnecting Jupyter to EC2\n\n\nCloud\n\n\n\n\nJan 15, 2020\n\n\nJupyter is JSON\n\n\nPython\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "testimonials.html",

@@ -40,6 +40,7 @@
   {
     "listing": "/til.html",
     "items": [
+      "/TIL/DelayedRedirect.html",
       "/TIL/QuartoDrafts.html",
       "/TIL/QuartoColumnFormatting.html",
       "/TIL/QuartoConditionalContent.html",
@@ -48,7 +49,6 @@
       "/TIL/ShelveDB.html",
       "/TIL/SecretsForGithubActions.html",
       "/TIL/ConnectingJupyterEC2.html",
-      "/TIL/DelayedRedirect.html",
       "/TIL/JupyterIsJson.html"
     ]
   }

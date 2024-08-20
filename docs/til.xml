@@ -10,7 +10,80 @@
 <atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
 <generator>quarto-1.5.56</generator>
-<lastBuildDate>Sat, 21 Jan 2023 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 19 Aug 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>URL Redirect with a delay</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/DelayedRedirect.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>You can set up a delated redirect with the Meta HTML tag. Conveniently you can use this in a 404 exception handler if your site moved to catch any possible route/link users go to.</p>
+<p>I did to redirect people to the new location of the FastHTML gallery site.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fasthtml.common <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span></span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> _not_found(req, exc):</span>
+<span id="cb1-4">    msg <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Div(H1(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"We moved to "</span>,A(href<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://gallery.fastht.ml/"</span>)(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://gallery.fastht.ml/"</span>)),</span>
+<span id="cb1-5">            P(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Please update your bookmark!  Redirecting in 3 seconds..."</span>))</span>
+<span id="cb1-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> msg,Meta(http_equiv<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"refresh"</span>, content<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"3;url=https://gallery.fastht.ml/"</span>)</span>
+<span id="cb1-7"></span>
+<span id="cb1-8">app <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> FastHTML(exception_handlers<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>{<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">404</span>:_not_found})</span>
+<span id="cb1-9"></span>
+<span id="cb1-10">serve()</span></code></pre></div>
+
+
+</section>
+
+ ]]></description>
+  <category>FastHTML</category>
+  <category>Python</category>
+  <category>Web Development</category>
+  <guid>https://isaac-flath.tech/TIL/DelayedRedirect.html</guid>
+  <pubDate>Mon, 19 Aug 2024 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Finding All Quarto Drafts</title>
   <dc:creator>Isaac Flath</dc:creator>
@@ -537,77 +610,6 @@ font-style: inherit;">'your_secret_key'</span>]</span></code></pre></div>
  ]]></description>
   <category>Cloud</category>
   <guid>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</guid>
-  <pubDate>Thu, 25 Jun 2020 04:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Connecting Jupyter to EC2</title>
-  <dc:creator>Isaac Flath</dc:creator>
-  <link>https://isaac-flath.tech/TIL/DelayedRedirect.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
-<p>You can set up a delated redirect with the Meta HTML tag. Conveniently you can use this in a 404 exception handler if your site moved to catch any possible route/link users go to.</p>
-<p>I did to redirect people to the new location of the FastHTML gallery site.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> fasthtml.common <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span></span>
-<span id="cb1-2"></span>
-<span id="cb1-3"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> _not_found(req, exc):</span>
-<span id="cb1-4">    msg <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Div(H1(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"We moved to "</span>,A(href<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"https://gallery.fastht.ml/"</span>)(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"https://gallery.fastht.ml/"</span>)),</span>
-<span id="cb1-5">            P(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Please update your bookmark!  Redirecting in 3 seconds..."</span>))</span>
-<span id="cb1-6">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> msg,Meta(http_equiv<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"refresh"</span>, content<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"3;url=https://gallery.fastht.ml/"</span>)</span>
-<span id="cb1-7"></span>
-<span id="cb1-8">app <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> FastHTML(exception_handlers<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>{<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">404</span>:_not_found})</span>
-<span id="cb1-9"></span>
-<span id="cb1-10">serve()</span></code></pre></div>
-
-
-</section>
-
- ]]></description>
-  <category>Cloud</category>
-  <guid>https://isaac-flath.tech/TIL/DelayedRedirect.html</guid>
   <pubDate>Thu, 25 Jun 2020 04:00:00 GMT</pubDate>
 </item>
 <item>
