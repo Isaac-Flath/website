@@ -27,7 +27,9 @@ I am a data scientist focused on AI applications.  While this often means machin
 
 I am currently builing out Gallery.FastHT.ML](https://gallery.fastht.ml/) and generally developing the FastHTML ecosystem.
 
-My primary hobby is dance.  I used to teach ballroom dance full time, which is where I met my partner.  My partner runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.  Here's a couple casual demos we did together: [social](https://youtu.be/nUdMfll0YJo) and [routine](https://youtu.be/GR--19jgjV8)
+My primary hobby is dance.  I used to teach ballroom dance full time, which is where I met my partner.  My partner runs her own [dance instruction business](https://artofmovementdc.com/) here in D.C.
+
+Here's a couple casual demos we did together: [social](https://youtu.be/nUdMfll0YJo) and [routine](https://youtu.be/Y7R82kgeUbY)
 
 # My journey in stages 🚀
 

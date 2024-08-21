@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2024-08-21">
+<meta name="description" content="Download youtube videos with yt-dlp in the terminal">
 
-<title>Isaac Flath</title>
+<title>Download Youtube Videos with yt-dlp – Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon/favicon-32x32.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,15 +117,14 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Isaac Flath">
-<meta property="og:description" content="Blog for machine learning, programming, computer science and other data science related topics">
-<meta property="og:image" content="https://isaac-flath.tech/street.jpg">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Download Youtube Videos with yt-dlp – Isaac Flath">
+<meta property="og:description" content="Download youtube videos with yt-dlp in the terminal">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Isaac Flath">
-<meta name="twitter:description" content="Blog for machine learning, programming, computer science and other data science related topics">
-<meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
+<meta name="twitter:title" content="Download Youtube Videos with yt-dlp – Isaac Flath">
+<meta name="twitter:description" content="Download youtube videos with yt-dlp in the terminal">
+<meta name="twitter:image" content="https://isaac-flath.tech/TIL/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
 </head>
@@ -95,11 +132,11 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Isaac Flath</span>
     </a>
   </div>
@@ -110,19 +147,19 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./testimonials.html"> 
+    <a class="nav-link" href="../testimonials.html"> 
 <span class="menu-text">Testimonials</span></a>
   </li>  
 </ul>
@@ -134,72 +171,63 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Download Youtube Videos with yt-dlp</h1>
+                  <div>
+        <div class="description">
+          Download youtube videos with yt-dlp in the terminal
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">terminal</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 21, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="street.jpg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Isaac Flath</h1>
-</div>
-<div class="quarto-title-meta">
-  </div>
-</header><main class="content" id="quarto-document-content">
-<section id="about-me" class="level1">
-<h1>About Me</h1>
-<p>I am a data scientist focused on AI applications. While this often means machine learning and deep learning it often means web app development and other things. AI is only a component of a successful AI application.</p>
-<p>I am currently builing out Gallery.FastHT.ML](https://gallery.fastht.ml/) and generally developing the FastHTML ecosystem.</p>
-<p>My primary hobby is dance. I used to teach ballroom dance full time, which is where I met my partner. My partner runs her own <a href="https://artofmovementdc.com/">dance instruction business</a> here in D.C.</p>
-<p>Here’s a couple casual demos we did together: <a href="https://youtu.be/nUdMfll0YJo">social</a> and <a href="https://youtu.be/Y7R82kgeUbY">routine</a></p>
-</section>
-<section id="my-journey-in-stages" class="level1">
-<h1>My journey in stages 🚀</h1>
-<p><strong>My Start</strong>: assembly line worker ➢ assembly line management ➢ assembly line efficiency optimization</p>
-<p><strong>Moving up</strong>: business process engineering ➢ product management</p>
-<p><strong>Starting Technical Journey</strong>: data analyst ➢ dynamics CRM developer</p>
-<p><strong>Trying New Things</strong>: accounting ➢ call center ➢ full-time ballroom dance teacher</p>
-<p><strong>Finding my home ❤️</strong>: product owner ➢ machine learning researcher ➢ data science ➢ AI and tech generalist</p>
-</section>
-<section id="how-to-get-into-data-science" class="level1">
-<h1>👨‍💻 How to get into data science 👩🏻‍💻</h1>
-<p>I recommend working through the <a href="https://course.fast.ai/">fastai courses</a>. These are fantastic courses that teach great content, but also in an approachable way that enable you to use what your learn on real problems right away.</p>
-<p><strong>Tinker with everything.</strong> Try to never ask “Would it work if I did X?” or “Can I accomplish X by doing Y?”. Instead, try it and see if it works. It’s worth the time investment.</p>
-<p><strong>Do projects</strong> Do projects in parallel with courses, and after courses. Don’t wait. Build stuff. Doing projects should be where you put most of your time.</p>
-<p><strong>Teach to learn</strong> Teaching is a great way to learn, and if you have a record of it you build a portfolio at the same time! I am a fan of doing this via blogging <a href="https://medium.com/@racheltho/why-you-yes-you-should-blog-7d2544ac1045">for many reasons</a>. See my FAQ for some help getting started.</p>
-<p><strong>Keep at it</strong> and be tenacious. There is discomfort with learning any skill. You’ll be frustrated at times. That’s a sign that there’s a concept worth learning and once you do figure it out you’ll have made a big step forward.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p>There’s a magic terminal ccommand that can download youtube videos thanks to <a href="https://x.com/HamelHusain/status/1825751477060522435">Hamel’s twitter post</a></p>
+<p><a href="https://github.com/yt-dlp/yt-dlp">This</a> is the library it uses, which seems like it can do lots of stuff that may be useful some day.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">yt-dlp</span> <span class="at">-v</span> <span class="at">-f</span> mp4 <span class="at">--cookies-from-browser</span> chrome <span class="st">"&lt;url&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://linkedin.com/in/isaacflath/" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com/isaac-flath" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-  <a href="https://twitter.com/isaac_flath" class="about-link" rel="" target="">
-    <i class="bi bi-twitter"></i>
-     <span class="about-link-text">Twitter</span>
-  </a>
-  <a href="/blog.xml" class="about-link" rel="" target="">
-    <i class="bi bi-rss"></i>
-     <span class="about-link-text">Blog RSS</span>
-  </a>
-  <a href="/til.xml" class="about-link" rel="" target="">
-    <i class="bi bi-rss"></i>
-     <span class="about-link-text">TIL RSS</span>
-  </a>
-</div>
-</div>
- <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -364,6 +392,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -757,6 +792,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -784,12 +821,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./blog.xml">
+    <a class="nav-link" href="../blog.xml">
 <p>Blog RSS</p>
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./til.xml">
+    <a class="nav-link" href="../til.xml">
 <p>TIL RSS</p>
 </a>
   </li>  

@@ -15,10 +15,11 @@ I did to redirect people to the new location of the FastHTML gallery site.
 ```python
 from fasthtml.common import *
 
+new_url = "https://gallery.fastht.ml/"
 def _not_found(req, exc):
-    msg = Div(H1("We moved to ",A(href="https://gallery.fastht.ml/")("https://gallery.fastht.ml/")),
+    msg = Div(H1("We moved to ",A(href=new_url)(new_url))
             P("Please update your bookmark!  Redirecting in 3 seconds..."))
-    return msg,Meta(http_equiv="refresh", content="3;url=https://gallery.fastht.ml/")
+    return msg,Meta(http_equiv="refresh", content=f"3;url={new_url}")
 
 app = FastHTML(exception_handlers={404:_not_found})
 
