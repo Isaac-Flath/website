@@ -5,28 +5,68 @@
     <lastmod>2024-06-07T12:49:14.093Z</lastmod>
   </url>
   <url>
+    <loc>https://isaac-flath.tech/TIL/JupyterIsJson.html</loc>
+    <lastmod>2024-06-07T12:49:14.091Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Count Symmetric Integers.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
     <loc>https://isaac-flath.tech/TIL/DelayedRedirect.html</loc>
     <lastmod>2024-08-21T13:44:40.890Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/QuartoDrafts.html</loc>
+    <loc>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</loc>
     <lastmod>2024-06-07T12:49:14.092Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/ShelveDB.html</loc>
-    <lastmod>2024-06-07T12:49:14.092Z</lastmod>
+    <loc>https://isaac-flath.tech/TIL/Container With Most Water/Container With Most Water.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</loc>
+    <lastmod>2024-06-07T12:49:14.091Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Contains Duplicate.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/NbdevNonLibExports.html</loc>
+    <lastmod>2024-09-21T12:03:50.882Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/SecretsForGithubActions.html</loc>
     <lastmod>2024-06-07T12:49:14.092Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</loc>
+    <loc>https://isaac-flath.tech/TIL/Valid Sudoku/Valid Sudoku.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</loc>
     <lastmod>2024-06-07T12:49:14.091Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Valid Parentheses.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/TIL/QuartoConditionalContent.html</loc>
     <lastmod>2024-06-07T12:49:14.092Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Longest Consecutive Sequence.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Encode and Decode Strings.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Two Sum.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
   </url>
   <url>
     <loc>https://isaac-flath.tech/til.html</loc>
@@ -173,7 +213,27 @@
     <lastmod>2024-08-21T14:15:31.071Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/QuartoColumnFormatting.html</loc>
+    <loc>https://isaac-flath.tech/TIL/Min Stack.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Evaluate Reverse Polish Notation.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Pancake Sorting.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Grouped Anagrams.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Valid Palindrome.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/PythonScriptGithubActions.html</loc>
     <lastmod>2024-06-07T12:49:14.091Z</lastmod>
   </url>
   <url>
@@ -181,19 +241,39 @@
     <lastmod>2024-08-21T13:48:57.819Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/NbdevNonLibExports.html</loc>
-    <lastmod>2024-09-21T12:03:50.882Z</lastmod>
+    <loc>https://isaac-flath.tech/TIL/Two Sum II - Input Array is Sorted.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/ConnectingJupyterEC2.html</loc>
-    <lastmod>2024-06-07T12:49:14.091Z</lastmod>
+    <loc>https://isaac-flath.tech/TIL/Valid Anagram.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/RandomSeedDuplication.html</loc>
+    <loc>https://isaac-flath.tech/TIL/ShelveDB.html</loc>
     <lastmod>2024-06-07T12:49:14.092Z</lastmod>
   </url>
   <url>
-    <loc>https://isaac-flath.tech/TIL/JupyterIsJson.html</loc>
-    <lastmod>2024-06-07T12:49:14.091Z</lastmod>
+    <loc>https://isaac-flath.tech/TIL/Product of Array Except Self.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/QuartoDrafts.html</loc>
+    <lastmod>2024-06-07T12:49:14.092Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Top K Frequent Elements.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Palindrome Number.html</loc>
+    <lastmod>2024-09-21T12:08:16.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Three Sum.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://isaac-flath.tech/TIL/Trapping Rain Water/Trapping Rain Water.html</loc>
+    <lastmod>2024-09-21T12:08:16.864Z</lastmod>
   </url>
 </urlset>

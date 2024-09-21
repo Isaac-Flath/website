@@ -1,0 +1,59 @@
+---
+title: "Longest Consecutive Sequence"
+author: "Isaac Flath"
+date: "2024-02-13"
+categories: [array, hash table]
+description: "Find longest consecutive elements sequence"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in `O(n)` time.
+
+### tests
+
+```{python}
+def test(fn):
+    val1, val2 = 1,100
+    expected =  9
+
+    actual = fn(low,high)
+    assert actual == expected 
+
+```
+
+
+## Solution
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+from typing import List
+
+def longestConsecutive(nums: List[int]) -> int:
+    numset = set(nums)
+    max_seq_len = 0
+
+    for num in nums:
+
+        # if beginning of a sequence
+        if num-1 not in numset:
+            seq_start = num
+            seq_length = 1
+            
+            # Keep incrementing values until you're at end of sequence
+            while seq_start + 1 in numset:
+                seq_length += 1
+                seq_start += 1
+            
+            # Keep sequence length if it's the longest so far
+            max_seq_len = max(max_seq_len, seq_length)
+    return max_seq_len
+```
+
+

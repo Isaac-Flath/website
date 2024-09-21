@@ -1,0 +1,57 @@
+---
+title: "Trapping Rain Water"
+author: "Isaac Flath"
+date: "2024-02-22"
+categories: [array, two pointers]
+description: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining."
+---
+
+> Problem Source: Leetcode
+
+## Problem Description
+
+Given `n` non-negative integers representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.
+
+![](paste-1.png)
+
+### tests
+
+```{python}
+def test(fn):
+    height = [0,1,0,2,1,0,1,3,2,1,2,1]
+    actual = 6
+    assert actual == fn(height) 
+
+    height = [4,2,0,3,2,5]
+    actual = 9
+    assert actual == fn(height) 
+
+```
+
+## Solution
+
+-   Time Complexity: `O(n)`
+-   Space Complexity: `O(1)`
+
+```{python}
+from typing import List
+def trap(height: List[int]) -> int:
+    l,r = 0, len(height)-1 # start on both ends
+    vol = 0
+    lm, rm = height[l], height[r]
+    
+    while l < r: # stop when pointers meet
+
+        # The side with largest max determines the bin depth
+        if lm < rm: 
+            l += 1
+            lm = max(height[l], lm)
+            vol += lm - height[l] 
+        else:
+            r -= 1 
+            rm = max(height[r], rm) 
+            vol += rm - height[r]
+    return vol
+
+test(trap)
+```

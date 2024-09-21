@@ -1,0 +1,75 @@
+---
+title: "Contains Duplicate"
+author: "Isaac Flath"
+date: "2024-02-01"
+categories: [hash table, array, sorting]
+description: "Check if an array contains duplicated values"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.
+
+### tests
+
+```{python}
+def test(fn):
+    nums = [1,2,3,1]
+    expected = True
+    actual = fn(nums)
+    assert actual == expected 
+
+    nums = [1,2,3,4]
+    expected = False
+    actual = fn(nums)
+    assert actual == expected 
+
+    nums = [1,1,1,3,3,4,3,2,4,2]
+    expected = True
+    actual = fn(nums)
+    assert actual == expected 
+```
+
+
+## Solution
+
+### Hashmap
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+from typing import List
+def containsDuplicate(nums: List[int]) -> bool:
+    seen = set()
+    for num in nums:
+        if num in seen:
+            return True
+        else:
+            seen.add(num)
+    return False
+
+test(containsDuplicate)    
+```
+
+### Sorting
+
++ Time Complexity: `O(nlogn)`
++ Space Complexity: `O(1)`
+
+```{python}
+from typing import List
+def containsDuplicate(nums: List[int]) -> bool:
+    nums.sort() 
+    for i in range(len(nums)-1):
+        if nums[i] == nums[i+1]: 
+            return True
+    else: 
+        return False
+
+test(containsDuplicate)    
+```
+
+

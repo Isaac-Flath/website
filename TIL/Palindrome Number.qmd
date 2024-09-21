@@ -1,0 +1,92 @@
+---
+title: "Palindrome Number"
+author: "Isaac Flath"
+date: "2024-01-29"
+categories: [math]
+description: "Determine if an integer is a palindrome"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.  You cannot convert to string.
+
+### tests
+
+```{python}
+def test(fn):
+    value = 121
+    expected = True
+    actual = fn(value)
+    assert actual == expected 
+
+    value = -121
+    expected = False
+    actual = fn(value)
+    assert actual == expected 
+
+    value = 10
+    expected = False
+    actual = fn(value)
+    assert actual == expected 
+
+    value = 12321
+    expected = True
+    actual = fn(value)
+    assert actual == expected 
+
+    value = 123214231
+    expected = False
+    actual = fn(value)
+    assert actual == expected 
+```
+
+
+## Solutions
+
+### String Index
+
+The first thought is that we could cast to a string then loop halfway through the string to verify the first and laft halves are the same.
+
+Time complexity: `O(n)`
+Space Complexity: `O(1)`
+
+```{python}
+def isPalindrome(x: int) -> bool:
+    x = str(x)
+    for i in range(len(x)//2):
+        first, last = x[i], x[-(i+1)]
+        if first != last: return False
+    return True
+
+test(isPalindrome)
+```
+
+### Math 
+
+Could you solve it without converting the integer to a string?
+
++ Time Complexity: `O(log10(n))`
++ Space Complexity: `O(1)`
+
+```{python}
+def isPalindrome(x: int) -> bool:
+    if x < 0: # A negative sign means not a palindrome
+        return False 
+    if (x != 0) and (x % 10 == 0): # Int has no leading zeros, so if it ends with 0 it's not a palindrome
+        return False  
+
+    numberHalf = 0
+    while x > numberHalf: # Stop once halfway
+        # Add the rightmost number from x to number half
+        numberHalf = int(numberHalf * 10 + x % 10)
+        # Drop the rightmost number on X
+        x//= 10
+
+    # If odd length drop the right most as that is the center number
+    return x == numberHalf or x == numberHalf//10 
+
+test(isPalindrome)
+
+```

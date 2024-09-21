@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2021-05-15">
-<meta name="description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta name="dcterms.date" content="2024-02-06">
+<meta name="description" content="Determine if a 9 x 9 sudoku board is valid">
 
-<title>Shelve Python Database – Isaac Flath</title>
+<title>Valid Sudoku – Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../favicon/favicon-32x32.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -83,14 +117,14 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
 
 
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Shelve Python Database – Isaac Flath">
-<meta property="og:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Valid Sudoku – Isaac Flath">
+<meta property="og:description" content="Determine if a 9 x 9 sudoku board is valid">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Shelve Python Database – Isaac Flath">
-<meta name="twitter:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
-<meta name="twitter:image" content="https://isaac-flath.tech/TIL/street.jpg">
+<meta name="twitter:title" content="Valid Sudoku – Isaac Flath">
+<meta name="twitter:description" content="Determine if a 9 x 9 sudoku board is valid">
+<meta name="twitter:image" content="https://isaac-flath.tech/TIL/Valid Sudoku/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
 </head>
@@ -102,7 +136,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Isaac Flath</span>
     </a>
   </div>
@@ -113,19 +147,19 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../til.html"> 
+    <a class="nav-link" href="../../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../testimonials.html"> 
+    <a class="nav-link" href="../../testimonials.html"> 
 <span class="menu-text">Testimonials</span></a>
   </li>  
 </ul>
@@ -140,14 +174,16 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Shelve Python Database</h1>
+      <h1 class="title">Valid Sudoku</h1>
                   <div>
         <div class="description">
-          Shelve is a dictionary database - It’s like sqlite for nosql
+          Determine if a 9 x 9 sudoku board is valid
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Python</div>
+                <div class="quarto-category">array</div>
+                <div class="quarto-category">hash table</div>
+                <div class="quarto-category">matrix</div>
               </div>
                   </div>
   </div>
@@ -165,7 +201,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 15, 2021</p>
+        <p class="date">February 6, 2024</p>
       </div>
     </div>
     
@@ -184,16 +220,105 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
-<p><code>Shelve</code> is dictionary database that stored in a single file without installation needed. It’s like a nosql version of sqlite.</p>
-<p>There’s some really cool things about shelve:</p>
+<blockquote class="blockquote">
+<p>Problem Source: Leetcode</p>
+</blockquote>
+<section id="problem-description" class="level2">
+<h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
+<p>Determine if a <code>9 x 9</code> Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
+<ol type="1">
+<li>Each row must contain the digits <code>1-9</code> without repetition.</li>
+<li>Each column must contain the digits <code>1-9</code> without repetition.</li>
+<li>Each of the nine <code>3 x 3</code> sub-boxes of the grid must contain the digits <code>1-9</code> without repetition.</li>
+</ol>
+<p><strong>Note:</strong></p>
 <ul>
-<li>You can add to it with the same syntax as dictionaries, so not much new syntax or api to learn or thing about</li>
-<li>It’s stored in a file but it’s all pickled so read/write pretty fast and is stored on disk</li>
-<li>Anything that can be pickled can be stored as a value. In python, that is most things.</li>
-<li>It’s nosql and you don’t need to have a set schema.</li>
+<li>A Sudoku board (partially filled) could be valid but is not necessarily solvable.</li>
+<li>Only the filled cells need to be validated according to the mentioned rules.</li>
 </ul>
+<p><img src="sodoku.png" class="img-fluid"></p>
+<pre><code>board = 
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]</code></pre>
+<section id="tests" class="level3">
+<h3 class="anchored" data-anchor-id="tests">tests</h3>
+<div id="4b806373" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test(fn):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    board <span class="op">=</span> [[<span class="st">"5"</span>,<span class="st">"3"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"7"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"1"</span>,<span class="st">"9"</span>,<span class="st">"5"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"9"</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"3"</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"4"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"3"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"1"</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"7"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"2"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"2"</span>,<span class="st">"8"</span>,<span class="st">"."</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"4"</span>,<span class="st">"1"</span>,<span class="st">"9"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"5"</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"7"</span>,<span class="st">"9"</span>]]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    actual <span class="op">=</span> fn(board)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> actual <span class="op">==</span> expected </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    board <span class="op">=</span> [[<span class="st">"8"</span>,<span class="st">"3"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"7"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"1"</span>,<span class="st">"9"</span>,<span class="st">"5"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"9"</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"3"</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"4"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"3"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"1"</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"7"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"2"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"6"</span>]</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"6"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"2"</span>,<span class="st">"8"</span>,<span class="st">"."</span>]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"4"</span>,<span class="st">"1"</span>,<span class="st">"9"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"5"</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            ,[<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"8"</span>,<span class="st">"."</span>,<span class="st">"."</span>,<span class="st">"7"</span>,<span class="st">"9"</span>]]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    actual <span class="op">=</span> fn(board)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> actual <span class="op">==</span> expected </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<ul>
+<li>Time Complexity: <code>O(n)</code></li>
+<li>Space Complexity: <code>O(n)</code></li>
+</ul>
+<p>Where <code>n</code> in the number of cells on the sudoku board.</p>
+<div id="acbba31c" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> isValidSudoku(board: List[List[<span class="bu">str</span>]]) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize sets to track if there's duplicate values</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    rowSet <span class="op">=</span> [<span class="bu">set</span>() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>)]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    colSet <span class="op">=</span> [<span class="bu">set</span>() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>)]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    gridSet <span class="op">=</span> [<span class="bu">set</span>() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>)]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for each cell in matrix</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rowIndex <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">9</span>):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> colIndex <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">9</span>):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            cellValue <span class="op">=</span> board[rowIndex][colIndex]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> cellValue <span class="op">==</span> <span class="st">"."</span>: <span class="cf">continue</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calculate the grid index number</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            gridIndex <span class="op">=</span> rowIndex<span class="op">//</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span> <span class="op">+</span> colIndex <span class="op">//</span><span class="dv">3</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if cell value is already in set for row/col/grid</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (cellValue <span class="kw">in</span> rowSet[rowIndex] <span class="kw">or</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                cellValue <span class="kw">in</span> colSet[colIndex] <span class="kw">or</span> </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                cellValue <span class="kw">in</span> gridSet[gridIndex]): </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Then there's a duplicate and it's not valid</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Otherwise add to the set and go to the next cell</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            rowSet[rowIndex].add(cellValue)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            colSet[colIndex].add(cellValue)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            gridSet[gridIndex].add(cellValue)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If you make it through all cells with no dupes, then it's valid</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>test(isValidSudoku)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
@@ -790,12 +915,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="../blog.xml">
+    <a class="nav-link" href="../../blog.xml">
 <p>Blog RSS</p>
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="../til.xml">
+    <a class="nav-link" href="../../til.xml">
 <p>TIL RSS</p>
 </a>
   </li>  

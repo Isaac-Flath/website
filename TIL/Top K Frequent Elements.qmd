@@ -1,0 +1,66 @@
+---
+title: "Top K Frequent Elements"
+author: "Isaac Flath"
+date: "2024-02-04"
+categories: [array, hash table, bucket sort, counting]
+description: "Given an array get the top k most frequent elements"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.
+
+
+### tests
+
+```{python}
+def test(fn):
+    nums = [1,1,1,2,2,3] 
+    k = 2    
+    expected =  [1,2]
+    actual = fn(nums,k)
+    assert actual == expected 
+
+    nums = [1]
+    k = 1   
+    expected =  [1]
+    actual = fn(nums,k)
+    assert actual == expected 
+
+```
+
+
+## Solution
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+from typing import List
+def topKFrequent(nums: List[int], k: int) -> List[int]: 
+    hashmap = {}
+    for num in nums:
+        # Get a hashmap of counts for each item in num
+        hashmap[num] = 1 + hashmap.get(num,0)
+
+    buckets = [[] for _ in range(len(nums)+1)]
+    for key,val in hashmap.items():
+        # Put nums in a list where index location == occurances
+        buckets[val].append(key)
+
+    output = []
+    for i in range(len(buckets) - 1, 0, -1):
+        # Loop through buckets backward and append to output
+        for num in buckets[i]:
+            output.append(num)
+            if len(output) == k:
+                # When you have k nums you are done
+                return output
+
+test(topKFrequent)
+
+```
+
+

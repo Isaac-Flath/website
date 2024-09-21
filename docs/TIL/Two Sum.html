@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2021-05-15">
-<meta name="description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta name="dcterms.date" content="2024-01-28">
+<meta name="description" content="Find indices of two numbers that add up to target">
 
-<title>Shelve Python Database – Isaac Flath</title>
+<title>Two Sum – Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -84,12 +118,12 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Shelve Python Database – Isaac Flath">
-<meta property="og:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta property="og:title" content="Two Sum – Isaac Flath">
+<meta property="og:description" content="Find indices of two numbers that add up to target">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Shelve Python Database – Isaac Flath">
-<meta name="twitter:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta name="twitter:title" content="Two Sum – Isaac Flath">
+<meta name="twitter:description" content="Find indices of two numbers that add up to target">
 <meta name="twitter:image" content="https://isaac-flath.tech/TIL/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
@@ -140,14 +174,15 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Shelve Python Database</h1>
+      <h1 class="title">Two Sum</h1>
                   <div>
         <div class="description">
-          Shelve is a dictionary database - It’s like sqlite for nosql
+          Find indices of two numbers that add up to target
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Python</div>
+                <div class="quarto-category">array</div>
+                <div class="quarto-category">hash table</div>
               </div>
                   </div>
   </div>
@@ -165,7 +200,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 15, 2021</p>
+        <p class="date">January 28, 2024</p>
       </div>
     </div>
     
@@ -184,18 +219,81 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
-<p><code>Shelve</code> is dictionary database that stored in a single file without installation needed. It’s like a nosql version of sqlite.</p>
-<p>There’s some really cool things about shelve:</p>
+<blockquote class="blockquote">
+<p>Problem Source: Leetcode</p>
+</blockquote>
+<section id="problem-description" class="level2">
+<h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
+<p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
+<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+<p>You can return the answer in any order.</p>
+<section id="tests" class="level3">
+<h3 class="anchored" data-anchor-id="tests">tests</h3>
+<div id="6ee73052" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test(fn):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    nums <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">11</span>,<span class="dv">15</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    actual <span class="op">=</span> fn(nums, target)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">sorted</span>(actual) <span class="op">==</span> expected </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    nums <span class="op">=</span> [<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    actual <span class="op">=</span> fn(nums, target)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">sorted</span>(actual) <span class="op">==</span> expected </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    nums <span class="op">=</span> [<span class="dv">3</span>,<span class="dv">3</span>]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    actual <span class="op">=</span> fn(nums, target)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">sorted</span>(actual) <span class="op">==</span> expected </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="solutions" class="level2">
+<h2 class="anchored" data-anchor-id="solutions">Solutions</h2>
+<section id="brute-force" class="level3">
+<h3 class="anchored" data-anchor-id="brute-force">Brute Force</h3>
+<p>The way to brute force this problem would be to try every possible combination of 2 indices until one solves the problem. This would mean a loop in a loop, or complexity.</p>
 <ul>
-<li>You can add to it with the same syntax as dictionaries, so not much new syntax or api to learn or thing about</li>
-<li>It’s stored in a file but it’s all pickled so read/write pretty fast and is stored on disk</li>
-<li>Anything that can be pickled can be stored as a value. In python, that is most things.</li>
-<li>It’s nosql and you don’t need to have a set schema.</li>
+<li>Time Complexity: <code>O(n^2)</code></li>
+<li>Space Complexity: <code>O(1)</code></li>
 </ul>
+<div id="4a85aee5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> twoSum(nums: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index1, num1 <span class="kw">in</span> <span class="bu">enumerate</span>(nums):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        desired_num <span class="op">=</span> target <span class="op">-</span> num1</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> index2, num2 <span class="kw">in</span> <span class="bu">enumerate</span>(nums):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (num2 <span class="op">==</span> desired_num) <span class="kw">and</span> (index1 <span class="op">!=</span> index2):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> [index1, index2]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>test(twoSum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hash-map" class="level3">
+<h3 class="anchored" data-anchor-id="hash-map">Hash Map</h3>
+<p>Instead of trying every possible combination we can calculate the other number we need, and do a lookup to see if we have seen that number we need. By doing this we only need 1 loop.</p>
+<ul>
+<li>Time Complexity: <code>O(n)</code></li>
+<li>Space Complexity: <code>O(n)</code></li>
+</ul>
+<div id="e3cf7497" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solution(nums: List[<span class="bu">int</span>], target: <span class="bu">int</span>) <span class="op">-&gt;</span> List[<span class="bu">int</span>]:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    hashmap <span class="op">=</span> {}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i,num <span class="kw">in</span> <span class="bu">enumerate</span>(nums):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        need <span class="op">=</span> target <span class="op">-</span> num</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> need <span class="kw">in</span> hashmap:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> [i,hashmap[need]]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        hashmap[num] <span class="op">=</span> i</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>test(twoSum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

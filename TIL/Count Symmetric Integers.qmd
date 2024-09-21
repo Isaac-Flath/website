@@ -1,0 +1,76 @@
+---
+title: "Count Symmetric Integers"
+author: "Isaac Flath"
+date: "2024-01-31"
+categories: [math, enumeration]
+description: "Determine if an integer is a Symmetric"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+You are given two positive integers `low` and `high`.
+
+An integer `x` consisting of `2 * n` digits is symmetric if the sum of the first `n` digits of `x` is equal to the sum of the last `n` digits of `x`. Numbers with an odd number of digits are never symmetric.
+
+Return the number of symmetric integers in the range `[low, high]`.
+
+### tests
+
+```{python}
+def test(fn):
+    low,high = 1,100
+    expected =  9
+    symmetric_count = fn(low,high) # 11, 22, 33, 44, 55, 66, 77, 88, and 99.
+    assert symmetric_count == expected 
+
+    low, high = 1200, 1230
+    expected = 4
+    symmetric_count = fn(low,high) # 1203, 1212, 1221, and 1230
+    assert symmetric_count == expected 
+
+    low, high = 0, 10000
+    expected = 624
+    symmetric_count = fn(low,high) 
+    assert symmetric_count == expected 
+```
+
+
+## Solution
+
++ Time Complexity: `O(n^2)`
++ Space Complexity: `O(1)`
+
+```{python}
+def sum(arr):
+    ttl = 0
+    for a in arr:
+        ttl += int(a)
+    return ttl
+
+def split_int(x):
+    half = len(x)//2
+    left, right = x[:half], x[-half:]
+    return left, right
+
+def isSymmetric(x, ):
+    x = str(x)
+    if len(x)%2 == 1: return False
+    half = len(x)//2
+    return sum(x[:half]) == sum(x[-half:])
+
+def countSymmetricIntegers(low: int, high: int) -> int:
+    symmetric_count = 0
+    for num in range(low, high+1):
+        symmetric_count += isSymmetric(num)
+    return symmetric_count
+    
+test(countSymmetricIntegers)
+```
+
+```{python}
+import timeit
+timeit.timeit(lambda: countSymmetricIntegers(0,10000),number=1000)
+```
+

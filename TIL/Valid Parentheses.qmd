@@ -1,0 +1,78 @@
+---
+title: "Valid Parentheses"
+author: "Isaac Flath"
+date: "2023-02-23"
+categories: [string, stack]
+description: "Determine a string of enclusures are all open & closed properly and in correct order"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given a string s containing just the characters `(`, `)`, `{`, `}`, `[` and `]`, determine if the input string is valid.
+
+An input string is valid if:
+
++ Open brackets must be closed by the same type of brackets.
++ Open brackets must be closed in the correct order.
++ Every close bracket has a corresponding open bracket of the same type.
+
+
+Constraints:
+
++ `1 <= s.length <= 104`
++ `s` consists of parentheses only `()[]{}`.
+
+
+### tests
+
+```{python}
+def test(fn):
+    s = "()"
+    expected = True
+    assert fn(s) == expected 
+
+    s = "()[]{}"
+    expected = True
+    assert fn(s) == expected 
+
+    s= "(]"
+    expected = False
+    assert fn(s) == expected 
+```
+
+
+## Solution
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+def isValid(s: str) -> bool:
+    enclosures = {')':'(','}':'{',']':'['}
+    stack = []
+
+    for c in s:
+
+        # If it's an closing bracket
+        if c in enclosures:
+
+            # Validate stack exists and bracket order is correct
+            if stack and stack[-1] == enclosures[c]:
+                stack.pop()
+            else:
+                return False
+        else:
+            # If it's an opening bracket
+            stack.append(c)
+
+    # If stack isn't empty then an enclosure isn't closed
+    return not stack 
+
+test(isValid)    
+
+
+```
+
+

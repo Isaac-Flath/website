@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Isaac Flath">
-<meta name="dcterms.date" content="2021-05-15">
-<meta name="description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta name="dcterms.date" content="2024-02-24">
+<meta name="description" content="Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.">
 
-<title>Shelve Python Database – Isaac Flath</title>
+<title>Min Stack – Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -84,12 +118,12 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Shelve Python Database – Isaac Flath">
-<meta property="og:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta property="og:title" content="Min Stack – Isaac Flath">
+<meta property="og:description" content="Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Shelve Python Database – Isaac Flath">
-<meta name="twitter:description" content="Shelve is a dictionary database - It’s like sqlite for nosql">
+<meta name="twitter:title" content="Min Stack – Isaac Flath">
+<meta name="twitter:description" content="Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.">
 <meta name="twitter:image" content="https://isaac-flath.tech/TIL/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
@@ -140,14 +174,15 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Shelve Python Database</h1>
+      <h1 class="title">Min Stack</h1>
                   <div>
         <div class="description">
-          Shelve is a dictionary database - It’s like sqlite for nosql
+          Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Python</div>
+                <div class="quarto-category">stack</div>
+                <div class="quarto-category">design</div>
               </div>
                   </div>
   </div>
@@ -165,7 +200,7 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 15, 2021</p>
+        <p class="date">February 24, 2024</p>
       </div>
     </div>
     
@@ -184,16 +219,78 @@ gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 
 
 
-<section id="today-i-learned" class="level1">
-<h1>Today I Learned</h1>
-<p><code>Shelve</code> is dictionary database that stored in a single file without installation needed. It’s like a nosql version of sqlite.</p>
-<p>There’s some really cool things about shelve:</p>
+<blockquote class="blockquote">
+<p>Problem Source: Leetcode</p>
+</blockquote>
+<section id="problem-description" class="level2">
+<h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
+<p>Design a stack that supports <code>push</code>, <code>pop</code>, <code>top</code>, and retrieving the minimum element in constant time.</p>
+<p>Implement the <code>MinStack</code> class:</p>
 <ul>
-<li>You can add to it with the same syntax as dictionaries, so not much new syntax or api to learn or thing about</li>
-<li>It’s stored in a file but it’s all pickled so read/write pretty fast and is stored on disk</li>
-<li>Anything that can be pickled can be stored as a value. In python, that is most things.</li>
-<li>It’s nosql and you don’t need to have a set schema.</li>
+<li><code>MinStack()</code> initializes the stack object.</li>
+<li><code>void push(int val)</code> pushes the element <code>val</code> onto the stack.</li>
+<li><code>void pop()</code> removes the element on the top of the stack.</li>
+<li><code>int top()</code> gets the top element of the stack.</li>
+<li><code>int getMin()</code> retrieves the minimum element in the stack.</li>
 </ul>
+<p>You must implement a solution with <code>O(1)</code> time complexity for each function.</p>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Input</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">"MinStack"</span>,<span class="st">"push"</span>,<span class="st">"push"</span>,<span class="st">"push"</span>,<span class="st">"getMin"</span>,<span class="st">"pop"</span>,<span class="st">"top"</span>,<span class="st">"getMin"</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>[[],[<span class="op">-</span><span class="dv">2</span>],[<span class="dv">0</span>],[<span class="op">-</span><span class="dv">3</span>],[],[],[],[]]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Output</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>[null,null,null,null,<span class="op">-</span><span class="dv">3</span>,null,<span class="dv">0</span>,<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Explanation</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>MinStack minStack <span class="op">=</span> new MinStack()<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>minStack.push(<span class="op">-</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>minStack.push(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>minStack.push(<span class="op">-</span><span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>minStack.getMin()<span class="op">;</span> <span class="op">//</span> <span class="cf">return</span> <span class="op">-</span><span class="dv">3</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>minStack.pop()<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>minStack.top()<span class="op">;</span>    <span class="op">//</span> <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>minStack.getMin()<span class="op">;</span> <span class="op">//</span> <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Constraints:</p>
+<ul>
+<li><code>-231 &lt;= val &lt;= 231 - 1</code></li>
+<li>Methods <code>pop</code>, <code>top</code> and <code>getMin</code> operations will always be called on non-empty stacks.</li>
+<li>At most <code>3 * 104</code> calls will be made to <code>push</code>, <code>pop</code>, <code>top</code>, and <code>getMin</code>.</li>
+</ul>
+</section>
+</section>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<p>Each method is O(1).</p>
+<ul>
+<li>Time Complexity: <code>O(1)</code></li>
+<li>Space Complexity: <code>O(1)</code></li>
+</ul>
+<div id="41340f40" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MinStack:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.stack <span class="op">=</span> []</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.min_stack <span class="op">=</span> []</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> push(<span class="va">self</span>, val: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.stack.append(val)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.min_stack: </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.min_stack.append(<span class="bu">min</span>(<span class="va">self</span>.min_stack[<span class="op">-</span><span class="dv">1</span>],val))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.min_stack.append(val)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> pop(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.stack.pop()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.min_stack.pop()</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> top(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.stack[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> getMin(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.min_stack[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>

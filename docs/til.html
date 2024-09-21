@@ -82,7 +82,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
+      page: 30,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
@@ -213,7 +214,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Bash">Bash <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Cloud">Cloud <span class="quarto-category-count">(1)</span></div><div class="category" data-category="FastHTML">FastHTML <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Github">Github <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Nbdev">Nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Quarto">Quarto <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Web Development">Web Development <span class="quarto-category-count">(2)</span></div><div class="category" data-category="terminal">terminal <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(32)</span></div><div class="category" data-category="Bash">Bash <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Cloud">Cloud <span class="quarto-category-count">(1)</span></div><div class="category" data-category="FastHTML">FastHTML <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Github">Github <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Nbdev">Nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Quarto">Quarto <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Web Development">Web Development <span class="quarto-category-count">(2)</span></div><div class="category" data-category="array">array <span class="quarto-category-count">(14)</span></div><div class="category" data-category="bucket sort">bucket sort <span class="quarto-category-count">(1)</span></div><div class="category" data-category="counting">counting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="design">design <span class="quarto-category-count">(1)</span></div><div class="category" data-category="enumeration">enumeration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="greedy">greedy <span class="quarto-category-count">(2)</span></div><div class="category" data-category="hash table">hash table <span class="quarto-category-count">(7)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(3)</span></div><div class="category" data-category="matrix">matrix <span class="quarto-category-count">(1)</span></div><div class="category" data-category="prefix sum">prefix sum <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sorting">sorting <span class="quarto-category-count">(4)</span></div><div class="category" data-category="stack">stack <span class="quarto-category-count">(3)</span></div><div class="category" data-category="string">string <span class="quarto-category-count">(5)</span></div><div class="category" data-category="terminal">terminal <span class="quarto-category-count">(1)</span></div><div class="category" data-category="two pointers">two pointers <span class="quarto-category-count">(6)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -299,7 +300,227 @@ window.Quarto = {
 <span class="listing-categories">FastHTML, Python, Web Development</span>
 </td>
 </tr>
-<tr data-index="3" data-categories="Quarto,Bash" data-listing-date-sort="1674277200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="151" data-listing-title-sort="Finding All Quarto Drafts" data-listing-filename-sort="QuartoDrafts.ipynb">
+<tr data-index="3" data-categories="array,math,stack" data-listing-date-sort="1710046800000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="312" data-listing-title-sort="Evaluate Reverse Polish Notation" data-listing-filename-sort="Evaluate Reverse Polish Notation.qmd">
+<td>
+<span class="listing-date">Mar 10, 2024</span>
+</td>
+<td>
+<a href="./TIL/Evaluate Reverse Polish Notation.html" class="title listing-title">Evaluate Reverse Polish Notation</a>
+</td>
+<td>
+<span class="listing-categories">array, math, stack</span>
+</td>
+</tr>
+<tr data-index="4" data-categories="stack,design" data-listing-date-sort="1708750800000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="279" data-listing-title-sort="Min Stack" data-listing-filename-sort="Min Stack.qmd">
+<td>
+<span class="listing-date">Feb 24, 2024</span>
+</td>
+<td>
+<a href="./TIL/Min Stack.html" class="title listing-title">Min Stack</a>
+</td>
+<td>
+<span class="listing-categories">stack, design</span>
+</td>
+</tr>
+<tr data-index="5" data-categories="array,two pointers" data-listing-date-sort="1708578000000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="265" data-listing-title-sort="Trapping Rain Water" data-listing-filename-sort="Trapping Rain Water.qmd">
+<td>
+<span class="listing-date">Feb 22, 2024</span>
+</td>
+<td>
+<a href="./TIL/Trapping Rain Water/Trapping Rain Water.html" class="title listing-title">Trapping Rain Water</a>
+</td>
+<td>
+<span class="listing-categories">array, two pointers</span>
+</td>
+</tr>
+<tr data-index="6" data-categories="array,two pointers,greedy" data-listing-date-sort="1708491600000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="282" data-listing-title-sort="Container With Most Water" data-listing-filename-sort="Container With Most Water.qmd">
+<td>
+<span class="listing-date">Feb 21, 2024</span>
+</td>
+<td>
+<a href="./TIL/Container With Most Water/Container With Most Water.html" class="title listing-title">Container With Most Water</a>
+</td>
+<td>
+<span class="listing-categories">array, two pointers, greedy</span>
+</td>
+</tr>
+<tr data-index="7" data-categories="array,two pointers,sorting" data-listing-date-sort="1708405200000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="420" data-listing-title-sort="Three Sum" data-listing-filename-sort="Three Sum.qmd">
+<td>
+<span class="listing-date">Feb 20, 2024</span>
+</td>
+<td>
+<a href="./TIL/Three Sum.html" class="title listing-title">Three Sum</a>
+</td>
+<td>
+<span class="listing-categories">array, two pointers, sorting</span>
+</td>
+</tr>
+<tr data-index="8" data-categories="array,two pointers" data-listing-date-sort="1708318800000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="320" data-listing-title-sort="Two Sum II - Input Array is Sorted" data-listing-filename-sort="Two Sum II - Input Array is Sorted.qmd">
+<td>
+<span class="listing-date">Feb 19, 2024</span>
+</td>
+<td>
+<a href="./TIL/Two Sum II - Input Array is Sorted.html" class="title listing-title">Two Sum II - Input Array is Sorted</a>
+</td>
+<td>
+<span class="listing-categories">array, two pointers</span>
+</td>
+</tr>
+<tr data-index="9" data-categories="two pointers,string" data-listing-date-sort="1707886800000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="327" data-listing-title-sort="Valid Palindrome" data-listing-filename-sort="Valid Palindrome.qmd">
+<td>
+<span class="listing-date">Feb 14, 2024</span>
+</td>
+<td>
+<a href="./TIL/Valid Palindrome.html" class="title listing-title">Valid Palindrome</a>
+</td>
+<td>
+<span class="listing-categories">two pointers, string</span>
+</td>
+</tr>
+<tr data-index="10" data-categories="array,hash table" data-listing-date-sort="1707800400000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="283" data-listing-title-sort="Longest Consecutive Sequence" data-listing-filename-sort="Longest Consecutive Sequence.qmd">
+<td>
+<span class="listing-date">Feb 13, 2024</span>
+</td>
+<td>
+<a href="./TIL/Longest Consecutive Sequence.html" class="title listing-title">Longest Consecutive Sequence</a>
+</td>
+<td>
+<span class="listing-categories">array, hash table</span>
+</td>
+</tr>
+<tr data-index="11" data-categories="array,string" data-listing-date-sort="1707714000000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="520" data-listing-title-sort="Encode and Decode Strings" data-listing-filename-sort="Encode and Decode Strings.qmd">
+<td>
+<span class="listing-date">Feb 12, 2024</span>
+</td>
+<td>
+<a href="./TIL/Encode and Decode Strings.html" class="title listing-title">Encode and Decode Strings</a>
+</td>
+<td>
+<span class="listing-categories">array, string</span>
+</td>
+</tr>
+<tr data-index="12" data-categories="array,hash table,matrix" data-listing-date-sort="1707195600000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="699" data-listing-title-sort="Valid Sudoku" data-listing-filename-sort="Valid Sudoku.qmd">
+<td>
+<span class="listing-date">Feb 6, 2024</span>
+</td>
+<td>
+<a href="./TIL/Valid Sudoku/Valid Sudoku.html" class="title listing-title">Valid Sudoku</a>
+</td>
+<td>
+<span class="listing-categories">array, hash table, matrix</span>
+</td>
+</tr>
+<tr data-index="13" data-categories="array,prefix sum" data-listing-date-sort="1707109200000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="231" data-listing-title-sort="Product of Array Except Self" data-listing-filename-sort="Product of Array Except Self.qmd">
+<td>
+<span class="listing-date">Feb 5, 2024</span>
+</td>
+<td>
+<a href="./TIL/Product of Array Except Self.html" class="title listing-title">Product of Array Except Self</a>
+</td>
+<td>
+<span class="listing-categories">array, prefix sum</span>
+</td>
+</tr>
+<tr data-index="14" data-categories="array,hash table,bucket sort,counting" data-listing-date-sort="1707022800000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="317" data-listing-title-sort="Top K Frequent Elements" data-listing-filename-sort="Top K Frequent Elements.qmd">
+<td>
+<span class="listing-date">Feb 4, 2024</span>
+</td>
+<td>
+<a href="./TIL/Top K Frequent Elements.html" class="title listing-title">Top K Frequent Elements</a>
+</td>
+<td>
+<span class="listing-categories">array, hash table, bucket sort, counting</span>
+</td>
+</tr>
+<tr data-index="15" data-categories="array,hash table,string" data-listing-date-sort="1706936400000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="257" data-listing-title-sort="Grouped Anagrams" data-listing-filename-sort="Grouped Anagrams.qmd">
+<td>
+<span class="listing-date">Feb 3, 2024</span>
+</td>
+<td>
+<a href="./TIL/Grouped Anagrams.html" class="title listing-title">Grouped Anagrams</a>
+</td>
+<td>
+<span class="listing-categories">array, hash table, string</span>
+</td>
+</tr>
+<tr data-index="16" data-categories="hash table,string,sorting" data-listing-date-sort="1706763600000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="226" data-listing-title-sort="Valid Anagram" data-listing-filename-sort="Valid Anagram.qmd">
+<td>
+<span class="listing-date">Feb 1, 2024</span>
+</td>
+<td>
+<a href="./TIL/Valid Anagram.html" class="title listing-title">Valid Anagram</a>
+</td>
+<td>
+<span class="listing-categories">hash table, string, sorting</span>
+</td>
+</tr>
+<tr data-index="17" data-categories="hash table,array,sorting" data-listing-date-sort="1706763600000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="258" data-listing-title-sort="Contains Duplicate" data-listing-filename-sort="Contains Duplicate.qmd">
+<td>
+<span class="listing-date">Feb 1, 2024</span>
+</td>
+<td>
+<a href="./TIL/Contains Duplicate.html" class="title listing-title">Contains Duplicate</a>
+</td>
+<td>
+<span class="listing-categories">hash table, array, sorting</span>
+</td>
+</tr>
+<tr data-index="18" data-categories="math,enumeration" data-listing-date-sort="1706677200000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="295" data-listing-title-sort="Count Symmetric Integers" data-listing-filename-sort="Count Symmetric Integers.qmd">
+<td>
+<span class="listing-date">Jan 31, 2024</span>
+</td>
+<td>
+<a href="./TIL/Count Symmetric Integers.html" class="title listing-title">Count Symmetric Integers</a>
+</td>
+<td>
+<span class="listing-categories">math, enumeration</span>
+</td>
+</tr>
+<tr data-index="19" data-categories="array,two pointers,greedy,sorting" data-listing-date-sort="1706590800000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="440" data-listing-title-sort="Pancake Sorting" data-listing-filename-sort="Pancake Sorting.qmd">
+<td>
+<span class="listing-date">Jan 30, 2024</span>
+</td>
+<td>
+<a href="./TIL/Pancake Sorting.html" class="title listing-title">Pancake Sorting</a>
+</td>
+<td>
+<span class="listing-categories">array, two pointers, greedy, sorting</span>
+</td>
+</tr>
+<tr data-index="20" data-categories="math" data-listing-date-sort="1706504400000" data-listing-file-modified-sort="1726920496863" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="424" data-listing-title-sort="Palindrome Number" data-listing-filename-sort="Palindrome Number.qmd">
+<td>
+<span class="listing-date">Jan 29, 2024</span>
+</td>
+<td>
+<a href="./TIL/Palindrome Number.html" class="title listing-title">Palindrome Number</a>
+</td>
+<td>
+<span class="listing-categories">math</span>
+</td>
+</tr>
+<tr data-index="21" data-categories="array,hash table" data-listing-date-sort="1706418000000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="386" data-listing-title-sort="Two Sum" data-listing-filename-sort="Two Sum.qmd">
+<td>
+<span class="listing-date">Jan 28, 2024</span>
+</td>
+<td>
+<a href="./TIL/Two Sum.html" class="title listing-title">Two Sum</a>
+</td>
+<td>
+<span class="listing-categories">array, hash table</span>
+</td>
+</tr>
+<tr data-index="22" data-categories="string,stack" data-listing-date-sort="1677128400000" data-listing-file-modified-sort="1726920496864" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="331" data-listing-title-sort="Valid Parentheses" data-listing-filename-sort="Valid Parentheses.qmd">
+<td>
+<span class="listing-date">Feb 23, 2023</span>
+</td>
+<td>
+<a href="./TIL/Valid Parentheses.html" class="title listing-title">Valid Parentheses</a>
+</td>
+<td>
+<span class="listing-categories">string, stack</span>
+</td>
+</tr>
+<tr data-index="23" data-categories="Quarto,Bash" data-listing-date-sort="1674277200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="151" data-listing-title-sort="Finding All Quarto Drafts" data-listing-filename-sort="QuartoDrafts.ipynb">
 <td>
 <span class="listing-date">Jan 21, 2023</span>
 </td>
@@ -310,7 +531,7 @@ window.Quarto = {
 <span class="listing-categories">Quarto, Bash</span>
 </td>
 </tr>
-<tr data-index="4" data-categories="Quarto" data-listing-date-sort="1668402000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="76" data-listing-title-sort="Quarto Column Formatting" data-listing-filename-sort="QuartoColumnFormatting.ipynb">
+<tr data-index="24" data-categories="Quarto" data-listing-date-sort="1668402000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="76" data-listing-title-sort="Quarto Column Formatting" data-listing-filename-sort="QuartoColumnFormatting.ipynb">
 <td>
 <span class="listing-date">Nov 14, 2022</span>
 </td>
@@ -321,7 +542,7 @@ window.Quarto = {
 <span class="listing-categories">Quarto</span>
 </td>
 </tr>
-<tr data-index="5" data-categories="Quarto" data-listing-date-sort="1668056400000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="322" data-listing-title-sort="Quarto Conditional Content" data-listing-filename-sort="QuartoConditionalContent.ipynb">
+<tr data-index="25" data-categories="Quarto" data-listing-date-sort="1668056400000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="322" data-listing-title-sort="Quarto Conditional Content" data-listing-filename-sort="QuartoConditionalContent.ipynb">
 <td>
 <span class="listing-date">Nov 10, 2022</span>
 </td>
@@ -332,7 +553,7 @@ window.Quarto = {
 <span class="listing-categories">Quarto</span>
 </td>
 </tr>
-<tr data-index="6" data-categories="Python" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="68" data-listing-title-sort="Random State Duplication" data-listing-filename-sort="RandomSeedDuplication.ipynb">
+<tr data-index="26" data-categories="Python" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="68" data-listing-title-sort="Random State Duplication" data-listing-filename-sort="RandomSeedDuplication.ipynb">
 <td>
 <span class="listing-date">Nov 5, 2022</span>
 </td>
@@ -343,7 +564,7 @@ window.Quarto = {
 <span class="listing-categories">Python</span>
 </td>
 </tr>
-<tr data-index="7" data-categories="Python,Github" data-listing-date-sort="1660104000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="232" data-listing-title-sort="Run Python on Github Actions" data-listing-filename-sort="PythonScriptGithubActions.ipynb">
+<tr data-index="27" data-categories="Python,Github" data-listing-date-sort="1660104000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="232" data-listing-title-sort="Run Python on Github Actions" data-listing-filename-sort="PythonScriptGithubActions.ipynb">
 <td>
 <span class="listing-date">Aug 10, 2022</span>
 </td>
@@ -354,7 +575,7 @@ window.Quarto = {
 <span class="listing-categories">Python, Github</span>
 </td>
 </tr>
-<tr data-index="8" data-categories="Python" data-listing-date-sort="1621051200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="96" data-listing-title-sort="Shelve Python Database" data-listing-filename-sort="ShelveDB.ipynb">
+<tr data-index="28" data-categories="Python" data-listing-date-sort="1621051200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="96" data-listing-title-sort="Shelve Python Database" data-listing-filename-sort="ShelveDB.ipynb">
 <td>
 <span class="listing-date">May 15, 2021</span>
 </td>
@@ -365,7 +586,7 @@ window.Quarto = {
 <span class="listing-categories">Python</span>
 </td>
 </tr>
-<tr data-index="9" data-categories="Github" data-listing-date-sort="1607230800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="101" data-listing-title-sort="Secrets for Github Actions" data-listing-filename-sort="SecretsForGithubActions.ipynb">
+<tr data-index="29" data-categories="Github" data-listing-date-sort="1607230800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="101" data-listing-title-sort="Secrets for Github Actions" data-listing-filename-sort="SecretsForGithubActions.ipynb">
 <td>
 <span class="listing-date">Dec 6, 2020</span>
 </td>
@@ -376,7 +597,7 @@ window.Quarto = {
 <span class="listing-categories">Github</span>
 </td>
 </tr>
-<tr data-index="10" data-categories="Cloud" data-listing-date-sort="1593057600000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="53" data-listing-title-sort="Connecting Jupyter to EC2" data-listing-filename-sort="ConnectingJupyterEC2.ipynb">
+<tr data-index="30" data-categories="Cloud" data-listing-date-sort="1593057600000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="53" data-listing-title-sort="Connecting Jupyter to EC2" data-listing-filename-sort="ConnectingJupyterEC2.ipynb">
 <td>
 <span class="listing-date">Jun 25, 2020</span>
 </td>
@@ -387,7 +608,7 @@ window.Quarto = {
 <span class="listing-categories">Cloud</span>
 </td>
 </tr>
-<tr data-index="11" data-categories="Python" data-listing-date-sort="1579064400000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="50" data-listing-title-sort="Jupyter is JSON" data-listing-filename-sort="JupyterIsJson.ipynb">
+<tr data-index="31" data-categories="Python" data-listing-date-sort="1579064400000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="50" data-listing-title-sort="Jupyter is JSON" data-listing-filename-sort="JupyterIsJson.ipynb">
 <td>
 <span class="listing-date">Jan 15, 2020</span>
 </td>
@@ -403,6 +624,9 @@ window.Quarto = {
 <div class="listing-no-matching d-none">
 No matching items
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

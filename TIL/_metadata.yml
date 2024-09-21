@@ -6,13 +6,3 @@ freeze: true
 
 # Enable banner style title blocks
 title-block-banner: true
-
-# Table of content settings
-toc: false
-
-number-sections: false
-highlight-style: tango
-
-comments: 
-  utterances: 
-    repo:  Isaac-Flath/blog-comments

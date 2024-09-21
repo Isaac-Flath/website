@@ -1,0 +1,82 @@
+---
+title: "Two Sum"
+author: "Isaac Flath"
+date: "2024-01-28"
+categories: [array, hash table]
+description: "Find indices of two numbers that add up to target"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+### tests
+
+```{python}
+def test(fn):
+    target = 9
+    nums = [2,7,11,15]
+    expected = [0,1]
+    actual = fn(nums, target)
+    assert sorted(actual) == expected 
+
+    target = 6
+    nums = [3,2,4]
+    expected = [1,2]
+    actual = fn(nums, target)
+    assert sorted(actual) == expected 
+
+    target = 6
+    nums = [3,3]
+    expected = [0,1]
+    actual = fn(nums, target)
+    assert sorted(actual) == expected 
+```
+
+
+## Solutions
+
+### Brute Force 
+
+The way to brute force this problem would be to try every possible combination of 2 indices until one solves the problem.  This would mean a loop in a loop, or  complexity.
+
++ Time Complexity: `O(n^2)`
++ Space Complexity: `O(1)`
+
+```{python}
+from typing import List
+def twoSum(nums: List[int], target: int) -> List[int]:
+    for index1, num1 in enumerate(nums):
+        desired_num = target - num1
+        for index2, num2 in enumerate(nums):
+            if (num2 == desired_num) and (index1 != index2):
+                return [index1, index2]
+
+test(twoSum)
+```
+
+### Hash Map
+
+Instead of trying every possible combination we can calculate the other number we need, and do a lookup to see if we have seen that number we need.  By doing this we only need 1 loop.
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+from typing import List
+def solution(nums: List[int], target: int) -> List[int]:
+    hashmap = {}
+    for i,num in enumerate(nums):
+        need = target - num
+        if need in hashmap:
+            return [i,hashmap[need]]
+        hashmap[num] = i
+
+test(twoSum)
+```

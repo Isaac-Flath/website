@@ -1,0 +1,61 @@
+---
+title: "Product of Array Except Self"
+author: "Isaac Flath"
+date: "2024-02-05"
+categories: [array, prefix sum]
+description: "Given an array, return an array where answer[i] is the product of all the elements except input[i]"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an integer array `nums`, return an array answer such that `answer[i]` is equal to the product of all the elements of nums except `nums[i]`.
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in `O(n)` time and without using the division operation.
+
+Can you solve the problem in `O(1)` extra space complexity? (The output array does not count as extra space for space complexity analysis.)
+
+### tests
+
+```{python}
+def test(fn):
+    nums = [1,2,3,4]
+    expected =  [24,12,8,6]
+    actual = fn(nums)
+    assert actual == expected
+
+    nums = [-1,1,0,-3,3] 
+    expected = [0,0,9,0,0]
+    actual = fn(nums)
+    assert actual == expected
+```
+
+
+## Solution
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(1)`
+
+```{python}
+from typing import List
+def productExceptSelf(nums: List[int]) -> List[int]:
+    prefix, postfix = 1,1
+    out = [1] * len(nums)
+    
+    for i in range(len(nums)):
+        out[i] = prefix
+        prefix *= nums[i]
+
+    for i in range(len(nums)-1,-1,-1):
+        out[i] *= postfix
+        postfix *= nums[i]
+    return out
+
+test(productExceptSelf)
+    
+```
+
+

@@ -1,0 +1,110 @@
+---
+title: "Valid Sudoku"
+author: "Isaac Flath"
+date: "2024-02-06"
+categories: [array, hash table, matrix]
+description: "Determine if a 9 x 9 sudoku board is valid "
+---
+
+> Problem Source: Leetcode
+
+## Problem Description
+
+Determine if a `9 x 9` Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+1. Each row must contain the digits `1-9` without repetition. 
+1. Each column must contain the digits `1-9` without repetition. 
+1. Each of the nine `3 x 3` sub-boxes of the grid must contain the digits `1-9` without repetition. 
+
+**Note:**
+
++ A Sudoku board (partially filled) could be valid but is not necessarily solvable. 
++ Only the filled cells need to be validated according to the mentioned rules.
+
+![](sodoku.png)
+
+```
+board = 
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+```
+
+### tests
+
+```{python}
+def test(fn):
+    board = [["5","3",".",".","7",".",".",".","."]
+            ,["6",".",".","1","9","5",".",".","."]
+            ,[".","9","8",".",".",".",".","6","."]
+            ,["8",".",".",".","6",".",".",".","3"]
+            ,["4",".",".","8",".","3",".",".","1"]
+            ,["7",".",".",".","2",".",".",".","6"]
+            ,[".","6",".",".",".",".","2","8","."]
+            ,[".",".",".","4","1","9",".",".","5"]
+            ,[".",".",".",".","8",".",".","7","9"]]
+    expected = True
+    actual = fn(board)
+    assert actual == expected 
+
+    board = [["8","3",".",".","7",".",".",".","."]
+            ,["6",".",".","1","9","5",".",".","."]
+            ,[".","9","8",".",".",".",".","6","."]
+            ,["8",".",".",".","6",".",".",".","3"]
+            ,["4",".",".","8",".","3",".",".","1"]
+            ,["7",".",".",".","2",".",".",".","6"]
+            ,[".","6",".",".",".",".","2","8","."]
+            ,[".",".",".","4","1","9",".",".","5"]
+            ,[".",".",".",".","8",".",".","7","9"]]
+    expected = False
+    actual = fn(board)
+    assert actual == expected 
+
+```
+
+## Solution
+
+-   Time Complexity: `O(n)`
+-   Space Complexity: `O(n)`
+
+Where `n` in the number of cells on the sudoku board.
+
+```{python}
+from typing import List
+def isValidSudoku(board: List[List[str]]) -> bool:
+    # Initialize sets to track if there's duplicate values
+    rowSet = [set() for _ in range(9)]
+    colSet = [set() for _ in range(9)]
+    gridSet = [set() for _ in range(9)]
+
+    # for each cell in matrix
+    for rowIndex in range(0,9):
+        for colIndex in range(0,9):
+            cellValue = board[rowIndex][colIndex]
+            if cellValue == ".": continue
+
+            # Calculate the grid index number
+            gridIndex = rowIndex//3*3 + colIndex //3
+
+            # if cell value is already in set for row/col/grid
+            if (cellValue in rowSet[rowIndex] or
+                cellValue in colSet[colIndex] or 
+                cellValue in gridSet[gridIndex]): 
+                # Then there's a duplicate and it's not valid
+                return False
+
+            # Otherwise add to the set and go to the next cell
+            rowSet[rowIndex].add(cellValue)
+            colSet[colIndex].add(cellValue)
+            gridSet[gridIndex].add(cellValue)
+    # If you make it through all cells with no dupes, then it's valid
+    return True
+
+test(isValidSudoku)
+```

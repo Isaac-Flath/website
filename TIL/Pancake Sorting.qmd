@@ -1,0 +1,78 @@
+---
+title: "Pancake Sorting"
+author: "Isaac Flath"
+date: "2024-01-30"
+categories: [array, two pointers, greedy, sorting]
+description: "Sort a list using pancake flips"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an array of integers `arr`, sort the array by performing a series of pancake flips.
+
+In one pancake flip we do the following steps:
+
+1. Choose an integer k where 1 <= k <= arr.length.
+1. Reverse the sub-array arr[0...k-1] (0-indexed).
+
+For example, if `arr = [3,2,1,4]` and we performed a pancake flip choosing `k = 3`, we reverse the sub-array `[3,2,1]`, so `arr = [1,2,3,4]` after the pancake flip at `k = 3`.
+
+Return an array of the k-values corresponding to a sequence of pancake flips that sort arr. Any valid answer that sorts the array within `10 * arr.length` flips will be judged as correct.
+
+**Constraints:**
+
++ 1 <= arr.length <= 100
++ 1 <= arr[i] <= arr.length
++ All integers in arr are unique (i.e. arr is a permutation of the integers from 1 to arr.length)
+
+### tests
+
+```{python}
+def test(fn):
+    value = [3,2,4,1]
+    expected = [1,2,3,4]
+    ans, actual = fn(value)
+    assert actual == expected 
+
+    value = [1,2,3]
+    expected = [1,2,3]
+    ans, actual = fn(value)
+    assert actual == expected 
+```
+
+
+## Solution 
+
++ Time Complexity: `O(n^2)`
++ Space Complexity: `O(n)`
+
+
+```{python}
+from typing import List
+
+def reverse(l, n):
+    for i in range(n//2): 
+        # inplace swaps means go through 1/2 the list portion we want to swap
+        l[i], l[n-i-1] = l[n-i-1], l[i]
+
+    
+def pancakeSort(arr: List[int]) -> List[int]:
+    swap_points = []
+    for value_to_sort in range(len(arr),1,-1): # if n-1 elements are correct, then n elements are correct, so don't check the smallest value (1)
+        current_location = arr.index(value_to_sort)+1
+        if value_to_sort == current_location: 
+            # If value already in correct position continue
+            continue
+        if current_location != 1: # If value is in front, this step isn't needed
+            # If not, flip to get desired value in front
+            reverse(arr, current_location)
+            swap_points.append(current_location)
+        # flip to get value in final position
+        reverse(arr,value_to_sort)
+        swap_points.append(value_to_sort)
+    return swap_points, arr
+
+test(pancakeSort)
+```

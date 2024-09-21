@@ -1,0 +1,75 @@
+---
+title: "Valid Anagram"
+author: "Isaac Flath"
+date: "2024-02-01"
+categories: [hash table, string, sorting]
+description: "Determine if 2 strings are anagrams of each other"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+### tests
+
+```{python}
+def test(fn):
+    s,t = "anagram","nagaram"
+    expected = True
+    actual = fn(s,t)
+    assert actual == expected 
+
+    s,t = "rat","car"
+    expected = False
+    actual = fn(s,t)
+    assert actual == expected 
+```
+
+
+## Solution
+
+### Hashmap
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(n)`
+
+```{python}
+def isAnagram(s: str, t: str) -> bool:
+    if len(s) != len(t): return False
+
+    countS,countT = {}, {}
+    for i in range(len(s)):
+        countS[s[i]] = 1 + countS.get(s[i],0)
+        countT[t[i]] = 1 + countT.get(t[i],0)
+    
+    for c in countS:
+        if countS[c] != countT.get(c,0): return False
+
+    return True
+
+test(isAnagram)
+```
+
+```{python}
+from collections import Counter
+def isAnagram(s: str, t: str) -> bool:
+    return Counter(s) == Counter(t)
+
+test(isAnagram)
+```
+
+### Sorting
+
++ Time Complexity: `O(nlogn)`
++ Space Complexity: `O(1)`
+
+```{python}
+def isAnagram(s: str, t: str) -> bool:
+    return sorted(list(s)) == sorted(list(t))
+
+test(isAnagram)
+```

@@ -1,0 +1,60 @@
+---
+title: "Grouped Anagrams"
+author: "Isaac Flath"
+date: "2024-02-03"
+categories: [array, hash table, string]
+description: "Group a list of strings by anagrams"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+### tests
+
+```{python}
+def test(fn):
+    strs = ["eat","tea","tan","ate","nat","bat"]
+    expected =  [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+
+    actual = fn(strs)
+    assert sorted(actual) == sorted(expected)
+
+
+
+```
+
+
+## Solution
+
++ Time Complexity: `O(m * n)`
++ Space Complexity: `O(n)`
+
+Where `m` is the average length of the strings in `strs`, and `n` is the length of `strs`
+
+```{python}
+from typing import List
+from collections import defaultdict
+
+def groupAnagrams(strs: List[str]) -> List[List[str]]:
+    grouped_anagrams = defaultdict(list) 
+
+    for s in strs:
+        # key[0] represents a, key[1] represents b, etc.
+        # key is an array of character counts
+        key = [0]*26 
+        for c in s:
+            # use unicode to calculate index location in key that corresponds to c and increment
+            key[ord(c) - ord('a')] += 1
+
+        # list can't be key, so convert key to tuple for usage with dict
+        grouped_anagrams[tuple(key)].append(s)
+
+    return grouped_anagrams.values()
+
+test(groupAnagrams)
+```

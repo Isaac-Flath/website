@@ -1,0 +1,64 @@
+---
+title: "Valid Palindrome"
+author: "Isaac Flath"
+date: "2024-02-14"
+categories: [two pointers, string]
+description: "Check if cleaned phrase is a palindrome"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.
+
+
+### tests
+
+```{python}
+def test(fn):
+    s = "A man, a plan, a canal: Panama"
+    assert fn(s)
+    s = "race a car"
+    assert not fn(s)
+    s = " "
+    assert fn(s)
+```
+
+
+## Solution
+
++ Time Complexity: `O(n)`
++ Space Complexity: `O(1)`
+
+```{python}
+def isPalindrome(s: str) -> bool:
+    lp, rp = 0, len(s)-1
+
+    while lp < rp:        
+        # Ignore non-alphanumeric characters by moving pointer
+        # Alternative to if statements is filter(lambda x: x.isalnum(), s) prior to loop
+        if not s[lp].isalnum():
+            lp += 1
+            continue
+        if not s[rp].isalnum():
+            rp -= 1
+            continue        
+
+        # Return and exit at first failure
+        if s[lp].lower() != s[rp].lower():
+            return False
+
+        # Move to next characters
+        lp += 1
+        rp -= 1
+
+    # If no failures, then it's a palindrome
+    return True
+
+test(isPalindrome)
+```
+
+

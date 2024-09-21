@@ -1,0 +1,64 @@
+---
+title: "Container With Most Water"
+author: "Isaac Flath"
+date: "2024-02-21"
+categories: [array, two pointers, greedy]
+description: "Find two lines that together with the x-axis form a container, such that the container contains the most water."
+---
+
+> Problem Source: Leetcode
+
+## Problem Description
+
+You are given an integer array `height` of length `n`. There are n vertical lines drawn such that the two endpoints of the `ith` line are `(i, 0)` and `(i, height[i])`.
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+![](paste-1.png)
+
+Notice that you may not slant the container.
+
+### tests
+
+```{python}
+def test(fn):
+    height = [1,8,6,2,5,4,8,3,7]
+    expected =  49
+    actual = fn(height)
+    assert actual == expected 
+
+    height = [1,1]
+    expected = 1
+    actual = fn(height)
+    assert actual == expected 
+
+```
+
+## Solution
+
+-   Time Complexity: `O(n)`
+-   Space Complexity: `O(1)`
+
+```{python}
+from typing import List
+def maxArea(height: List[int]) -> int:
+    l,r = 0, len(height)-1 # start at each end
+    maxV = 0
+
+    # Iterate through half, so you stop when pointers meet somewhere in middle
+    while l < r:
+        lh, rh = height[l],height[r]
+
+        # calculate current area and keep if bigger
+        maxV = max(maxV, (r-l) * min(lh,rh))
+
+        # move pointer on smallest side
+        if lh < rh:
+            l+=1
+        else:
+            r-=1
+    return maxV
+test(maxArea)
+```

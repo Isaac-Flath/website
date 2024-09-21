@@ -1,0 +1,71 @@
+---
+title: "Three Sum"
+author: "Isaac Flath"
+date: "2024-02-20"
+categories: [array, two pointers, sorting]
+description: "Return all unique triplets in array that sum to 0"
+---
+
+>Problem Source:  Leetcode
+
+## Problem Description
+
+Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
+
+Notice that the solution set must not contain duplicate triplets.
+
+### tests
+
+```{python}
+def test(fn):
+    nums = [-1,0,1,2,-1,-4]
+    expected =  [[-1,-1,2],[-1,0,1]]
+    assert fn(nums) == expected 
+
+    nums = [0,1,1]
+    expected = []
+    assert fn(nums) == expected 
+
+    nums = [0,0,0]
+    expected = [[0,0,0]]
+    assert fn(nums) == expected 
+```
+
+
+## Solution
+
+This solution builds on [Two Sum II - Input Array is Sorted
+](https://isaac-flath.github.io/DataStructuresAlgorithms/posts/Two%20Sum%20II%20-%20Input%20Array%20is%20Sorted.html).  If this solution is confusing, revisit it after understanding that proble,
+
++ Time Complexity: `O(1)`
++ Space Complexity: `O(nlogn)`
+
+```{python}
+from typing import List
+def threeSum(nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    res = []
+
+    for i in range(len(nums)):
+        if i>0 and nums[i] == nums[i-1]: continue
+
+        l,r = i+1, len(nums)-1
+        while l < r:
+            curr_sum = nums[i] + nums[l] + nums[r]
+
+            #Two Sum on sorted list
+            if curr_sum < 0: # If too small
+                l += 1 # make it bigger
+            elif curr_sum > 0: # If too big
+                r -= 1 # make it smaller
+            else:
+                res.append([nums[i],nums[l],nums[r]])
+                l += 1 # move to next
+                while nums[l] == nums[l - 1] and l < r:
+                    l += 1 # keep incrementing if dupes
+    return res
+
+test(threeSum)
+```
+
+
