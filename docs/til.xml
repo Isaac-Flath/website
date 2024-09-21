@@ -10,7 +10,34 @@
 <atom:link href="https://isaac-flath.tech/til.xml" rel="self" type="application/rss+xml"/>
 <description>Blog for machine learning, programming, computer science and other data science related topics</description>
 <generator>quarto-1.5.56</generator>
-<lastBuildDate>Wed, 21 Aug 2024 04:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 21 Sep 2024 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>NBDev Non Lib Exports</title>
+  <dc:creator>Isaac Flath</dc:creator>
+  <link>https://isaac-flath.tech/TIL/NbdevNonLibExports.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p><code>nbdev</code> has a single notebook export command that allows you to export notebooks without them being treated as a library.</p>
+<p>This is done with the command <code>nb_export</code>.</p>
+<p>In order to apply this to a directory and export them to an app for building FastHTML apps in notbooks, the command is <code>find nbs -name "*.ipynb" -print0 | xargs -0 -I {} nb_export --lib_path app {}</code></p>
+
+
+</section>
+
+ ]]></description>
+  <category>FastHTML</category>
+  <category>Python</category>
+  <category>Web Development</category>
+  <category>Nbdev</category>
+  <guid>https://isaac-flath.tech/TIL/NbdevNonLibExports.html</guid>
+  <pubDate>Sat, 21 Sep 2024 04:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Download Youtube Videos with yt-dlp</title>
   <dc:creator>Isaac Flath</dc:creator>

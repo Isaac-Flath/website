@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Isaac Flath">
+<meta name="dcterms.date" content="2024-09-21">
+<meta name="description" content="Nbdev export of notebooks that aren’t libraries">
 
-<title>Today I Learned (TIL) – Isaac Flath</title>
+<title>NBDev Non Lib Exports – Isaac Flath</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon/favicon-32x32.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon/favicon-32x32.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,35 +72,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XNZGT59XWP"></script>
 
 <script type="text/javascript">
@@ -110,54 +82,27 @@ gtag('js', new Date());
 gtag('config', 'G-XNZGT59XWP', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Isaac Flath" href="til.xml" data-external="1"><meta property="og:title" content="Today I Learned (TIL) – Isaac Flath">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="NBDev Non Lib Exports – Isaac Flath">
+<meta property="og:description" content="Nbdev export of notebooks that aren’t libraries">
 <meta property="og:site_name" content="Isaac Flath">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Today I Learned (TIL) – Isaac Flath">
-<meta name="twitter:image" content="https://isaac-flath.tech/street.jpg">
+<meta name="twitter:title" content="NBDev Non Lib Exports – Isaac Flath">
+<meta name="twitter:description" content="Nbdev export of notebooks that aren’t libraries">
+<meta name="twitter:image" content="https://isaac-flath.tech/TIL/street.jpg">
 <meta name="twitter:creator" content="@isaac_flath">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Isaac Flath</span>
     </a>
   </div>
@@ -168,19 +113,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./til.html" aria-current="page"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./testimonials.html"> 
+    <a class="nav-link" href="../testimonials.html"> 
 <span class="menu-text">Testimonials</span></a>
   </li>  
 </ul>
@@ -194,216 +139,64 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Today I Learned (TIL)</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">NBDev Non Lib Exports</h1>
+                  <div>
+        <div class="description">
+          Nbdev export of notebooks that aren’t libraries
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">FastHTML</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">Web Development</div>
+                <div class="quarto-category">Nbdev</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Isaac Flath </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 21, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Bash">Bash <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Cloud">Cloud <span class="quarto-category-count">(1)</span></div><div class="category" data-category="FastHTML">FastHTML <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Github">Github <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Nbdev">Nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Quarto">Quarto <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Web Development">Web Development <span class="quarto-category-count">(2)</span></div><div class="category" data-category="terminal">terminal <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="today-i-learned" class="level1">
+<h1>Today I Learned</h1>
+<p><code>nbdev</code> has a single notebook export command that allows you to export notebooks without them being treated as a library.</p>
+<p>This is done with the command <code>nb_export</code>.</p>
+<p>In order to apply this to a directory and export them to an app for building FastHTML apps in notbooks, the command is <code>find nbs -name "*.ipynb" -print0 | xargs -0 -I {} nb_export --lib_path app {}</code></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-categories" data-direction="asc">
-          Categories
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-categories" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Categories</a>
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="FastHTML,Python,Web Development,Nbdev" data-listing-date-sort="1726891200000" data-listing-file-modified-sort="1726920230882" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="62" data-listing-title-sort="NBDev Non Lib Exports" data-listing-filename-sort="NbdevNonLibExports.md">
-<td>
-<span class="listing-date">Sep 21, 2024</span>
-</td>
-<td>
-<a href="./TIL/NbdevNonLibExports.html" class="title listing-title">NBDev Non Lib Exports</a>
-</td>
-<td>
-<span class="listing-categories">FastHTML, Python, Web Development, Nbdev</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="terminal" data-listing-date-sort="1724212800000" data-listing-file-modified-sort="1724248137819" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="41" data-listing-title-sort="Download Youtube Videos with yt-dlp" data-listing-filename-sort="YoutubeTerminalDownload.md">
-<td>
-<span class="listing-date">Aug 21, 2024</span>
-</td>
-<td>
-<a href="./TIL/YoutubeTerminalDownload.html" class="title listing-title">Download Youtube Videos with yt-dlp</a>
-</td>
-<td>
-<span class="listing-categories">terminal</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="FastHTML,Python,Web Development" data-listing-date-sort="1724040000000" data-listing-file-modified-sort="1724247880890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="92" data-listing-title-sort="URL Redirect with a delay" data-listing-filename-sort="DelayedRedirect.md">
-<td>
-<span class="listing-date">Aug 19, 2024</span>
-</td>
-<td>
-<a href="./TIL/DelayedRedirect.html" class="title listing-title">URL Redirect with a delay</a>
-</td>
-<td>
-<span class="listing-categories">FastHTML, Python, Web Development</span>
-</td>
-</tr>
-<tr data-index="3" data-categories="Quarto,Bash" data-listing-date-sort="1674277200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="151" data-listing-title-sort="Finding All Quarto Drafts" data-listing-filename-sort="QuartoDrafts.ipynb">
-<td>
-<span class="listing-date">Jan 21, 2023</span>
-</td>
-<td>
-<a href="./TIL/QuartoDrafts.html" class="title listing-title">Finding All Quarto Drafts</a>
-</td>
-<td>
-<span class="listing-categories">Quarto, Bash</span>
-</td>
-</tr>
-<tr data-index="4" data-categories="Quarto" data-listing-date-sort="1668402000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="76" data-listing-title-sort="Quarto Column Formatting" data-listing-filename-sort="QuartoColumnFormatting.ipynb">
-<td>
-<span class="listing-date">Nov 14, 2022</span>
-</td>
-<td>
-<a href="./TIL/QuartoColumnFormatting.html" class="title listing-title">Quarto Column Formatting</a>
-</td>
-<td>
-<span class="listing-categories">Quarto</span>
-</td>
-</tr>
-<tr data-index="5" data-categories="Quarto" data-listing-date-sort="1668056400000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="322" data-listing-title-sort="Quarto Conditional Content" data-listing-filename-sort="QuartoConditionalContent.ipynb">
-<td>
-<span class="listing-date">Nov 10, 2022</span>
-</td>
-<td>
-<a href="./TIL/QuartoConditionalContent.html" class="title listing-title">Quarto Conditional Content</a>
-</td>
-<td>
-<span class="listing-categories">Quarto</span>
-</td>
-</tr>
-<tr data-index="6" data-categories="Python" data-listing-date-sort="1667620800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="68" data-listing-title-sort="Random State Duplication" data-listing-filename-sort="RandomSeedDuplication.ipynb">
-<td>
-<span class="listing-date">Nov 5, 2022</span>
-</td>
-<td>
-<a href="./TIL/RandomSeedDuplication.html" class="title listing-title">Random State Duplication</a>
-</td>
-<td>
-<span class="listing-categories">Python</span>
-</td>
-</tr>
-<tr data-index="7" data-categories="Python,Github" data-listing-date-sort="1660104000000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="232" data-listing-title-sort="Run Python on Github Actions" data-listing-filename-sort="PythonScriptGithubActions.ipynb">
-<td>
-<span class="listing-date">Aug 10, 2022</span>
-</td>
-<td>
-<a href="./TIL/PythonScriptGithubActions.html" class="title listing-title">Run Python on Github Actions</a>
-</td>
-<td>
-<span class="listing-categories">Python, Github</span>
-</td>
-</tr>
-<tr data-index="8" data-categories="Python" data-listing-date-sort="1621051200000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="96" data-listing-title-sort="Shelve Python Database" data-listing-filename-sort="ShelveDB.ipynb">
-<td>
-<span class="listing-date">May 15, 2021</span>
-</td>
-<td>
-<a href="./TIL/ShelveDB.html" class="title listing-title">Shelve Python Database</a>
-</td>
-<td>
-<span class="listing-categories">Python</span>
-</td>
-</tr>
-<tr data-index="9" data-categories="Github" data-listing-date-sort="1607230800000" data-listing-file-modified-sort="1717764554092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="101" data-listing-title-sort="Secrets for Github Actions" data-listing-filename-sort="SecretsForGithubActions.ipynb">
-<td>
-<span class="listing-date">Dec 6, 2020</span>
-</td>
-<td>
-<a href="./TIL/SecretsForGithubActions.html" class="title listing-title">Secrets for Github Actions</a>
-</td>
-<td>
-<span class="listing-categories">Github</span>
-</td>
-</tr>
-<tr data-index="10" data-categories="Cloud" data-listing-date-sort="1593057600000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="53" data-listing-title-sort="Connecting Jupyter to EC2" data-listing-filename-sort="ConnectingJupyterEC2.ipynb">
-<td>
-<span class="listing-date">Jun 25, 2020</span>
-</td>
-<td>
-<a href="./TIL/ConnectingJupyterEC2.html" class="title listing-title">Connecting Jupyter to EC2</a>
-</td>
-<td>
-<span class="listing-categories">Cloud</span>
-</td>
-</tr>
-<tr data-index="11" data-categories="Python" data-listing-date-sort="1579064400000" data-listing-file-modified-sort="1717764554091" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="50" data-listing-title-sort="Jupyter is JSON" data-listing-filename-sort="JupyterIsJson.ipynb">
-<td>
-<span class="listing-date">Jan 15, 2020</span>
-</td>
-<td>
-<a href="./TIL/JupyterIsJson.html" class="title listing-title">Jupyter is JSON</a>
-</td>
-<td>
-<span class="listing-categories">Python</span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -968,6 +761,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://utteranc.es/client.js" repo="Isaac-Flath/blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -995,12 +790,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./blog.xml">
+    <a class="nav-link" href="../blog.xml">
 <p>Blog RSS</p>
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./til.xml">
+    <a class="nav-link" href="../til.xml">
 <p>TIL RSS</p>
 </a>
   </li>  
